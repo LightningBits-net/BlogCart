@@ -1,0 +1,25 @@
+﻿
+<MudDrawer Class="pt-6" @bind-Open="SideBarOpen" Elevation="1">
+    <MudDrawerHeader>
+        <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">LightningBits</MudText>
+    </MudDrawerHeader>
+    <MudNavMenu>
+        <MudNavLink Href="/" Match="NavLinkMatch.All"></MudNavLink>
+        <MudNavLink Href="/" Icon="@Icons.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
+        <MudNavLink Href="/Blogs" Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
+        <MudNavLink Href="/products" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
+        <MudNavLink Href="/About" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
+        <MudNavLink Href="/Contact" Icon=@Icons.Filled.ContactMail Match="NavLinkMatch.Prefix">Contact</MudNavLink>
+        <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+        <MudNavLink Href="/LogIn" Icon="@Icons.Filled.Login" Match="NavLinkMatch.Prefix">Log In</MudNavLink>
+        <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+        <MudNavLink Href="/ComponentPLayground" Icon="@Icons.Filled.CodeOff" Match="NavLinkMatch.Prefix">C# PlayGround</MudNavLink>
+        <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+        <MudText>Settings</MudText>
+    </MudNavMenu>
+</MudDrawer>
+
+@code {
+    [Parameter]
+    public bool SideBarOpen { get; set; }
+}
