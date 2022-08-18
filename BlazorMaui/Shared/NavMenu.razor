@@ -13,9 +13,11 @@
         <MudDivider DividerType="DividerType.Middle" Class="my-6" />
         <MudNavLink Href="/LogIn" Icon="@Icons.Filled.Login" Match="NavLinkMatch.Prefix">Log In</MudNavLink>
         <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-        <MudNavLink Href="/ComponentPLayground" Icon="@Icons.Filled.CodeOff" Match="NavLinkMatch.Prefix">C# PlayGround</MudNavLink>
-        <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-        <MudText>Settings</MudText>
+        <MudNavGroup Title="C# Playground" Expanded="true">
+            <MudNavLink Href="/ComponentPLayground" Icon="@Icons.Filled.CodeOff" Match="NavLinkMatch.Prefix">C# PlayGround</MudNavLink>
+            <MudNavLink Href="/ComponentPLayground" Icon="@Icons.Filled.CodeOff" Match="NavLinkMatch.Prefix">C# PlayGround</MudNavLink>
+        </MudNavGroup>        <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+        
     </MudNavMenu>
 </MudDrawer>
 
