@@ -1,6 +1,6 @@
 ﻿// LightningBits
 using System;
-namespace ECommerceDataAccess
+namespace BlazorWeb.Server
 {
     public class Category
     {

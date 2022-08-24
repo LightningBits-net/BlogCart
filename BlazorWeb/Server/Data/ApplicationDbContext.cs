@@ -2,7 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECommerceDataAccess.Data
+namespace BlazorWeb.Server.Data
 {
     public class ApplicationDbContext : DbContext
     {

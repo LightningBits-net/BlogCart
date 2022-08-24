@@ -1,4 +1,4 @@
-﻿using ECommerceDataAccess.Data;
+﻿using BlazorWeb.Server.Data;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
