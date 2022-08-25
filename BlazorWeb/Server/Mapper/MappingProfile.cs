@@ -1,10 +1,9 @@
 ﻿// LightningBits
 using System;
 using AutoMapper;
-using BlazorWeb.Server;
-using ECommerce_Models;
+using BlazorWeb.Shared;
 
-namespace ECommerce_Business.Mapper
+namespace BlazorWeb.Server.Mapper
 {
     public class MappingProfile : Profile
     {

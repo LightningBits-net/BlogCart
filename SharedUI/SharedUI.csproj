@@ -23,4 +23,7 @@
     <Folder Include="Pages\" />
     <Folder Include="cssStyles\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig" />
+  </ItemGroup>
 </Project>

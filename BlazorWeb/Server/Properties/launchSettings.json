@@ -11,7 +11,7 @@
     "BlazorWeb.Server": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:33652",
+      "applicationUrl": "http://localhost:57172",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

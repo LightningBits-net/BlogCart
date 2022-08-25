@@ -1,6 +1,6 @@
 ﻿// LightningBits
 using System;
-namespace ECommerce_Models
+namespace BlazorWeb.Shared
 {
     public class CategoryDTO
     {

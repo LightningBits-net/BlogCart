@@ -1,12 +1,11 @@
 ﻿// LightningBits
 using System;
-using ECommerce_Business.Respository.IRespository;
-using ECommerce_Models;
+using BlazorWeb.Server.Respository.IRespository;
+using BlazorWeb.Shared;
 using BlazorWeb.Server.Data;
-using BlazorWeb.Server;
 using AutoMapper;
 
-namespace ECommerce_Business.Respository
+namespace BlazorWeb.Server.Respository
 {
     public class CategoryRespository : ICategoryRespository
     {

@@ -8,15 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Respository\" />
-    <None Remove="Respository\IRespository\" />
     <None Remove="AutoMapper" />
-    <None Remove="Mapper\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Respository\" />
-    <Folder Include="Respository\IRespository\" />
-    <Folder Include="Mapper\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />

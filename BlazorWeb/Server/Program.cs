@@ -1,7 +1,9 @@
 ﻿using BlazorWeb.Server.Data;
+using BlazorWeb.Server.Respository;
+using BlazorWeb.Server.Respository.IRespository;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
-using ECommerce_Business;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

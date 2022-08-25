@@ -1,8 +1,8 @@
 ﻿// LightningBits
 using System;
-using ECommerce_Models;
+using BlazorWeb.Shared;
 
-namespace ECommerce_Business.Respository.IRespository
+namespace BlazorWeb.Server.Respository.IRespository
 {
     public interface ICategoryRespository
     {
