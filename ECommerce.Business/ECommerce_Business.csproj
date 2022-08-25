@@ -7,4 +7,22 @@
     <AssemblyName>ECommerce.Business</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Respository\" />
+    <None Remove="Respository\IRespository\" />
+    <None Remove="AutoMapper" />
+    <None Remove="Mapper\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Respository\" />
+    <Folder Include="Respository\IRespository\" />
+    <Folder Include="Mapper\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ECommerce_Models\ECommerce_Models.csproj" />
+    <ProjectReference Include="..\BlazorWeb\Server\BlazorWeb.Server.csproj" />
+  </ItemGroup>
 </Project>

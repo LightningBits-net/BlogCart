@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorWeb.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220824015837_ECommerceCategories")]
+    [Migration("20220824193936_ECommerceCategories")]
     partial class ECommerceCategories
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
