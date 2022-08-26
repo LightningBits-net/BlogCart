@@ -402,3 +402,7 @@ FodyWeavers.xsd
 *.json
 *.json
 *.json
+*.json
+*.json
+BlazorWeb/Server/appsettings.json
+BlazorWeb/Server/appsettings.json
