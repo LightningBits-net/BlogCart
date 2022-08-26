@@ -1,11 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
-
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'BlazorWeb' ">
     <ExternalConsole>true</ExternalConsole>
   </PropertyGroup>
@@ -14,45 +12,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.8" PrivateAssets="all" />
     <PackageReference Include="MudBlazor" Version="6.0.14" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="BlazorWeb.Shared" />
-    <None Remove="Pages\" />
-    <None Remove="Shared\" />
-    <None Remove="Pages\Category\" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\BlazorWeb.Shared.csproj" />
     <ProjectReference Include="..\..\SharedUI\SharedUI.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\" />
-    <Folder Include="Shared\" />
-    <Folder Include="wwwroot\img\" />
-    <Folder Include="Pages\Category\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\img\section1.jpeg" />
-    <Content Remove="wwwroot\img\section2.jpeg" />
-    <Content Remove="wwwroot\img\team-3-800x800.jpg" />
-    <Content Remove="Pages\Blog.razor" />
-    <Content Remove="Pages\ComponentTest.razor" />
-    <Content Remove="Pages\Index.razor" />
-    <Content Remove="Pages\Product.razor" />
-    <Content Remove="Shared\AppBar.razor" />
-    <Content Remove="Shared\MainLayout.razor" />
-    <Content Remove="Shared\NavMenu.razor" />
-    <Content Remove="wwwroot\img\" />
-  </ItemGroup>
-  <ItemGroup>
-    <RazorComponent Include="Pages\Blog.razor" />
-    <RazorComponent Include="Pages\ComponentPlayground.razor" />
-    <RazorComponent Include="Pages\Index.razor" />
-    <RazorComponent Include="Pages\Product.razor" />
-    <RazorComponent Include="Shared\AppBar.razor" />
-    <RazorComponent Include="Shared\MainLayout.razor" />
-    <RazorComponent Include="Shared\NavMenu.razor" />
   </ItemGroup>
 </Project>
