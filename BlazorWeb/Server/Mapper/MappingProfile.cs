@@ -10,7 +10,6 @@ namespace BlazorWeb.Server.Mapper
         public MappingProfile()
         {
             CreateMap<Category, CategoryDTO>().ReverseMap();
-                //CreateMap<CategoryDTO, Category>()
         }
     }
        

@@ -19,6 +19,7 @@
     <None Remove="BlazorWeb.Shared" />
     <None Remove="Pages\" />
     <None Remove="Shared\" />
+    <None Remove="Pages\Category\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\BlazorWeb.Shared.csproj" />
@@ -30,6 +31,7 @@
     <Folder Include="Pages\" />
     <Folder Include="Shared\" />
     <Folder Include="wwwroot\img\" />
+    <Folder Include="Pages\Category\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\img\section1.jpeg" />
