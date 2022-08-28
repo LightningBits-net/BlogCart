@@ -1,18 +1,21 @@
 ﻿
+<h1 class="text-3xl md:text-5xl font-display font-semibold mt-2">@Title Category </h1>
 
-<div class="row my-2">
-    <h1 class="text-3xl md:text-5xl font-display font-semibold mt-2">Category Lists</h1>
-    <div class="col-12">
-            <EditForm>
-             
-            </EditForm>
+<div class="relative z-10 text-center text-white px-6">
+    <div class="col-10">
+        <h1 class="text-3xl md:text-5xl font-display font-semibold mt-2">Category List</h1>
+    </div>
+    <br />
+    <div class="max-w-sm mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+        <a href="category/create" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4">New Category</a>
+        <a href="category/create" class="inline-block bg-gray-100 text-indigo-500 text-sm tracking-widest font-heading px-8 py-4">Learn more</a>
     </div>
 </div>
 
-
-
-
 @code {
+
+    private CategoryDTO Category { get; set; } = new CategoryDTO();
+    private string Title { get; set; } = "Create";
 
 }
 
