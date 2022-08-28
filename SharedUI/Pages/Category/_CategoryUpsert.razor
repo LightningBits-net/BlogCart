@@ -1,21 +1,45 @@
-﻿
-<h1 class="text-3xl md:text-5xl font-display font-semibold mt-2">@Title Category </h1>
+﻿<body>
+    <div class="min-h-screen w-full p-6 flex justify-center items-center">
+        <div class="w-full max-w-xs">
+            <div class="bg-white text-black border p-8 shadow rounded w-full mb-6">
+                <h1 class="mb-6 text-3xl text-white bg-indigo-600 ">@Title Category</h1>
+                <form>
+                    <fieldset class="mb-4">
+                        <label class="block text-sm mb-2">Title</label>
+                        <EditForm Model="Category" OnValidSubmit="UpsertCategory">
+                            <DataAnnotationsValidator />
+                            <InputText @bind-Value="Category.Name" class="block w-full rounded-sm border bg-white py-2 px-3 text-sm"></InputText>
+                            <ValidationMessage For="()=>Category.Name"></ValidationMessage>
+                        </EditForm>
+                    </fieldset>
+                    <fieldset class="mb-4">
+                        <label class="block text-sm mb-2">Title</label>
+                        <EditForm Model="Category" OnValidSubmit="UpsertCategory">
+                            <DataAnnotationsValidator />
+                            <InputText @bind-Value="Category.Name" class="block w-full rounded-sm border bg-white py-2 px-3 text-sm"></InputText>
+                            <ValidationMessage For="()=>Category.Name"></ValidationMessage>
+                        </EditForm>
+                    </fieldset>
+                    <button href="/category/Create" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4">@Title</button>
+                    <a href="/category" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4">Back</a>
+                </form>
+            </div>
+            <p class="text-center text-sm text-white font-thin">Don't have an account yet? <a href="/" class="text-indigo-500 no-underline hover:underline">Sign up</a></p>
+        </div>
+    </div>
+</body>
 
-<div class="relative z-10 text-center text-white px-6">
-    <div class="col-10">
-        <h1 class="text-3xl md:text-5xl font-display font-semibold mt-2">Category List</h1>
-    </div>
-    <br />
-    <div class="max-w-sm mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-        <a href="category/create" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4">New Category</a>
-        <a href="category/create" class="inline-block bg-gray-100 text-indigo-500 text-sm tracking-widest font-heading px-8 py-4">Learn more</a>
-    </div>
-</div>
+
 
 @code {
 
     private CategoryDTO Category { get; set; } = new CategoryDTO();
     private string Title { get; set; } = "Create";
+
+    private void UpsertCategory()
+    {
+        Category.Name = "Button Clicked";
+    }
 
 }
 
