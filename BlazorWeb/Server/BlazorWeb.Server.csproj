@@ -26,7 +26,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Data\" />
     <Folder Include="Mapper\" />
     <Folder Include="Respository\" />
