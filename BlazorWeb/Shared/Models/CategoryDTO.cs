@@ -8,7 +8,7 @@ namespace BlazorWeb.Shared
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Please enter namey")]
+        [Required(ErrorMessage = "Please enter name")]
         public string? Name { get; set; }
 
     }
