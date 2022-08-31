@@ -33,7 +33,6 @@
     <None Include="..\.editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BlazorWeb\Shared\BlazorWeb.Shared.csproj" />
     <ProjectReference Include="..\SharedServices\SharedServices.csproj" />
   </ItemGroup>
 </Project>

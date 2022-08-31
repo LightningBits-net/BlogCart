@@ -91,7 +91,6 @@
       </Content>
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\SharedUI\SharedUI.csproj" />
       <ProjectReference Include="..\BlazorWeb\Shared\BlazorWeb.Shared.csproj" />
     </ItemGroup>
 </Project>
