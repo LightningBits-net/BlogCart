@@ -2,7 +2,7 @@
 using System;
 using BlazorWeb.Shared;
 
-namespace BlazorWeb.Server.Respository.IRespository
+namespace SharedServices.Respository.IRespository
 {
     public interface ICategoryRespository
     {

@@ -53,6 +53,7 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Pages\" />
+      <Folder Include="Pages\" />
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="MudBlazor" Version="6.0.14" />
@@ -63,6 +64,8 @@
       <RazorComponent Remove="Pages\Contact.razor" />
       <RazorComponent Remove="Pages\LogIn.razor" />
       <RazorComponent Remove="Pages\Products.razor" />
+      <RazorComponent Remove="Pages\Category\CategoryList.razor" />
+      <RazorComponent Remove="Pages\Category\CategoryUpsert.razor" />
     </ItemGroup>
     <ItemGroup>
       <Content Include="Pages\About.razor">
@@ -78,6 +81,12 @@
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </Content>
       <Content Include="Pages\Products.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+      <Content Include="Pages\Category\CategoryList.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+      <Content Include="Pages\Category\CategoryUpsert.razor">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </Content>
     </ItemGroup>

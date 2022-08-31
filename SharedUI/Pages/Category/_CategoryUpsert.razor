@@ -1,30 +1,25 @@
-﻿<body>
-    <div class="min-h-screen w-full p-6 flex justify-center items-center">
-        <div class="w-full max-w-xs">
-            <div class="bg-white text-black border p-8 shadow rounded w-full mb-6">
-                <h1 class="mb-6 text-3xl text-white bg-indigo-600 ">@Title Category</h1>
+﻿@inject ICategoryRespository _categoryRespository
+
+<body>
+    <div class="min-h-screen w-full p-2 flex justify-center items-center">
+        <div class="w-full max-w-lg">
+            <div class="bg-white text-black border p-4 shadow rounded w-full mb-6">
+                <h1 class="mb-8 text-3xl text-white bg-black ">@Title Category</h1>
                 <form>
                     <fieldset class="mb-4">
-                        <label class="block text-sm mb-2">Title</label>
                         <EditForm Model="Category" OnValidSubmit="UpsertCategory">
                             <DataAnnotationsValidator />
-                            <InputText @bind-Value="Category.Name" class="block w-full rounded-sm border bg-white py-2 px-3 text-sm"></InputText>
+                            <InputText @bind-Value="Category.Name" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-sm" placeholder="Enter Category"></InputText>
                             <ValidationMessage For="()=>Category.Name"></ValidationMessage>
+                            <br />
+                            <button href="/category/Create" class="block w-full  bg-gray-600 hover:bg-black text-white rounded font-heading mt-2 py-2 ">@Title</button>
+                            <br />
+                            <a href="/category" class="block w-full bg-gray-600 hover:bg-black text-white text-sm tracking-widest font-heading rounded mb-6  px-3 py-2">Back to list</a>
                         </EditForm>
                     </fieldset>
-                    <fieldset class="mb-4">
-                        <label class="block text-sm mb-2">Title</label>
-                        <EditForm Model="Category" OnValidSubmit="UpsertCategory">
-                            <DataAnnotationsValidator />
-                            <InputText @bind-Value="Category.Name" class="block w-full rounded-sm border bg-white py-2 px-3 text-sm"></InputText>
-                            <ValidationMessage For="()=>Category.Name"></ValidationMessage>
-                        </EditForm>
-                    </fieldset>
-                    <button href="/category/Create" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4">@Title</button>
-                    <a href="/category" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4">Back</a>
                 </form>
             </div>
-            <p class="text-center text-sm text-white font-thin">Don't have an account yet? <a href="/" class="text-indigo-500 no-underline hover:underline">Sign up</a></p>
+            <p class="text-center text-sm text-white font-thin">Don't wanna create a category yet? <a href="/" class="text-indigo-500 no-underline hover:underline">Go Back Home</a></p>
         </div>
     </div>
 </body>
@@ -39,6 +34,7 @@
     private void UpsertCategory()
     {
         Category.Name = "Button Clicked";
+        _categoryRespository.Create(Category);
     }
 
 }

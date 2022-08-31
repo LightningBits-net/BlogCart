@@ -12,12 +12,16 @@
 
   <ItemGroup>
     <PackageReference Include="MudBlazor" Version="6.0.14" />
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Pages\" />
     <None Remove="cssStyles\" />
     <None Remove="Pages\Category\" />
+    <None Remove="AutoMapper" />
+    <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,5 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlazorWeb\Shared\BlazorWeb.Shared.csproj" />
+    <ProjectReference Include="..\SharedServices\SharedServices.csproj" />
   </ItemGroup>
 </Project>

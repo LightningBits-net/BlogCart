@@ -2,7 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlazorWeb.Server.Data
+namespace SharedServices.Data
 {
     public class ApplicationDbContext : DbContext
     {

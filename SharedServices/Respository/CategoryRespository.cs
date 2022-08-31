@@ -1,11 +1,13 @@
 ﻿// LightningBits
 using System;
-using BlazorWeb.Server.Respository.IRespository;
+using SharedServices.Respository.IRespository;
 using BlazorWeb.Shared;
 using BlazorWeb.Server.Data;
 using AutoMapper;
+using SharedServices.Data;
+using SharedServices;
 
-namespace BlazorWeb.Server.Respository
+namespace SharedServices.Respository
 {
     public class CategoryRespository : ICategoryRespository
     {

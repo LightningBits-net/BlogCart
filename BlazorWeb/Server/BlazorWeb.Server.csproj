@@ -26,11 +26,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Mapper\" />
-    <Folder Include="Respository\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Client\BlazorWeb.Client.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
@@ -38,6 +33,9 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
     <ProjectReference Include="..\..\SharedUI\SharedUI.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SharedServices\SharedServices.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>

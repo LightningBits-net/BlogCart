@@ -1,6 +1,6 @@
-﻿using BlazorWeb.Server.Data;
-using BlazorWeb.Server.Respository;
-using BlazorWeb.Server.Respository.IRespository;
+﻿using SharedServices.Data;
+using SharedServices.Respository;
+using SharedServices.Respository.IRespository;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
