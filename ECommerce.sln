@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1703.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWeb.Server", "BlazorWeb\Server\BlazorWeb.Server.csproj", "{C8D4930D-3575-4F06-BA8E-A0895A7AC4E6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorMaui", "BlazorMaui\BlazorMaui.csproj", "{6756DF48-C545-4DF0-838C-2C4662C47856}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedUI", "SharedUI\SharedUI.csproj", "{C8D2F7C3-BA44-4619-95B5-44514E3A2C2C}"
@@ -27,10 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C8D4930D-3575-4F06-BA8E-A0895A7AC4E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8D4930D-3575-4F06-BA8E-A0895A7AC4E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8D4930D-3575-4F06-BA8E-A0895A7AC4E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8D4930D-3575-4F06-BA8E-A0895A7AC4E6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6756DF48-C545-4DF0-838C-2C4662C47856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6756DF48-C545-4DF0-838C-2C4662C47856}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6756DF48-C545-4DF0-838C-2C4662C47856}.Release|Any CPU.ActiveCfg = Release|Any CPU

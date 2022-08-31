@@ -1,7 +1,6 @@
 ﻿// LightningBits
 using System;
 using AutoMapper;
-using BlazorWeb.Shared;
 using SharedServices;
 
 namespace BlazorWeb.Server.Mapper

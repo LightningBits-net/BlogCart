@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace BlazorWeb.Shared
+namespace SharedServices
 {
     public class CategoryDTO
     {

@@ -1,6 +1,7 @@
 ﻿// LightningBits
 using System;
-using BlazorWeb.Shared;
+using SharedServices.Data;
+using SharedServices;
 
 namespace SharedServices.Respository.IRespository
 {

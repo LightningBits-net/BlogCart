@@ -49,24 +49,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Pages\" />
+      <PackageReference Include="MudBlazor" Version="6.0.15" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Pages\" />
-      <Folder Include="Pages\" />
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Include="MudBlazor" Version="6.0.14" />
-    </ItemGroup>
-    <ItemGroup>
-      <RazorComponent Remove="Pages\About.razor" />
-      <RazorComponent Remove="Pages\Blogs.razor" />
-      <RazorComponent Remove="Pages\Contact.razor" />
-      <RazorComponent Remove="Pages\LogIn.razor" />
-      <RazorComponent Remove="Pages\Products.razor" />
-      <RazorComponent Remove="Pages\Category\CategoryList.razor" />
-      <RazorComponent Remove="Pages\Category\CategoryUpsert.razor" />
-    </ItemGroup>
+ 
     <ItemGroup>
       <Content Include="Pages\About.razor">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -91,6 +76,6 @@
       </Content>
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\BlazorWeb\Shared\BlazorWeb.Shared.csproj" />
+      <ProjectReference Include="..\SharedUI\SharedUI.csproj" />
     </ItemGroup>
 </Project>

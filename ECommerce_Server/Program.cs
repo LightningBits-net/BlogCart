@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using ECommerce_Server.Data;
 using SharedServices.Respository;
 using SharedServices.Respository.IRespository;
 using Microsoft.EntityFrameworkCore;
 using SharedServices.Data;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<ICategoryRespository, CategoryRespository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 

@@ -5,26 +5,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Respository\" />
-    <None Remove="Mapper\" />
-    <None Remove="Data\" />
-    <None Remove="Microsoft.EntityFrameworkCore" />
-    <None Remove="Microsoft.EntityFrameworkCore.Relational" />
-    <None Remove="Microsoft.EntityFrameworkCore.Design" />
-    <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
-    <None Remove="Microsoft.EntityFrameworkCore.Tools" />
-    <None Remove="AutoMapper" />
-    <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
-    <None Remove="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Respository\" />
-    <Folder Include="Mapper\" />
-    <Folder Include="Data\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
@@ -41,4 +21,5 @@
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
   </ItemGroup>
+
 </Project>
