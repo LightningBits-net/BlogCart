@@ -17,10 +17,4 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Remove="Pages\Category\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Category\" />
-  </ItemGroup>
 </Project>
