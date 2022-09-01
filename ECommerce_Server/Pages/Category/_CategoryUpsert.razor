@@ -1,6 +1,9 @@
-﻿@page "/category/create" 
-@inject ICategoryRespository _categoryRespository
+﻿@page "/category/create"
 <PageTitle>Hello world</PageTitle>
+
+@inject ICategoryRespository _categoryRespository
+@*@inject NavigationManager _navigationManager*@
+
 
     <body>
         <div class="min-h-screen w-full p-2 flex justify-center items-center">
@@ -35,8 +38,9 @@
 
         private void UpsertCategory()
         {
-            Category.Name = "Button Clicked";
+            @*Category.Name = "Button Clicked";*@
             _categoryRespository.Create(Category);
+            @*_navigationManager.NavigateTo("/");*@
         }
 
     }

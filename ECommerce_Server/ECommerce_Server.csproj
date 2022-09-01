@@ -26,4 +26,10 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="cssStyles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="cssStyles\" />
+  </ItemGroup>
 </Project>
