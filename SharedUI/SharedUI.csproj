@@ -19,7 +19,6 @@
   <ItemGroup>
     <None Remove="Pages\" />
     <None Remove="cssStyles\" />
-    <None Remove="Pages\Category\" />
     <None Remove="AutoMapper" />
     <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
   </ItemGroup>
@@ -27,7 +26,6 @@
   <ItemGroup>
     <Folder Include="Pages\" />
     <Folder Include="cssStyles\" />
-    <Folder Include="Pages\Category\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />

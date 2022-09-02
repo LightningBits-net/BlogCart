@@ -1,7 +1,7 @@
 ﻿@page "/category/create"
 <PageTitle>Hello world</PageTitle>
 
-@inject ICategoryRespository _categoryRespository
+@*@inject ICategoryRespository _categoryRespository*@
 @*@inject NavigationManager _navigationManager*@
 
 
@@ -39,7 +39,7 @@
         private void UpsertCategory()
         {
             @*Category.Name = "Button Clicked";*@
-            _categoryRespository.Create(Category);
+            @*_categoryRespository.Create(Category);*@
             @*_navigationManager.NavigateTo("/");*@
         }
 
