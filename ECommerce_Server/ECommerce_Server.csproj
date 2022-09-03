@@ -22,14 +22,17 @@
     <PackageReference Include="MudBlazor" Version="6.0.15" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharedServices\SharedServices.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
+
   </ItemGroup>
   <ItemGroup>
     <None Remove="cssStyles\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cssStyles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharedServices\SharedServices.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

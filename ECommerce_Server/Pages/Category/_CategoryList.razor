@@ -1,22 +1,87 @@
 ﻿@page "/category"
-
 <PageTitle>Welcome Admin</PageTitle>
 
-<div class="container bg-gray-200 w-full mx-auto">
+@inject ICategoryRespository _categoryRespository
+
+<body>
     <div>
-        <h1 class="font-serif text-3xl font-bold bg-black"> Post Index</h1>
-        <div class="max-w-md mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-            <a href="category/create" class="inline-block bg-gray-600 hover:bg-black text-white text-sm tracking-widest font-heading px-8 py-4">New Category</a>
-            <a href="/" class="inline-block bg-gray-100  hover:bg-black text-indigo-500 text-sm tracking-widest font-heading px-8 py-4">Home</a>
+        <h1 class="font-serif text-3xl font-bold bg-black py-6 "> Post Index</h1>
+        <div class="w-full bg-gray-200 gap-4 mt-2 p-4">
+            <button class="bg-gray-500 hover:bg-black text-white py-2 px-4 border-b-4 border-gray-700 hover:border-black rounded">
+                <a href="category/create">Create New Category</a>
+            </button>
+            <button class="bg-gray-500 hover:bg-black text-white py-2 px-4 border-b-4 border-gray-700 hover:border-black rounded">
+                <a href="/">Home</a>
+            </button>
             <br />
         </div>
-       
+        <div class="w-full p-2 flex justify-center items-center bg-white text-black">
+
+            @if (Categories.Any())
+            { 
+             <table class="table-auto">
+                    <thead class="bg-gray-200">
+                        <tr>
+                            <th class=" w-3/4 px-4 py-4">Name</th>
+                            <th class=" w-1/8 px-4 py-2">Action</th>
+                        </tr>
+                    </thead>
+
+                <tbody>
+                    @foreach(var objCat in Categories)
+                    {
+                    <tr>
+                        <td class="border px-4 py-2">@objCat.Name</td>
+                        <td>
+                            <button class="bg-gray-500 hover:bg-black text-white py-1 px-4 border-b-4 border-gray-700 hover:border-black rounded">
+                                <a href="@($"category/edit/{objCat.Id}")">Edit</a>
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            }
+                else
+                {
+                      if (IsLoading)
+                        {
+                             <div class="text-center">
+                             <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                             </div>
+                        }
+                      else
+                        {
+                             <p>No Data to Display</p>
+                        }
+                }
+        </div>
     </div>
-</div>
+    <footer>
+        <div class="text-center text-white px-6 py-6 mb-2">
+            &copy;2022 LightningBits. All rights reserved.
+        </div>
+    </footer>
+</body>
 
 
 
 @code {
+
+    private IEnumerable<CategoryDTO> Categories { get; set; } = new List<CategoryDTO>();
+
+    public bool IsLoading { get; set; } = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+         await Task.Run(LoadCategories);
+    }
+
+    private void LoadCategories()
+    {
+        Categories = _categoryRespository.GetAll();
+        IsLoading = false;
+    }
 
 
 }
