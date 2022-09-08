@@ -2,77 +2,93 @@
 @page "/category/edit/{id:int}"
 <PageTitle>Hello World!</PageTitle>
 
+
 @inject ICategoryRespository _categoryRespository
+@inject IDialogService DialogService
 @inject NavigationManager _navigationManager
 
 
 
-    <body>
-        <div class="min-h-screen w-full p-2 flex justify-center items-center">
-            <div class="w-full max-w-lg">
-                <div class="bg-white text-black border p-4 shadow rounded w-full mb-6">
-                    <h1 class="mb-8 text-3xl text-white bg-black ">@Title Category</h1>
-                    @if (IsLoading)
-                    {
-                        <div class="text-center">
-                            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-                        </div>
-                    }
-                    else
-                    {
-                        <EditForm Model="Category" OnValidSubmit="UpsertCategory">
-                            <DataAnnotationsValidator />
-                            <InputText @bind-Value="Category.Name" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-sm" placeholder="Enter Category"></InputText>
-                            <ValidationMessage For="()=>Category.Name"></ValidationMessage>
-                            <br />
-                            <button href="/category/Create" class="block w-full  bg-gray-600 hover:bg-black text-white rounded font-heading mt-2 py-2 ">@Title</button>
-                            <br />
-                            <a href="/category" class="block w-full bg-gray-600 hover:bg-black text-white text-sm tracking-widest font-heading rounded mb-6  px-3 py-2">Back to list</a>
-                        </EditForm>
-                    }
-                </div>
-                <p class="text-center text-sm text-white font-thin">Don't wanna create a category yet? <a href="/" class="text-indigo-500 no-underline hover:underline">Go Back Home</a></p>
+<body>
+    <div class="min-h-screen w-full p-2 flex justify-center items-center">
+        <div class="w-full max-w-lg">
+            <div class="bg-white text-black border p-4 shadow rounded w-full mb-6">
+                <h1 class="mb-8 text-3xl text-white bg-black py-4 ">@Title Category</h1>
+                @if (IsLoading)
+                {
+                    <div class="text-center">
+                        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                    </div>
+                }
+                else
+                {
+                <EditForm Model="Category" OnValidSubmit="UpsertCategory">
+                    <DataAnnotationsValidator />
+                    <InputText @bind-Value="Category.Name" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-lg" placeholder="Enter Category"></InputText>
+                    <ValidationMessage For="()=>Category.Name"></ValidationMessage>
+                    <br />
+                    <button href="/category/Create" class="block w-full  bg-gray-600 hover:bg-black text-white rounded font-heading mt-2 py-2 ">@Title</button>
+                    <br />
+                    <MudButton Href="/category" Variant="Variant.Outlined" Color="Color.Dark">Back to List</MudButton>
+                </EditForm>
+                }
             </div>
+            <p class="text-center text-sm text-white font-thin">Don't wanna create a category yet? <a href="/" class="text-indigo-500 no-underline hover:underline">Go Back Home</a></p>
         </div>
-    </body>
+    </div>
+</body>
 
 
 
-    @code {
 
-        [Parameter]
-        public int Id { get; set; }
 
-        private CategoryDTO Category { get; set; } = new CategoryDTO();
-        private string Title { get; set; } = "Create";
-        public bool IsLoading { get; set; } = true;
 
-        protected override async Task OnInitializedAsync()
+
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private CategoryDTO Category { get; set; } = new CategoryDTO();
+    private string Title { get; set; } = "Create";
+    public bool IsLoading { get; set; } = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id == 0)
         {
-            if(Id==0)
-            {
-                IsLoading = false;
-            }
-            else
-            {
-                Title = "Edit";
-                await Task.Run(LoadCategory);
-            }
-           
-        }
-
-        private void LoadCategory()
-        {
-            Category = _categoryRespository.Get(Id);
             IsLoading = false;
         }
-
-        private void UpsertCategory()
+        else
         {
-            _categoryRespository.Create(Category);
-            _navigationManager.NavigateTo("category");
-        
+            Title = "Update";
+            await Task.Run(LoadCategory);
         }
 
     }
+
+    private void LoadCategory()
+    {
+        Category = _categoryRespository.Get(Id);
+        IsLoading = false;
+    }
+
+    private void UpsertCategory()
+    {
+
+        if (Category.Id == 0)
+        {
+            _categoryRespository.Create(Category);
+        }
+
+        else
+        {
+            _categoryRespository.Update(Category);
+        }
+
+        _navigationManager.NavigateTo("category");
+
+    }
+}
 

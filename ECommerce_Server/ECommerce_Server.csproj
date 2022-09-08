@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
+       <NoWarn>CS8618</NoWarn>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -29,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cssStyles\" />
+    <Folder Include="MudBlazorCommons\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">
