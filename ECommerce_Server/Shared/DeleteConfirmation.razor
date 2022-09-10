@@ -1,4 +1,4 @@
-﻿@inject ICategoryRespository _categoryRespository
+﻿
 
 <MudDialog>
     <DialogContent>
@@ -25,13 +25,7 @@
             public Color Color { get; set; }
 
 
-        public void Submit()
-        {
-       
-        }
-
-
-        @*void Submit() => MudDialog.Close(DialogResult.Ok(false));*@
+        void Submit() => MudDialog.Close(DialogResult.Ok(false));
         void Cancel() => MudDialog.Cancel();
 
 
