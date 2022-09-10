@@ -30,7 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cssStyles\" />
-    <Folder Include="MudBlazorCommons\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">
