@@ -1,13 +1,11 @@
 ﻿@page "/category/create"
 @page "/category/edit/{id:int}"
-<PageTitle>Hello World!</PageTitle>
+<PageTitle>Create Category</PageTitle>
 
 
 @inject ICategoryRespository _categoryRespository
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
-
-
 
 
 <body>
@@ -40,12 +38,6 @@
 </body>
 
 
-
-
-
-
-
-
 @code {
 
     [Parameter]
@@ -53,39 +45,44 @@
 
     private CategoryDTO Category { get; set; } = new CategoryDTO();
     private string Title { get; set; } = "Create";
-    public bool IsLoading { get; set; } = true;
+    public bool IsLoading { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (Id == 0)
-        {
-            IsLoading = false;
-        }
-        else
-        {
-            Title = "Update";
-            await Task.Run(LoadCategory);
-        }
-
+        if(firstRender)
+            {
+                if (Id == 0)
+                {
+                    IsLoading = false;
+                }
+                else
+                {
+                    Title = "Update";
+                     await LoadCategory();
+                }
+            }
     }
 
-    private void LoadCategory()
+    private async Task LoadCategory()
     {
-        Category = _categoryRespository.Get(Id);
+        IsLoading = true;
+        StateHasChanged();
+        Category = await _categoryRespository.Get(Id);
         IsLoading = false;
+        StateHasChanged();
     }
 
-    private void UpsertCategory()
+    private async Task UpsertCategory()
     {
 
         if (Category.Id == 0)
         {
-            _categoryRespository.Create(Category);
+            await _categoryRespository.Create(Category);
         }
 
         else
         {
-            _categoryRespository.Update(Category);
+            await _categoryRespository.Update(Category);
         }
 
         _navigationManager.NavigateTo("category");

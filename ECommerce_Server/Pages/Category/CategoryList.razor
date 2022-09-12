@@ -36,9 +36,20 @@
                             <MudButton Href="@($"category/edit/{objCat.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
                         </td>
                         <td>
-                            <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
-                                <MudButton OnClick="@(()=>DeleteCategory(objCat.Id))" Icon="@Icons.Material.Filled.Delete" Variant="Variant.Filled"  Color="Color.Error">Confirm Delete/<br />Click Away to Cancel</MudButton>
-                            </MudMenu>
+                            @if (IsLoading)
+                            {
+                                <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
+                                    <MudButton OnClick="@(()=>DeleteCategory(objCat.Id))" Icon="@Icons.Material.Filled.Delete" Color="Color.Warning">Processing.....<br />delete of <br />"@objCat.Name"<br /></MudButton>
+                                </MudMenu>
+                                
+                            }
+                            else
+                            {
+                                <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
+                                    <MudButton OnClick="@(()=>DeleteCategory(objCat.Id))" Icon="@Icons.Material.Filled.Delete" Color="Color.Warning">Click again<br />to delete<br />"@objCat.Name"<br /></MudButton>
+                                </MudMenu>
+                            }
+
                         </td>
                     </tr>
                 }
@@ -70,40 +81,45 @@
 
 
 
-@code {@*[Parameter]
-    public int Id { get; set; }*@
+@code {
 
-    public bool IsLoading { get; set; } = true;
+    public bool IsLoading { get; set; }
 
 
     private IEnumerable<CategoryDTO> Category { get; set; } = new List<CategoryDTO>();
 
    
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await Task.Run(LoadCategories);
+        if(firstRender)
+            {
+               await LoadCategories();
+            }
     }
 
-    private void LoadCategories()
+    private async Task LoadCategories()
     {
-        Category = _categoryRespository.GetAll();
+        IsLoading = true;
+        StateHasChanged();
+        Category = await _categoryRespository.GetAll();
         IsLoading = false;
+        StateHasChanged();
     }
 
-    public void DeleteCategory(int id)
+    private async Task DeleteCategory(int id)
     {
-        _categoryRespository.Delete(id);
+        await _categoryRespository.Delete(id);
+        await LoadCategories();
         snackBar.Add("Category Deleted.", Severity.Success);
-        LoadCategories();
     }
 
-    public void DeleteCategoryDialog()
+    @*public void DeleteCategoryDialog()
     {
         var parameters = new DialogParameters();
         parameters.Add("ContentText", "Do you really want to delete this category? This process cannot be undone.");
         parameters.Add("ButtonText", "Delete");
         parameters.Add("Color", Color.Error);
 
-        DialogService.Show<DeleteConfirmation>("Confirm Delete", parameters);
-    }
+        DialogService.Show<_ConfirmationBox>("Confirm Delete", parameters);
+    }*@
 }
