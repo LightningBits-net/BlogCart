@@ -13,6 +13,8 @@ namespace SharedServices.Data
         }
 
         public DbSet<Category> ECommerceCategories { get; set; }
+
+        public DbSet<Product> ECommmerceProducts { get; set; }
     }
 }
 
