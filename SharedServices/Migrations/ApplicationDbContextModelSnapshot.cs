@@ -8,7 +8,7 @@ using SharedServices.Data;
 
 #nullable disable
 
-namespace SharedServices.Data.Migrations
+namespace SharedServices.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -17,7 +17,7 @@ namespace SharedServices.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -52,9 +52,6 @@ namespace SharedServices.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CatgoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -81,7 +78,7 @@ namespace SharedServices.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("ECommmerceProducts");
+                    b.ToTable("ECommerceProducts");
                 });
 
             modelBuilder.Entity("SharedServices.Product", b =>

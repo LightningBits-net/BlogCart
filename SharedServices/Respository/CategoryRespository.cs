@@ -5,6 +5,7 @@ using AutoMapper;
 using SharedServices.Data;
 using SharedServices;
 using Microsoft.EntityFrameworkCore;
+using SharedServices.Models;
 
 namespace SharedServices.Respository
 {
@@ -53,10 +54,10 @@ namespace SharedServices.Respository
             return new CategoryDTO();
 
         }
-
-        public async Task<IEnumerable<CategoryDTO>> GetAll()
+        //public async Task<IEnumerable<CategoryDTO>> GetAll()
+        public Task<IEnumerable<CategoryDTO>> GetAll()
         {
-            return _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(_db.ECommerceCategories);
+            return Task.FromResult(_mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(_db.ECommerceCategories));
         }
 
         public async Task<CategoryDTO> Update(CategoryDTO objDTO)

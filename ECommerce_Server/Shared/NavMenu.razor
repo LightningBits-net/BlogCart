@@ -1,24 +1,23 @@
 ﻿
 <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
     <MudDrawerHeader>
-        <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">Thrift Boss</MudText>
+        <MudText Typo="Typo.h5"  Color="Color.Default" Style="margin-top:15px; margin-left:5px;">Thrift Boss</MudText>
     </MudDrawerHeader>
     <MudNavMenu>
         <MudNavGroup Title="Client" Expanded="false" Color="Color.Secondary">
             <MudNavLink Href="/" Match="NavLinkMatch.All"></MudNavLink>
-            <MudNavLink Href="/" Icon="@Icons.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
-            <MudNavLink Href="/" Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
-            <MudNavLink Href="/" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
-            <MudNavLink Href="/" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
-            <MudNavLink Href="/" Icon="@Icons.Filled.Login" Match="NavLinkMatch.Prefix">Log In</MudNavLink>
+            <MudNavLink Href="http://localhost:5000/" Icon="@Icons.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
+            <MudNavLink Href="http://localhost:5000/Blogs" Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
+            <MudNavLink Href="http://localhost:5000/Products" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
+            <MudNavLink Href="http://localhost:5000/About" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
         </MudNavGroup>
         <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-        <MudNavGroup Title="Admin" Expanded="true" Color="Color.Primary">
-            <MudNavLink Href="/" Icon="@Icons.Filled.Login" Match="NavLinkMatch.Prefix">Log out</MudNavLink>
+        <MudNavGroup Title="Logged in as Admin" Expanded="true" Color="Color.Primary">
+            <MudNavLink Href="http://localhost:5000/" Icon="@Icons.Filled.Login" Match="NavLinkMatch.Prefix">Log out</MudNavLink>
             <MudNavLink Href="/Category" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Category List</MudNavLink>
+            <MudNavLink Href="/product" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Product List</MudNavLink>
         </MudNavGroup>
         <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-
     </MudNavMenu>
 </MudDrawer>
 

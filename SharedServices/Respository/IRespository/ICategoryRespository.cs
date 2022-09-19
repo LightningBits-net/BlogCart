@@ -1,7 +1,7 @@
 ﻿// LightningBits
 using System;
 using SharedServices.Data;
-using SharedServices;
+using SharedServices.Models;
 
 namespace SharedServices.Respository.IRespository
 {

@@ -9,17 +9,17 @@ using SharedServices.Data;
 
 #nullable disable
 
-namespace BlazorWeb.Server.Data.Migrations
+namespace SharedServices.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220913043234_ECommerceProducts")]
-    partial class ECommerceProducts
+    [Migration("20220914003055_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -54,9 +54,6 @@ namespace BlazorWeb.Server.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CatgoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -83,7 +80,7 @@ namespace BlazorWeb.Server.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("ECommmerceProducts");
+                    b.ToTable("ECommerceProducts");
                 });
 
             modelBuilder.Entity("SharedServices.Product", b =>

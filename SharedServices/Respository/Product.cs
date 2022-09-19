@@ -23,7 +23,7 @@ namespace SharedServices
 
         public string ImageUrl { get; set; }
 
-        public int CatgoryId { get; set; }
+        public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
 
         public Category Category { get; set; }
