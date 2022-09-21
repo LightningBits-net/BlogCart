@@ -3,107 +3,109 @@
 
 @inject IProductRespository _productRespository
 @inject IDialogService DialogService
+@inject IFileUpload _fileUpload
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 
 
 <body>
-<div>
-<h1 class="font-serif text-3xl font-bold bg-black py-6 ">Product List</h1>
-<div class="w-full bg-gray-200 gap-4 mt-2 p-4">
-    <MudButton Href="product/create" Variant="Variant.Filled" Color="Color.Dark">Add New Products</MudButton>
-    <MudButton Href="/" Variant="Variant.Filled" Color="Color.Dark">Home</MudButton>
-    <br />
-</div>
-    <div class="w-full p-2 flex justify-center items-center bg-white text-black">
+    <div>
+        <h1 class="font-serif text-3xl font-bold bg-black py-6 ">Product List</h1>
+        <div class="w-full bg-gray-200 gap-4 mt-2 p-4">
+            <MudButton Href="product/create" Variant="Variant.Filled" Color="Color.Dark">Add New Products</MudButton>
+            <MudButton Href="/" Variant="Variant.Filled" Color="Color.Dark">Home</MudButton>
+            <br />
+        </div>
+        <div class="w-full p-2 flex justify-center items-center bg-white text-black">
 
-    @if (ECommerceProducts.Any())
-    {
-        <table class="table-auto">
-            <thead class="bg-gray-200">
-                <tr>
-                    <th class=" w-full px-4 py-4">Name</th>
-                    <th class=" w-full px-4 py-4">Category</th>
-                    <th class=" w-1/4 px-4 py-2">Shop Favorites</th>
-                    <th class=" w-1/4 px-4 py-2">Customer Favorites</th>
-                    <th class=" w-1/4 px-4 py-2">Action</th>
-                    <th class=" w-1/4 px-4 py-2">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var prod in ECommerceProducts)
+            @if (ECommerceProducts.Any())
+            {
+                <table class="table-auto">
+                    <thead class="bg-gray-200">
+                        <tr>
+                            <th class=" w-full px-4 py-4">Name</th>
+                            <th class=" w-full px-4 py-4">Category</th>
+                            <th class=" w-1/4 px-4 py-2">Shop Favorites</th>
+                            <th class=" w-1/4 px-4 py-2">Customer Favorites</th>
+                            <th class=" w-1/4 px-4 py-2">Action</th>
+                            <th class=" w-1/4 px-4 py-2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var prod in ECommerceProducts)
+                        {
+                            <tr>
+                                <td class="border px-4 py-2">@prod.Name</td>
+                                <th class="border px-4 py-2">@prod.Category.Name</th>
+                                <th>
+                                    <input type="checkbox" disabled checked="@prod.ShopFavorites">
+                                </th>
+                                <th>
+                                    <input type="checkbox" disabled checked="@prod.CustomerFavorites">
+                                </th>
+                                <td>
+                                    <MudButton Href="@($"product/edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
+                                </td>
+
+                                <td>
+                                    @if (IsLoading)
+                                    {
+                                        <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
+                                            <MudButton OnClick="@(()=>DeleteProduct(prod.Id))" Icon="@Icons.Material.Filled.Delete" Color="Color.Warning">Processing.....<br />delete of <br />"@prod.Name"<br /></MudButton>
+                                        </MudMenu>
+
+                                    }
+                                    else
+                                    {
+                                        <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
+                                            <MudButton OnClick="@(()=>DeleteProduct(prod.Id))" Icon="@Icons.Material.Filled.Delete" Color="Color.Warning">Click again<br />to delete<br />"@prod.Name"<br /></MudButton>
+                                        </MudMenu>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                if (IsLoading)
                 {
-                    <tr>
-                        <td class="border px-4 py-2">@prod.Name</td>
-                        <th class="border px-4 py-2">@prod.Category.Name</th>
-                        <th>
-                            <input type="checkbox" disabled checked="@prod.ShopFavorites">
-                        </th>
-                        <th>
-                            <input type="checkbox" disabled checked="@prod.CustomerFavorites">
-                        </th>
-                        <td>
-                            <MudButton Href="@($"product/edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
-                        </td>
-
-                        <td>
-                            @if (IsLoading)
-                            {
-                                <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
-                                    <MudButton OnClick="@(()=>DeleteProduct(prod.Id))" Icon="@Icons.Material.Filled.Delete" Color="Color.Warning">Processing.....<br />delete of <br />"@prod.Name"<br /></MudButton>
-                                </MudMenu>
-
-                            }
-                            else
-                            {
-                                <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
-                                    <MudButton OnClick="@(()=>DeleteProduct(prod.Id))" Icon="@Icons.Material.Filled.Delete" Color="Color.Warning">Click again<br />to delete<br />"@prod.Name"<br /></MudButton>
-                                </MudMenu>
-                            }
-
-                        </td>
-                    </tr>
+                    <div class="text-center">
+                        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                    </div>
                 }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        if (IsLoading)
-        {
-            <div class="text-center">
-                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-            </div>
-        }
-        else
-        {
-            <p>No Data to Display</p>
-        }
-    }
+                else
+                {
+                    <p>No Data to Display</p>
+                }
+            }
         </div>
     </div>
-<footer>
-    <div class="text-center text-white px-6 py-6 mb-2">
-        &copy;2022 LightningBits. All rights reserved.
-    </div>
-</footer>
+    <footer>
+        <div class="text-center text-white px-6 py-6 mb-2">
+            &copy;2022 LightningBits. All rights reserved.
+        </div>
+    </footer>
 </body>
-
-
-
 
 @code {
 
     public bool IsLoading { get; set; }
     private IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
+    private int DeleteProductId { get; set; } = 0;
 
-   
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if(firstRender)
-            {
-               await LoadProducts();
-            }
+        if (firstRender)
+        {
+            await LoadProducts();
+        }
+        else
+        {
+            return;
+        }
     }
 
     private async Task LoadProducts()
@@ -117,20 +119,20 @@
 
     private async Task DeleteProduct(int id)
     {
+        DeleteProductId = id;
         @*IsLoading = true;*@
-        await _productRespository.Delete(id);
-        await LoadProducts();
+    if (DeleteProductId != 0)
+    {
+        ProductDTO product = await _productRespository.Get(DeleteProductId);
+        if(!product.ImageUrl.Contains("/img/lb_logo.png"))
+        {
+            _fileUpload.DeleteFile(product.ImageUrl);
+        }
+        await _productRespository.Delete(DeleteProductId);
         snackBar.Add("Product Deleted.", Severity.Success);
+        await LoadProducts();
+    }
+    //_fileUpload.DeleteFile(product.ImageUrl);
         @*IsLoading = false;*@
     }
-
-    @*public void DeleteCategoryDialog()
-    {
-        var parameters = new DialogParameters();
-        parameters.Add("ContentText", "Do you really want to delete this category? This process cannot be undone.");
-        parameters.Add("ButtonText", "Delete");
-        parameters.Add("Color", Color.Error);
-
-        DialogService.Show<_ConfirmationBox>("Confirm Delete", parameters);
-    }*@
 }
