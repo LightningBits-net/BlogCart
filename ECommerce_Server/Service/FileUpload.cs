@@ -29,7 +29,7 @@ namespace ECommerce_Server.Service
         {
             FileInfo fileInfo = new(file.Name);
             var fileName = Guid.NewGuid().ToString()+fileInfo.Extension;
-            var folderDirectory = $"{_webHostEnvironment.WebRootPath}\\img\\Product";
+            var folderDirectory = $"{_webHostEnvironment.WebRootPath}/img/product";
             if(!Directory.Exists(folderDirectory))
             {
                 Directory.CreateDirectory(folderDirectory);

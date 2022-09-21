@@ -25,14 +25,21 @@
                 else
                 {
                     <EditForm Model="Product" OnValidSubmit="UpsertProduct">
-
+                        <div class="flex flex-wrap justify-center">
+                            <img src="@Product.ImageUrl"
+                                 class="p-1 bg-black border rounded max-w-sm" />
+                            <div class="form-group bg-gray-200 border shadow md:w-2/3 px-3 mt-2 mb-3 md:mb-0">
+                                <div class="form-check">
+                                    <InputFile OnChange="HandleImageUpLoad"></InputFile>
+                                </div>
+                            </div>
+                        </div>
                         <DataAnnotationsValidator />
                         <div class="bg-red-100"> <ValidationSummary></ValidationSummary> </div>
 
                         <div class="form-group text-left text-lrg text-gray-600 mt-4">
                             <MudInputLabel Class="font-bold">Product Name</MudInputLabel>
                             <InputText @bind-Value="Product.Name" class="block w-full text-black focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-3"></InputText>
-                            @*<ValidationMessage For="()=>Product.Name"></ValidationMessage>*@
                         </div>
                         <div class="form-group text-left text-lrg text-gray-600 mt-4">
                             <MudInputLabel Class="font-bold">Product color</MudInputLabel>
@@ -41,7 +48,6 @@
                         <div class="form-group text-left text-lrg text-gray-600 text-bold mt-4">
                             <MudInputLabel Class="font-bold">Product Description</MudInputLabel>
                             <InputTextArea @bind-Value="Product.Description" class="block w-full text-black text-top focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-3"></InputTextArea>
-                            @*<ValidationMessage For="()=>Product.Description"></ValidationMessage>*@
                         </div>
                         <br />
                         <div class="flex justify-center text-small -mx-3">
@@ -53,7 +59,7 @@
                             </div>
                             <div class="form-group border shadow md:w-1/3 px-3 mt-2 mb-3 md:mb-0">
                                 <div class="form-select">
-                                    <label class="font-bold"><br /><u>Category</u></label>
+                                    <label class="font-bold"><u>Category</u></label>
                                     <InputSelect @bind-Value="Product.CategoryId" class="form-select text-center">
                                         <option value="0" disabled="disabled" selected>--Select Category--</option>
                                         @foreach (var cat in ECommerceCategories)
@@ -61,18 +67,12 @@
                                             <option value="@cat.Id">@cat.Name</option>
                                         }
                                     </InputSelect>
-                                    @*<ValidationMessage For="()=>Product.CategoryId"></ValidationMessage>*@
                                 </div>
                             </div>
                             <div class="form-group border bg-gray-200 shadoww md:w-1/3 px-3 mt-2 mb-3 md:mb-0">
                                 <div class="form-check">
                                     <InputCheckbox @bind-Value="Product.ShopFavorites" class="form-check-input"></InputCheckbox>
                                     <label class="form-check-label font-bold">Shop favorites</label>
-                                </div>
-                            </div>
-                            <div class="form-group bg-gray-200 border shadow md:w-1/3 px-3 mt-2 mb-3 md:mb-0">
-                                <div class="form-check">
-                                    <InputFile OnChange="HandleImageUpLoad"></InputFile>
                                 </div>
                             </div>
                         </div>
@@ -88,16 +88,21 @@
 </body>
 
 
+
 @code {
 
     [Parameter]
     public int Id { get; set; }
 
-    private ProductDTO Product { get; set; } = new();
+    private ProductDTO Product { get; set; } = new()
+    {
+        ImageUrl="/img/lb_logo.png"
+    };
     private IEnumerable<CategoryDTO> ECommerceCategories { get; set; } = new List<CategoryDTO>();
     private string Title { get; set; } = "Create";
     public bool IsLoading { get; set; }
     public string ErrorMessage = "Bad request";
+    public string OldImageUrl { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -117,6 +122,7 @@
         {
             Title = "Update";
             Product = await _productRespository.Get(Id);
+            OldImageUrl = Product.ImageUrl;
         }
 
         IsLoading = false;
@@ -128,11 +134,19 @@
         if (Product.Id == 0)
         {
             await _productRespository.Create(Product);
+            snackBar.Add("Product created Succesfully.", Severity.Success);
         }
 
         else
         {
+            if(OldImageUrl!=Product.ImageUrl)
+            {
+                _fileUpload.DeleteFile(OldImageUrl);
+            }
+
             await _productRespository.Update(Product);
+            snackBar.Add("Product updated Succesfully.", Severity.Success);
+
         }
 
         _navigationManager.NavigateTo("product");
@@ -155,7 +169,7 @@
                     }
                     else
                     {
-                        //some error alert for please select approproate file type
+                        snackBar.Add("Invalid file type! only jpeg, jpg, and png files are valid.", Severity.Error);
                         return;
                     }
                 }
@@ -164,9 +178,11 @@
         }
         catch (Exception ex)
         {
-          snackBar.Add($"{ex}", Severity.Error);
-
+            snackBar.Add($"{ex}", Severity.Info);
+            snackBar.Add($"Invalid Image", Severity.Warning);
+            IsLoading = false;
         }
+        //change snackbar position
     }
 }
 
