@@ -120,19 +120,18 @@
     private async Task DeleteProduct(int id)
     {
         DeleteProductId = id;
-        @*IsLoading = true;*@
-    if (DeleteProductId != 0)
-    {
-        ProductDTO product = await _productRespository.Get(DeleteProductId);
-        if(!product.ImageUrl.Contains("/img/lb_logo.png"))
+        IsLoading = true;
+        if (DeleteProductId != 0)
         {
-            _fileUpload.DeleteFile(product.ImageUrl);
+            ProductDTO product = await _productRespository.Get(DeleteProductId);
+            if(!product.ImageUrl.Contains("/img/lb_logo.png"))
+            {
+                _fileUpload.DeleteFile(product.ImageUrl);
+            }
+            await _productRespository.Delete(DeleteProductId);
+            snackBar.Add("Product Deleted.", Severity.Success);
+            await LoadProducts();
         }
-        await _productRespository.Delete(DeleteProductId);
-        snackBar.Add("Product Deleted.", Severity.Success);
-        await LoadProducts();
-    }
-    //_fileUpload.DeleteFile(product.ImageUrl);
-        @*IsLoading = false;*@
+        IsLoading = false;
     }
 }
