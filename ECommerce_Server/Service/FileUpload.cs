@@ -37,7 +37,7 @@ namespace ECommerce_Server.Service
             var filePath = Path.Combine(folderDirectory, fileName);
 
             await using FileStream fs = new FileStream(filePath, FileMode.Create);
-            await file.OpenReadStream().CopyToAsync(fs);
+            await file.OpenReadStream(long.MaxValue).CopyToAsync(fs);
 
             var fullPath = $"/img/product/{fileName}";
             return fullPath;

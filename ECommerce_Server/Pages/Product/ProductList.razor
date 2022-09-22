@@ -9,85 +9,85 @@
 
 
 <body>
-    <div>
-        <h1 class="font-serif text-3xl font-bold bg-black py-6 ">Product List</h1>
-        <div class="w-full bg-gray-200 gap-4 mt-2 p-4">
-            <MudButton Href="product/create" Variant="Variant.Filled" Color="Color.Dark">Add New Products</MudButton>
-            <MudButton Href="/" Variant="Variant.Filled" Color="Color.Dark">Home</MudButton>
-            <br />
-        </div>
-        <div class="w-full p-2 flex justify-center items-center bg-white text-black">
+<div>
+    <h1 class="font-serif text-3xl font-bold bg-black py-6 ">Product List</h1>
+    <div class="w-full bg-gray-200 gap-4 mt-2 p-4">
+        <MudButton Href="product/create" Variant="Variant.Filled" Color="Color.Dark">Create New Products</MudButton>
+        <MudButton Href="/category" Variant="Variant.Filled" Color="Color.Dark">Category List</MudButton>
+        <br />
+    </div>
+    <div class="w-full p-2 flex justify-center items-center bg-white text-black">
 
-            @if (ECommerceProducts.Any())
-            {
-                <table class="table-auto">
-                    <thead class="bg-gray-200">
+        @if (ECommerceProducts.Any())
+        {
+            <table class="table-auto">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class=" w-1/2 px-4 py-4">Name</th>
+                        <th class=" w-1/2 px-4 py-4">Category</th>
+                        <th class=" w-1/4 px-4 py-2">Shop Favorites</th>
+                        <th class=" w-1/4 px-4 py-2">Customer Favorites</th>
+                        <th class=" w-1/4 px-4 py-2">Action</th>
+                        <th class=" w-1/4 px-4 py-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var prod in ECommerceProducts)
+                    {
                         <tr>
-                            <th class=" w-1/2 px-4 py-4">Name</th>
-                            <th class=" w-1/2 px-4 py-4">Category</th>
-                            <th class=" w-1/4 px-4 py-2">Shop Favorites</th>
-                            <th class=" w-1/4 px-4 py-2">Customer Favorites</th>
-                            <th class=" w-1/4 px-4 py-2">Action</th>
-                            <th class=" w-1/4 px-4 py-2">Action</th>
+                            <th class="border px-4 py-2 bold">@prod.Name</th>
+                            <td class="border px-4 py-2">@prod.Category.Name</td>
+                            <td>
+                                <input type="checkbox" disabled checked="@prod.ShopFavorites">
+                            </td>
+                            <td>
+                                <input type="checkbox" disabled checked="@prod.CustomerFavorites">
+                            </td>
+                            <td>
+                                <MudButton Href="@($"product/edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
+                            </td>
+
+                            <td>
+                                @if (IsLoading)
+                                {
+                                    <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
+                                        <MudButton OnClick="@(()=>DeleteProduct(prod.Id))" Icon="@Icons.Material.Filled.Delete" Color="Color.Warning">Processing.....<br />delete of <br />"@prod.Name"<br /></MudButton>
+                                    </MudMenu>
+
+                                }
+                                else
+                                {
+                                    <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
+                                        <MudButton OnClick="@(()=>DeleteProduct(prod.Id))" Icon="@Icons.Material.Filled.Delete" Color="Color.Warning">Click again<br />to delete<br />"@prod.Name"<br /></MudButton>
+                                    </MudMenu>
+                                }
+
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var prod in ECommerceProducts)
-                        {
-                            <tr>
-                                <th class="border px-4 py-2 bold">@prod.Name</th>
-                                <td class="border px-4 py-2">@prod.Category.Name</td>
-                                <td>
-                                    <input type="checkbox" disabled checked="@prod.ShopFavorites">
-                                </td>
-                                <td>
-                                    <input type="checkbox" disabled checked="@prod.CustomerFavorites">
-                                </td>
-                                <td>
-                                    <MudButton Href="@($"product/edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
-                                </td>
-
-                                <td>
-                                    @if (IsLoading)
-                                    {
-                                        <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
-                                            <MudButton OnClick="@(()=>DeleteProduct(prod.Id))" Icon="@Icons.Material.Filled.Delete" Color="Color.Warning">Processing.....<br />delete of <br />"@prod.Name"<br /></MudButton>
-                                        </MudMenu>
-
-                                    }
-                                    else
-                                    {
-                                        <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
-                                            <MudButton OnClick="@(()=>DeleteProduct(prod.Id))" Icon="@Icons.Material.Filled.Delete" Color="Color.Warning">Click again<br />to delete<br />"@prod.Name"<br /></MudButton>
-                                        </MudMenu>
-                                    }
-
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            if (IsLoading)
+            {
+                <div class="text-center">
+                    <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                </div>
             }
             else
             {
-                if (IsLoading)
-                {
-                    <div class="text-center">
-                        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-                    </div>
-                }
-                else
-                {
-                    <p>No Data to Display</p>
-                }
+                <p>No Data to Display</p>
             }
-        </div>
+        }
     </div>
-    <footer>
-        <div class="text-center text-white px-6 py-6 mb-2">
-            &copy;2022 LightningBits. All rights reserved.
-        </div>
-    </footer>
+</div>
+<footer>
+    <div class="text-center text-white px-6 py-6 mb-2">
+        &copy;2022 LightningBits. All rights reserved.
+    </div>
+</footer>
 </body>
 
 @code {
