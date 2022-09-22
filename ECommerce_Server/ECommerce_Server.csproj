@@ -21,6 +21,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.9" />
     <PackageReference Include="MudBlazor" Version="6.0.15" />
+    <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="20.2.0.50" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.2.0.50" />
   </ItemGroup>
   <ItemGroup>
 
@@ -29,6 +31,8 @@
     <None Remove="cssStyles\" />
     <None Remove="Service\" />
     <None Remove="Service\IService\" />
+    <None Remove="Syncfusion.Blazor.RichTextEditor" />
+    <None Remove="Syncfusion.Blazor.Themes" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cssStyles\" />

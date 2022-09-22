@@ -68,6 +68,7 @@ namespace SharedServices.Respository
             if(objFromDb!=null)
             {
                 objFromDb.Name=objDTO.Name;
+                objFromDb.Description = objDTO.Description;
                 objFromDb.ImageUrl = objDTO.ImageUrl;
                 objFromDb.CategoryId = objDTO.CategoryId;
                 objFromDb.Color = objDTO.Color;

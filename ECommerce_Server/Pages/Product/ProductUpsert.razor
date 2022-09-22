@@ -47,7 +47,8 @@
                         </div>
                         <div class="form-group text-left text-lrg text-gray-600 text-bold mt-4">
                             <MudInputLabel Class="font-bold">Product Description</MudInputLabel>
-                            <InputTextArea @bind-Value="Product.Description" class="block w-full text-black text-top focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-3"></InputTextArea>
+                            <SfRichTextEditor @bind-Value="Product.Description">
+                            </SfRichTextEditor>
                         </div>
                         <br />
                         <div class="flex justify-center text-small -mx-3">

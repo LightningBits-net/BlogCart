@@ -23,8 +23,8 @@
                 <table class="table-auto">
                     <thead class="bg-gray-200">
                         <tr>
-                            <th class=" w-full px-4 py-4">Name</th>
-                            <th class=" w-full px-4 py-4">Category</th>
+                            <th class=" w-1/2 px-4 py-4">Name</th>
+                            <th class=" w-1/2 px-4 py-4">Category</th>
                             <th class=" w-1/4 px-4 py-2">Shop Favorites</th>
                             <th class=" w-1/4 px-4 py-2">Customer Favorites</th>
                             <th class=" w-1/4 px-4 py-2">Action</th>
@@ -35,14 +35,14 @@
                         @foreach (var prod in ECommerceProducts)
                         {
                             <tr>
-                                <td class="border px-4 py-2">@prod.Name</td>
-                                <th class="border px-4 py-2">@prod.Category.Name</th>
-                                <th>
+                                <th class="border px-4 py-2 bold">@prod.Name</th>
+                                <td class="border px-4 py-2">@prod.Category.Name</td>
+                                <td>
                                     <input type="checkbox" disabled checked="@prod.ShopFavorites">
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <input type="checkbox" disabled checked="@prod.CustomerFavorites">
-                                </th>
+                                </td>
                                 <td>
                                     <MudButton Href="@($"product/edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
                                 </td>
@@ -121,17 +121,17 @@
     {
         DeleteProductId = id;
         IsLoading = true;
-        if (DeleteProductId != 0)
+    if (DeleteProductId != 0)
+    {
+        ProductDTO product = await _productRespository.Get(DeleteProductId);
+        if(!product.ImageUrl.Contains("/img/lb_logo.png"))
         {
-            ProductDTO product = await _productRespository.Get(DeleteProductId);
-            if(!product.ImageUrl.Contains("/img/lb_logo.png"))
-            {
-                _fileUpload.DeleteFile(product.ImageUrl);
-            }
-            await _productRespository.Delete(DeleteProductId);
-            snackBar.Add("Product Deleted.", Severity.Success);
-            await LoadProducts();
+            _fileUpload.DeleteFile(product.ImageUrl);
         }
+        await _productRespository.Delete(DeleteProductId);
+        snackBar.Add("Product Deleted.", Severity.Success);
+        await LoadProducts();
+    }
         IsLoading = false;
     }
 }
