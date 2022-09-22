@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace SharedServices
+namespace SharedServices.Data
 {
     public class Product
     {

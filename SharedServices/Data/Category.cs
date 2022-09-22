@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SharedServices
+namespace SharedServices.Data
 {
     public class Category
     {
