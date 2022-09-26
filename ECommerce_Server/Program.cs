@@ -20,10 +20,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<ICategoryRespository, CategoryRespository>();
 builder.Services.AddScoped<IProductRespository, ProductRespository>();
+builder.Services.AddScoped<IProductPriceRespository, ProductPriceRespository>();
 builder.Services.AddScoped<IFileUpload, FileUpload>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMudServices();
-//builder.Services.AddSyncfusionBlazor(options => { options.IgnoreScriptIsolation = true; });
 builder.Services.AddSyncfusionBlazor();
 
 

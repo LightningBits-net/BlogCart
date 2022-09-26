@@ -42,7 +42,7 @@ namespace SharedServices.Respository
             }
             return 0;
         }
-        //populate forign key category inside products
+
         public async Task<ProductDTO> Get(int id)
         {
             var obj = await _db.ECommerceProducts.Include(u=>u.Category).FirstOrDefaultAsync(u => u.Id == id);
@@ -54,7 +54,7 @@ namespace SharedServices.Respository
 
         }
 
-        //public Task<IEnumerable<ProductDTO>> GetAll()
+      
         public async Task<IEnumerable<ProductDTO>> GetAll()
         {
             //return Task.FromResult(_mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(_db.ECommerceProducts.Include(u => u.Category)));
