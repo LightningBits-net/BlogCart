@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1703.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorMaui", "BlazorMaui\BlazorMaui.csproj", "{6756DF48-C545-4DF0-838C-2C4662C47856}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedUI", "SharedUI\SharedUI.csproj", "{C8D2F7C3-BA44-4619-95B5-44514E3A2C2C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A734484-F6D2-4559-BAAC-7C2E6B363AD4}"
@@ -19,16 +17,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce_Server", "ECommer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce_Client", "ECommerce_Client\ECommerce_Client.csproj", "{DDBD3EE9-A0D6-4D0A-BAC5-40C446EF7570}"
 EndProject
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "BlazorMaui", "BlazorMaui\BlazorMaui.csproj", "{A017857C-3790-49AD-B58B-11AE33AB2AFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedApi", "SharedApi\SharedApi.csproj", "{DD89AE15-4201-4E9B-9EE1-E7CCAEC7EE73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6756DF48-C545-4DF0-838C-2C4662C47856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6756DF48-C545-4DF0-838C-2C4662C47856}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6756DF48-C545-4DF0-838C-2C4662C47856}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6756DF48-C545-4DF0-838C-2C4662C47856}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C8D2F7C3-BA44-4619-95B5-44514E3A2C2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C8D2F7C3-BA44-4619-95B5-44514E3A2C2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8D2F7C3-BA44-4619-95B5-44514E3A2C2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +43,14 @@ Global
 		{DDBD3EE9-A0D6-4D0A-BAC5-40C446EF7570}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDBD3EE9-A0D6-4D0A-BAC5-40C446EF7570}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDBD3EE9-A0D6-4D0A-BAC5-40C446EF7570}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A017857C-3790-49AD-B58B-11AE33AB2AFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A017857C-3790-49AD-B58B-11AE33AB2AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A017857C-3790-49AD-B58B-11AE33AB2AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A017857C-3790-49AD-B58B-11AE33AB2AFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD89AE15-4201-4E9B-9EE1-E7CCAEC7EE73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD89AE15-4201-4E9B-9EE1-E7CCAEC7EE73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD89AE15-4201-4E9B-9EE1-E7CCAEC7EE73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD89AE15-4201-4E9B-9EE1-E7CCAEC7EE73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -49,7 +49,7 @@
             <GridColumn Field=@nameof(ProductPriceDTO.Size) HeaderText="Size" Width="100">
                 <EditTemplate>
                     <Syncfusion.Blazor.DropDowns.SfDropDownList DataSource="SizeList" TItem="string" TValue="string"
-                                                                @bind-Value="((context as ProductPriceDTO).Size)">
+                                                                @bind-Value="((context as ProductPriceDTO)!.Size)">
                     </Syncfusion.Blazor.DropDowns.SfDropDownList>
                 </EditTemplate>
             </GridColumn>
@@ -111,7 +111,7 @@
             {
                 await _productPriceRespository.Create(args.Data);
                 ECommerceProductPrices = await _productPriceRespository.GetAll(Id);
-                productPriceGrid.Refresh();
+                await productPriceGrid.Refresh();
             }
             if(args.Action=="Edit")
             {
@@ -121,7 +121,7 @@
         if (args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Delete))
     {
             await _productPriceRespository.Delete(args.Data.Id);
-            productPriceGrid.Refresh();
+            await productPriceGrid.Refresh();
     }
     }
 
