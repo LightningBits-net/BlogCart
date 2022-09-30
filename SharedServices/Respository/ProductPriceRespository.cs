@@ -76,6 +76,7 @@ namespace SharedServices.Respository
             if(objFromDb!=null)
             {
                 objFromDb.Price = objDTO.Price;
+                objFromDb.MyProperty = objDTO.MyProperty;
                 objFromDb.ProductId = objDTO.ProductId;
                 objFromDb.Size = objDTO.Size;
                 _db.ECommerceProductPrices.Update(objFromDb);
