@@ -2,7 +2,8 @@
 <MudAppBar Elevation="21" Dense="true">
     <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
                    OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
-    <MudIconButton Href="/" Icon="@Icons.Material.Filled.Home" Color="Color.Primary" />
+    <MudIconButton Href="http://localhost:5000/" Icon="@Icons.Material.Filled.Home" Color="Color.Primary" />
+    <MudNavLink Href="http://localhost:5000/" Icon="@Icons.Filled.Logout" Match="NavLinkMatch.Prefix">Log out</MudNavLink>
     <MudSpacer />
     <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Facebook" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
     <MudIconButton Href="#" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />

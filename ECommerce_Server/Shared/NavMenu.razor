@@ -4,18 +4,23 @@
         <MudText Typo="Typo.h5"  Color="Color.Default" Style="margin-top:15px; margin-left:5px;">Thrift Boss</MudText>
     </MudDrawerHeader>
     <MudNavMenu>
-        <MudNavGroup Title="Client" Expanded="false" Color="Color.Secondary">
+        <MudNavGroup Title="@ClientName" Expanded="false" Color="Color.Dark">
+            <MudNavLink Href="/" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix" Color="Color.Dark">Settings</MudNavLink>
+            <MudNavLink Href="/" Icon="@Icons.Filled.Favorite" Match="NavLinkMatch.Prefix">Favorites</MudNavLink>
+            <MudNavLink Href="/" Icon="@Icons.Filled.ShoppingCart" Match="NavLinkMatch.Prefix">Shopping Cart</MudNavLink>
+        </MudNavGroup>
+        <MudDivider DividerType="DividerType.Middle" Class="my-2" />
+        <MudNavGroup Title="Product Management" Expanded="false" Color="Color.Dark">
+            <MudNavLink Href="/Category" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Edit Category List</MudNavLink>
+            <MudNavLink Href="/product" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Edit Product List</MudNavLink>
+        </MudNavGroup>
+        <MudDivider DividerType="DividerType.Middle" Class="my-2" />
+        <MudNavGroup Title=" Return to Client" Expanded="false" Color="Color.Dark">
             <MudNavLink Href="/" Match="NavLinkMatch.All"></MudNavLink>
             <MudNavLink Href="http://localhost:5000/" Icon="@Icons.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
             <MudNavLink Href="http://localhost:5000/Blogs" Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
             <MudNavLink Href="http://localhost:5000/Products" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
             <MudNavLink Href="http://localhost:5000/About" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
-        </MudNavGroup>
-        <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-        <MudNavGroup Title="Logged in as Admin" Expanded="true" Color="Color.Primary">
-            <MudNavLink Href="http://localhost:5000/" Icon="@Icons.Filled.Login" Match="NavLinkMatch.Prefix">Log out</MudNavLink>
-            <MudNavLink Href="/Category" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Category List</MudNavLink>
-            <MudNavLink Href="/product" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Product List</MudNavLink>
         </MudNavGroup>
         <MudDivider DividerType="DividerType.Middle" Class="my-2" />
     </MudNavMenu>
@@ -24,4 +29,6 @@
 @code {
     [Parameter]
     public bool SideBarOpen { get; set; }
+
+    public string ClientName = " Hello LightningBits";
 }

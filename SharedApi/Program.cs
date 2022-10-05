@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SharedServices.Data;
+using SharedServices.Respository;
+using SharedServices.Respository.IRespository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<IProductRespository, ProductRespository>();
+
 
 var app = builder.Build();
 
