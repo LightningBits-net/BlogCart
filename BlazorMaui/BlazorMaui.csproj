@@ -68,6 +68,12 @@
       <Content Include="Pages\Products.razor">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </Content>
+      <Content Include="Pages\Category\CategoryList.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+      <Content Include="Pages\Category\CategoryUpsert.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\SharedUI\SharedUI.csproj" />
