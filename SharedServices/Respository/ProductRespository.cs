@@ -45,7 +45,7 @@ namespace SharedServices.Respository
 
         public async Task<ProductDTO> Get(int id)
         {
-            var obj = await _db.ECommerceProducts.Include(u=>u.Category).FirstOrDefaultAsync(u => u.Id == id);
+            var obj = await _db.ECommerceProducts.Include(u=>u.Category).Include(u=>u.ECommerceProductPrices).FirstOrDefaultAsync(u => u.Id == id);
             if (obj!=null)
             {
                return _mapper.Map<Product, ProductDTO>(obj);
@@ -58,7 +58,7 @@ namespace SharedServices.Respository
         public async Task<IEnumerable<ProductDTO>> GetAll()
         {
             //return Task.FromResult(_mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(_db.ECommerceProducts.Include(u => u.Category)));
-            return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(_db.ECommerceProducts.Include(u => u.Category));
+            return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(_db.ECommerceProducts.Include(u => u.Category).Include(u=>u.Category).Include(u=>u.ECommerceProductPrices));
 
         }
 
