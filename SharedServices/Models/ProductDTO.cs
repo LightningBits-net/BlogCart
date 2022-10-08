@@ -27,9 +27,9 @@ namespace SharedServices.Models
         [Range(1, int.MaxValue, ErrorMessage = "Please select a catogory")]
         public int CategoryId { get; set; }
        
-
         public CategoryDTO Category { get; set; }
 
+        public ICollection<ProductPriceDTO> ECommerceProductPrices { get; set; }
     }
 }
 

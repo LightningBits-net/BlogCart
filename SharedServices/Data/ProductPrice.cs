@@ -9,8 +9,8 @@ namespace SharedServices.Data
         public int Id { get; set; }
 
         public int ProductId { get; set; }
-        [ForeignKey("ProductId")]
 
+        [ForeignKey("ProductId")]
         public Product Product { get; set; }
 
         public string MyProperty { get; set; }

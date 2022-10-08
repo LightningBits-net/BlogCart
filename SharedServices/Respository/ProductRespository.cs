@@ -58,8 +58,7 @@ namespace SharedServices.Respository
         public async Task<IEnumerable<ProductDTO>> GetAll()
         {
             //return Task.FromResult(_mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(_db.ECommerceProducts.Include(u => u.Category)));
-            return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(_db.ECommerceProducts.Include(u => u.Category).Include(u=>u.Category).Include(u=>u.ECommerceProductPrices));
-
+            return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(_db.ECommerceProducts.Include(u => u.Category).Include(u=>u.ECommerceProductPrices));
         }
 
         public async Task<ProductDTO> Update(ProductDTO objDTO)
