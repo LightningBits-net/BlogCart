@@ -1,10 +1,17 @@
 ﻿@page "/Products"
+@inject IProductService _productService
+
 <PageTitle>Products</PageTitle>
-
-
-
 @*<_Products />*@
-<html>
+
+@if (IsProcessing)
+{
+    <div class="text-center">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
+}
+else
+{
 <body class="font-sans">
     <div class="text-white max-w-5xl mx-auto p-8 py-24 flex justify-start items-center">
         <div class="flex-1">
@@ -52,11 +59,19 @@
     <div class="bg-gray-600 text-white text-center text-sm py-12">
         <p>Copyright &copy; 2022 LightningBits </p>
     </div>
-
 </body>
-</html>
+}
 
 @code {
+    public bool IsProcessing { get; set; } = false;
+    public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        ECommerceProducts = await _productService.GetAll();
+        IsProcessing = false;
+    }
 
 }
 

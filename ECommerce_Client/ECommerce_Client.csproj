@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.9" PrivateAssets="all" />
     <PackageReference Include="MudBlazor" Version="6.0.16" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,9 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="cssStyles\" />
+    <None Remove="Newtonsoft.Json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cssStyles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="package-lock.json" />
+    <Content Remove="package.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'" Update="wwwroot\appsettings.json">

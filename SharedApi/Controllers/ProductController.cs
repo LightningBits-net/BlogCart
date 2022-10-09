@@ -41,7 +41,6 @@ namespace SharedApi.Controllers
             }
 
             var product = _productRespository.Get(productId.Value);
-
             if (product==null)
             {
                 return BadRequest(new ErrorModelDTO()
@@ -50,7 +49,8 @@ namespace SharedApi.Controllers
                     StatusCode=StatusCodes.Status404NotFound
                 });
             }
-            return Ok(await _productRespository.GetAll());
+            //return Ok(await _productRespository.GetAll());
+            return Ok(product);
         }
     }
 }
