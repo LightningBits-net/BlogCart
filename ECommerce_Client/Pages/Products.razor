@@ -2,7 +2,8 @@
 @inject IProductService _productService
 
 
-@if (IsProcessing)
+<_Products></_Products>
+@*@if (IsProcessing)
 {
     <PageTitle>Loading</PageTitle>
     <div class="text-center">
@@ -43,5 +44,5 @@ else
         IsProcessing = false;
     }
 
-}
+}*@
 
