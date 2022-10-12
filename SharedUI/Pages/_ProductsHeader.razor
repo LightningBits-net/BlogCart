@@ -5,7 +5,7 @@
         <p class="leading-loose max-w-xl">Nisl suscipit adipiscing bibendum est ultricies integer. Faucibus a pellentesque sit amet. Gravida quis blandit turpis cursus in hac habitasse platea.</p>
     </div>
     <div class="hidden md:block w-56">
-        <a href="/about" class="bg-gray-500 text-black inline-block border-2 border-black py-3 px-8 uppercase font-display tracking-wide text-md hover:bg-grey-200 hover:text-black">Get a quote</a>
+        <MudButton Href="/about" Variant="Variant.Filled" EndIcon="@Icons.Material.Outlined.RequestQuote" Color="Color.Dark">Request a quote</MudButton>
     </div>
 </div>
 
@@ -13,6 +13,12 @@
 
 <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
     <h3 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-12 max-w-xl">Products.</h3>
+
+    <MudMenu Label="Sort Products by:" Variant="Variant.Filled" EndIcon="@Icons.Filled.ArrowDropDown" IconColor="Color.Primary" FullWidth="true" Dense="true">
+        <MudMenuItem Href="/productsByCat">Category</MudMenuItem>
+        <MudMenuItem Href="/productsByFav">Favorites</MudMenuItem>
+        <MudMenuItem Href="/productsGetAll">All Products</MudMenuItem>
+    </MudMenu>
 </div>
 
 @code {
