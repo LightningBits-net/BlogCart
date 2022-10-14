@@ -30,17 +30,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="cssStyles\" />
-    <None Remove="Service\" />
-    <None Remove="Service\IService\" />
-    <None Remove="Syncfusion.Blazor.RichTextEditor" />
-    <None Remove="Syncfusion.Blazor.Themes" />
-    <None Remove="Syncfusion.Blazor.Grid" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cssStyles\" />
-    <Folder Include="Service\" />
-    <Folder Include="Service\IService\" />
-    <Folder Include="wwwroot\img\Product\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">
@@ -49,8 +41,5 @@
     <ProjectReference Include="..\SharedUI\SharedUI.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\img\Product\" />
   </ItemGroup>
 </Project>
