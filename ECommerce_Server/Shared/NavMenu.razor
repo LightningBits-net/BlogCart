@@ -15,8 +15,11 @@
         <MudDivider DividerType="DividerType.Middle" Class="my-2" />
 
         <MudNavGroup Title="Product Management" Expanded="false" Color="Color.Dark">
+            <MudNavLink Href="/AdminPanel" Icon="@Icons.Filled.AdminPanelSettings" Match="NavLinkMatch.Prefix">Admin Panel</MudNavLink>
             <MudNavLink Href="/Category" Icon="@Icons.Filled.Edit" Match="NavLinkMatch.Prefix">Edit Category List</MudNavLink>
             <MudNavLink Href="/product" Icon="@Icons.Filled.Edit" Match="NavLinkMatch.Prefix">Edit Product List</MudNavLink>
+            <MudNavLink Href="/product/create" Icon="@Icons.Filled.Add" Match="NavLinkMatch.Prefix">Add New Product</MudNavLink>
+            <MudNavLink Href="/Category/create" Icon="@Icons.Filled.Create" Match="NavLinkMatch.Prefix">Create New Catgeory</MudNavLink>
         </MudNavGroup>
         <MudDivider DividerType="DividerType.Middle" Class="my-2" />
         <MudNavGroup Title=" Return to Client" Expanded="false" Color="Color.Dark">

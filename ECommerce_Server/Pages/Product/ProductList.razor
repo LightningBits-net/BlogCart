@@ -25,11 +25,12 @@
                     <tr>
                         <th class=" w-1/2 px-4 py-4">Name</th>
                         <th class=" w-1/2 px-4 py-4">Category</th>
-                        <th class=" w-1/4 px-4 py-2">Shop Favorites</th>
-                        <th class=" w-1/4 px-4 py-2">Customer Favorites</th>
                         <th class=" w-1/4 px-4 py-2"></th>
                         <th class=" w-1/4 px-4 py-2"></th>
                         <th class=" w-1/4 px-4 py-2">.</th>
+                        <th class=" w-1/4 px-2">Shop <br /> Fav's'</th>
+                        <th class=" w-1/4 px-2">Customer <br /> Fav's'</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -38,14 +39,8 @@
                         <tr>
                             <th class="border px-4 py-2 bold">@prod.Name</th>
                             <td class="border px-4 py-2">@prod.Category.Name</td>
-                            <td>
-                                <input type="checkbox" disabled checked="@prod.ShopFavorites">
-                            </td>
-                            <td>
-                                <input type="checkbox" disabled checked="@prod.CustomerFavorites">
-                            </td>
                             <td class="p-2">
-                                <MudButton Href="@($"ProductPrice/Edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Price</MudButton>                              
+                                <MudButton Href="@($"ProductPrice/Edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Price</MudButton>
                             </td>
                             <td class="p-2">
                                 <MudButton Href="@($"product/edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
@@ -53,10 +48,16 @@
                             <td>
                                 <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
                                     <MudButton>
-                                        <MudButton OnClick="@(()=>DeleteProduct(prod.Id))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete</MudButton>
+                                        <MudButton OnClick="@(()=>DeleteProduct(prod.Id))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete of: <br />@prod.Name</MudButton>
                                         <MudButton Href="" Variant="Variant.Filled" Color="Color.Dark">Cancel</MudButton>
                                     </MudButton>
                                 </MudMenu>
+                            </td>
+                            <td>
+                                <input type="checkbox" disabled checked="@prod.ShopFavorites">
+                            </td>
+                            <td>
+                                <input type="checkbox" disabled checked="@prod.CustomerFavorites">
                             </td>
                         </tr>
                     }

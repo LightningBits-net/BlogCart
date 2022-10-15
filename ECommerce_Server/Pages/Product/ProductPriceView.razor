@@ -28,8 +28,9 @@
         <MudCardContent>
             <MudText Typo="Typo.h6"> @((MarkupString)Product.Description)</MudText>
         </MudCardContent>
-        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Category : @Product.Category.Name</span>
-        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Favorite : @Product.CustomerFavorites</span>
+        @*System excemption thrown check logs*@
+        @*<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Category : @Product.Category.Name</span>
+        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Favorite : @Product.CustomerFavorites</span>*@
     </MudCard>
 
     <SfGrid @ref="productPriceGrid" DataSource="@ECommerceProductPrices" AllowPaging="true" AllowFiltering="true" AllowSorting="true" AllowResizing="true"
