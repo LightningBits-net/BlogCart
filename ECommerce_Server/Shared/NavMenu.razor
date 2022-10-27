@@ -5,24 +5,32 @@
     </MudDrawerHeader>
     <MudNavMenu>
         <MudNavGroup Title="@ClientName" Expanded="false" Color="Color.Dark">
-            <MudNavLink Href="/" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix" Color="Color.Dark">Settings</MudNavLink>
-            <MudNavLink Href="/" Icon="@Icons.Filled.Favorite" Match="NavLinkMatch.Prefix">Favorites</MudNavLink>
-            <MudNavLink Href="/" Icon="@Icons.Filled.ShoppingCart" Match="NavLinkMatch.Prefix">Shopping Cart</MudNavLink>
+            <MudNavLink Href="#" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix">Settings</MudNavLink>
+            <MudNavLink Href="#" Icon="@Icons.Filled.Favorite" Match="NavLinkMatch.Prefix">Shop Favorites</MudNavLink>
+            <MudNavLink Href="#" Icon="@Icons.Filled.Numbers" Match="NavLinkMatch.Prefix">Stats</MudNavLink>
+            <MudNavLink Href="#" Icon="@Icons.Filled.ShoppingCartCheckout" Match="NavLinkMatch.Prefix">Active Orders</MudNavLink>
+            <MudNavLink Href="#" Icon="@Icons.Filled.PointOfSale" Match="NavLinkMatch.Prefix">Completed Sales</MudNavLink>
         </MudNavGroup>
+
         <MudDivider DividerType="DividerType.Middle" Class="my-2" />
+
         <MudNavGroup Title="Product Management" Expanded="false" Color="Color.Dark">
-            <MudNavLink Href="/Category" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Edit Category List</MudNavLink>
-            <MudNavLink Href="/product" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Edit Product List</MudNavLink>
+            <MudNavLink Href="/AdminPanel" Icon="@Icons.Filled.AdminPanelSettings" Match="NavLinkMatch.Prefix">Admin Panel</MudNavLink>
+            <MudNavLink Href="/Category" Icon="@Icons.Filled.Edit" Match="NavLinkMatch.Prefix">Edit Category List</MudNavLink>
+            <MudNavLink Href="/product" Icon="@Icons.Filled.Edit" Match="NavLinkMatch.Prefix">Edit Product List</MudNavLink>
+            <MudNavLink Href="/product/create" Icon="@Icons.Filled.Add" Match="NavLinkMatch.Prefix">Add New Product</MudNavLink>
+            <MudNavLink Href="/Category/create" Icon="@Icons.Filled.Create" Match="NavLinkMatch.Prefix">Create New Catgeory</MudNavLink>
         </MudNavGroup>
         <MudDivider DividerType="DividerType.Middle" Class="my-2" />
         <MudNavGroup Title=" Return to Client" Expanded="false" Color="Color.Dark">
-            <MudNavLink Href="/" Match="NavLinkMatch.All"></MudNavLink>
+            <MudNavLink Href="http://localhost:5000/" Match="NavLinkMatch.All"></MudNavLink>
             <MudNavLink Href="http://localhost:5000/" Icon="@Icons.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
             <MudNavLink Href="http://localhost:5000/Blogs" Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
             <MudNavLink Href="http://localhost:5000/Products" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
             <MudNavLink Href="http://localhost:5000/About" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
         </MudNavGroup>
         <MudDivider DividerType="DividerType.Middle" Class="my-2" />
+        <MudNavLink Href="/PlayGround" Icon="@Icons.Filled.CodeOff" Match="NavLinkMatch.Prefix">UI Component Playground</MudNavLink>
     </MudNavMenu>
 </MudDrawer>
 
@@ -30,5 +38,5 @@
     [Parameter]
     public bool SideBarOpen { get; set; }
 
-    public string ClientName = " Hello LightningBits";
+    public string ClientName = "Hello LightningBits";
 }

@@ -11,10 +11,8 @@ namespace SharedServices.Respository
 {
     public class ProductPriceRespository : IProductPriceRespository
     {
-
         private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
-
 
         public ProductPriceRespository(ApplicationDbContext db, IMapper mapper)
         {
@@ -27,7 +25,7 @@ namespace SharedServices.Respository
             var obj = _mapper.Map<ProductPriceDTO, ProductPrice>(objDTO);
 
             var addedobj = _db.ECommerceProductPrices.Add(obj);
-           await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync();
 
             return _mapper.Map<ProductPrice, ProductPriceDTO>(addedobj.Entity);
         }
@@ -51,7 +49,6 @@ namespace SharedServices.Respository
                return _mapper.Map<ProductPrice, ProductPriceDTO>(obj);
             }
             return new ProductPriceDTO();
-
         }
 
         public async Task<IEnumerable<ProductPriceDTO>> GetAll(int? id=null)
@@ -59,13 +56,11 @@ namespace SharedServices.Respository
             if(id!=null && id>0)
             {
                 return _mapper.Map<IEnumerable<ProductPrice>, IEnumerable<ProductPriceDTO>>
-                //return Task.FromResult(_mapper.Map<IEnumerable<ProductPrice>, IEnumerable<ProductPriceDTO>>
                 (_db.ECommerceProductPrices.Where(u=>u.ProductId==id));
             }
             else
             {
                 return _mapper.Map<IEnumerable<ProductPrice>, IEnumerable<ProductPriceDTO>>(_db.ECommerceProductPrices);
-
             }
 
         }

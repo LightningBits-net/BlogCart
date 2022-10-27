@@ -24,13 +24,11 @@ namespace SharedServices.Data
         public string ImageUrl { get; set; }
 
         public int CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
 
+        [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
         public ICollection<ProductPrice> ECommerceProductPrices { get; set; }
-
-        //public object Size { get; internal set; }
     }
 }
 

@@ -9,45 +9,37 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.9">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.9" />
-    <PackageReference Include="MudBlazor" Version="6.0.16" />
-    <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="20.2.0.50" />
-    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.2.0.50" />
-    <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.2.0.50" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.10" />
+    <PackageReference Include="MudBlazor" Version="6.0.17" />
+    <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="20.3.0.52" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.3.0.52" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.3.0.52" />
   </ItemGroup>
   <ItemGroup>
 
   </ItemGroup>
   <ItemGroup>
     <None Remove="cssStyles\" />
-    <None Remove="Service\" />
-    <None Remove="Service\IService\" />
-    <None Remove="Syncfusion.Blazor.RichTextEditor" />
-    <None Remove="Syncfusion.Blazor.Themes" />
-    <None Remove="Syncfusion.Blazor.Grid" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cssStyles\" />
-    <Folder Include="Service\" />
-    <Folder Include="Service\IService\" />
-    <Folder Include="wwwroot\img\Product\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\img\Product\" />
+    <ProjectReference Include="..\SharedUI\SharedUI.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

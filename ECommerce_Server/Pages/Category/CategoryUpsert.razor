@@ -1,6 +1,6 @@
 ﻿@page "/category/create"
 @page "/category/edit/{id:int}"
-<PageTitle>Create Category</PageTitle>
+
 
 
 @inject ICategoryRespository _categoryRespository
@@ -21,15 +21,15 @@
                 }
                 else
                 {
-                    <EditForm Model="Category" OnValidSubmit="UpsertCategory">
-                        <DataAnnotationsValidator />
-                        <InputText @bind-Value="Category.Name" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-md" placeholder="Enter Category"></InputText>
-                        <ValidationMessage For="()=>Category.Name"></ValidationMessage>
-                        <br />
-                        <button href="/category/Create" class="block w-full  bg-gray-600 hover:bg-black text-white rounded font-heading mt-2 py-2 ">@Title</button>
-                        <br />
-                        <MudButton Href="/category" Variant="Variant.Outlined" Color="Color.Dark">Back to List</MudButton>
-                    </EditForm>
+            <EditForm Model="Category" OnValidSubmit="UpsertCategory">
+                <DataAnnotationsValidator />
+                <InputText @bind-Value="Category.Name" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-md" placeholder="Enter Category"></InputText>
+                <ValidationMessage For="()=>Category.Name"></ValidationMessage>
+                <br />
+                <button href="/category/Create" class="block w-full bg-indigo-500 hover:bg-black text-white rounded font-heading mt-2 py-2 ">@Title</button>
+                <br />
+                <MudButton Href="/category" Variant="Variant.Outlined" Color="Color.Dark">Back to List</MudButton>
+            </EditForm>
                 }
             </div>
             <p class="text-center text-sm text-white font-thin">Don't wanna create a category yet? <a href="/" class="text-indigo-500 no-underline hover:underline">Go Back Home</a></p>
