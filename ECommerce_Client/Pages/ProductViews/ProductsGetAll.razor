@@ -1,0 +1,67 @@
+﻿@page "/ProductsGetAll"
+@inject IProductService _productService
+@*Products UI place holder
+    <_Products></_Products>*@
+@if (IsProcessing)
+{
+    <PageTitle>Loading</PageTitle>
+    <div class="text-center">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
+}
+else
+{
+    <PageTitle>Products</PageTitle>
+    <body class="font-sans">
+        <_ProductsHeader></_ProductsHeader>
+
+        <div class="container mx-auto flex flex-wrap pb-20">
+
+            @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
+            {
+                <div class=" text-white w-full md:w-1/2 lg:w-1/3 px-6 mb-12">
+                    @foreach (var product in ECommerceProducts.Where(u => u.Category.Name == category))
+                    {
+                        <MudCard Class="mb-4">
+                            <MudCardHeader>
+                                <CardHeaderContent>
+                                    <MudText Typo="Typo.h5"  Color="Color.Default">@product.Name</MudText>
+                                    @*<MudText Typo="Typo.body2" Color="Color.Inherit"> @category</MudText>*@
+                                </CardHeaderContent>
+                            </MudCardHeader>
+                            <MudCardMedia Image="@product.ImageUrl" Height="250" />
+                            <MudCardContent>
+                                <MudText Typo="Typo.body2" Color="Color.Inherit"> @((MarkupString)product.Description)</MudText>
+                            </MudCardContent>
+                            <MudCardActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Primary" />
+                                <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Primary" />
+                                <MudSpacer />
+                                <MudText Typo="Typo.body2" Color="Color.Primary"> Cat: @category</MudText>
+
+                            </MudCardActions>
+                        </MudCard>
+                    }
+                </div>
+            }
+        </div>
+
+        <_FooterDarkGray></_FooterDarkGray>
+    </body>
+}
+
+
+@code {
+    public bool IsProcessing { get; set; } = false;
+    public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        ECommerceProducts = await _productService.GetAll();
+        IsProcessing = false;
+    }
+
+   
+}
+
