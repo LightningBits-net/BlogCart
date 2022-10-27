@@ -1,4 +1,4 @@
-﻿@page "/ProductsGetAll"
+﻿@page "/AllProducts"
 @inject IProductService _productService
 @*Products UI place holder
     <_Products></_Products>*@
@@ -26,7 +26,6 @@ else
                             <MudCardHeader>
                                 <CardHeaderContent>
                                     <MudText Typo="Typo.h5"  Color="Color.Default">@product.Name</MudText>
-                                    @*<MudText Typo="Typo.body2" Color="Color.Inherit"> @category</MudText>*@
                                 </CardHeaderContent>
                             </MudCardHeader>
                             <MudCardMedia Image="@product.ImageUrl" Height="250" />
