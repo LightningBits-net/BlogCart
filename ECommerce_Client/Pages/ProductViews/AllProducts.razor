@@ -25,19 +25,21 @@ else
                         <MudCard Class="mb-4">
                             <MudCardHeader>
                                 <CardHeaderContent>
-                                    <MudText Typo="Typo.h5"  Color="Color.Default">@product.Name</MudText>
+                                    <MudText Typo="Typo.h5" Color="Color.Default">@product.Name</MudText>
+                                    <MudRating Color="Color.Primary" SelectedValue="5" />
                                 </CardHeaderContent>
                             </MudCardHeader>
                             <MudCardMedia Image="@product.ImageUrl" Height="250" />
                             <MudCardContent>
-                                <MudText Typo="Typo.body2" Color="Color.Inherit"> @((MarkupString)product.Description)</MudText>
+                                <p class="h-24 min-h-0">
+                                    <MudText Typo="Typo.body2" Color="Color.Inherit"> @((MarkupString)product.Description)</MudText>
+                                </p>
                             </MudCardContent>
                             <MudCardActions>
                                 <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Primary" />
-                                <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Primary" />
+                                <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Default" />
                                 <MudSpacer />
-                                <MudText Typo="Typo.body2" Color="Color.Primary"> Cat: @category</MudText>
-
+                                <MudText Typo="Typo.body2" Color="Color.Default"> Cat: @category</MudText>
                             </MudCardActions>
                         </MudCard>
                     }

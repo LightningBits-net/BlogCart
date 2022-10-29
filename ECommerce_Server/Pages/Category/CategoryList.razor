@@ -1,24 +1,21 @@
-﻿@page "/category"
-@*<PageTitle>Welcome Admin you rock</PageTitle>*@
+﻿@*@page "/category"*@
 
 @inject ICategoryRespository _categoryRespository
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 
-
 <body>
-    <div class="min-h-screen w-full p-2 flex justify-center items-center">
+    <div class="w-full flex justify-center items-center">
         <div class="w-full max-w-lg">
-            <div class="bg-white text-black border p-4 shadow rounded w-full mb-6">
-                <h1 class="mb-8 text-3xl text-white bg-black py-4 ">Category List</h1>
+            <div class="bg-white text-black border p-4 shadow rounded w-full">
+                <h1 class="mb-8 text-3xl text-white bg-black py-4">Category List</h1>
                 <div class="w-full bg-gray-200 gap-4 mt-2 p-4">
                     <MudButton Href="category/create" Variant="Variant.Filled" Color="Color.Primary">Create New Category</MudButton>
                     <MudButton Href="/product" Variant="Variant.Filled" Color="Color.Dark">Product List</MudButton>
                     <br />
                 </div>
                 <div class="w-full p-2 flex justify-center items-center bg-white text-black">
-
                     @if (ECommerceCategories.Any())
                     {
                         <table class="table-auto">
@@ -44,7 +41,6 @@
                                                     <MudButton Href="" Variant="Variant.Filled" Color="Color.Dark">Cancel</MudButton>
                                                 </MudButton>
                                             </MudMenu>
-
                                         </td>
                                     </tr>
                                 }
@@ -75,9 +71,7 @@
 
     public bool IsLoading { get; set; }
 
-
     private IEnumerable<CategoryDTO> ECommerceCategories { get; set; } = new List<CategoryDTO>();
-
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

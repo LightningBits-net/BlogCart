@@ -1,7 +1,5 @@
 ﻿@page "/product/create"
 @page "/product/edit/{id:int}"
-<PageTitle>Create Product</PageTitle>
-
 
 @inject IProductRespository _productRespository
 @inject ICategoryRespository _categoryRespository
@@ -9,7 +7,6 @@
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
-
 
 <body>
     <div class="min-f-screen w-full p-2 flex justify-center items-center">
@@ -25,7 +22,6 @@
                 else
                 {
             <EditForm Model="Product" OnValidSubmit="UpsertProduct">
-
                 <div class="flex flex-wrap justify-center">
                     <img src="@Product.ImageUrl"
                          class="p-1 bg-black border rounded max-w-sm" />
@@ -79,10 +75,8 @@
                     </div>
                 </div>
                 <br />
-                <button href="/product/Create" class="block w-full bg-black hover:bg-gray-600 text-white rounded font-heading mt-2 py-2 ">@Title</button>
+                <button href="/product/Create" class="block w-full bg-indigo-600 hover:bg-black text-white rounded font-heading mt-2 py-2 ">@Title</button>
                 <br />
-                <MudButton Href="/product" Variant="Variant.Outlined" Color="Color.Dark">Back to List</MudButton>
-                <MudButton Href="@($"ProductPrice/edit/{Product.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Price</MudButton>                
             </EditForm>
                 }
             </div>
@@ -120,14 +114,12 @@
         IsLoading = true;
         StateHasChanged();
         ECommerceCategories = await _categoryRespository.GetAll();
-
         if (Id != 0)
         {
             Title = "Update";
             Product = await _productRespository.Get(Id);
             OldImageUrl = Product.ImageUrl;
         }
-
         IsLoading = false;
         StateHasChanged();
     }
@@ -137,9 +129,8 @@
         if (Product.Id == 0)
         {
             await _productRespository.Create(Product);
-            snackBar.Add("Product created Succesfully.", Severity.Success);
+            snackBar.Add("Product created Succesfully. Refresh page to view updated product list", Severity.Success);
         }
-
         else
         {
             if(OldImageUrl!=Product.ImageUrl)
@@ -149,11 +140,10 @@
 
             await _productRespository.Update(Product);
             snackBar.Add("Product updated Succesfully.", Severity.Success);
-
         }
-
-        _navigationManager.NavigateTo("product");
+        _navigationManager.NavigateTo("AdminPanel");
     }
+
     private async Task HandleImageUpLoad(InputFileChangeEventArgs e)
     {
         IsLoading = true;
@@ -185,7 +175,6 @@
             snackBar.Add($"Invalid Image", Severity.Warning);
             IsLoading = false;
         }
-        //change snackbar position
     }
 }
 

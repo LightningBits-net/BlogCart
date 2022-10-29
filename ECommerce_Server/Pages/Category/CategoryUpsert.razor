@@ -1,17 +1,15 @@
-﻿@page "/category/create"
+﻿@*@page "/category/create"*@
 @page "/category/edit/{id:int}"
-
-
 
 @inject ICategoryRespository _categoryRespository
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
-
+@inject MudBlazor.ISnackbar snackBar
 
 <body>
-    <div class="min-h-screen w-full p-2 flex justify-center items-center">
+    <div class="w-full flex justify-center items-center">
         <div class="w-full max-w-lg">
-            <div class="bg-white text-black border p-4 shadow rounded w-full mb-6">
+            <div class="bg-white text-black border p-4 shadow rounded w-full">
                 <h1 class="mb-8 text-3xl text-white bg-black py-4 ">@Title Category</h1>
                 @if (IsLoading)
                 {
@@ -21,18 +19,16 @@
                 }
                 else
                 {
-            <EditForm Model="Category" OnValidSubmit="UpsertCategory">
-                <DataAnnotationsValidator />
-                <InputText @bind-Value="Category.Name" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-md" placeholder="Enter Category"></InputText>
-                <ValidationMessage For="()=>Category.Name"></ValidationMessage>
-                <br />
-                <button href="/category/Create" class="block w-full bg-indigo-500 hover:bg-black text-white rounded font-heading mt-2 py-2 ">@Title</button>
-                <br />
-                <MudButton Href="/category" Variant="Variant.Outlined" Color="Color.Dark">Back to List</MudButton>
-            </EditForm>
+                    <EditForm Model="Category" OnValidSubmit="UpsertCategory">
+                        <DataAnnotationsValidator />
+                        <InputText @bind-Value="Category.Name" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-md" placeholder="Enter Category"></InputText>
+                        <ValidationMessage For="()=>Category.Name"></ValidationMessage>
+                        <br />
+                        <button href="/category/Create" class="block w-full bg-indigo-500 hover:bg-black text-white rounded font-heading mt-2 py-2">@Title</button>
+                        <br />
+                    </EditForm>
                 }
             </div>
-            <p class="text-center text-sm text-white font-thin">Don't wanna create a category yet? <a href="/" class="text-indigo-500 no-underline hover:underline">Go Back Home</a></p>
         </div>
     </div>
 </body>
@@ -42,25 +38,25 @@
 
     [Parameter]
     public int Id { get; set; }
-
     private CategoryDTO Category { get; set; } = new CategoryDTO();
     private string Title { get; set; } = "Create";
     public bool IsLoading { get; set; }
+    private int Count { get; set; } = 10;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if(firstRender)
+        if (firstRender)
+        {
+            if (Id == 0)
             {
-                if (Id == 0)
-                {
-                    IsLoading = false;
-                }
-                else
-                {
-                    Title = "Update";
-                    await LoadCategory();
-                }
+                IsLoading = false;
             }
+            else
+            {
+                Title = "Update";
+                await LoadCategory();
+            }
+        }
     }
 
     private async Task LoadCategory()
@@ -74,19 +70,31 @@
 
     private async Task UpsertCategory()
     {
-
         if (Category.Id == 0)
         {
             await _categoryRespository.Create(Category);
+            snackBar.Add("Category created Succesfully. Refresh page to view updated category list", Severity.Success);
         }
-
         else
         {
             await _categoryRespository.Update(Category);
+            snackBar.Add("Category updated Succesfully.", Severity.Success);
         }
 
-        _navigationManager.NavigateTo("category");
+        _navigationManager.NavigateTo("");
+    }
 
+    void StartCountdown()
+    {
+        var timer = new Timer(new TimerCallback(_ =>
+        {
+            if (Count <= 0) return;
+            Count--;
+
+            // Note that the following line is necessary because otherwise
+            // Blazor would not recognize the state change and not refresh the UI
+            this.StateHasChanged();
+        }), null, 1000, 1000);
     }
 }
 
