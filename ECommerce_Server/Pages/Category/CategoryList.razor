@@ -10,20 +10,20 @@
         <div class="w-full max-w-lg">
             <div class="bg-white text-black border p-4 shadow rounded w-full">
                 <h1 class="mb-8 text-3xl text-white bg-black py-4">Category List</h1>
-                <div class="w-full bg-gray-200 gap-4 mt-2 p-4">
+                @*<div class="w-full bg-gray-200 gap-4 mt-2 p-4">
                     <MudButton Href="category/create" Variant="Variant.Filled" Color="Color.Primary">Create New Category</MudButton>
                     <MudButton Href="/product" Variant="Variant.Filled" Color="Color.Dark">Product List</MudButton>
                     <br />
-                </div>
+                </div>*@
                 <div class="w-full p-2 flex justify-center items-center bg-white text-black">
                     @if (ECommerceCategories.Any())
                     {
                         <table class="table-auto">
-                            <thead class="bg-gray-200">
+                            <thead class="bg-gray-400">
                                 <tr>
-                                    <th class=" w-full px-4 py-4">Name</th>
+                                    <th class=" w-1/2 px-8 py-4">Name</th>
                                     <th class=" w-1/4 px-4 py-2">Action</th>
-                                    <th class=" w-1/4 px-4 py-2"></th>
+                                    <th class=" w-1/4 px-4 py-2">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -31,10 +31,10 @@
                                 {
                                     <tr>
                                         <td class="border px-4 py-2">@objCat.Name</td>
-                                        <td>
+                                        <td class="p-2">
                                             <MudButton Href="@($"category/edit/{objCat.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
                                         </td>
-                                        <td>
+                                        <td class="p-2">
                                             <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
                                                 <MudButton>
                                                     <MudButton OnClick="@(()=>DeleteCategory(objCat.Id))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete of:<br />"@objCat.Name"</MudButton>
