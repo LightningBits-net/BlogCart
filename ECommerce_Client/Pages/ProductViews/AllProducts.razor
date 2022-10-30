@@ -1,5 +1,12 @@
 ﻿@page "/AllProducts"
+@page "/Products/logo"
+@page "/Products/Sale!"
+@page "/Products/NFT"
+@page "/Products/Clothing"
+@page "/Products/Misc"
+@page "/Products/Electronics"
 @inject IProductService _productService
+
 @*Products UI place holder
     <_Products></_Products>*@
 @if (IsProcessing)
@@ -63,6 +70,6 @@ else
         IsProcessing = false;
     }
 
-   
+
 }
 
