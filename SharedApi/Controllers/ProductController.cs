@@ -40,7 +40,7 @@ namespace SharedApi.Controllers
                 });
             }
 
-            var product = _productRespository.Get(productId.Value);
+            var product = await _productRespository.Get(productId.Value);
             if (product==null)
             {
                 return BadRequest(new ErrorModelDTO()

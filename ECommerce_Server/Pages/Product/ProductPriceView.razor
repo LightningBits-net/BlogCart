@@ -69,46 +69,6 @@
     <MudButton Class="w-full mb-2" Href="/AdminPanel" Variant="Variant.Filled" Color="Color.Primary">Admin Home</MudButton>
     <MudSpacer></MudSpacer>
     <MudButton Class="w-full" Href="@($"Product/edit/{Product.Id}")" Variant="Variant.Filled" Color="Color.Dark">Edit Product Details </MudButton>
-
-
-
-    @*<SfGrid @ref="productPriceGrid" DataSource="@ECommerceProductPrices" AllowPaging="true" AllowFiltering="true" AllowSorting="true" AllowResizing="true"
-                Toolbar="@(new List<string>{"Add", "Edit", "Update", "Delete", "Cancel" })">
-            <GridEditSettings AllowAdding="true" AllowEditing="true" ShowDeleteConfirmDialog="true" AllowDeleting="true"></GridEditSettings>
-            <GridEvents OnActionBegin="ActionHandler" TValue="ProductPriceDTO"></GridEvents>
-            <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Menu"></GridFilterSettings>
-            <GridSortSettings AllowUnsort="false">
-                <GridSortColumns>
-                    <GridSortColumn Field="Price" Direction="Syncfusion.Blazor.Grids.SortDirection.Ascending"></GridSortColumn>
-                </GridSortColumns>
-            </GridSortSettings>
-            <GridPageSettings PageSize="5" PageCount="5" PageSizes="true"></GridPageSettings>
-            <GridColumns>
-                <GridColumn IsPrimaryKey="true" AllowAdding="false" Field=@nameof(ProductPriceDTO.Id) HeaderText="ID" Width="50"></GridColumn>
-                <GridColumn DefaultValue="@MyProperty" Field=@nameof(ProductPriceDTO.MyProperty) HeaderText="MyProperty" Width="100"></GridColumn>
-                <GridColumn Field=@nameof(ProductPriceDTO.Size) HeaderText="Size" Width="100">
-                    <EditTemplate>
-                        <Syncfusion.Blazor.DropDowns.SfDropDownList DataSource="SizeList" TItem="string" TValue="string"
-                                                                    @bind-Value="((context as ProductPriceDTO)!.Size)">
-                        </Syncfusion.Blazor.DropDowns.SfDropDownList>
-                    </EditTemplate>
-                </GridColumn>
-                <GridColumn Field=@nameof(ProductPriceDTO.Price) HeaderText="Price" Format="C2"></GridColumn>
-                <GridColumn HeaderText="Manage Records">
-                    <GridCommandColumns>
-                        <GridCommandColumn Type="CommandButtonType.Edit" ButtonOption="@(new CommandButtonOptions() { IconCss = "e-icons e-edit", CssClass = "e-flat" })"></GridCommandColumn>
-                        <GridCommandColumn Type="CommandButtonType.Delete" ButtonOption="@(new CommandButtonOptions() { IconCss = "e-icons e-delete", CssClass = "e-flat" })"></GridCommandColumn>
-                        <GridCommandColumn Type="CommandButtonType.Save" ButtonOption="@(new CommandButtonOptions() { IconCss = "e-icons e-update", CssClass = "e-flat" })"></GridCommandColumn>
-                        <GridCommandColumn Type="CommandButtonType.Cancel" ButtonOption="@(new CommandButtonOptions() { IconCss = "e-icons e-cancel-icon", CssClass = "e-flat" })"></GridCommandColumn>
-                    </GridCommandColumns>
-                </GridColumn>
-            </GridColumns>
-        </SfGrid>
-        <button href="/AdminPanel" class="block w-full bg-indigo-600 hover:bg-black text-white rounded font-heading mt-2 py-2 ">Admin Home</button>
-        <button href="@($"Product/edit/{Product.Id}")" class="block w-full bg-indigo-600 hover:bg-black text-white rounded font-heading mt-2 py-2 ">Edit Product Description</button>*@
-
-    @*<MudButton Href="/AdminPanel" Variant="Variant.Filled" Color="Color.Dark">Admin Home</MudButton>
-        <MudButton Href="@($"Product/edit/{Product.Id}")" Variant="Variant.Filled" Color="Color.Dark">Edits </MudButton>*@
 </div>
     }
 </div>
@@ -124,7 +84,7 @@
 
     IEnumerable<string> SizeList = new List<string>()
     {
-        "small", "Medium", "Large", "xLarge", "8oz", "16oz", "24oz"
+        "N/A", "Quote", "small", "Medium", "Large", "xLarge", "8oz", "16oz", "24oz"
     };
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

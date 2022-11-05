@@ -1,10 +1,11 @@
 ﻿@*@page "/"*@
 @page "/Products"
-@page "/ProductsByCat"
+@page "/ProductsHome"
 
 @inject IProductService _productService
 
 <_ProductsHeader></_ProductsHeader>
+<_ProductsBannerMenu></_ProductsBannerMenu>
 @if (IsProcessing)
 {
     <PageTitle>Loading</PageTitle>
@@ -16,6 +17,14 @@ else
 {
     <PageTitle>Products</PageTitle>
     <body class="font-sans">
+        <ul class="flex justify-center pb-6 pl-6">
+            @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
+            {
+                <li>
+                    <a class="bg-gray-800 inline-block py-2 px-4 text-gray-400  hover:text-indigo-400 font-semibold" href="/@category">@category</a>
+                </li>
+            }
+        </ul>
         <div class="container mx-auto flex flex-wrap pb-20">
             @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
             {
@@ -30,9 +39,13 @@ else
                             @foreach (var product in ECommerceProducts.Where(u => u.Category.Name == category))
                             {
                                 <MudCarouselItem Transition="transition" Color="@Color.Dark">
-                                    <a href="/@product.Category.Name">
+                                    <a href="/ProductDetails/@product.Id">
                                         <img src="@product.ImageUrl" class="w-full h-64 object-cover mb-6" />
                                     </a>
+
+                                    @*<a href="/@product.Category.Name">
+                                        <img src="@product.ImageUrl" class="w-full h-64 object-cover mb-6" />
+                                    </a>*@
                                 </MudCarouselItem>
                             }
                         </MudCarousel>
@@ -63,7 +76,7 @@ else
     private bool arrows = true;
     private bool bullets = false;
     private bool enableSwipeGesture = true;
-    private bool autocycle = false;
+    private bool autocycle = true;
     private Transition transition = Transition.Slide;
 }
 
