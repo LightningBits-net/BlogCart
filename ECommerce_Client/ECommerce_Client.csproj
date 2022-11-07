@@ -24,4 +24,12 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Pages\ProductViews\ProductsByCat\" />
+    <None Remove="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\ProductViews\ProductsByCat\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
 </Project>
