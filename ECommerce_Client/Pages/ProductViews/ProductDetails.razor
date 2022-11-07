@@ -4,7 +4,6 @@
 @inject IProductService _productService
 @inject MudBlazor.ISnackbar snackBar
 
-
 @if (IsProcessing)
 {
     <div class="text-center">
@@ -13,78 +12,70 @@
 }
 else
 {
-    <div class="min-f-screen w-full p-2 flex justify-center items-center">
-                <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-                    <header class="block text-3xl text-black font-bold text-center mb-2">@ECommerceProduct.Name</header>
-                    <p class="text-small text-indigo-600 ">Category: @ECommerceProduct.Category.Name</p>
-                    <img src="@ECommerceProduct.ImageUrl" class="block w-full" />
-                    <div class="inline-flex mt-4 text-black">
-                        <div class="flex justify-center">
-                            <div class="mb-3 xl:w-96">
-                                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal  text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                                    <option selected>Colors</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
+<div class="min-f-screen w-full p-2 pt-10 flex justify-center items-center">
+    <div class="w-full md:w-1/2 lg:w-1/2 px-6 mb-12">
+        <MudCard Elevation="25">
+            <MudCardActions>
+                <MudText Typo="Typo.h3" Color="Color.Default">@ECommerceProduct.Name</MudText>
+                <MudSpacer />
+                <MudButton Class="w-1/2" Href="" Variant="Variant.Filled" Color="Color.Dark">Add to Cart</MudButton>
+            </MudCardActions>
+            <a href="/ProductDetails/@ECommerceProduct.Id">
+                <img src="@ECommerceProduct.ImageUrl" class="w-full h-64 object-cover mb-6" />
+            </a>
+            <div class="flex flex-wrap">
+                <div class="w-full md:w-1/2 px-3 mb-2 md:mb-0">
+                    <label class="block uppercase tracking-wide text-indigo-600 text-xs font-bold mb-1" for="grid-state">
+                        Price
+                    </label>
+                    <div class="relative">
+                        <select class="block text-center appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                            @foreach (var product in ECommerceProduct.ECommerceProductPrices.Distinct())
+                            {
+                                <option class="text-center">
+                                    <p>@product.Price.ToString("c") &nbsp</p>
+                                    <p>&nbsp &nbsp @product.Size</p>
+                                </option>
+                            }
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                         </div>
-                        <MudMenu FullWidth="true">
-                            <ActivatorContent>
-                                <MudButton Variant="Variant.Filled" Color="Color.Dark">--Sizes--</MudButton>
-                            </ActivatorContent>
-                            <ChildContent>
-                                <MudMenuItem>Profile</MudMenuItem>
-                                <MudMenuItem>Theme</MudMenuItem>
-                                <MudMenuItem>Usage</MudMenuItem>
-                                <MudMenuItem>Sign Out</MudMenuItem>
-                            </ChildContent>
-                        </MudMenu>
-                        <MudMenu FullWidth="true">
-                            <ActivatorContent>
-                                <MudButton Variant="Variant.Filled" Color="Color.Dark">--Colors--</MudButton>
-                            </ActivatorContent>
-                            <ChildContent>
-                                @foreach (var productSizes in ECommerceProduct.ECommerceProductPrices)
-                                {
-                                    <MudMenuItem>Profile</MudMenuItem>
-                                }
-                            </ChildContent>
-                        </MudMenu>
-                        <MudMenu FullWidth="true">
-                            <ActivatorContent>
-                                <MudButton Variant="Variant.Filled" Color="Color.Dark">I am a button</MudButton>
-                            </ActivatorContent>
-                            <ChildContent>
-                                <MudMenuItem>Profile</MudMenuItem>
-                                <MudMenuItem>Theme</MudMenuItem>
-                                <MudMenuItem>Usage</MudMenuItem>
-                                <MudMenuItem>Sign Out</MudMenuItem>
-                            </ChildContent>
-                        </MudMenu>
-                        <MudMenu FullWidth="true">
-                            <ActivatorContent>
-                                <MudButton Variant="Variant.Filled" Color="Color.Dark">I am a button</MudButton>
-                            </ActivatorContent>
-                            <ChildContent>
-                                <MudMenuItem>Profile</MudMenuItem>
-                                <MudMenuItem>Theme</MudMenuItem>
-                                <MudMenuItem>Usage</MudMenuItem>
-                                <MudMenuItem>Sign Out</MudMenuItem>
-                            </ChildContent>
-                        </MudMenu>
                     </div>
-                    <p class="h-48 min-h-0 mt-2 border-double border-4 border-sky-50 text-center text-black leading-relaxed text-md">Description: @((MarkupString)ECommerceProduct.Description)</p>
-                    <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true">Back to Products</MudButton>
                 </div>
+
+                <div class="w-full md:w-1/2 px-3 mb-2 md:mb-0">
+                    <label class="block uppercase tracking-wide text-indigo-600 text-xs font-bold mb-1" for="grid-state">
+                        Color
+                    </label>
+                    <div class="relative">
+                        <select class="block text-center appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                            <option>@ECommerceProduct.Color</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-  
-}
+                <MudCardContent>
+                    <p class="h-48 min-h-0 text-xs">
+                        Description:
+                        <MudText Typo="Typo.h6" Color="Color.Inherit"> @((MarkupString)ECommerceProduct.Description)</MudText>
+                    </p>
+                </MudCardContent>
+                <MudButton Class="w-full" Href="" Variant="Variant.Filled" Color="Color.Dark">go back</MudButton>
+        </MudCard>
+    </div>
+</div>
+    }
 
 
 
 
-@code {
+    @code {
+
     [Parameter]
     public int ProductId { get; set; }
     public ProductDTO ECommerceProduct { get; set; } = new();
