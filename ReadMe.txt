@@ -1,7 +1,10 @@
 ﻿
-To edit this project with Hot reload active in terminal run dotnet watch from BlazorWebclient and npx watch from SharedUI.
+To Edit client side project with Hot Reload
+(in terminal)
 from SharedUI: npx tailwindcss -i ./cssStyles/app.css -o ./wwwroot/app.css --watch
 from BlazorWebClient:  dotnet watch 
+from Server dotnet run
+from Shared API dotnet run
 
 
 Install MudBlazor
@@ -10,6 +13,9 @@ https://mudblazor.com/getting-started/installation#ready-for-more?
 
 Install Tailwind
 https://chrissainty.com/adding-tailwind-css-v3-to-a-blazor-app/
+
+install Syncfusion
+https://blazor.syncfusion.com/documentation/getting-started/blazor-server-side-visual-studio
 
 
 Photo Attributes
@@ -26,6 +32,8 @@ Intial Templates built upon where provided by:
 ## Authors
 
 * **Ross Topping** - [Digizu](https://digizu.co.uk)
+
+* **LightningBits 
 
 ## License
 
