@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SharedServices.Respository.IRespository;
+using SharedServices.Repository.IRepository;
 using SharedServices.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,17 +14,17 @@ namespace SharedApi.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductRespository _productRespository;
+        private readonly IProductRepository _productRepository;
 
-        public ProductController(IProductRespository productRespository)
+        public ProductController(IProductRepository productRepository)
         {
-            _productRespository = productRespository;
+            _productRepository = productRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _productRespository.GetAll());
+            return Ok(await _productRepository.GetAll());
         }
 
 
@@ -40,7 +40,7 @@ namespace SharedApi.Controllers
                 });
             }
 
-            var product = await _productRespository.Get(productId.Value);
+            var product = await _productRepository.Get(productId.Value);
             if (product==null)
             {
                 return BadRequest(new ErrorModelDTO()
@@ -49,7 +49,7 @@ namespace SharedApi.Controllers
                     StatusCode=StatusCodes.Status404NotFound
                 });
             }
-            //return Ok(await _productRespository.GetAll());
+            //return Ok(await _productRepository.GetAll());
             return Ok(product);
         }
     }

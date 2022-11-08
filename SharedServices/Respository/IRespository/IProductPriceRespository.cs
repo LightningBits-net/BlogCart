@@ -3,9 +3,9 @@ using System;
 using SharedServices.Data;
 using SharedServices.Models;
 
-namespace SharedServices.Respository.IRespository
+namespace SharedServices.Repository.IRepository
 {
-    public interface IProductPriceRespository
+    public interface IProductPriceRepository
     {
         public Task<ProductPriceDTO> Create(ProductPriceDTO objDTO);
 

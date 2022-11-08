@@ -1,20 +1,20 @@
 ﻿// LightningBits
 using System;
-using SharedServices.Respository.IRespository;
+using SharedServices.Repository.IRepository;
 using AutoMapper;
 using SharedServices.Data;
 using SharedServices;
 using Microsoft.EntityFrameworkCore;
 using SharedServices.Models;
 
-namespace SharedServices.Respository
+namespace SharedServices.Repository
 {
-    public class ProductPriceRespository : IProductPriceRespository
+    public class ProductPriceRepository : IProductPriceRepository
     {
         private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
 
-        public ProductPriceRespository(ApplicationDbContext db, IMapper mapper)
+        public ProductPriceRepository(ApplicationDbContext db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;

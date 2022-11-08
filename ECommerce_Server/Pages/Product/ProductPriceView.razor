@@ -1,7 +1,7 @@
 ﻿@page "/ProductPrice/Edit/{id:int}"
 
-@inject IProductRespository  _productRespository
-@inject IProductPriceRespository _productPriceRespository
+@inject IProductRepository  _productRepository
+@inject IProductPriceRepository _productPriceRepository
 @inject MudBlazor.ISnackbar snackBar
 
 <div class="bg-black container mx-auto flex flex-wrap justify-center mb-20 mt-10">
@@ -93,8 +93,8 @@
         {
             IsLoading = true;
             StateHasChanged();
-            Product = await _productRespository.Get(Id);
-            ECommerceProductPrices = await _productPriceRespository.GetAll(Id);
+            Product = await _productRepository.Get(Id);
+            ECommerceProductPrices = await _productPriceRepository.GetAll(Id);
             IsLoading = false;
             StateHasChanged();
         }
@@ -108,18 +108,18 @@
 
             if(args.Action=="Add")
             {
-                await _productPriceRespository.Create(args.Data);
-                ECommerceProductPrices = await _productPriceRespository.GetAll(Id);
+                await _productPriceRepository.Create(args.Data);
+                ECommerceProductPrices = await _productPriceRepository.GetAll(Id);
                 await productPriceGrid.Refresh();
             }
             if(args.Action=="Edit")
             {
-                await _productPriceRespository.Update(args.Data);
+                await _productPriceRepository.Update(args.Data);
             }
         }
         if (args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Delete))
         {
-            await _productPriceRespository.Delete(args.Data.Id);
+            await _productPriceRepository.Delete(args.Data.Id);
             await productPriceGrid.Refresh();
         }
     }

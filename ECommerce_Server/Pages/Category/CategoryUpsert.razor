@@ -1,7 +1,7 @@
 ﻿@*@page "/category/create"*@
 @page "/category/edit/{id:int}"
 
-@inject ICategoryRespository _categoryRespository
+@inject ICategoryRepository _categoryRepository
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
@@ -63,7 +63,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Category = await _categoryRespository.Get(Id);
+        Category = await _categoryRepository.Get(Id);
         IsLoading = false;
         StateHasChanged();
     }
@@ -72,12 +72,12 @@
     {
         if (Category.Id == 0)
         {
-            await _categoryRespository.Create(Category);
+            await _categoryRepository.Create(Category);
             snackBar.Add("Category created Succesfully. Refresh page to view updated category list", Severity.Success);
         }
         else
         {
-            await _categoryRespository.Update(Category);
+            await _categoryRepository.Update(Category);
             snackBar.Add("Category updated Succesfully.", Severity.Success);
         }
 

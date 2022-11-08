@@ -21,13 +21,20 @@ else
                     <MudCardActions>
                         <MudText Typo="Typo.h3" Color="Color.Default">@ECommerceProduct.Name</MudText>
                         <MudSpacer />
-                        <MudButton Class="w-1/2" Href="" Variant="Variant.Filled" Color="Color.Dark">Add to Cart</MudButton>
+                        <MudButton Class="w-1/2 mr-2" Href="" Variant="Variant.Filled" Color="Color.Dark">Add to Cart</MudButton>
+                        <MudButton Class="w-1/2" Href="" Variant="Variant.Filled" Color="Color.Dark">Count: @DetailsVM.Count</MudButton>
+
+                    </MudCardActions>
+                    <MudCardActions>
+                        <MudText Typo="Typo.overline" Color="Color.Default">Category: @ECommerceProduct.Category.Name</MudText>
+                        <MudSpacer />
+                        <MudButton>Color: @ECommerceProduct.Color</MudButton>
                     </MudCardActions>
                     <a href="/ProductDetails/@ECommerceProduct.Id">
                         <img src="@ECommerceProduct.ImageUrl" class="w-full h-64 object-cover mb-6" />
                     </a>
                     <div class="flex flex-wrap">
-                        <div class="w-full md:w-1/2 px-3 mb-2 md:mb-0">
+                        <div class="w-full px-3 mb-2 md:mb-0">
                             <label class="block uppercase tracking-wide text-indigo-600 text-xs font-bold mb-1" for="grid-state">
                                 Price
                             </label>
@@ -35,61 +42,20 @@ else
                                 <select class="block text-center appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                     @foreach (var product in ECommerceProduct.ECommerceProductPrices.Distinct())
                                     {
-                                        if (product.Id == DetailsVM.SelectedProductPriceId)
-                                        {
-                                            //this product selected by user
-                                        }
-                                        else
-                                        {
-                                            //all other products
-                                        }
-
                                         <option class="text-center">
                                             <p>&nbsp @product.Price.ToString("c") &nbsp</p>
                                             <p>&nbsp - &nbsp[ @product.Size ] &nbsp -</p>
                                         </option>
-
-
-                                    }
-                                    @if (!ECommerceProduct.ECommerceProductPrices.Any())
-                                    {
-                                        <p class="text-warning">No Size available yet...</p>
-
-                                    }
-                                    else
-                                    {
-                                        <div class="row pl-2">
-                                            <div class="col-2 text-primary"><h4>Count</h4></div>
-                                            <div class="col-10">
-                                                <InputNumber @bind-Value="DetailsVM.Count" class="form-control" />
-                                                <ValidationMessage For="() => DetailsVM.Count"></ValidationMessage>
-                                            </div>
-                                        </div>
                                     }
                                 </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                                </div>
+                                @*<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+        </div>*@
                             </div>
                         </div>
-
-                        <div class="w-full md:w-1/2 px-3 mb-2 md:mb-0">
-                            <label class="block uppercase tracking-wide text-indigo-600 text-xs font-bold mb-1" for="grid-state">
-                                Color
-                            </label>
-                            <div class="relative">
-                                <select class="block text-center appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                    <option>@ECommerceProduct.Color</option>
-                                </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                     <MudCardContent>
-                        <p class="h-48 min-h-0 text-xs">
+                        <p class="h-48 min-h-0 m-20 text-xs">
                             Description:
                             <MudText Typo="Typo.h6" Color="Color.Inherit"> @((MarkupString)ECommerceProduct.Description)</MudText>
                         </p>
@@ -128,7 +94,7 @@ else
 
     private async Task AddToCart()
     {
-        @*ShoppingCart shoppingCart = new()
+        @*ShoppingCart shoppingCart = new()   
             {
                 Count = DetailsVM.Count,
                 ProductId = ProductId,

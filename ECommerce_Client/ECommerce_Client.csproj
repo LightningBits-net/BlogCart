@@ -32,4 +32,9 @@
     <Folder Include="Pages\ProductViews\ProductsByCat\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Pages\Details.txt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </None>
+  </ItemGroup>
 </Project>

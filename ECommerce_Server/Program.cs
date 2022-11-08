@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using SharedServices.Respository;
-using SharedServices.Respository.IRespository;
+using SharedServices.Repository;
+using SharedServices.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using SharedServices.Data;
 using MudBlazor.Services;
@@ -18,9 +18,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<ICategoryRespository, CategoryRespository>();
-builder.Services.AddScoped<IProductRespository, ProductRespository>();
-builder.Services.AddScoped<IProductPriceRespository, ProductPriceRespository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductPriceRepository, ProductPriceRepository>();
 builder.Services.AddScoped<IFileUpload, FileUpload>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMudServices();

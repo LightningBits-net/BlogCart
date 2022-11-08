@@ -1,5 +1,5 @@
-﻿@inject IProductRespository _productRespository
-@inject ICategoryRespository _categoryRespository
+﻿@inject IProductRepository _productRepository
+@inject ICategoryRepository _categoryRepository
 @inject IFileUpload _fileUpload
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
@@ -110,11 +110,11 @@
     {
         IsLoading = true;
         StateHasChanged();
-        ECommerceCategories = await _categoryRespository.GetAll();
+        ECommerceCategories = await _categoryRepository.GetAll();
         if (Id != 0)
         {
             Title = "Update";
-            Product = await _productRespository.Get(Id);
+            Product = await _productRepository.Get(Id);
             OldImageUrl = Product.ImageUrl;
         }
         IsLoading = false;
@@ -125,7 +125,7 @@
     {
         if (Product.Id == 0)
         {
-            await _productRespository.Create(Product);
+            await _productRepository.Create(Product);
             snackBar.Add("Product created Succesfully. Refresh page to view updated product list", Severity.Success);
         }
         else
@@ -134,7 +134,7 @@
             {
                 _fileUpload.DeleteFile(OldImageUrl);
             }
-            await _productRespository.Update(Product);
+            await _productRepository.Update(Product);
             snackBar.Add("Product updated Succesfully.", Severity.Success);
         }
         _navigationManager.NavigateTo("AdminPanel");

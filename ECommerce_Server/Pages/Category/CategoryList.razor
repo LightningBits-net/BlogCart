@@ -1,6 +1,6 @@
 ﻿@*@page "/category"*@
 
-@inject ICategoryRespository _categoryRespository
+@inject ICategoryRepository _categoryRepository
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
@@ -80,14 +80,14 @@
     {
         IsLoading = true;
         StateHasChanged();
-        ECommerceCategories = await _categoryRespository.GetAll();
+        ECommerceCategories = await _categoryRepository.GetAll();
         IsLoading = false;
         StateHasChanged();
     }
 
     private async Task DeleteCategory(int id)
     {
-        await _categoryRespository.Delete(id);
+        await _categoryRepository.Delete(id);
         await LoadCategories();
         snackBar.Add("Category Deleted.", Severity.Success);
     }

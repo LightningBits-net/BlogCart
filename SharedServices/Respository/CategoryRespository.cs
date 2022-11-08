@@ -1,22 +1,22 @@
 ﻿// LightningBits
 using System;
-using SharedServices.Respository.IRespository;
+using SharedServices.Repository.IRepository;
 using AutoMapper;
 using SharedServices.Data;
 using SharedServices;
 using Microsoft.EntityFrameworkCore;
 using SharedServices.Models;
 
-namespace SharedServices.Respository
+namespace SharedServices.Repository
 {
-    public class CategoryRespository : ICategoryRespository
+    public class CategoryRepository : ICategoryRepository
     {
 
         private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
 
 
-        public CategoryRespository(ApplicationDbContext db, IMapper mapper)
+        public CategoryRepository(ApplicationDbContext db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;

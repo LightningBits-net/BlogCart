@@ -1,6 +1,6 @@
 ﻿@page "/product"
 
-@inject IProductRespository _productRespository
+@inject IProductRepository _productRepository
 @inject IDialogService DialogService
 @inject IFileUpload _fileUpload
 @inject NavigationManager _navigationManager
@@ -95,7 +95,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        ECommerceProducts = await _productRespository.GetAll();
+        ECommerceProducts = await _productRepository.GetAll();
         IsLoading = false;
         StateHasChanged();
     }
@@ -106,12 +106,12 @@
         IsLoading = true;
         if (DeleteProductId != 0)
         {
-            ProductDTO product = await _productRespository.Get(DeleteProductId);
+            ProductDTO product = await _productRepository.Get(DeleteProductId);
             if (!product.ImageUrl.Contains("/img/lb_logo.png"))
             {
                 _fileUpload.DeleteFile(product.ImageUrl);
             }
-            await _productRespository.Delete(DeleteProductId);
+            await _productRepository.Delete(DeleteProductId);
             snackBar.Add("Product Deleted.", Severity.Success);
             await LoadProducts();
         }
