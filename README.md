@@ -24,3 +24,4 @@ https://user-images.githubusercontent.com/63980943/200398434-deee6855-1a49-4f77-
 
  Read E-Commerce/ReadMe.txt for Run instructions and also feel free to message me, your input is very valuable to me.
  Thank you.
+ In server Json file you must add your own connection string to your own local SQL DB, then run all migrations.
