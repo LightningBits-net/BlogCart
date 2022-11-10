@@ -12,14 +12,14 @@ using SharedServices.Data;
 namespace SharedServices.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220922190402_initial1")]
-    partial class initial1
+    [Migration("20221110183714_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -126,12 +126,17 @@ namespace SharedServices.Migrations
             modelBuilder.Entity("SharedServices.Data.ProductPrice", b =>
                 {
                     b.HasOne("SharedServices.Data.Product", "Product")
-                        .WithMany()
+                        .WithMany("ECommerceProductPrices")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("SharedServices.Data.Product", b =>
+                {
+                    b.Navigation("ECommerceProductPrices");
                 });
 #pragma warning restore 612, 618
         }

@@ -24,6 +24,7 @@ namespace SharedServices.Models
 
         public string ImageUrl { get; set; }
 
+        [Required]
         [Range(1, int.MaxValue, ErrorMessage = "Please select a catogory")]
         public int CategoryId { get; set; }
        

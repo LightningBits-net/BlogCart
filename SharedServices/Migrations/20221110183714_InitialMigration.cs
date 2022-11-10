@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SharedServices.Migrations
 {
-    public partial class initial : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,33 @@ namespace SharedServices.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ECommerceProductPrices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    MyProperty = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Size = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ECommerceProductPrices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ECommerceProductPrices_ECommerceProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "ECommerceProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ECommerceProductPrices_ProductId",
+                table: "ECommerceProductPrices",
+                column: "ProductId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_ECommerceProducts_CategoryId",
                 table: "ECommerceProducts",
@@ -56,6 +83,9 @@ namespace SharedServices.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ECommerceProductPrices");
+
             migrationBuilder.DropTable(
                 name: "ECommerceProducts");
 
