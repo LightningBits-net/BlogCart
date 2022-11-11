@@ -150,7 +150,8 @@
                 foreach (var file in e.GetMultipleFiles())
                 {
                     System.IO.FileInfo fileInfo = new System.IO.FileInfo(file.Name);
-                    if (fileInfo.Extension.ToLower() == ".jpeg" ||
+                    if (fileInfo.Extension.ToLower() == ".avif" ||
+                        fileInfo.Extension.ToLower() == ".jpeg" ||
                         fileInfo.Extension.ToLower() == ".png" ||
                         fileInfo.Extension.ToLower() == ".jpg")
                     {
@@ -158,7 +159,7 @@
                     }
                     else
                     {
-                        snackBar.Add("Invalid file type! only jpeg, jpg, and png files are valid.", Severity.Error);
+                        snackBar.Add("Invalid file type! only avif, jpeg, jpg, and png files are valid.", Severity.Error);
                         return;
                     }
                 }

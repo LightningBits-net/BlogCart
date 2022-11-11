@@ -18,7 +18,7 @@ namespace ECommerce_Client.ViewModels
         [Required]
        public int SelectedProductPriceId { get; set; }
 
-        public ProductPriceDTO ProductPrice { get; set; }
+        public ProductPriceDTO? ProductPrice { get; set; }
     }
 }
 

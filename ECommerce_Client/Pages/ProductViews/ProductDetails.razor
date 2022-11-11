@@ -43,8 +43,9 @@ else
                                     @foreach (var product in ECommerceProduct.ECommerceProductPrices.Distinct())
                                     {
                                         <option class="text-center bg-gray-500">
+                                            <p>@product.MyProperty &nbsp</p>
                                             <p>&nbsp @product.Price.ToString("c") &nbsp</p>
-                                            <p>&nbsp - &nbsp[ @product.Size ] &nbsp -</p>
+                                            <p>&nbsp @product.Size  &nbsp </p>
                                         </option>
                                     }
 
@@ -94,8 +95,8 @@ else
 
     private async Task SelectedProductPrice(MouseEventArgs e, int productPriceId)
     {
-        DetailsVM.ProductPrice = ECommerceProduct.ECommerceProductPrices.FirstOrDefault(u => u.Id == productPriceId);
-        DetailsVM.SelectedProductPriceId = productPriceId;
+         DetailsVM.ProductPrice = ECommerceProduct.ECommerceProductPrices.FirstOrDefault(u => u.Id == productPriceId);
+         DetailsVM.SelectedProductPriceId = productPriceId;
     }
 
     private async Task AddToCart()

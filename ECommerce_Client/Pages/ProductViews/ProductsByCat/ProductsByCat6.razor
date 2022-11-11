@@ -1,8 +1,8 @@
-﻿@page "/Misc"
+﻿@page "/Sale"
 @inject IProductService _productService
 
 
-    <_ProductsBannerMenu></_ProductsBannerMenu>
+<_ProductsBannerMenu></_ProductsBannerMenu>
 @if (IsProcessing)
 {
     <PageTitle>Loading</PageTitle>
@@ -12,7 +12,7 @@
 }
 else
 {
-    <PageTitle>Products</PageTitle>
+    <PageTitle>@CategoryName</PageTitle>
     <body class="font-sans">
         <ul class="flex justify-center pb-6 pl-6">
             @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
@@ -61,7 +61,7 @@ else
 @code {
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
-    public string CategoryName = "Misc";
+    public string CategoryName { get; set; } = "Sale";
 
     protected override async Task OnInitializedAsync()
     {
