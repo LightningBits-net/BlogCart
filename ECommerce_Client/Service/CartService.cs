@@ -7,12 +7,13 @@ namespace ECommerce_Client.Service
 {
 	public class CartService : ICartService
 	{
-		public CartService(ILocalStorageService localStorageService)
+        private readonly ILocalStorageService _localStorage;
+        //public event Action OnChange;
+
+        public CartService(ILocalStorageService localStorageService)
 		{
             _localStorage = localStorageService;
 		}
-
-        private readonly ILocalStorageService _localStorage;
 
         public async Task DecrementCart(ShoppingCart cartToDecrement)
         {
@@ -31,8 +32,9 @@ namespace ECommerce_Client.Service
                         cart[i].Count -= cartToDecrement.Count;
                     }
                 }
-
             }
+            await _localStorage.SetItemAsync(SD.ShoppingCart, cart);
+            //OnChange.Invoke();
         }
 
         public async Task IncrementCart(ShoppingCart cartToAdd)
@@ -61,7 +63,8 @@ namespace ECommerce_Client.Service
                     Count = cartToAdd.Count
                 });
             }
-            await _localStorage.SetItemAsync(SD.ShoppingCart, cartToAdd);
+            await _localStorage.SetItemAsync(SD.ShoppingCart, cart);
+            //OnChange.Invoke();
         }
     }
 }

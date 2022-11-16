@@ -14,177 +14,46 @@
     </div>
 }
 else
-{
-    <EditForm OnValidSubmit="AddToCart" Model="DetailsVM" method="post">
-        <DataAnnotationsValidator />
-        <div class="card container mt-4">
-            <div class="card-header ml-0  row">
-                <div class="col-12 col-md-6">
-                    <h1 class="text-primary">@ECommerceProduct.Name</h1>
-                </div>
-
-                <div class="col-12 col-md-6 text-end pt-4">
-                    <span class="badge bg-info pt-2" style="height:30px;">@ECommerceProduct.Category.Name</span>
-                    <span class="badge bg-warning pt-2" style="height:30px;">@ECommerceProduct.Color</span>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="container rounded p-2">
-                    <div class="row">
-                        <div class="col-10">
-                            <p>@((MarkupString)ECommerceProduct.Description)</p>
-                            <div class="row">
-                                @foreach (var productPrice in ECommerceProduct.ECommerceProductPrices)
-                                {
-                                    if (productPrice.Id == DetailsVM.SelectedProductPriceId)
-                                    {
-                                        //this product is selected by user
-                                        <div class="col-2 bg-light text-center pt-2 m-2" style="border:3px solid #28A745; border-radius:10px;box-shadow:5px">
-                                            <p>@productPrice.Size</p>
-                                            <p>@productPrice.Price.ToString("c")</p>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        //all other products
-                                        <div class="col-2 bg-light text-center pt-2 m-2" style="border:1px solid; border-radius:10px;box-shadow:5px"
-                                             @onclick="(args)=>SelectedProductPrice(args,productPrice.Id)">
-                                            <p>@productPrice.Size</p>
-                                            <p>@productPrice.Price.ToString("c")</p>
-                                        </div>
-                                    }
-                                }
-                                @if (!ECommerceProduct.ECommerceProductPrices.Any())
-                                {
-                                    <p class="text-warning">No Size available yet...</p>
-                                }
-                                else
-                                {
-                                    <div class="row pl-2">
-                                        <div class="col-2 text-primary"><h4>Count</h4></div>
-                                        <div class="col-10">
-                                            <InputNumber @bind-Value="DetailsVM.Count" class="form-control" />
-                                            <ValidationMessage For="()=>DetailsVM.Count"></ValidationMessage>
-                                        </div>
-                                    </div>
-                                }
-
-                            </div>
-
-
-                        </div>
-                        <div class="col-2">
-                            <img src="@ECommerceProduct.ImageUrl" width="100%" class="rounded" />
-                        </div>
-
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-12 col-md-6 pb-1">
-                            <a class="btn btn-success form-control " href="/">Back to Home</a>
-                        </div>
-                        <div class="col-12 col-md-6 pb-1">
-                            @if (DetailsVM.SelectedProductPriceId > 0)
-                            {
-                                //item has been selected
-                                <button type="submit" value="Add to Cart" class="btn btn-primary form-control">Add to Cart</button>
-                            }
-                            else
-                            {
-                                <button type="submit" value="Add to Cart" disabled class="btn btn-primary form-control">Add to Cart</button>
-                            }
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </EditForm>
-
-}
-
-@*else
     {
         <div class="min-f-screen w-full p-2 pt-10 flex justify-center items-center">
             <div class="w-full md:w-1/2 lg:w-1/2 px-6 mb-12">
                 <EditForm OnInvalidSubmit="AddToCart" Model="DetailsVM" method="post">
                     <DataAnnotationsValidator />
                     <MudCard Elevation="25">
-                        @if (!ECommerceProduct.ECommerceProductPrices.Any())
-                        {
-                            <MudCardActions>
-                                <MudText Typo="Typo.h3" Color="Color.Default">@ECommerceProduct.Name</MudText>
-                                <MudSpacer />
-                                <MudButton Class="w-1/2 mr-2" Href="" Variant="Variant.Filled" Color="Color.Dark">Sold out</MudButton>
-                            </MudCardActions>
-                            <MudCardActions>
-                                <MudText Typo="Typo.overline" Color="Color.Default">Color: @ECommerceProduct.Color &nbsp </MudText>
-                                <MudText Typo="Typo.overline" Color="Color.Default">&nbsp Category: @ECommerceProduct.Category.Name</MudText>
-                                <MudSpacer />
-                            </MudCardActions>
-                        }
-                        else
-                        {
-                            <MudCardActions>
-                                <MudText Typo="Typo.h3" Color="Color.Default">@ECommerceProduct.Name</MudText>
-                                <MudSpacer />
-                                <div class="width-1/2 text-black">
-                                    <MudNumericField Label="Qty" @bind-Value="DetailsVM.Count" class="form-control" />
-                                    <ValidationMessage For="()=>DetailsVM.Count"></ValidationMessage>
-                                </div>
-                            </MudCardActions>
-                            <MudCardActions>
-                                <MudText Typo="Typo.overline" Color="Color.Default">Color: @ECommerceProduct.Color &nbsp </MudText>
-                                <MudText Typo="Typo.overline" Color="Color.Default">&nbsp Category: @ECommerceProduct.Category.Name</MudText>
-                                <MudSpacer />
+                        <MudCardActions>
+                            <MudText Typo="Typo.h3" Color="Color.Default">@ECommerceProduct.Name</MudText>
+                            <MudSpacer />
+                            <MudButton Class="w-1/2 mr-2" OnClick="AddToCart" Variant="Variant.Filled" Color="Color.Dark">Add to Cart</MudButton>
+                        </MudCardActions>
+                        <MudCardMedia Image="@ECommerceProduct.ImageUrl" Height="300" />
+                        @*<MudCardMedia Height="100" Hre>
+                            <a href="/ProductDetails/@ECommerceProduct.Id">
+                                <img src="@ECommerceProduct.ImageUrl" class="w-full h-64 object-cover mb-6" />
+                            </a>
+                        </MudCardMedia>*@
+                        <div>
 
-                                <MudButton Class="w-1/2 mr-2" OnClick="AddToCart" Variant="Variant.Filled" Color="Color.Dark">Add @DetailsVM.Count to Cart</MudButton>
-                            </MudCardActions>
-                        }
-                        <div class="form-group border shadow md:w-1/3 px-3 mt-2 mb-3 md:mb-0">
-                            <div class="form-select">
-                                <label class="font-bold"><u>Category</u></label>
-                                <InputSelect @bind-Value="DetailsVM.SelectedProductPriceId" class="form-select text-center">
-                                    <option value="0" disabled="disabled" selected>--Select Category--</option>
+                            <MudCardActions>
+                                <MudText Typo="Typo.overline" Color="Color.Default">Color: @ECommerceProduct.Color &nbsp </MudText>
+                                <MudSpacer />
+                                <select class="text-center bg-gray-200 border border-gray-200 text-black rounded focus:outline-none focus:bg-white focus:border-gray-500">
                                     @foreach (var product in ECommerceProduct.ECommerceProductPrices)
                                     {
-                                        <option class="text-center bg-gray-500">
+                                        <option value.bind="@DetailsVM.SelectedProductPriceId" class="text-center">
                                             <p>@product.MyProperty &nbsp</p>
                                             <p>&nbsp @product.Price.ToString("c") &nbsp</p>
                                             <p>&nbsp @product.Size  &nbsp </p>
                                         </option>
                                     }
-                                </InputSelect>
-                            </div>
+                                </select>
+                                <MudSpacer />
+                                <MudText Typo="Typo.overline" Color="Color.Default">&nbsp Category: @ECommerceProduct.Category.Name</MudText>
+                            </MudCardActions>
                         </div>
-                        <div class="flex flex-wrap">
-                            <div class="w-full px-3 mb-6 md:mb-0">
-                                <label class="block uppercase tracking-wide text-indigo-600 text-xs font-bold mb-1">
-                                    Price/Size
-                                    @if (!ECommerceProduct.ECommerceProductPrices.Any())
-                                    {
-                                        <p class="text-white">No Data Available</p>
-                                    }
 
-                                </label>
-                                <div class="relative">
-                                    <select class="block text-center appearance-none w-full bg-gray-200 border border-gray-200 text-black py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                        @foreach (var product in ECommerceProduct.ECommerceProductPrices)
-                                        {
-                                            <option value.bind="@DetailsVM.SelectedProductPriceId" class="text-center bg-gray-500">
-                                                <p>@product.MyProperty &nbsp</p>
-                                                <p>&nbsp @product.Price.ToString("c") &nbsp</p>
-                                                <p>&nbsp @product.Size  &nbsp </p>
-                                            </option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="/ProductDetails/@ECommerceProduct.Id">
-                            <img src="@ECommerceProduct.ImageUrl" class="w-full h-64 object-cover mb-6" />
-                        </a>
+
+
+
 
                         <MudCardContent>
                             <p class="h-32 min-h-0 m-20 text-xs">
@@ -192,12 +61,13 @@ else
                                 <MudText Typo="Typo.h6" Color="Color.Inherit"> @((MarkupString)ECommerceProduct.Description)</MudText>
                             </p>
                         </MudCardContent>
+
                         <MudButton Class="w-full" Href="/ProductsHome" Variant="Variant.Filled" Color="Color.Dark">go back</MudButton>
                     </MudCard>
                 </EditForm>
             </div>
         </div>
-    }*@
+    }
 
 
 
@@ -209,7 +79,6 @@ else
     public ProductDTO ECommerceProduct { get; set; } = new();
     public bool IsProcessing { get; set; } = false;
     public DetailsVM DetailsVM { get; set; } = new();
-
 
     protected override async Task OnInitializedAsync()
     {
@@ -234,7 +103,7 @@ else
         };
 
         await _cartService.IncrementCart(shoppingCart);
-        _navigationManager.NavigateTo("/");
+        _navigationManager.NavigateTo("/products");
         snackBar.Add("Product added to cart Succesfully.", Severity.Success);
     }
 }
