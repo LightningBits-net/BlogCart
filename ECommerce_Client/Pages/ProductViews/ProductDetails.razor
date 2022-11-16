@@ -25,12 +25,16 @@ else
                             <MudSpacer />
                             <MudButton Class="w-1/2 mr-2" OnClick="AddToCart" Variant="Variant.Filled" Color="Color.Dark">Add to Cart</MudButton>
                         </MudCardActions>
-                        <MudCardMedia Image="@ECommerceProduct.ImageUrl" Height="300" />
+                        <a href="@ECommerceProduct.ImageUrl">
+
+                            <MudCardMedia Image="@ECommerceProduct.ImageUrl" Height="300" />
+                        </a>
+
                         @*<MudCardMedia Height="100" Hre>
-                            <a href="/ProductDetails/@ECommerceProduct.Id">
-                                <img src="@ECommerceProduct.ImageUrl" class="w-full h-64 object-cover mb-6" />
-                            </a>
-                        </MudCardMedia>*@
+            <a href="/ProductDetails/@ECommerceProduct.Id">
+                <img src="@ECommerceProduct.ImageUrl" class="w-full h-64 object-cover mb-6" />
+            </a>
+        </MudCardMedia>*@
                         <div>
 
                             <MudCardActions>
