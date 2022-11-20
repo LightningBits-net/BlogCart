@@ -13,11 +13,11 @@ else
 {
     <PageTitle>@CategoryName</PageTitle>
     <body class="font-sans">
-        <ul class="flex justify-center pb-6 pl-6">
+        <ul class="flex justify-center pb-6 pl-6 pr-6">
             @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
             {
                 <li>
-                    <a class="bg-gray-800 inline-block py-2 px-4 text-gray-400  hover:text-indigo-400 font-semibold" href="/@category">@category</a>
+                    <a class="inline-block py-2 px-4 text-gray-400 hover:text-indigo-400 font-semibold" href="/@category">@category</a>
                 </li>
             }
         </ul>
