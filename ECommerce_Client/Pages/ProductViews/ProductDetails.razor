@@ -24,15 +24,15 @@ else
                             if (productPrice.Id == DetailsVM.SelectedProductPriceId)
                             {
                                 <MudButton Color="Color.Dark" Width="128px" Height="64px" Style="border: 3px solid #28A745; border-radius: 5px; box-shadow: 5px">
-                                    <p>@productPrice.Size  &nbsp &nbsp </p>
-                                    <p>@productPrice.Price.ToString("c")</p>
+                                    <p> &nbsp @productPrice.Size &nbsp </p>
+                                    <p> &nbsp @productPrice.Price.ToString("c") &nbsp </p>
                                 </MudButton>
                             }
                             else
                             {
                                 <MudButton OnClick="(args)=>SelectedProductPrice(args,productPrice.Id)" Color="Color.Info" Width="128px" Height="64px" Style="margin:a; border:1px solid; border-radius:20px;box-shadow:5px">
-                                    <p>@productPrice.Size &nbsp &nbsp</p>
-                                    <p>@productPrice.Price.ToString("c")</p>
+                                    <p> &nbsp @productPrice.Size &nbsp</p>
+                                    <p> &nbsp @productPrice.Price.ToString("c") &nbsp </p>
                                 </MudButton>
                             }
                         }
@@ -66,173 +66,38 @@ else
 
 
 @code {
-[Parameter]
-public int ProductId { get; set; }
+    [Parameter]
+    public int ProductId { get; set; }
 
-public ProductDTO Product { get; set; } = new();
-public bool IsProcessing { get; set; } = false;
-public DetailsVM DetailsVM { get; set; } = new();
+    public ProductDTO Product { get; set; } = new();
+    public bool IsProcessing { get; set; } = false;
+    public DetailsVM DetailsVM { get; set; } = new();
 
-protected override async Task OnInitializedAsync()
-{
-    IsProcessing = true;
-    Product = await _productService.Get(ProductId);
-    IsProcessing = false;
-}
-
-private async Task SelectedProductPrice(MouseEventArgs e, int productPriceId)
-{
-    DetailsVM.ProductPrice = Product.ECommerceProductPrices.FirstOrDefault(u => u.Id == productPriceId);
-    DetailsVM.SelectedProductPriceId = productPriceId;
-}
-
-private async Task AddToCart()
-{
-    ShoppingCart shoppingCart = new()
+    protected override async Task OnInitializedAsync()
     {
-        Count = DetailsVM.Count,
-        ProductId = ProductId,
-        ProductPriceId = DetailsVM.SelectedProductPriceId
-    };
+        IsProcessing = true;
+        Product = await _productService.Get(ProductId);
+        IsProcessing = false;
+    }
 
-    await _cartService.IncrementCart(shoppingCart);
-    _navigationManager.NavigateTo("/products");
-    snackBar.Add("Product added to cart Succesfully.", Severity.Success);
+    private async Task SelectedProductPrice(MouseEventArgs e, int productPriceId)
+    {
+        DetailsVM.ProductPrice = Product.ECommerceProductPrices.FirstOrDefault(u => u.Id == productPriceId);
+        DetailsVM.SelectedProductPriceId = productPriceId;
+    }
+
+    private async Task AddToCart()
+    {
+        ShoppingCart shoppingCart = new()
+        {
+            Count = DetailsVM.Count,
+            ProductId = ProductId,
+            ProductPriceId = DetailsVM.SelectedProductPriceId
+        };
+
+        await _cartService.IncrementCart(shoppingCart);
+        _navigationManager.NavigateTo("/products");
+        snackBar.Add("Product added to cart Succesfully.", Severity.Success);
+    }
 }
-}
 
-
-
-
-
-
-
-            @*@if (IsProcessing)
-                {
-                    <div class="text-center">
-                        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-                    </div>
-                }*@
-            @*else{
-                        <div class="min-f-screen w-full p-2 pt-10 flex justify-center items-center">
-                            <div class="w-full md:w-1/2 lg:w-1/2 px-6 mb-12">
-                                @if (ECommerceProduct.ECommerceProductPrices.Any())
-                                {
-                                    <EditForm OnInvalidSubmit="AddToCart" Model="DetailsVM" method="post">
-                                        <DataAnnotationsValidator />
-                                        <MudCard Elevation="25">
-
-                <MudCardActions>
-                    <MudText Typo="Typo.h3" Color="Color.Default">@ECommerceProduct.Name</MudText>
-                    <MudSpacer />
-                    <MudButton Class="w-1/2 mr-2" OnClick="AddToCart" Variant="Variant.Filled" Color="Color.Dark">Add to Cart</MudButton>
-                </MudCardActions>
-
-                <a href="@ECommerceProduct.ImageUrl">
-                    <MudCardMedia Image="@ECommerceProduct.ImageUrl" Height="300" />
-                </a>
-
-                <div>
-                    <MudCardActions>
-                        <MudText Typo="Typo.overline" Color="Color.Default">Color: @ECommerceProduct.Color &nbsp </MudText>
-                        <MudSpacer />
-                        <MudText Typo="Typo.overline" Color="Color.Default">&nbsp Category: @ECommerceProduct.Category.Name</MudText>
-                    </MudCardActions>
-                    <MudCardContent>
-                        <p class="h-32 min-h-0 m-20 text-xs">
-                            Description:
-                            <MudText Typo="Typo.h6" Color="Color.Inherit"> @((MarkupString)ECommerceProduct.Description)</MudText>
-                        </p>
-                    </MudCardContent>
-                </div>
-
-                <MudButton Class="w-full" Href="/ProductsHome" Variant="Variant.Filled" Color="Color.Dark">go back</MudButton>
-                        </MudCard>
-                    </EditForm>
-                }
-                else
-                {
-                    <EditForm OnInvalidSubmit="AddToCart" Model="DetailsVM" method="post">
-                        <DataAnnotationsValidator />
-                        <MudCard Elevation="25">
-
-                <MudCardActions>
-                    <MudText Typo="Typo.h3" Color="Color.Default">@ECommerceProduct.Name</MudText>
-                    <MudSpacer />
-                    <MudButton Class="w-1/2 mr-2" Variant="Variant.Filled" Color="Color.Dark">Sold Out</MudButton>
-                </MudCardActions>
-
-                <a href="@ECommerceProduct.ImageUrl">
-                    <MudCardMedia Image="@ECommerceProduct.ImageUrl" Height="300" />
-                </a>
-
-                <div>
-                    <MudCardActions>
-                        <MudText Typo="Typo.overline" Color="Color.Default">Color: @ECommerceProduct.Color &nbsp </MudText>
-                        <MudSpacer />
-                        <MudText Typo="Typo.overline" Color="Color.Default">&nbsp Category: @ECommerceProduct.Category.Name</MudText>
-                    </MudCardActions>
-                    <MudCardContent>
-                        <p class="h-32 min-h-0 m-20 text-xs">
-                            Description:
-                            <MudText Typo="Typo.h6" Color="Color.Inherit"> @((MarkupString)ECommerceProduct.Description)</MudText>
-                        </p>
-                    </MudCardContent>
-                </div>
-
-                <MudButton Class="w-full" Href="/ProductsHome" Variant="Variant.Filled" Color="Color.Dark">go back</MudButton>
-                                        </MudCard>
-                                    </EditForm>
-                                }
-                            </div>
-                        </div>
-                    }*@
-
-            @*<select class="text-center bg-gray-200 border border-gray-200 text-black rounded focus:outline-none focus:bg-white focus:border-gray-500">
-                    @foreach (var product in ECommerceProduct.ECommerceProductPrices)
-                    {
-                    <option value.bind="@DetailsVM.SelectedProductPriceId" class="text-center">
-                        <p>@product.MyProperty &nbsp</p>
-                        <p>&nbsp @product.Price.ToString("c") &nbsp</p>
-                        <p>&nbsp @product.Size  &nbsp </p>
-                    </option>
-                    }
-                </select>*@
-
-
-
-            @*@code {
-
-                    [Parameter]
-                    public int ProductId { get; set; }
-                    public ProductDTO ECommerceProduct { get; set; } = new();
-                    public bool IsProcessing { get; set; } = false;
-                    public DetailsVM DetailsVM { get; set; } = new();
-
-                    protected override async Task OnInitializedAsync()
-                    {
-                        IsProcessing = true;
-                        ECommerceProduct = await _productService.Get(ProductId);
-                        IsProcessing = false;
-                    }
-
-                    private async Task SelectedProductPrice(MouseEventArgs e, int productPriceId)
-                    {
-                        DetailsVM.ProductPrice = ECommerceProduct.ECommerceProductPrices.FirstOrDefault(u => u.Id == productPriceId);
-                        DetailsVM.SelectedProductPriceId = productPriceId;
-                    }
-
-                    private async Task AddToCart()
-                    {
-                        ShoppingCart shoppingCart = new()
-                        {
-                            Count = DetailsVM.Count,
-                            ProductId = ProductId,
-                            ProductPriceId = DetailsVM.SelectedProductPriceId
-                        };
-
-                        await _cartService.IncrementCart(shoppingCart);
-                        _navigationManager.NavigateTo("/products");
-                        snackBar.Add("Product added to cart Succesfully.", Severity.Success);
-                    }
-                }*@
