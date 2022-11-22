@@ -80,11 +80,11 @@
     private IEnumerable<ProductPriceDTO> ECommerceProductPrices { get; set; } = new List<ProductPriceDTO>();
     private bool IsLoading { get; set; } = true;
     public SfGrid<ProductPriceDTO> productPriceGrid;
-    string MyProperty = "Options";
+    string MyProperty = "";
 
     IEnumerable<string> SizeList = new List<string>()
     {
-        "N/A", "Quote", "small", "Medium", "Large", "xLarge", "8oz", "16oz", "24oz"
+        "", "N/A", "Quote", "small", "Medium", "Large", "xLarge", "8oz", "16oz", "24oz"
     };
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

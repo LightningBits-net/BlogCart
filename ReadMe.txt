@@ -10,7 +10,6 @@ from Shared API dotnet run
 Install MudBlazor
 https://mudblazor.com/getting-started/installation#ready-for-more?
 
-
 Install Tailwind
 https://chrissainty.com/adding-tailwind-css-v3-to-a-blazor-app/
 
@@ -38,3 +37,8 @@ Intial Templates built upon where provided by:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+-Connect your own DB at ECommerce_Server.Appsettings.json
+-Delete migration files at SharedServices.Migrations
+-Run Dotnet ef migrations 
+-Run DataBase update

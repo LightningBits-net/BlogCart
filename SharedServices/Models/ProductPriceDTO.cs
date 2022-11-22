@@ -13,7 +13,7 @@ namespace SharedServices.Models
         [Required]
         public int ProductId { get; set; }
 
-        [Required]
+        
         public string Size { get; set; }
 
         public string MyProperty { get; set; }

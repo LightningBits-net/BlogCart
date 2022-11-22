@@ -1,15 +1,17 @@
 ﻿
-<div class="bg-black-200 text-white no-underline text-center text-md py-8">
+<div class="bg-black-200 text-white text-center text-md pb-5 py-8">
     <p>
-        <a href="/About" class="hover:underline"> Copyright &copy; 2022 LightningBits </a>
-        <a href="https://unsplash.com/" class="hover:underline ml-4">Images by Unsplashed</a>
-        <a href="#" class="hover:underline ml-4">Privacy Policy</a>
-        <a href="#" class="hover:underline ml-4">Terms &amp; Conditions</a>
-        <a href="/Contact" class="hover:underline ml-4">Contact Us</a>
+        <a href="@($"{LocalHost}/About")" class="hover:underline hover:text-indigo-400 "> Copyright &copy; 2022 LightningBits </a>
+        <a href="https://unsplash.com/" class="hover:underline hover:text-indigo-400  ml-4">Images by Unsplashed</a>
+        <a href="#" class="hover:underline hover:text-indigo-400  ml-4">Privacy Policy</a>
+        <a href="#" class="hover:underline hover:text-indigo-400  ml-4">Terms &amp; Conditions</a>
+        <a href="@($"{LocalHost}/Contact")" class="hover:underline hover:text-indigo-400  ml-4">Contact Us</a>
     </p>
 </div>
 
 @code {
+
+    public string LocalHost = "https://localhost:5000";
 
 }
 

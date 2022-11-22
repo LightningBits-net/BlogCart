@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -10,10 +10,11 @@
     <ExternalConsole>true</ExternalConsole>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.10" PrivateAssets="all" />
-    <PackageReference Include="MudBlazor" Version="6.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0" PrivateAssets="all" />
+    <PackageReference Include="MudBlazor" Version="6.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +28,7 @@
   <ItemGroup>
     <None Remove="Pages\ProductViews\ProductsByCat\" />
     <None Remove="ViewModels\" />
+    <None Remove="Blazored.LocalStorage" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\ProductViews\ProductsByCat\" />

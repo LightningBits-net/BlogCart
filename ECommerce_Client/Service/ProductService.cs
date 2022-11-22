@@ -8,8 +8,8 @@ namespace ECommerce_Client.Service
     public class ProductService : IProductService
     {
         private readonly HttpClient _httpClient;
-        private IConfiguration _configuration;
-        private string BaseServerUrl;
+        private IConfiguration? _configuration;
+        private string? BaseServerUrl;
 
         public ProductService(HttpClient httpClient, IConfiguration configuration)
         {
