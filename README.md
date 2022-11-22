@@ -17,7 +17,7 @@ ________________________________________
 <img width="1519" alt="image" src="https://user-images.githubusercontent.com/63980943/184663776-9851bf90-57e8-4662-ac31-169131094a07.png">
 
 
-https://user-images.githubusercontent.com/63980943/200398434-deee6855-1a49-4f77-987d-02ffd504fbba.mov
+
 
 
 
