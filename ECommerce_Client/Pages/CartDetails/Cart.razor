@@ -6,10 +6,10 @@
 
 @if (IsProcessing)
 {
-    @*<PageTitle>Loading</PageTitle>*@
-    @*<div class="text-center">
-            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-        </div>*@
+    <PageTitle>Loading</PageTitle>
+    <div class="text-center">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
 }
 else
 {
@@ -23,50 +23,54 @@ else
     {
         <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
             <h3 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Shopping Cart.</h3>
-            @*<MudMenu Label="Sort Products by:" Variant="Variant.Filled" EndIcon="@Icons.Filled.ArrowDropDown" IconColor="Color.Primary" FullWidth="true" Dense="true">
-                    <header class="font-bold">Sort Products by:</header>
-                    <MudMenuItem Href="/productsByFav">Favorites</MudMenuItem>
-                    <MudMenuItem Href="/Sale!">On Sale!</MudMenuItem>
-                    <MudMenuItem Href="/AllProducts">All Products</MudMenuItem>
-                </MudMenu>*@
+            <ul class="flex justify-center pb-6 pl-6 pr-6">
+                <li>
+                    <a class="inline-block py-2 px-4 text-gray-400 hover:text-indigo-400 font-semibold" href="/">Check out</a>
+                </li>
+                <li>
+                    <a class="inline-block py-2 px-4 text-gray-400 hover:text-indigo-400 font-semibold" href="/cart">UpDate Cart</a>
+                </li>
+                <li>
+                    <a class="inline-block py-2 px-4 text-gray-400 hover:text-indigo-400 font-semibold" href="/productshome">Continue Shopping</a>
+                </li>
+
+            </ul>
         </div>
+       
+       
         <div class="container mx-auto flex flex-wrap pb-20">
+           
+                <div class="w-full md:w-full lg:w-full px-6 mb-12">
+                    <MudCard Style="width:1/2">
+                        <MudText Typo="Typo.h3" Style="text-align:left; font-bold; background-color:black">Bill Summary</MudText>
+
+                        @foreach (var bill in ShoppingCart)
+                        {
+                            @*<a href="@bill.Product.ImageUrl">
+                <MudCardMedia Image="@bill.Product.ImageUrl" Height="200" />
+            </a>*@
+                            <MudCardActions Variant="Variant.Text" Color="Color.Primary">
+                                <MudText Typo="Typo.caption" Style="text-align: right">Product Size:  @bill.ProductPrice.Size</MudText>
+                                <MudSpacer></MudSpacer>
+                                <MudText Typo="Typo.caption" Style="text-align: right">Product Color: @bill.Product.Color</MudText>
+                                <MudSpacer></MudSpacer>
+                                <MudText Typo="Typo.caption" Style="text-align: right">Category: @bill.Product.Category.Name</MudText>
+                            </MudCardActions>
+                            <MudCardContent>
+                                <MudText Typo="Typo.h5">@((MarkupString)bill.Product.Description)</MudText>
+                            </MudCardContent>
+                        }
+                    </MudCard>
+                </div>
+
+         
+
+            
             @foreach (var item in ShoppingCart)
             {
                 <div class="w-full md:w-1/2 lg:w-1/3 px-6 mb-12">
                     <MudCard>
                         <MudText Typo="Typo.h3" Style="text-align:left; font-bold; background-color:black">@item.Product.Name</MudText>
-                        @*<MudCardActions>
-                                <MudButtonGroup>
-                                    @foreach (var productPrice in Product.ECommerceProductPrices)
-                                    {
-                                        if (productPrice.Id == DetailsVM.SelectedProductPriceId)
-                                        {
-                                            <MudButton Color="Color.Dark" Width="128px" Height="64px" Style="border: 3px solid #28A745; border-radius: 5px; box-shadow: 5px">
-                                                <p> &nbsp @productPrice.Size &nbsp </p>
-                                                <p> &nbsp @productPrice.Price.ToString("c") &nbsp </p>
-                                            </MudButton>
-                                        }
-                                        else
-                                        {
-                                            <MudButton OnClick="(args)=>SelectedProductPrice(args,productPrice.Id)" Color="Color.Info" Width="128px" Height="64px" Style="margin:a; border:1px solid; border-radius:20px;box-shadow:5px">
-                                                <p> &nbsp @productPrice.Size &nbsp</p>
-                                                <p> &nbsp @productPrice.Price.ToString("c") &nbsp </p>
-                                            </MudButton>
-                                        }
-                                    }
-                                </MudButtonGroup>
-                                <MudSpacer></MudSpacer>
-                                @if (DetailsVM.SelectedProductPriceId > 0)
-                                {
-                                    <MudButton Class="w-1/2 mr-2" OnClick="AddToCart" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Dark">Add to Cart</MudButton>
-                                }
-                                else
-                                {
-                                    <button type="submit" value="Add to Cart" disabled class="btn btn-primary form-control">Add to Cart</button>
-                                }
-                            </MudCardActions>*@
-
                         <a href="@item.Product.ImageUrl">
                             <MudCardMedia Image="@item.Product.ImageUrl" Height="400" />
                         </a>
@@ -90,111 +94,111 @@ else
 
 
 
-            @*<div class="col-12 text-sm-center col-md-7 text-md-start row  pt-lg-3 mt-3">
-                    <div class="col-4 pt-1 ">
+        @*<div class="col-12 text-sm-center col-md-7 text-md-start row  pt-lg-3 mt-3">
+                <div class="col-4 pt-1 ">
 
-                        <h6><strong>@item.ProductPrice.Price.ToString("c") <span class="text-muted">x</span> @item.Count </strong></h6>
-                    </div>
-                    <div class="col-6 col-sm-4 col-lg-6">
-                        <button @onclick="()=>Increment(item.ProductId,item.ProductPriceId,1)" type="submit" class="btn btn-primary">
-                            <i class="bi bi-plus-square"></i>
-                        </button>
-                        <button @onclick="()=>Decrement(item.ProductId,item.ProductPriceId,1)" type="submit" class="btn btn-warning">
-                            <i class="bi bi-dash-square"></i>
-                        </button>
-                    </div>
-                    <div class="col-2 col-sm-4 col-lg-2 text-right">
-                        <button @onclick="()=>Decrement(item.ProductId,item.ProductPriceId,0)" type="submit" class="btn btn-outline-danger">
-                            <i class="bi bi-trash-fill"></i>
-                        </button>
-                    </div>
-                </div>*@
-
-
-            @*<hr />
-
-                <div class="row">
-                    <div class="col-12 col-md-5">
-                    </div>
-                    <div class="col-12 col-md-6 offset-md-1 col-lg-4 offset-lg-3 pr-4">
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between bg-light">
-                                <span class="text-info"> Total (USD)</span>
-                                <strong class="text-info">@OrderTotal.ToString("c")</strong>
-                            </li>
-                        </ul>
-                    </div>
-                </div>*@
+                    <h6><strong>@item.ProductPrice.Price.ToString("c") <span class="text-muted">x</span> @item.Count </strong></h6>
+                </div>
+                <div class="col-6 col-sm-4 col-lg-6">
+                    <button @onclick="()=>Increment(item.ProductId,item.ProductPriceId,1)" type="submit" class="btn btn-primary">
+                        <i class="bi bi-plus-square"></i>
+                    </button>
+                    <button @onclick="()=>Decrement(item.ProductId,item.ProductPriceId,1)" type="submit" class="btn btn-warning">
+                        <i class="bi bi-dash-square"></i>
+                    </button>
+                </div>
+                <div class="col-2 col-sm-4 col-lg-2 text-right">
+                    <button @onclick="()=>Decrement(item.ProductId,item.ProductPriceId,0)" type="submit" class="btn btn-outline-danger">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </div>
+            </div>*@
 
 
-            @*</div>
-                <div class="card-footer">
-                    <div class="col-12  col-md-3 offset-md-9">
-                        <a href="/summary" class="btn btn-secondary form-control">Summary</a>
-                    </div>
-                </div>*@
+        @*<hr />
 
-            }
+            <div class="row">
+                <div class="col-12 col-md-5">
+                </div>
+                <div class="col-12 col-md-6 offset-md-1 col-lg-4 offset-lg-3 pr-4">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <span class="text-info"> Total (USD)</span>
+                            <strong class="text-info">@OrderTotal.ToString("c")</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>*@
 
-            }
 
-            @code {
+        @*</div>
+            <div class="card-footer">
+                <div class="col-12  col-md-3 offset-md-9">
+                    <a href="/summary" class="btn btn-secondary form-control">Summary</a>
+                </div>
+            </div>*@
+
+    }
+
+}
+
+@code {
     public bool IsProcessing { get; set; } = false;
-        private List<ShoppingCart> ShoppingCart = new List<ShoppingCart>();
-        private IEnumerable<ProductDTO> Products { get; set; }
-        private double OrderTotal { get; set; } = 0;
+    private List<ShoppingCart> ShoppingCart = new List<ShoppingCart>();
+    private IEnumerable<ProductDTO> Products { get; set; }
+    private double OrderTotal { get; set; } = 0;
 
-        protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        ShoppingCart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
+
+        Products = await _productService.GetAll();
+        await LoadCart();
+        IsProcessing = false;
+    }
+
+    private async Task LoadCart()
+    {
+        OrderTotal = 0;
+        ShoppingCart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
+        foreach (var cart in ShoppingCart)
         {
-            IsProcessing = true;
-            ShoppingCart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
-
-            Products = await _productService.GetAll();
-            await LoadCart();
-            IsProcessing = false;
+            cart.Product = Products.FirstOrDefault(u => u.Id == cart.ProductId);
+            cart.ProductPrice = cart.Product.ECommerceProductPrices.FirstOrDefault(u => u.Id == cart.ProductPriceId);
+            OrderTotal += (cart.ProductPrice.Price * cart.Count);
         }
+    }
 
-        private async Task LoadCart()
+
+
+    private async Task Increment(int ProductId, int ProductPriceId, int Count)
+    {
+        IsProcessing = true;
+        await _cartService.IncrementCart(new()
         {
-            OrderTotal = 0;
-            ShoppingCart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
-            foreach (var cart in ShoppingCart)
-            {
-                cart.Product = Products.FirstOrDefault(u => u.Id == cart.ProductId);
-                cart.ProductPrice = cart.Product.ECommerceProductPrices.FirstOrDefault(u => u.Id == cart.ProductPriceId);
-                OrderTotal += (cart.ProductPrice.Price * cart.Count);
-            }
-        }
+            Count = Count,
+            ProductId = ProductId,
+            ProductPriceId = ProductPriceId
+        });
 
+        await LoadCart();
+        IsProcessing = false;
+    }
 
-
-        private async Task Increment(int ProductId, int ProductPriceId, int Count)
+    private async Task Decrement(int ProductId, int ProductPriceId, int Count)
+    {
+        IsProcessing = true;
+        await _cartService.DecrementCart(new()
         {
-            IsProcessing = true;
-            await _cartService.IncrementCart(new()
-            {
-                Count = Count,
-                ProductId = ProductId,
-                ProductPriceId = ProductPriceId
-            });
+            Count = Count,
+            ProductId = ProductId,
+            ProductPriceId = ProductPriceId
+        });
 
-            await LoadCart();
-            IsProcessing = false;
-        }
+        await LoadCart();
+        IsProcessing = false;
+    }
 
-        private async Task Decrement(int ProductId, int ProductPriceId, int Count)
-        {
-            IsProcessing = true;
-            await _cartService.DecrementCart(new()
-            {
-                Count = Count,
-                ProductId = ProductId,
-                ProductPriceId = ProductPriceId
-            });
-
-            await LoadCart();
-            IsProcessing = false;
-        }
-
-            }
+}
 

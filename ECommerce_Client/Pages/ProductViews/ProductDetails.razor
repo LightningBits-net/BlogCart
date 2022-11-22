@@ -17,6 +17,12 @@ else
         <div class="w-full md:w-1/2 lg:w-1/2 px-6 mb-12">
             <MudCard>
                 <MudText Typo="Typo.h3" Style="text-align:left; font-bold; background-color:black">@Product.Name</MudText>
+                <a href="@Product.ImageUrl">
+                    <MudCardMedia Image="@Product.ImageUrl" Height="400" />
+                </a>
+                <MudCardContent>
+                    <MudText Typo="Typo.h5">@((MarkupString)Product.Description)</MudText>
+                </MudCardContent>
                 <MudCardActions>
                     <MudButtonGroup>
                         @foreach (var productPrice in Product.ECommerceProductPrices)
@@ -47,18 +53,10 @@ else
                         <button type="submit" value="Add to Cart" disabled class="btn btn-primary form-control">Add to Cart</button>
                     }
                 </MudCardActions>
-               
-                <a href="@Product.ImageUrl">
-                    <MudCardMedia Image="@Product.ImageUrl" Height="400" />
-                </a>
-                <MudCardActions Variant="Variant.Text" Color="Color.Primary" >
-                    <MudText Typo="Typo.caption" Style="text-align: right">Product Color: @Product.Color</MudText>
-                    <MudSpacer></MudSpacer>
-                    <MudText Typo="Typo.caption" Style="text-align: right">Category: @Product.Category.Name</MudText>
-                </MudCardActions>
-                <MudCardContent>
-                    <MudText Typo="Typo.h5">@((MarkupString)Product.Description)</MudText>
-                </MudCardContent>
+                <MudText Typo="Typo.h6" Style="text-align:right; background-color:black">Product Color: @Product.Color &nbsp Category: @Product.Category.Name</MudText>
+
+                @*<MudText Typo="Typo.h6" Style="text-align:right; background-color:black">Category: @Product.Category.Name</MudText>*@
+
             </MudCard>
             </div>
         </div>
