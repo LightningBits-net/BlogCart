@@ -1,0 +1,176 @@
+﻿@page "/summary"
+@inject MudBlazor.ISnackbar snackBar
+@inject ILocalStorageService _localStorage
+@inject IProductService _productService
+@*@inject IPaymentService _paymentService*@
+@inject IOrderService _orderService
+@*@using Microsoft.AspNetCore.Authorization*@
+@*@attribute [Authorize]*@
+
+
+@if (IsProcessing)
+    {
+    <PageTitle>Loading</PageTitle>
+    <div class="text-center">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
+    }
+
+    else
+    {
+    <div class="min-f-screen w-full p-2 pt-10 flex justify-center ">
+        <div class="w-full md:w-1/2 lg:w-1/2 px-6 mb-12">
+            <EditForm Model="@Order.OrderHeader" OnValidSubmit="HandleCheckout">
+                <DataAnnotationsValidator />
+                        <MudCard>
+                            <MudCardContent>
+                                <MudTextField Label="Name" HelperText="Max. 20 characters"
+                                              @bind-Value="Order.OrderHeader.Name" For="@(() => Order.OrderHeader.Name)" />
+                                <MudTextField Label="PhoneNumber" Class="mt-3"
+                                              @bind-Value="Order.OrderHeader.PhoneNumber" For="@(() => Order.OrderHeader.PhoneNumber)" />
+                                <MudTextField Label="Email" Class="mt-3"
+                                              @bind-Value="Order.OrderHeader.Email" For="@(() => Order.OrderHeader.Email)" />
+                                <MudTextField Label="StreetAddress" Class="mt-3"
+                                              @bind-Value="Order.OrderHeader.StreetAddress" For="@(() => Order.OrderHeader.StreetAddress)" />
+                                <MudTextField Label="City" Class="mt-3"
+                                              @bind-Value="Order.OrderHeader.City" For="@(() => Order.OrderHeader.City)" />
+                                <MudTextField Label="State" Class="mt-3"
+                                              @bind-Value="Order.OrderHeader.State" For="@(() => Order.OrderHeader.State)" />
+                                <MudTextField Label="PostalCode" Class="mt-3"
+                                              @bind-Value="Order.OrderHeader.PostalCode" For="@(() => Order.OrderHeader.PostalCode)" />
+
+
+                            </MudCardContent>
+                            <MudCardActions>
+                                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Checkout Now</MudButton>
+                            </MudCardActions>
+                        </MudCard>
+                    <MudCard>
+                        <MudPaper Class="pa-4 mud-height-full">
+                            <MudText Typo="Typo.caption" Style="text-align:left">Order Summary</MudText>
+                            <table>
+                                <thead class="w-full">
+                                    <tr>
+                                        <th class=" w-1/2 ">Name</th>
+                                        <th class=" w-1/2 px-4 py-4">Price</th>
+                                        <th class=" w-1/2 px-4 py-2">Qty</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var prod in Order.OrderDetails)
+                                    {
+
+                                        <tr class="w-full">
+                                            <td class="border px-4 py-2">@prod.ProductName</td>
+                                            <td class="border px-4 py-2">@prod.Size</td>
+                                            <td class="border px-4 py-2">@prod.Count</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+
+                            @*@if (success)
+        {
+            <MudText Color="Color.Success">Success</MudText>
+        }
+        else
+        {
+            <MudText Color="@Color.Error">
+                <ValidationSummary />
+            </MudText>
+        }*@
+                        </MudPaper>
+                    </MudCard>
+            </EditForm>
+        </div>
+    </div>
+
+    }
+
+
+     
+
+    @code {
+        public bool IsProcessing { get; set; } = false;
+        private OrderDTO Order { get; set; } = null;
+        private IEnumerable<ProductDTO> Products { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            IsProcessing = true;
+            List<ShoppingCart> cart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
+            Products = await _productService.GetAll();
+            Order = new()
+            {
+                OrderHeader = new()
+                {
+                    OrderTotal = 0,
+                    Status = SD.Status_Pending
+                },
+                OrderDetails = new List<OrderDetailDTO>()
+            };
+
+            foreach (var item in cart)
+            {
+                ProductDTO product = Products.FirstOrDefault(u => u.Id == item.ProductId);
+                ProductPriceDTO productPrice = product.ECommerceProductPrices.FirstOrDefault(u => u.Id == item.ProductPriceId);
+
+                OrderDetailDTO orderDetailDTO = new()
+                {
+                    ProductId = item.ProductId,
+                    Size = productPrice.Size,
+                    Count = item.Count,
+                    Price = productPrice.Price,
+                    ProductName = product.Name,
+                    Product = product
+                };
+                Order.OrderDetails.Add(orderDetailDTO);
+                Order.OrderHeader.OrderTotal += (item.Count * productPrice.Price);
+            }
+
+            //if (await _localStorage.GetItemAsync<UserDTO>(SD.Local_UserDetails) != null)
+            //{
+            //    var userInfo = await _localStorage.GetItemAsync<UserDTO>(SD.Local_UserDetails);
+            //    Order.OrderHeader.UserId = userInfo.Id;
+            //    Order.OrderHeader.Name = userInfo.Name;
+            //    Order.OrderHeader.Email = userInfo.Email;
+            //    Order.OrderHeader.PhoneNumber = userInfo.PhoneNumber;
+
+            //}
+
+            IsProcessing = false;
+        }
+
+
+        private async Task HandleCheckout()
+        {
+            //try
+            //{
+            //    IsProcessing = true;
+            //    var paymentDto = new StripePaymentDTO()
+            //    {
+            //        Order = Order
+            //    };
+
+            //    var result = await _paymentService.Checkout(paymentDto);
+
+            //    var StripeSessionAndPI = result.Data.ToString().Split(';');
+
+            //    Order.OrderHeader.SessionId = StripeSessionAndPI[0];
+            //    Order.OrderHeader.PaymentIntentId = StripeSessionAndPI[1];
+
+            //    var orderDTOSaved = await _orderService.Create(paymentDto);
+
+            //    await _localStorage.SetItemAsync(SD.Local_OrderDetails, orderDTOSaved);
+
+            //    await _jsRuntime.InvokeVoidAsync("redirectToCheckout", StripeSessionAndPI[0]);
+            //}
+            //catch (Exception e)
+            //{
+            //    await _jsRuntime.ToastrError(e.Message);
+            //}
+        }
+    }
+
+

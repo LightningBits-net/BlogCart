@@ -25,9 +25,11 @@
   <ItemGroup>
     <None Remove="Migrations\" />
     <None Remove="Commons\" />
+    <None Remove="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="Commons\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 </Project>
