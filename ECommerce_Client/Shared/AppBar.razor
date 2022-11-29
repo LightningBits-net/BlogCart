@@ -1,10 +1,15 @@
-﻿
+﻿@inject ISyncLocalStorageService _localStorage
+@inject ICartService _cartService
+@implements IDisposable
+
+
 <MudAppBar Elevation="21" Dense="true">
     <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Medium" Edge="Edge.End"
                    OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
     <MudIconButton Href="/" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
     <MudButton Href="https://localhost:5199" StartIcon="@Icons.Filled.Login" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-in</MudButton>
     <MudSpacer />
+    <MudText>( @GetCartCount() )</MudText>
     <MudIconButton Href="/cart" Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.False" />
     <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Facebook" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
     <MudIconButton Href="#" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
@@ -16,4 +21,20 @@
 @code {
     [Parameter]
     public EventCallback OnSidebarToggled { get; set; }
+
+    protected override void OnInitialized()
+    {
+        _cartService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        _cartService.OnChange -= StateHasChanged;
+    }
+
+    private int GetCartCount()
+    {
+        var cart = _localStorage.GetItem<List<ShoppingCart>>(SD.ShoppingCart);
+        return cart == null ? 0 : cart.Count;
+    }
 }

@@ -8,12 +8,15 @@ namespace ECommerce_Client.Service
 	public class CartService : ICartService
 	{
         private readonly ILocalStorageService _localStorage;
-        //public event Action OnChange;
+
+        public event Action OnChange;
 
         public CartService(ILocalStorageService localStorageService)
 		{
             _localStorage = localStorageService;
 		}
+
+      
 
         public async Task DecrementCart(ShoppingCart cartToDecrement)
         {
