@@ -18,6 +18,7 @@ else
     {
         <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
             <h3 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Please add items to your Shopping Cart.</h3>
+            <MudButton Href="/ProductsHome" Size="Size.Small"  Variant="Variant.Outlined" Color="Color.Primary">Retrun to shopping</MudButton>
         </div>
     }
     else
@@ -139,9 +140,16 @@ else
     protected override async Task OnInitializedAsync()
     {
         IsProcessing = true;
-        ShoppingCart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
-        Products = await _productService.GetAll();
-        await LoadCart();
+        if(!ShoppingCart.Any())
+        {
+            ShoppingCart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
+            Products = await _productService.GetAll();
+            await LoadCart();
+        }
+        else
+        {
+            return;
+        }
         IsProcessing = false;
     }
 
