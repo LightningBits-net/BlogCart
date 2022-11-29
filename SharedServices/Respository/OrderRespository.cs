@@ -47,9 +47,13 @@ namespace SharedServices.Repository
                     OrderDetails = _mapper.Map<IEnumerable<OrderDetail>, IEnumerable<OrderDetailDTO>>(obj.OrderDetails).ToList()
                 };
             }
-            catch (Exception ex)
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+            catch (Exception )
             {
-                throw ex;
+                throw ;
             }
 
             return objDTO;

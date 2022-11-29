@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SharedServices.Repository.IRepository;
 using SharedServices.Models;
-using SharedServices.Repository.IRepository;
+
 
 
 namespace SharedApi.Controllers
