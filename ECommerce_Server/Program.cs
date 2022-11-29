@@ -29,7 +29,7 @@ builder.Services.AddSyncfusionBlazor();
 
 var app = builder.Build();
 
-Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NzIwODc3QDMyMzAyZTMyMmUzMG9sY1REWTRseW1RZ3RaWSsvRGZjZ0hBdVJZZmtTR2c2dVZUcGVLNWlHM2c9");
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NzcwNjYwQDMyMzAyZTMzMmUzMEo1bVJTM3cxNktMbzM2YWluMGoyV1JqS0JQYkdIMnRpUVY0d1A4RCs2QmM9");
 
 
 // Configure the HTTP request pipeline.

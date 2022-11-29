@@ -21,9 +21,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
     <PackageReference Include="MudBlazor" Version="6.1.2" />
-    <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="20.3.0.58" />
-    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.3.0.58" />
-    <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.3.0.58" />
+    <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="20.3.0.59" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.3.0.59" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.3.0.59" />
   </ItemGroup>
   <ItemGroup>
 
