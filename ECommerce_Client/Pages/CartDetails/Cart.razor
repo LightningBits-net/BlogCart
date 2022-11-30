@@ -24,7 +24,7 @@ else
     else
     {
         <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
-            <h3 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Shopping Cart.</h3>
+            <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Shopping Cart.</h1>
             <ul class="flex justify-center pb-6 pl-6 pr-6">
                 <li>
                     <a class="inline-block py-2 px-4 text-gray-400 hover:text-indigo-400 font-semibold" href="/Summary">Check out</a>
@@ -106,7 +106,7 @@ else
             {
                 <div class="w-full md:w-1/2 lg:w-1/3 px-6 mb-12">
                     <MudCard Elevation="25">
-                        <MudText Typo="Typo.h3" Style="text-align:left; font-bold; background-color:black">@item.Product.Name</MudText>
+                        <MudText Typo="Typo.h5" Style="text-align:left; font-bold; background-color:black">@item.Product.Name</MudText>
                         <a href="@item.Product.ImageUrl" class="w-full h-64 object-cover mb-6">
                             <MudCardMedia Image="@item.Product.ImageUrl" Height="400" />
                         </a>
@@ -119,7 +119,7 @@ else
                         </MudCardActions>
                         <MudCardContent>
                             <p class="h-24 min-h-0">
-                                <MudText Typo="Typo.h5">@((MarkupString)item.Product.Description)</MudText>
+                                <MudText Typo="Typo.body1">@((MarkupString)item.Product.Description)</MudText>
                             </p>
                         </MudCardContent>
                         <MudButton OnClick="()=>Increment(item.ProductId,item.ProductPriceId,1)" ButtonType="ButtonType.Submit" Color="Color.Primary"></MudButton>
