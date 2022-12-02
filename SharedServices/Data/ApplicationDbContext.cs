@@ -7,13 +7,9 @@ using Microsoft.EntityFrameworkCore;
 namespace SharedServices.Data
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
-        //public class ApplicationDbContext : DbContext
-    //public class ECommerce_ServerIdentityDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
-        //     public ECommerce_ServerIdentityDbContext(DbContextOptions<ECommerce_ServerIdentityDbContext> options)
-        //: base(options)
         {
 
         }
@@ -27,6 +23,8 @@ namespace SharedServices.Data
         public DbSet<OrderHeader> OrderHeaders { get; set; }
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
 }
 
