@@ -5,6 +5,7 @@
 @inject IFileUpload _fileUpload
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
+@attribute [Authorize]
 
 <body>
     <div class="min-f-screen w-full p-2 flex justify-center bg-black items-center">
@@ -34,8 +35,8 @@
                                         <img src="@prod.ImageUrl" width="100" height="100">
                                     </td>
                                     @*<td class="border">
-                                        <p class="w-full text-xlg"> @prod.ProductName</p>
-                                    </td>*@
+                                            <p class="w-full text-xlg"> @prod.ProductName</p>
+                                        </td>*@
                                     <th class="border px-4 py-2 bold">@prod.Name</th>
                                     <td class="border px-4 py-2">@prod.Category.Name</td>
                                     <td class="p-2">
@@ -76,8 +77,8 @@
                         <p>No Data to Display</p>
                     }
                 }
+            </div>
         </div>
-    </div>
     </div>
 </body>
 

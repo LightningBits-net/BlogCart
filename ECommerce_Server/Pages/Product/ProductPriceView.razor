@@ -3,6 +3,7 @@
 @inject IProductRepository  _productRepository
 @inject IProductPriceRepository _productPriceRepository
 @inject MudBlazor.ISnackbar snackBar
+@attribute [Authorize]
 
 @if (IsProcessing)
 {
