@@ -33,10 +33,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="cssStyles\" />
+    <None Remove="Pages\Client\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cssStyles\" />
     <Folder Include="wwwroot\img\Product\" />
+    <Folder Include="Pages\Client\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">
