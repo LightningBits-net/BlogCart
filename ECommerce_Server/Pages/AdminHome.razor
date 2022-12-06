@@ -1,5 +1,6 @@
 ﻿@page "/"
 @page "/AdminPanel"
+@attribute [Authorize(Roles = SD.Role_Admin)]
 
 
 <AuthorizeView>

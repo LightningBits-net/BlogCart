@@ -4,7 +4,7 @@
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
-@attribute [Authorize]
+@attribute [Authorize(Roles = SD.Role_Admin)]
 
 <body>
     <div class="w-full flex justify-center items-center">
