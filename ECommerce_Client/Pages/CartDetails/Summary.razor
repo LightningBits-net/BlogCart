@@ -58,50 +58,65 @@
                 <EditForm Model="Order.OrderHeader" OnValidSubmit="HandleCheckout">
                     <DataAnnotationsValidator />
                     <MudText Typo="Typo.h5" Style="text-align:left">Enter Details</MudText>
+                    <div class="bg-red-100"></div>
                     <div class="form-group pt-2">
                         <label class="text-warning">Name</label>
                         <InputText @bind-Value="Order.OrderHeader.Name" type="text" class="form-control w-full" />
-                        <ValidationMessage For="()=>Order.OrderHeader.Name"></ValidationMessage>
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.Name"></ValidationMessage>
+                        </div>
                     </div>
                     <div class="form-group pt-2">
                         <label class="text-warning">Phone</label>
                         <InputText @bind-Value="Order.OrderHeader.PhoneNumber" type="text" class="form-control w-full" />
-                        <ValidationMessage For="()=>Order.OrderHeader.PhoneNumber"></ValidationMessage>
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.PhoneNumber"></ValidationMessage>
+                        </div>
                     </div>
-                    <div class="form-group pt-2">
+                    <div class="form-group text-red pt-2">
                         <label class="text-warning">Email</label>
                         <InputText @bind-Value="Order.OrderHeader.Email" type="text" class="form-control w-full" />
-                        <ValidationMessage For="()=>Order.OrderHeader.Email"></ValidationMessage>
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.Email"></ValidationMessage>
+                        </div>
                     </div>
                     <div class="form-group pt-2">
                         <label class="text-warning">Street Address</label>
                         <InputText @bind-Value="Order.OrderHeader.StreetAddress" type="text" class="form-control w-full" />
-                        <ValidationMessage For="()=>Order.OrderHeader.StreetAddress"></ValidationMessage>
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.StreetAddress"></ValidationMessage>
+                        </div>
                     </div>
                     <div class="form-group pt-2">
                         <label class="text-warning">City</label>
                         <InputText @bind-Value="Order.OrderHeader.City" type="text" class="form-control w-full" />
-                        <ValidationMessage For="()=>Order.OrderHeader.City"></ValidationMessage>
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.City"></ValidationMessage>
+                        </div>
                     </div>
                     <div class="form-group pt-2">
                         <label class="text-warning">State</label>
                         <InputText @bind-Value="Order.OrderHeader.State" type="text" class="form-control w-full" />
-                        <ValidationMessage For="()=>Order.OrderHeader.State"></ValidationMessage>
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.State"></ValidationMessage>
+                        </div>
                     </div>
                     <div class="form-group pt-2 pb-2">
                         <label class="text-warning">Postal Code</label>
                         <InputText @bind-Value="Order.OrderHeader.PostalCode" type="text" class="form-control w-full" />
-                        <ValidationMessage For="()=>Order.OrderHeader.PostalCode"></ValidationMessage>
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.PostalCode"></ValidationMessage>
+                        </div>
                     </div>
 
                     <div class="form-group pt-2 pb-2">
                         <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto pb-2">Checkout Now</MudButton>
                     </div>
-                        <MudButton Href="/Cart" FullWidth="true" Variant="Variant.Filled" Color="Color.Dark" Class="ml-auto">Return to Cart</MudButton>
+                    <MudButton Href="/Cart" FullWidth="true" Variant="Variant.Filled" Color="Color.Dark" Class="ml-auto">Return to Cart</MudButton>
 
-                        @*<div class="form-group pt-2">
-                <button type="submit" class="form-control border-black">Checkout Now</button>
-            </div>*@
+                    @*<div class="form-group pt-2">
+            <button type="submit" class="form-control border-black">Checkout Now</button>
+        </div>*@
                 </EditForm>
             </div>
         </div>
