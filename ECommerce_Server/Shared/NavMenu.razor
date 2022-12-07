@@ -1,38 +1,36 @@
-﻿<AuthorizeView>
-
-    <Authorized>
-        <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
-            <MudDrawerHeader>
-                <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">Thrift Boss</MudText>
-            </MudDrawerHeader>
-            <MudNavMenu>
-                <MudNavGroup Title="@context.User.Identity.Name" Expanded="false" Color="Color.Dark">
+﻿
+<AuthorizeView Roles="@roleAdmin">
+    <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">Thrift Boss</MudText>
+        </MudDrawerHeader>
+        <MudNavMenu>
+            @*<MudNavGroup Title="@context.User.Identity.Name" Expanded="false" Color="Color.Dark">
                     <MudNavLink Href="#" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix">Settings</MudNavLink>
                     <MudNavLink Href="/ProductsByFav" Icon="@Icons.Filled.Favorite" Match="NavLinkMatch.Prefix">Shop Favorites</MudNavLink>
                     <MudNavLink Href="#" Icon="@Icons.Filled.Numbers" Match="NavLinkMatch.Prefix">Stats</MudNavLink>
                     <MudNavLink Href="#" Icon="@Icons.Filled.ShoppingCartCheckout" Match="NavLinkMatch.Prefix">Active Orders</MudNavLink>
                     <MudNavLink Href="#" Icon="@Icons.Filled.PointOfSale" Match="NavLinkMatch.Prefix">Completed Sales</MudNavLink>
-                </MudNavGroup>
+                </MudNavGroup>*@
+            <MudDivider DividerType="DividerType.Middle" Class="my-2" />
+            <MudNavGroup Title="Hello Admin!" Expanded="false" Color="Color.Dark">
+                <MudNavLink Href="/AdminPanel" Icon="@Icons.Filled.AdminPanelSettings" Match="NavLinkMatch.Prefix">Admin Panel</MudNavLink>
+            </MudNavGroup>
+            <MudDivider DividerType="DividerType.Middle" Class="my-2" />
+            <MudNavGroup Title="Return to Client" Expanded="false" Color="Color.Dark">
+                <MudNavLink Href="@($"{LocalHost}")" Match="NavLinkMatch.All"></MudNavLink>
+                <MudNavLink Href="@($"{LocalHost}")" Icon="@Icons.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
+                <MudNavLink Href="@($"{LocalHost}/Products")" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
+                <MudNavLink Href="@($"{LocalHost}/blogs")" Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
+                <MudNavLink Href="@($"{LocalHost}/About")" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
+            </MudNavGroup>
+            <MudDivider DividerType="DividerType.Middle" Class="my-2" />
+        </MudNavMenu>
+    </MudDrawer>
+</AuthorizeView>
 
-                <MudDivider DividerType="DividerType.Middle" Class="my-2" />
 
-                <MudNavGroup Title="Product Management" Expanded="false" Color="Color.Dark">
-                    <MudNavLink Href="/AdminPanel" Icon="@Icons.Filled.AdminPanelSettings" Match="NavLinkMatch.Prefix">Admin Panel</MudNavLink>
-                </MudNavGroup>
-                <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-                <MudNavGroup Title=" Return to Client" Expanded="false" Color="Color.Dark">
-                    <MudNavLink Href="@($"{LocalHost}")" Match="NavLinkMatch.All"></MudNavLink>
-                    <MudNavLink Href="@($"{LocalHost}")" Icon="@Icons.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
-                    <MudNavLink Href="@($"{LocalHost}/Products")" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
-                    <MudNavLink Href="@($"{LocalHost}/blogs")" Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
-                    <MudNavLink Href="@($"{LocalHost}/About")" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
-                </MudNavGroup>
-                <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-            </MudNavMenu>
-        </MudDrawer>
-    </Authorized>
-
-    <NotAuthorized>
+@*<NotAuthorized>
         <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
             <MudDrawerHeader>
                 <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">Thrift Boss</MudText>
@@ -51,14 +49,7 @@
                 <MudDivider DividerType="DividerType.Middle" Class="my-2" />
             </MudNavMenu>
         </MudDrawer>
-    </NotAuthorized>
-
-</AuthorizeView>
-
-
-
-
-
+    </NotAuthorized>*@
 
 
 
@@ -67,7 +58,5 @@
     [Parameter]
     public bool SideBarOpen { get; set; }
     public string LocalHost = "https://localhost:5000";
-
-    public string ClientName = "Not Authorized";
-
+    private string roleAdmin = SharedServices.Commons.SD.Role_Admin;
 }

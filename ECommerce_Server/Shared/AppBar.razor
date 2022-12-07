@@ -14,7 +14,9 @@
                            OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
             <MudButton Href="Identity/Account/login" StartIcon="@Icons.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Please Register or LogIn</MudButton>
             <MudSpacer />
-        </MudAppBar>
+            <MudButton  Href="@($"{LocalHost}")" StartIcon="@Icons.Filled.Home" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit"></MudButton>
+
+        </MudAppBar>Please Register or LogIn
     </NotAuthorized>
 </AuthorizeView>
 
@@ -22,4 +24,5 @@
 @code {
     [Parameter]
     public EventCallback OnSidebarToggled { get; set; }
+    public string LocalHost = "https://localhost:5000";
 }
