@@ -5,17 +5,19 @@
 @inject IFileUpload _fileUpload
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
+@attribute [Authorize(Roles = SD.Role_Admin)]
 
 <body>
     <div class="min-f-screen w-full p-2 flex justify-center bg-black items-center">
         <div class="w-full bg-black max-w-lg">
-            <div class=" overflow-scroll bg-white text-black border p-4 shadow rounded w-full mt-10 mb-6">
+            <div class="overflow-scroll h-screen bg-white text-black border p-4 shadow rounded w-full mt-10 mb-6">
                 <h1 class="mb-8 text-3xl text-white bg-black py-4">Product List</h1>
                 @if (ECommerceProducts.Any())
                 {
                     <table>
                         <thead class="bg-gray-400 w-full text-black">
                             <tr>
+                                <th class=" w-full px-10 py-6"></th>
                                 <th class=" w-1/2 px-4 py-4">Name</th>
                                 <th class=" w-1/2 px-4 py-4">Category</th>
                                 <th class=" w-1/4 px-4 py-2"></th>
@@ -29,6 +31,12 @@
                             @foreach (var prod in ECommerceProducts)
                             {
                                 <tr>
+                                    <td class="border">
+                                        <img src="@prod.ImageUrl" width="100" height="100">
+                                    </td>
+                                    @*<td class="border">
+                                            <p class="w-full text-xlg"> @prod.ProductName</p>
+                                        </td>*@
                                     <th class="border px-4 py-2 bold">@prod.Name</th>
                                     <td class="border px-4 py-2">@prod.Category.Name</td>
                                     <td class="p-2">
@@ -69,8 +77,8 @@
                         <p>No Data to Display</p>
                     }
                 }
+            </div>
         </div>
-    </div>
     </div>
 </body>
 

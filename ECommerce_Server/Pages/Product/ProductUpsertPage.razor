@@ -1,9 +1,13 @@
-﻿@inject IProductRepository _productRepository
+﻿@page "/product/create"
+@page "/product/edit/{id:int}"
+
+@inject IProductRepository _productRepository
 @inject ICategoryRepository _categoryRepository
 @inject IFileUpload _fileUpload
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
+@attribute [Authorize(Roles = SD.Role_Admin)]
 
 <body>
     <div class="min-f-screen w-full p-2 flex justify-center items-center">
@@ -73,6 +77,7 @@
                         </div>
                         <br />
                         <button href="/product/Create" class="block w-full bg-indigo-600 hover:bg-black text-white rounded font-heading mt-2 py-2 mb-2 ">@Title</button>
+                        <MudButton Class="w-full" Href="@($"productprice/edit/{Product.Id}")" Variant="Variant.Filled" Color="Color.Dark">Edit Price</MudButton>
                         <br />
                     </EditForm>
                 }
@@ -174,5 +179,4 @@
         }
     }
 }
-
 

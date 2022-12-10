@@ -17,27 +17,27 @@
     }
     else
     {
-    <div class="min-f-screen w-full p-2 pt-10 flex justify-center">
-        <div class="w-full md:w-1/2 lg:w-1/3">
+<div class="min-f-screen bg-gray w-full p-2 pt-10 flex justify-center">
+    <div class="w-full md:w-1/2 lg:w-1/3">
 
-            @* Products in Cart view*@
-            <MudCard Class="w-full m-3 p-6">
+        @* Products in Cart view*@
+        <div class="bg-gray-200 text-black">
+            <div Class="w-full m-3 p-6">
                 <MudText Typo="Typo.h3" Style="text-align:left">Order Summary</MudText>
                 <table class="w-full justify-center">
                     <thead class="w-full">
                         <tr>
-                            <th class="w-1/2 px-8 py-4 "></th>
+                            <th class="w-1/2 px-10 py-6"></th>
                             <th class="w-full px-8 py-4 ">Name</th>
                             <th class="w-1/2 px-8 py-4">Qty</th>
                             <th class="w-1/2 px-8 py-4">Price</th>
-
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var prod in Order.OrderDetails)
                         {
                             <tr class="w-full">
-                                <td class="border ">
+                                <td class="border">
                                     <img src="@prod.Product.ImageUrl" width="100" height="100">
                                 </td>
                                 <td class="border">
@@ -49,40 +49,80 @@
                         }
                     </tbody>
                 </table>
-            </MudCard>
+            </div>
+        </div>
 
-            @* Address form *@
-            <EditForm Model="@Order.OrderHeader" OnValidSubmit="HandleCheckout">
-                <DataAnnotationsValidator />
-                <MudCard Style="border-block; border-white;">
-                    <MudCardContent>
-                        <MudTextField Label="Name" HelperText="Max. 20 characters"
-                                      @bind-Value="Order.OrderHeader.Name" For="@(() => Order.OrderHeader.Name)" />
-                        <MudTextField Label="PhoneNumber" Class="mt-3"
-                                      @bind-Value="Order.OrderHeader.PhoneNumber" For="@(() => Order.OrderHeader.PhoneNumber)" />
-                        <MudTextField Label="Email" Class="mt-3"
-                                      @bind-Value="Order.OrderHeader.Email" For="@(() => Order.OrderHeader.Email)" />
-                        <MudTextField Label="StreetAddress" Class="mt-3"
-                                      @bind-Value="Order.OrderHeader.StreetAddress" For="@(() => Order.OrderHeader.StreetAddress)" />
-                        <MudTextField Label="City" Class="mt-3"
-                                      @bind-Value="Order.OrderHeader.City" For="@(() => Order.OrderHeader.City)" />
-                        <MudTextField Label="State" Class="mt-3"
-                                      @bind-Value="Order.OrderHeader.State" For="@(() => Order.OrderHeader.State)" />
-                        <MudTextField Label="PostalCode" Class="mt-3"
-                                      @bind-Value="Order.OrderHeader.PostalCode" For="@(() => Order.OrderHeader.PostalCode)" />
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Checkout Now</MudButton>
-                        <MudButton Href="/Cart" FullWidth="true" Variant="Variant.Filled" Color="Color.Dark" Class="ml-auto">Return to Cart</MudButton>
-                    </MudCardActions>
-                </MudCard>
-            </EditForm>
+        @* Address form *@
+        <div class="w-full bg-gray-200 text-black">
+            <div Class="w-full m-3 p-6 text-lg">
+                <EditForm Model="Order.OrderHeader" OnValidSubmit="HandleCheckout">
+                    <DataAnnotationsValidator />
+                    <MudText Typo="Typo.h5" Style="text-align:left">Enter Details</MudText>
+                    <div class="bg-red-100"></div>
+                    <div class="form-group pt-2">
+                        <label class="text-warning">Name</label>
+                        <InputText @bind-Value="Order.OrderHeader.Name" type="text" class="form-control w-full" />
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.Name"></ValidationMessage>
+                        </div>
+                    </div>
+                    <div class="form-group pt-2">
+                        <label class="text-warning">Phone</label>
+                        <InputText @bind-Value="Order.OrderHeader.PhoneNumber" type="text" class="form-control w-full" />
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.PhoneNumber"></ValidationMessage>
+                        </div>
+                    </div>
+                    <div class="form-group text-red pt-2">
+                        <label class="text-warning">Email</label>
+                        <InputText @bind-Value="Order.OrderHeader.Email" type="text" class="form-control w-full" />
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.Email"></ValidationMessage>
+                        </div>
+                    </div>
+                    <div class="form-group pt-2">
+                        <label class="text-warning">Street Address</label>
+                        <InputText @bind-Value="Order.OrderHeader.StreetAddress" type="text" class="form-control w-full" />
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.StreetAddress"></ValidationMessage>
+                        </div>
+                    </div>
+                    <div class="form-group pt-2">
+                        <label class="text-warning">City</label>
+                        <InputText @bind-Value="Order.OrderHeader.City" type="text" class="form-control w-full" />
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.City"></ValidationMessage>
+                        </div>
+                    </div>
+                    <div class="form-group pt-2">
+                        <label class="text-warning">State</label>
+                        <InputText @bind-Value="Order.OrderHeader.State" type="text" class="form-control w-full" />
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.State"></ValidationMessage>
+                        </div>
+                    </div>
+                    <div class="form-group pt-2 pb-2">
+                        <label class="text-warning">Postal Code</label>
+                        <InputText @bind-Value="Order.OrderHeader.PostalCode" type="text" class="form-control w-full" />
+                        <div class="bg-red-100">
+                            <ValidationMessage For="()=>Order.OrderHeader.PostalCode"></ValidationMessage>
+                        </div>
+                    </div>
+
+                    <div class="form-group pt-2 pb-2">
+                        <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto pb-2">Checkout Now</MudButton>
+                    </div>
+                    <MudButton Href="/Cart" FullWidth="true" Variant="Variant.Filled" Color="Color.Dark" Class="ml-auto">Return to Cart</MudButton>
+
+                    @*<div class="form-group pt-2">
+            <button type="submit" class="form-control border-black">Checkout Now</button>
+        </div>*@
+                </EditForm>
+            </div>
         </div>
     </div>
-
+    </div>
     }
-
-
      
 
     @code {

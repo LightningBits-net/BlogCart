@@ -1,12 +1,10 @@
-﻿@page "/product/create"
-@page "/product/edit/{id:int}"
-
-@inject IProductRepository _productRepository
+﻿@inject IProductRepository _productRepository
 @inject ICategoryRepository _categoryRepository
 @inject IFileUpload _fileUpload
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
+@attribute [Authorize(Roles = SD.Role_Admin)]
 
 <body>
     <div class="min-f-screen w-full p-2 flex justify-center items-center">
@@ -21,64 +19,63 @@
                 }
                 else
                 {
-            <EditForm Model="Product" OnValidSubmit="UpsertProduct">
-                <div class="flex flex-wrap justify-center">
-                    <img src="@Product.ImageUrl"
-                         class="p-1 bg-black border rounded max-w-sm" />
-                    <div class="form-group bg-gray-200 border shadow md:w-2/3 px-3 mt-2 mb-3 md:mb-0">
-                        <div class="form-check">
-                            <InputFile OnChange="HandleImageUpLoad"></InputFile>
+                    <EditForm Model="Product" OnValidSubmit="UpsertProduct">
+                        <div class="flex flex-wrap justify-center">
+                            <img src="@Product.ImageUrl"
+                                 class="p-1 bg-black border rounded max-w-sm" />
+                            <div class="form-group bg-gray-200 border shadow md:w-2/3 px-3 mt-2 mb-3 md:mb-0">
+                                <div class="form-check">
+                                    <InputFile OnChange="HandleImageUpLoad"></InputFile>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <DataAnnotationsValidator />
-                <div class="bg-red-100"> <ValidationSummary></ValidationSummary> </div>
+                        <DataAnnotationsValidator />
+                        <div class="bg-red-100"> <ValidationSummary></ValidationSummary> </div>
 
-                <div class="form-group text-left text-lrg text-gray-600 mt-4">
-                    <MudInputLabel Class="font-bold">Product Name</MudInputLabel>
-                    <InputText @bind-Value="Product.Name" class="block w-full text-black focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-3"></InputText>
-                </div>
-                <div class="form-group text-left text-lrg text-gray-600 mt-4">
-                    <MudInputLabel Class="font-bold">Product color</MudInputLabel>
-                    <InputText @bind-Value="Product.Color" class="block w-full text-black focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-3"></InputText>
-                </div>
-                <div class="form-group text-left text-lrg text-gray-600 text-bold mt-4">
-                    <MudInputLabel Class="font-bold">Product Description</MudInputLabel>
-                    <SfRichTextEditor @bind-Value="Product.Description">
-                    </SfRichTextEditor>
-                </div>
-                <br />
-                <div class="flex justify-center text-small -mx-3">
-                    <div class="form-group bg-gray-200 border shadow md:w-1/3 px-3 mt-2 mb-3  md:mb-0">
-                        <div class="form-check">
-                            <InputCheckbox @bind-Value="Product.CustomerFavorites" class="form-check-input bg-black text-white width-full"></InputCheckbox>
-                            <label class="form-check-label font-bold">Customer favorites</label>
+                        <div class="form-group text-left text-lrg text-gray-600 mt-4">
+                            <MudInputLabel Class="font-bold">Product Name</MudInputLabel>
+                            <InputText @bind-Value="Product.Name" class="block w-full text-black focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-3"></InputText>
                         </div>
-                    </div>
-                    <div class="form-group border shadow md:w-1/3 px-3 mt-2 mb-3 md:mb-0">
-                        <div class="form-select">
-                            <label class="font-bold"><u>Category</u></label>
-                            <InputSelect @bind-Value="Product.CategoryId" class="form-select text-center">
-                                <option value="0" disabled="disabled" selected>--Select Category--</option>
-                                @foreach (var cat in ECommerceCategories)
-                                {
-                                    <option value="@cat.Id">@cat.Name</option>
-                                }
-                            </InputSelect>
+                        <div class="form-group text-left text-lrg text-gray-600 mt-4">
+                            <MudInputLabel Class="font-bold">Product color</MudInputLabel>
+                            <InputText @bind-Value="Product.Color" class="block w-full text-black focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-3"></InputText>
                         </div>
-                    </div>
-                    <div class="form-group border bg-gray-200 shadoww md:w-1/3 px-3 mt-2 mb-3 md:mb-0">
-                        <div class="form-check">
-                            <InputCheckbox @bind-Value="Product.ShopFavorites" class="form-check-input"></InputCheckbox>
-                            <label class="form-check-label font-bold">Shop favorites</label>
+                        <div class="form-group text-left text-lrg text-gray-600 text-bold mt-4">
+                            <MudInputLabel Class="font-bold">Product Description</MudInputLabel>
+                            <SfRichTextEditor @bind-Value="Product.Description">
+                            </SfRichTextEditor>
                         </div>
-                    </div>
-                </div>
-                <br />
-                <button href="/product/Create" class="block w-full bg-indigo-600 hover:bg-black text-white rounded font-heading mt-2 py-2 mb-2 ">@Title</button>
-                <MudButton Class="w-full" Href="@($"productprice/edit/{Product.Id}")" Variant="Variant.Filled" Color="Color.Dark">Edit Price</MudButton>
-                <br />
-            </EditForm>
+                        <br />
+                        <div class="flex justify-center text-small -mx-3">
+                            <div class="form-group bg-gray-200 border shadow md:w-1/3 px-3 mt-2 mb-3  md:mb-0">
+                                <div class="form-check">
+                                    <InputCheckbox @bind-Value="Product.CustomerFavorites" class="form-check-input bg-black text-white width-full"></InputCheckbox>
+                                    <label class="form-check-label font-bold">Customer favorites</label>
+                                </div>
+                            </div>
+                            <div class="form-group border shadow md:w-1/3 px-3 mt-2 mb-3 md:mb-0">
+                                <div class="form-select">
+                                    <label class="font-bold"><u>Category</u></label>
+                                    <InputSelect @bind-Value="Product.CategoryId" class="form-select text-center">
+                                        <option value="0" disabled="disabled" selected>--Select Category--</option>
+                                        @foreach (var cat in ECommerceCategories)
+                                        {
+                                            <option value="@cat.Id">@cat.Name</option>
+                                        }
+                                    </InputSelect>
+                                </div>
+                            </div>
+                            <div class="form-group border bg-gray-200 shadoww md:w-1/3 px-3 mt-2 mb-3 md:mb-0">
+                                <div class="form-check">
+                                    <InputCheckbox @bind-Value="Product.ShopFavorites" class="form-check-input"></InputCheckbox>
+                                    <label class="form-check-label font-bold">Shop favorites</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <button href="/product/Create" class="block w-full bg-indigo-600 hover:bg-black text-white rounded font-heading mt-2 py-2 mb-2 ">@Title</button>
+                        <br />
+                    </EditForm>
                 }
             </div>
         </div>
@@ -94,7 +91,7 @@
 
     private ProductDTO Product { get; set; } = new()
     {
-        ImageUrl="/img/lb_logo.png"
+        ImageUrl = "/img/lb_logo.png"
     };
     private IEnumerable<CategoryDTO> ECommerceCategories { get; set; } = new List<CategoryDTO>();
     private string Title { get; set; } = "Create";
@@ -134,7 +131,7 @@
         }
         else
         {
-            if(OldImageUrl!=Product.ImageUrl)
+            if (OldImageUrl != Product.ImageUrl)
             {
                 _fileUpload.DeleteFile(OldImageUrl);
             }
@@ -178,4 +175,5 @@
         }
     }
 }
+
 

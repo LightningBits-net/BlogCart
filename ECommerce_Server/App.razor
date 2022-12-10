@@ -1,13 +1,28 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+﻿<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    <PageTitle>Please Sign in</PageTitle>
+                    <div class="text-white max-w-5xl mx-auto p-8 py-24 flex justify-start items-center">
+                        <div class="flex-1">
+                            <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-12">Please Log-in or register</h1>
+                        </div>
+                        <div class="hidden md:block w-56">
+                            <MudButton Href="Identity/Account/login" StartIcon="@Icons.Filled.Login" Variant="Variant.Filled" Size="Size.Small" Color="Color.Primary">Login now!</MudButton>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1491944799262-a5be522e2300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2068&q=80" class="w-full h-64 object-cover" />
+                </NotAuthorized>
+                </AuthorizeRouteView>
+                <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
 

@@ -47,16 +47,16 @@ namespace SharedServices.Repository
                     OrderDetails = _mapper.Map<IEnumerable<OrderDetail>, IEnumerable<OrderDetailDTO>>(obj.OrderDetails).ToList()
                 };
             }
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
-            catch (Exception )
+            catch (Exception ex)
             {
-                throw ;
+                throw ex;
             }
+            //catch (Exception )
+            //{
+            //    throw ;
+            //}
 
-            return objDTO;
+            //return objDTO;
         }
 
         public async Task<int> Delete(int id)

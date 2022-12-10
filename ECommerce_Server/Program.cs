@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using SharedServices.Repository;
 using SharedServices.Repository.IRepository;
@@ -8,6 +8,8 @@ using MudBlazor.Services;
 using ECommerce_Server.Service.IService;
 using ECommerce_Server.Service;
 using Syncfusion.Blazor;
+using Microsoft.AspNetCore.Identity;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,8 +20,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders().AddDefaultUI().AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IDbInitializer, DbInitializer >();
 builder.Services.AddScoped<IProductPriceRepository, ProductPriceRepository>();
 builder.Services.AddScoped<IFileUpload, FileUpload>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -29,7 +33,7 @@ builder.Services.AddSyncfusionBlazor();
 
 var app = builder.Build();
 
-Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NzIwODc3QDMyMzAyZTMyMmUzMG9sY1REWTRseW1RZ3RaWSsvRGZjZ0hBdVJZZmtTR2c2dVZUcGVLNWlHM2c9");
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NzcwNjYwQDMyMzAyZTMzMmUzMEo1bVJTM3cxNktMbzM2YWluMGoyV1JqS0JQYkdIMnRpUVY0d1A4RCs2QmM9");
 
 
 // Configure the HTTP request pipeline.
@@ -46,8 +50,21 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+SeedDataBase();
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
 
+
+void SeedDataBase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}
