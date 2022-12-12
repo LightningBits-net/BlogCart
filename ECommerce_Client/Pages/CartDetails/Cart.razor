@@ -62,8 +62,8 @@ else
                                     <td class="border px-4 py-2">@bill.Count</td>
                                     <td class="border px-4 py-2">@bill.ProductPrice.Size / @bill.Product.Color</td>
                                     <td>
-                                        <MudButton OnClick="()=>Increment(bill.ProductId,bill.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Filled" Color="Color.Dark">+</MudButton>
-                                        <MudButton OnClick="()=>Decrement(bill.ProductId,bill.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Filled" Color="Color.Dark">-</MudButton>
+                                        <MudButton OnClick="()=>Increment(bill.ProductId,bill.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Dark" Style="padding-2">+</MudButton>
+                                        <MudButton OnClick="()=>Decrement(bill.ProductId,bill.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Dark">-</MudButton>
                                     </td>
                                 </tr>
                             }
