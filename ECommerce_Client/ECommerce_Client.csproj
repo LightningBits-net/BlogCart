@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
+      <NoWarn>CS8618</NoWarn>
+       <NoWarn>CS8601</NoWarn>
+       <NoWarn>CS8602</NoWarn>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -12,9 +15,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0" PrivateAssets="all" />
-    <PackageReference Include="MudBlazor" Version="6.1.4" />
+    <PackageReference Include="MudBlazor" Version="6.1.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,15 +29,7 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Remove="Pages\ProductViews\ProductsByCat\" />
-    <None Remove="ViewModels\" />
-    <None Remove="Blazored.LocalStorage" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\ProductViews\ProductsByCat\" />
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+
   <ItemGroup>
     <None Update="Pages\Details.txt">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -45,4 +41,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
 </Project>

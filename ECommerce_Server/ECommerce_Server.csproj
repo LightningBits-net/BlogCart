@@ -4,6 +4,8 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
        <NoWarn>CS8618</NoWarn>
+       <NoWarn>CS8601</NoWarn>
+       <NoWarn>CS8602</NoWarn>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -23,22 +25,16 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.0" />
-    <PackageReference Include="MudBlazor" Version="6.1.4" />
+    <PackageReference Include="MudBlazor" Version="6.1.5" />
     <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="20.3.0.60" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.3.0.60" />
     <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.3.0.60" />
   </ItemGroup>
   <ItemGroup>
-
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="cssStyles\" />
-    <None Remove="Pages\Client\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cssStyles\" />
-    <Folder Include="wwwroot\img\Product\" />
-    <Folder Include="Pages\Client\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">
@@ -47,8 +43,5 @@
     <ProjectReference Include="..\SharedUI\SharedUI.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\img\Product\" />
   </ItemGroup>
 </Project>

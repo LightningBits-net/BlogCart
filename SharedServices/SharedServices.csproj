@@ -4,6 +4,9 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+      <NoWarn>CS8618</NoWarn>
+       <NoWarn>CS8601</NoWarn>
+       <NoWarn>CS8602</NoWarn>
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
@@ -25,15 +28,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Migrations\" />
-    <None Remove="Commons\" />
-    <None Remove="ViewModels\" />
     <None Remove="Microsoft.AspNetCore.Identity" />
     <None Remove="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-    <Folder Include="Commons\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 </Project>

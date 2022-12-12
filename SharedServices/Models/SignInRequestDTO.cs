@@ -5,8 +5,9 @@ namespace SharedServices.Models
 {
 	public class SignInRequestDTO
 	{
-        [Required(ErrorMessage = "UserName is required")]
-        [RegularExpression("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$", ErrorMessage = "Invalid email address")]
+        [Required(ErrorMessage = "UserEmail is required")]
+        //[RegularExpression("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$", ErrorMessage = "Invalid email address")]
+        [EmailAddress(ErrorMessage ="Invalid UserEmail")]
         public string UserName { get; set; }
 
 

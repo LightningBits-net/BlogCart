@@ -11,7 +11,7 @@ namespace SharedServices.Models
 
         [Required(ErrorMessage = "Email is required")]
         //[RegularExpression("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$", ErrorMessage = "Invalid email address")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Invalid Email")]
         public string Email { get; set; }
 
         public string PhoneNumber { get; set; }

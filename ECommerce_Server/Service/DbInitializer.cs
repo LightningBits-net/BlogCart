@@ -3,8 +3,10 @@ using System;
 using ECommerce_Server.Service.IService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MudBlazor;
 using SharedServices.Commons;
 using SharedServices.Data;
+
 
 
 namespace ECommerce_Server.Service
@@ -54,10 +56,11 @@ namespace ECommerce_Server.Service
                 _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
+          
         }
     }
 }
