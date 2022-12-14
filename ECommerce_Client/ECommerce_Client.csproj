@@ -3,12 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
-      <NoWarn>CS8618</NoWarn>
-       <NoWarn>CS8601</NoWarn>
-       <NoWarn>CS8602</NoWarn>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'testing' ">
     <ExternalConsole>true</ExternalConsole>
   </PropertyGroup>
@@ -20,7 +16,6 @@
     <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\SharedUI\SharedUI.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
@@ -30,11 +25,7 @@
     </ProjectReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Pages\Details.txt">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    </None>
-  </ItemGroup>
+
   <ItemGroup>
     <Content Update="Properties\launchSettings.json">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>

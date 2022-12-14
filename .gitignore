@@ -398,3 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 
 Notes.txt
+ECommerce_Server/appsettings.json
