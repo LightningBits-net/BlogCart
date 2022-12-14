@@ -399,3 +399,5 @@ FodyWeavers.xsd
 
 Notes.txt
 ECommerce_Server/appsettings.json
+ECommerce_Server/appsettings.json
+SharedApi/appsettings.json

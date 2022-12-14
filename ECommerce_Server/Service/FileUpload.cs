@@ -1,5 +1,6 @@
 ﻿// LightningBits
 using System;
+using Azure.Core;
 using ECommerce_Server.Service.IService;
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -42,6 +43,18 @@ namespace ECommerce_Server.Service
             var fullPath = $"/img/product/{fileName}";
             return fullPath;
         }
-    }
+
+    //        // Get the collection of files from the request
+    //        HttpFileCollection files = Request.Files;
+
+    //// Loop through the collection and save each file to the server
+    //for (int i = 0; i<files.Count; i++)
+    //{
+    //    HttpPostedFile file = files[i];
+
+    //        // Save the file to the server
+    //        file.SaveAs(Server.MapPath("~/uploads/" + file.FileName));
+    //}
+}
 }
 
