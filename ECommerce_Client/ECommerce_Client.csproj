@@ -27,6 +27,9 @@
 
 
   <ItemGroup>
+    <Content Remove="wwwroot\appsettings.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Update="Properties\launchSettings.json">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

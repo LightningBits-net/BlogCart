@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce_Client", "ECommer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedApi", "SharedApi\SharedApi.csproj", "{DD89AE15-4201-4E9B-9EE1-E7CCAEC7EE73}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "BlazorMaui", "BlazorMaui\BlazorMaui.csproj", "{822AA78F-4B87-446E-B217-E2AF2037CCA8}"
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "BlazorMaui", "BlazorMaui\BlazorMaui.csproj", "{5F417CB0-BB21-4B55-997F-975B79FD0255}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,10 +46,10 @@ Global
 		{DD89AE15-4201-4E9B-9EE1-E7CCAEC7EE73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD89AE15-4201-4E9B-9EE1-E7CCAEC7EE73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD89AE15-4201-4E9B-9EE1-E7CCAEC7EE73}.Release|Any CPU.Build.0 = Release|Any CPU
-		{822AA78F-4B87-446E-B217-E2AF2037CCA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{822AA78F-4B87-446E-B217-E2AF2037CCA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{822AA78F-4B87-446E-B217-E2AF2037CCA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{822AA78F-4B87-446E-B217-E2AF2037CCA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F417CB0-BB21-4B55-997F-975B79FD0255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F417CB0-BB21-4B55-997F-975B79FD0255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F417CB0-BB21-4B55-997F-975B79FD0255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F417CB0-BB21-4B55-997F-975B79FD0255}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
