@@ -810,6 +810,10 @@ video {
   min-height: 100vh;
 }
 
+.min-h-0 {
+  min-height: 0px;
+}
+
 .w-full {
   width: 100%;
 }
@@ -924,6 +928,10 @@ video {
 
 .gap-12 {
   gap: 3rem;
+}
+
+.overflow-auto {
+  overflow: auto;
 }
 
 .overflow-hidden {
