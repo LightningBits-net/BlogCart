@@ -1,4 +1,4 @@
-﻿@page "/UpCycling"
+﻿@page "/misc"
 @inject IProductService _productService
 
 
@@ -62,7 +62,7 @@ else
 @code {
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
-    public string CategoryName { get; set; } = "UpCycling";
+    public string CategoryName { get; set; } = "Misc";
 
     protected override async Task OnInitializedAsync()
     {
@@ -71,4 +71,3 @@ else
         IsProcessing = false;
     }
 }
-s

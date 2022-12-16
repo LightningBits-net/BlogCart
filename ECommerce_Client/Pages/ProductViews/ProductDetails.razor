@@ -17,44 +17,46 @@ else
         <div class="w-full md:w-1/2 lg:w-1/2 px-6 mb-12">
             <MudCard>
                 <MudText Typo="Typo.h3" Style="text-align:left; font-bold; background-color:black">@Product.Name</MudText>
-                <a href="@Product.ImageUrl">
-                    <MudCardMedia Image="@Product.ImageUrl" Height="400" />
-                </a>
-                <MudCardContent>
-                    <MudText Typo="Typo.h5">@((MarkupString)Product.Description)</MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButtonGroup>
-                        @foreach (var productPrice in Product.ECommerceProductPrices)
-                        {
-                            if (productPrice.Id == DetailsVM.SelectedProductPriceId)
+           
+                    <a href="@Product.ImageUrl">
+                        <img src="@Product.ImageUrl" class="w-full h-64 object-cover mb-6" />
+                        </a>
+               
+                        <MudCardContent>
+                            <MudText Typo="Typo.h5">@((MarkupString)Product.Description)</MudText>
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButtonGroup>
+                                @foreach (var productPrice in Product.ECommerceProductPrices)
+                                {
+                                    if (productPrice.Id == DetailsVM.SelectedProductPriceId)
+                                    {
+                                        <MudButton Color="Color.Dark" Width="128px" Height="64px" Style="border: 3px solid #28A745; border-radius: 5px; box-shadow: 5px">
+                                            <p> &nbsp @productPrice.Size &nbsp </p>
+                                            <p> &nbsp @productPrice.Price.ToString("c") &nbsp </p>
+                                        </MudButton>
+                                    }
+                                    else
+                                    {
+                                        <MudButton OnClick="(args)=>SelectedProductPrice(args,productPrice.Id)" Color="Color.Info" Width="128px" Height="64px" Style="margin:a; border:1px solid; border-radius:20px;box-shadow:5px">
+                                            <p> &nbsp @productPrice.Size &nbsp</p>
+                                            <p> &nbsp @productPrice.Price.ToString("c") &nbsp </p>
+                                        </MudButton>
+                                    }
+                                }
+                            </MudButtonGroup>
+                            <MudSpacer></MudSpacer>
+                            @if (DetailsVM.SelectedProductPriceId > 0)
                             {
-                                <MudButton Color="Color.Dark" Width="128px" Height="64px" Style="border: 3px solid #28A745; border-radius: 5px; box-shadow: 5px">
-                                    <p> &nbsp @productPrice.Size &nbsp </p>
-                                    <p> &nbsp @productPrice.Price.ToString("c") &nbsp </p>
-                                </MudButton>
+                                <MudButton Class="w-1/2 mr-2" OnClick="AddToCart" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Dark">Add to Cart</MudButton>
                             }
                             else
                             {
-                                <MudButton OnClick="(args)=>SelectedProductPrice(args,productPrice.Id)" Color="Color.Info" Width="128px" Height="64px" Style="margin:a; border:1px solid; border-radius:20px;box-shadow:5px">
-                                    <p> &nbsp @productPrice.Size &nbsp</p>
-                                    <p> &nbsp @productPrice.Price.ToString("c") &nbsp </p>
-                                </MudButton>
+                                <button type="submit" value="Add to Cart" disabled class="btn btn-primary form-control">Add to Cart</button>
                             }
-                        }
-                    </MudButtonGroup>
-                    <MudSpacer></MudSpacer>
-                    @if (DetailsVM.SelectedProductPriceId > 0)
-                    {
-                        <MudButton Class="w-1/2 mr-2" OnClick="AddToCart" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Dark">Add to Cart</MudButton>
-                    }
-                    else
-                    {
-                        <button type="submit" value="Add to Cart" disabled class="btn btn-primary form-control">Add to Cart</button>
-                    }
-                </MudCardActions>
-                <MudText Typo="Typo.h6" Style="text-align:right; background-color:black">Product Color: @Product.Color &nbsp Category: @Product.Category.Name</MudText>
-            </MudCard>
+                        </MudCardActions>
+                        <MudText Typo="Typo.h6" Style="text-align:right; background-color:black">Product Color: @Product.Color &nbsp Category: @Product.Category.Name</MudText>
+</MudCard>
             </div>
         </div>
 }

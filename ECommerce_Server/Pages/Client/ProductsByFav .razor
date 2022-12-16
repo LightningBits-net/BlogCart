@@ -67,7 +67,7 @@ else
     public bool IsLoading { get; set; } = false;
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
     public string CategoryName = "IsCustomerFav";
-    public string LocalHost = "https://localhost:5000";
+    public string LocalHost = " https://e-commerceclient.azurewebsites.net";
 
     [CascadingParameter]
     public Task<AuthenticationState> AuthenticationState { get; set; }

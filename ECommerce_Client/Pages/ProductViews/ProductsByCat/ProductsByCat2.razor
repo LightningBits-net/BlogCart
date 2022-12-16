@@ -1,4 +1,4 @@
-﻿@page "/Crochet"
+﻿@page "/logo"
 @inject IProductService _productService
 
 <_ProductsBannerMenu></_ProductsBannerMenu>
@@ -49,6 +49,7 @@ else
                             </MudCardActions>
                         </MudCard>
                     </div>
+
                 }
             }
         </div>
@@ -60,7 +61,7 @@ else
 @code {
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
-    public string CategoryName { get; set; } = "Crochet";
+    public string CategoryName { get; set; } = "Logo";
 
     protected override async Task OnInitializedAsync()
     {

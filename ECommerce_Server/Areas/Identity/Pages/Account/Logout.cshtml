@@ -4,12 +4,15 @@
 
 
 @functions{
-        public async Task<IActionResult> OnGet()
+    public async Task<IActionResult> OnGet()
+    {
+        if (_signInManager.IsSignedIn(User))
         {
-            if (_signInManager.IsSignedIn(User))
-            {
-                await _signInManager.SignOutAsync();
-            }
-            return Redirect("https://localhost:5000");
+            await _signInManager.SignOutAsync();
         }
+
+        return Redirect(" https://e-commerceclient.azurewebsites.net");
+
+        //return Redirect("https://localhost:5000");
+    }
     }
