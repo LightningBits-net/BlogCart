@@ -406,3 +406,4 @@ SharedApi/appsettings.json
 ECommerce_Client/wwwroot/appsettings.json
 *.json
 *.json
+*.json
