@@ -1,4 +1,4 @@
-﻿@page "/logo"
+﻿@page "/Home_Goods"
 @inject IProductService _productService
 
 <_ProductsBannerMenu></_ProductsBannerMenu>
@@ -61,7 +61,7 @@ else
 @code {
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
-    public string CategoryName { get; set; } = "Logo";
+    public string CategoryName { get; set; } = "Home_Goods";
 
     protected override async Task OnInitializedAsync()
     {
