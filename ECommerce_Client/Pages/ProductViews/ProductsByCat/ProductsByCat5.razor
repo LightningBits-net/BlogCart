@@ -37,7 +37,7 @@ else
                                 <MudText Color="Color.Primary">@product.ECommerceProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c")</MudText>
                             </MudCardActions>
                             <a href="/ProductDetails/@product.Id">
-                                <img src="@product.ImageUrl" class="w-full h-64 object-cover mb-4" />
+                                <img src="@product.ImageUrl" class="w-full h-64 object-cover" />
                             </a>
                             <MudCardContent>
                                 <p class="h-48 min-h-0 mb-8 m-2">
