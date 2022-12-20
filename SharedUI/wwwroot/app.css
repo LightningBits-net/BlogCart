@@ -1256,16 +1256,16 @@ video {
   line-height: 2.5rem;
 }
 
-.font-thin {
-  font-weight: 100;
-}
-
 .font-bold {
   font-weight: 700;
 }
 
 .font-semibold {
   font-weight: 600;
+}
+
+.font-thin {
+  font-weight: 100;
 }
 
 .font-light {
