@@ -39,167 +39,97 @@ else
         </div>
 
         @* Order Summary*@
-        <div class="container mx-auto flex flex-wrap pb-20">
-            <div class="w-full md:w-full lg:w-1/2 px-6 mb-6">
-                <MudCard Elevation="25" Style="background-color:lightgray">
-                    <MudText Typo="Typo.h3" Style="text-align:left; font-bold; background-color:black">Order Summary</MudText>
-                    <table class="w-full">
-                        <thead class="bg-gray-400 w-full text-black">
-                            <tr>
-                                <th class=" w-1/2 ">Name</th>
-                                <th class=" w-1/2 px-4 py-4">Price</th>
-                                <th class=" w-1/2 px-4 py-2">Qty</th>
-                                <th class=" w-1/2 px-4 py-2">size/color</th>
-                                <th class=" w-1/4 px-4 py-2">edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var bill in ShoppingCart)
-                            {
-                                <tr class="text-black w-full">
-                                    <td class="border px-4 py-2">@bill.Product.Name</td>
-                                    <td class="border px-4 py-2">@bill.ProductPrice.Price.ToString("c")</td>
-                                    <td class="border px-4 py-2">@bill.Count</td>
-                                    <td class="border px-4 py-2">@bill.ProductPrice.Size / @bill.Product.Color</td>
-                                    <td>
-                                        <MudButton OnClick="()=>Increment(bill.ProductId,bill.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Dark" Style="padding-2">+</MudButton>
-                                        <MudButton OnClick="()=>Decrement(bill.ProductId,bill.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Dark">-</MudButton>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </MudCard>
-            </div>
+<div class="container mx-auto flex flex-wrap pb-20">
+    <div class="w-full md:w-full lg:w-1/2 px-6 mb-6">
+        <MudCard Elevation="25" Style="background-color:lightgray">
+            <MudText Typo="Typo.h3" Style="text-align:left; font-bold; background-color:black">Order Summary</MudText>
+            <table class="w-full">
+                <thead class="bg-gray-400 w-full text-black">
+                    <tr>
+                        <th class=" w-1/2 ">Name</th>
+                        <th class=" w-1/2 px-4 py-4">Price</th>
+                        <th class=" w-1/2 px-4 py-2">Qty</th>
+                        <th class=" w-1/2 px-4 py-2">size/color</th>
+                        <th class=" w-1/4 px-4 py-2">edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var bill in ShoppingCart)
+                    {
+                        <tr class="text-black w-full">
+                            <td class="border px-4 py-2">@bill.Product.Name</td>
+                            <td class="border px-4 py-2">@bill.ProductPrice.Price.ToString("c")</td>
+                            <td class="border px-4 py-2">@bill.Count</td>
+                            <td class="border px-4 py-2">@bill.ProductPrice.Size / @bill.Product.Color</td>
+                            <td>
+                                <MudButton OnClick="()=>Increment(bill.ProductId,bill.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Dark" Style="padding-2">+</MudButton>
+                                <MudButton OnClick="()=>Decrement(bill.ProductId,bill.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Dark">-</MudButton>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </MudCard>
+    </div>
 
-            @* Review and Submit*@
-            <div class="w-full md:w-1/2 lg:w-1/3 px-6 mb-12">
-                <MudCard Elevation="25" Style="background-color:lightgray">
-                    <MudText Typo="Typo.h3" Style="text-align:left; font-bold; background-color:black">Order Total</MudText>
-                    <table class="w-full">
-                        <thead class="bg-gray-400 w-full text-black">
-                            <tr>
-                                <th class=" w-1/2 ">Sub-Total</th>
-                                <th class=" w-1/2 px-4 py-4">Taxes</th>
-                                <th class=" w-1/2 px-4 py-2">discounts</th>
-                                <th class=" w-1/2 px-4 py-2">You pay</th>
-                                <th class=" w-1/2 px-4 py-2"></th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-gray-200">
-                            <tr class="text-black w-full">
-                                <td class=" px-4 py-2 bold">@OrderTotal.ToString("c")</td>
-                                <td class=" px-4 py-2 bold">$</td>
-                                <td class=" px-4 py-2 bold">$</td>
-                                <th class="px-4 py-2 bold">@OrderTotal.ToString("c")</th>
-                                <td class=" px-4 py-2 bold">
-                                    <MudButton Href="/summary" Variant="Variant.Filled" FullWidth="true" Color="Color.Primary" ButtonType="ButtonType.Submit">Review</MudButton>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </MudCard>
-            </div>
+    @* Review and Submit*@
+    <div class="w-full md:w-1/2 lg:w-1/3 px-6 mb-12">
+        <MudCard Elevation="25" Style="background-color:lightgray">
+            <MudText Typo="Typo.h3" Style="text-align:left; font-bold; background-color:black">Order Total</MudText>
+            <table class="w-full">
+                <thead class="bg-gray-400 w-full text-black">
+                    <tr>
+                        <th class=" w-1/2 ">Sub-Total</th>
+                        <th class=" w-1/2 px-4 py-4">Taxes</th>
+                        <th class=" w-1/2 px-4 py-2">discounts</th>
+                        <th class=" w-1/2 px-4 py-2">You pay</th>
+                        <th class=" w-1/2 px-4 py-2"></th>
+                    </tr>
+                </thead>
+                <tbody class="bg-gray-200">
+                    <tr class="text-black w-full">
+                        <td class=" px-4 py-2 bold">@OrderTotal.ToString("c")</td>
+                        <td class=" px-4 py-2 bold">$</td>
+                        <td class=" px-4 py-2 bold">$</td>
+                        <th class="px-4 py-2 bold">@OrderTotal.ToString("c")</th>
+                        <td class=" px-4 py-2 bold">
+                            <MudButton Href="/summary" Variant="Variant.Filled" FullWidth="true" Color="Color.Primary" ButtonType="ButtonType.Submit">Review</MudButton>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </MudCard>
+    </div>
 
-            @* Products in Cart view*@
-            @foreach (var item in ShoppingCart)
-            {
-                <div class="w-full md:w-1/2 lg:w-1/3 px-6 mb-12">
-                    <MudCard Elevation="25">
-                        <MudText Typo="Typo.h5" Style="text-align:left; font-bold; background-color:black">@item.Product.Name</MudText>
-                     
-                        <div class="flex flex-wrap justify-center">
-                            <a href="@item.Product.ImageUrl">
-                                <img src="@item.Product.ImageUrl" />
-                            </a>
-                        </div>
-                        <MudCardActions Variant="Variant.Text" Color="Color.Primary">
-                            <MudText Typo="Typo.caption" Style="text-align: right">Product Size:  @item.ProductPrice.Size</MudText>
-                            <MudSpacer></MudSpacer>
-                            <MudText Typo="Typo.caption" Style="text-align: right">Product Color: @item.Product.Color</MudText>
-                            <MudSpacer></MudSpacer>
-                            <MudText Typo="Typo.caption" Style="text-align: right">Category: @item.Product.Category.Name</MudText>
-                        </MudCardActions>
-                        <MudCardContent>
-                            <p class="h-24 min-h-0">
-                                <MudText Typo="Typo.body1">@((MarkupString)item.Product.Description)</MudText>
-                            </p>
-                        </MudCardContent>
-                        <MudButton OnClick="()=>Increment(item.ProductId,item.ProductPriceId,1)" ButtonType="ButtonType.Submit" Color="Color.Primary"></MudButton>
-                    </MudCard>
-                </div>
-            }
+    @* Products in Cart view*@
+    @foreach (var item in ShoppingCart)
+    {
+        <div class="w-full md:w-1/2 lg:w-1/3 px-1 mb-12">
+            <MudCard Elevation="25">
+                <MudCardActions>
+                    <MudText Typo="Typo.h5" Color="Color.Default">@item.Product.Name</MudText>
+                </MudCardActions>
+                <a href="@item.Product.ImageUrl">
+                    <img src="@item.Product.ImageUrl" class="w-full h-64 object-cover mb-4" />
+                </a>
+                <MudCardContent>
+                    <p class="h-48 min-h-0 mb-8">
+                        <MudText Typo="Typo.body1">@((MarkupString)item.Product.Description)</MudText>
+                    </p>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudText Class="h-40" Typo="Typo.body2" Color="Color.Default">Product Color: @item.Product.Color</MudText>
+                    <MudSpacer />
+                    <MudText Class="h-40" Typo="Typo.body2" Color="Color.Default">Category: @item.Product.Category.Name</MudText>
+                </MudCardActions>
+                @*<MudButton OnClick="()=>Increment(item.ProductId,item.ProductPriceId,1)" ButtonType="ButtonType.Submit" Color="Color.Primary"></MudButton>*@
+            </MudCard>
         </div>
+    }
+</div>
     }
 }
 
-@*@code {
-    public bool IsProcessing { get; set; } = false;
-    private List<ShoppingCart> ShoppingCart = new List<ShoppingCart>();
-    private IEnumerable<ProductDTO> Products { get; set; }
-    private double OrderTotal { get; set; } = 0;
-    //private OrderDTO Order { get; set; } = null;
-
-    protected override async Task OnInitializedAsync()
-    {
-        //IsProcessing = true;
-        //if(!ShoppingCart.Any())
-        //{
-        //    ShoppingCart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
-        //    Products = await _productService.GetAll();
-        //    await LoadCart();
-        //}
-        //else
-        //{
-        //    return;
-        //}
-        //IsProcessing = false;
-        IsProcessing = true;
-
-        Products = await _productService.GetAll();
-        await LoadCart();
-        IsProcessing = false;
-    }
-
-    private async Task LoadCart()
-    {
-        OrderTotal = 0;
-        ShoppingCart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
-        foreach (var cart in ShoppingCart)
-        {
-            cart.Product = Products.FirstOrDefault(u => u.Id == cart.ProductId);
-            cart.ProductPrice = cart.Product.ECommerceProductPrices.FirstOrDefault(u => u.Id == cart.ProductPriceId);
-            OrderTotal += (cart.ProductPrice.Price * cart.Count);
-        }
-    }
-
-    private async Task Increment(int ProductId, int ProductPriceId, int Count)
-    {
-        IsProcessing = true;
-        await _cartService.IncrementCart(new()
-        {
-            Count = Count,
-            ProductId = ProductId,
-            ProductPriceId = ProductPriceId
-        });
-
-        await LoadCart();
-        IsProcessing = false;
-    }
-
-    private async Task Decrement(int ProductId, int ProductPriceId, int Count)
-    {
-        IsProcessing = true;
-        await _cartService.DecrementCart(new()
-        {
-            Count = Count,
-            ProductId = ProductId,
-            ProductPriceId = ProductPriceId
-        });
-        await LoadCart();
-        IsProcessing = false;
-    }
-}*@
 @code {
     public bool IsProcessing { get; set; } = false;
     private List<ShoppingCart> ShoppingCart = new List<ShoppingCart>();
