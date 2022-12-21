@@ -9,6 +9,26 @@
 
 <_FeaturedBlog></_FeaturedBlog>
 
+<div>
+    <ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">
+        @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
+        {
+            <li>
+                <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/@category">@category</a>
+            </li>
+        }
+    </ul>
+</div>
+
 <_FooterDarkGray></_FooterDarkGray>
 
 
+@code {
+    public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ECommerceProducts = await _productService.GetAll();
+    }
+
+}
