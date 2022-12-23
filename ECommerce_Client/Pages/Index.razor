@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject IProductService _productService
 
 <PageTitle>e-Commerce</PageTitle>
 
@@ -6,14 +7,86 @@
 
 <_FeaturedProducts></_FeaturedProducts>
 
-<_Testimonials></_Testimonials>
-
 <_FeaturedBlog></_FeaturedBlog>
 
+
+<div>
+    <ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">
+        @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
+        {
+            <li>
+                <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/@category">@category</a>
+            </li>
+        }
+    </ul>
+</div>
+<div class="container mx-auto flex flex-wrap pb-20">
+    <div class="w-full md:w-1/2 lg:w-1/2 px-2 mb-6">
+        <MudCard>
+            <div class="max-w-5xl mx-auto bg-black flex justify-end">
+                <a href="/featured">
+                    <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">@CategoryName1</h1>
+                </a>
+            </div>
+            <MudCarousel Class="mud-width-full" Style="height: 250px; background-color: black;" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+                @foreach (var product in ECommerceProducts)
+                {
+                    @if (product.Category.Name == CategoryName1)
+                    {
+                        <MudCarouselItem Transition="Transition.Slide" Color="@Color.Dark">
+                            <a href="/ProductDetails/@product.Id">
+                                <img src="@product.ImageUrl" class="w-full h-64 object-cover" />
+                            </a>
+                        </MudCarouselItem>
+                    }
+                }
+            </MudCarousel>
+        </MudCard>
+    </div>
+
+    <div class="w-full md:w-1/2 lg:w-1/2 px-2 mb-6">
+        <MudCard>
+            <div class="max-w-5xl mx-auto bg-black flex justify-end">
+                <a href="/Sale">
+                    <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">@CategoryName2</h1>
+                </a>
+            </div>
+            <MudCarousel Class="mud-width-full" Style="height:250px; background-color:black;" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+                @foreach (var product in ECommerceProducts)
+                {
+                    @if (product.Category.Name == CategoryName2)
+                    {
+                        <MudCarouselItem Transition="Transition.Slide" Color="@Color.Dark">
+                            <a href="/ProductDetails/@product.Id">
+                                <img src="@product.ImageUrl" class="w-full h-64 object-cover" />
+                            </a>
+                        </MudCarouselItem>
+                    }
+                }
+            </MudCarousel>
+        </MudCard>
+    </div>
+</div>
 <_FooterDarkGray></_FooterDarkGray>
 
 
 @code {
+    public bool IsProcessing { get; set; } = false;
+    public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
+    public string CategoryName1 = "Featured";
+    public string CategoryName2 = "Sale";
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        ECommerceProducts = await _productService.GetAll();
+        IsProcessing = false;
+    }
+
+    //private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
 
 }
-
