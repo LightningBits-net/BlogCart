@@ -2,7 +2,7 @@
     <Authorized>
         <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
             <MudDrawerHeader>
-                <MudText Typo="Typo.h6" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">Hello, @context.User.Identity.Name</MudText>
+                <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">Thrift Boss</MudText>
             </MudDrawerHeader>
             <MudNavMenu>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
@@ -16,7 +16,6 @@
                 <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
             </MudNavMenu>
             <MudButton Href="/logout" StartIcon="@Icons.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-out</MudButton>
-
         </MudDrawer>
     </Authorized>
     <NotAuthorized>
