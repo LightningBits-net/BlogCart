@@ -68,8 +68,6 @@ Stylin Attributes
 Intial Templates built upon where provided by:
 ## Authors
 
-* **Ross Topping** - [Digizu](https://digizu.co.uk)
-
 * **LightningBits 
 
 ## License
