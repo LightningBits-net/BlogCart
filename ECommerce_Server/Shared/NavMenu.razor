@@ -6,8 +6,10 @@
         </MudDrawerHeader>
         <MudNavMenu>
             <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-            <MudNavGroup Title="Hello Admin!" Expanded="false" Color="Color.Dark">
+            <MudText Typo="Typo.body1" Color="Color.Primary">@context.User.Identity.Name</MudText>
+            <MudNavGroup Title="Admin Settings" Expanded="false" Color="Color.Dark">
                 <MudNavLink Href="/AdminPanel" Icon="@Icons.Filled.AdminPanelSettings" Match="NavLinkMatch.Prefix">Admin Panel</MudNavLink>
+                <MudNavLink Href="/Identity/Account/Manage" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix">Profile settings</MudNavLink>
             </MudNavGroup>
             <MudDivider DividerType="DividerType.Middle" Class="my-2" />
             <MudNavGroup Title="Return to Client" Expanded="false" Color="Color.Dark">
