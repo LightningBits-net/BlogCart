@@ -13,89 +13,89 @@
 }
 else
 {
-    <div class="min-f-screen w-full p-2 pt-10 flex justify-center ">
-        <div class="w-full md:w-1/2 lg:w-1/2 px-6 mb-12">
-            <MudCard Elevation="25">
-                <MudCardActions>
-                    <MudText Typo="Typo.h5" Color="Color.Default">@Product.Name</MudText>
-                    <MudSpacer />
-                    <MudText Typo="Typo.body1" Style="text-align:right">Product Color: @Product.Color <br /> Category: @Product.Category.Name</MudText>
-                </MudCardActions>
-                <img src="@Product.ImageUrl" class="w-full h-64 object-cover" />
-                <MudCardContent>
-                    <p class="h-48 min-h-0">
-                        <MudText Typo="Typo.body1" Color="Color.Inherit"> @((MarkupString)Product.Description)</MudText>
-                    </p>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButtonGroup>
-                        @foreach (var productPrice in Product.ECommerceProductPrices)
-                        {
-                            if (productPrice.Id == DetailsVM.SelectedProductPriceId)
+    <div class="container mx-auto flex justify-center pb-20 pt-10">
+            <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
+                <MudCard Elevation="25">
+                    <MudCardActions>
+                        <MudText Typo="Typo.h5" Color="Color.Default">@Product.Name</MudText>
+                        <MudSpacer />
+                        <MudText Typo="Typo.body1" Style="text-align:right">Product Color: @Product.Color <br /> Category: @Product.Category.Name</MudText>
+                    </MudCardActions>
+                    <img src="@Product.ImageUrl" class="w-full h-64 object-cover" />
+                    <MudCardContent>
+                        <p class="h-48 min-h-0">
+                            <MudText Typo="Typo.body1" Color="Color.Inherit"> @((MarkupString)Product.Description)</MudText>
+                        </p>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButtonGroup>
+                            @foreach (var productPrice in Product.ECommerceProductPrices)
                             {
-                                <MudButton Color="Color.Dark" Width="128px" Height="64px" Style="border: 3px solid #28A745; border-radius: 5px; box-shadow: 5px">
-                                    <p> &nbsp @productPrice.Size &nbsp </p>
-                                    <p> &nbsp @productPrice.Price.ToString("c") &nbsp </p>
-                                </MudButton>
+                                if (productPrice.Id == DetailsVM.SelectedProductPriceId)
+                                {
+                                    <MudButton Color="Color.Dark" Width="128px" Height="64px" Style="margin: 5px; padding: 5px;; border: 3px solid #28A745; border-radius: 5px; box-shadow: 5px">
+                                        <p> &nbsp @productPrice.Size &nbsp </p>
+                                        <p> &nbsp @productPrice.Price.ToString("c") &nbsp </p>
+                                    </MudButton>
+                                }
+                                else
+                                {
+                                    <MudButton OnClick="(args)=>SelectedProductPrice(args,productPrice.Id)" Color="Color.Info" Width="128px" Height="64px" Style="margin: 5px; padding: 5px; border: 1px solid; border-radius: 20px; box-shadow: 5px">
+                                        <p> &nbsp @productPrice.Size &nbsp</p>
+                                        <p> &nbsp @productPrice.Price.ToString("c") &nbsp </p>
+                                    </MudButton>
+                                }
                             }
-                            else
-                            {
-                                <MudButton OnClick="(args)=>SelectedProductPrice(args,productPrice.Id)" Color="Color.Info" Width="128px" Height="64px" Style="margin:a; border:1px solid; border-radius:20px;box-shadow:5px">
-                                    <p> &nbsp @productPrice.Size &nbsp</p>
-                                    <p> &nbsp @productPrice.Price.ToString("c") &nbsp </p>
-                                </MudButton>
-                            }
-                        }
-                    </MudButtonGroup>
+                        </MudButtonGroup>
 
-                    @if (DetailsVM.SelectedProductPriceId > 0)
-                    {
-                        <MudButton Class="w-1/2 mr-2" OnClick="AddToCart" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Dark">Add to Cart</MudButton>
-                    }
-                    else
-                    {
-                        <button type="submit" value="Add to Cart" disabled class="btn btn-primary form-control">Add to Cart</button>
-                    }
-                </MudCardActions>
-            </MudCard>
+                        @if (DetailsVM.SelectedProductPriceId > 0)
+                        {
+                            <MudButton Class="w-1/2 mr-2" OnClick="AddToCart" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Dark" Style="margin: 5px; padding: 5px;">Add to Cart</MudButton>
+                        }
+                        else
+                        {
+                            <button type="submit" style="margin: 5px; padding: 5px;" value="Add to Cart" disabled class="btn btn-primary form-control">Add to Cart</button>
+                        }
+                    </MudCardActions>
+                </MudCard>
+            </div>
         </div>
-    </div>
-}
+        }
 
 
 @code {
-    [Parameter]
-    public int ProductId { get; set; }
+        [Parameter]
+        public int ProductId { get; set; }
 
-    public ProductDTO Product { get; set; } = new();
-    public bool IsProcessing { get; set; } = false;
-    public DetailsVM DetailsVM { get; set; } = new();
+        public ProductDTO Product { get; set; } = new();
+        public bool IsProcessing { get; set; } = false;
+        public DetailsVM DetailsVM { get; set; } = new();
 
-    protected override async Task OnInitializedAsync()
-    {
-        IsProcessing = true;
-        Product = await _productService.Get(ProductId);
-        IsProcessing = false;
-    }
-
-    private async Task SelectedProductPrice(MouseEventArgs e, int productPriceId)
-    {
-        DetailsVM.ProductPrice = Product.ECommerceProductPrices.FirstOrDefault(u => u.Id == productPriceId);
-        DetailsVM.SelectedProductPriceId = productPriceId;
-    }
-
-    private async Task AddToCart()
-    {
-        ShoppingCart shoppingCart = new()
+        protected override async Task OnInitializedAsync()
         {
-            Count = DetailsVM.Count,
-            ProductId = ProductId,
-            ProductPriceId = DetailsVM.SelectedProductPriceId
-        };
+            IsProcessing = true;
+            Product = await _productService.Get(ProductId);
+            IsProcessing = false;
+        }
 
-        await _cartService.IncrementCart(shoppingCart);
-        _navigationManager.NavigateTo("/cart");
-        snackBar.Add("Product added to cart Succesfully.", Severity.Success);
+        private async Task SelectedProductPrice(MouseEventArgs e, int productPriceId)
+        {
+            DetailsVM.ProductPrice = Product.ECommerceProductPrices.FirstOrDefault(u => u.Id == productPriceId);
+            DetailsVM.SelectedProductPriceId = productPriceId;
+        }
+
+        private async Task AddToCart()
+        {
+            ShoppingCart shoppingCart = new()
+            {
+                Count = DetailsVM.Count,
+                ProductId = ProductId,
+                ProductPriceId = DetailsVM.SelectedProductPriceId
+            };
+
+            await _cartService.IncrementCart(shoppingCart);
+            _navigationManager.NavigateTo("/cart");
+            snackBar.Add("Product added to cart Succesfully.", Severity.Success);
+        }
     }
-}
 

@@ -36,9 +36,7 @@ else
                 <MudCardHeader>
                     <MudText Typo="Typo.h5" Color="Color.Default">Order Total</MudText>
                 </MudCardHeader>
-                <a href="">
                     <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="w-full h-full object-cover" />
-                </a>
                 <MudCardActions>
                     <MudText Typo="Typo.body1" Color="Color.Default">@OrderTotal.ToString("c")</MudText>
                 </MudCardActions>
@@ -57,7 +55,7 @@ else
                         <MudSpacer></MudSpacer>
                         <MudText Typo="Typo.body1" Color="Color.Default">@prod.ProductPrice.Price.ToString("c")</MudText>
                     </MudCardHeader>
-                    <a href="@prod.Product.ImageUrl">
+                    <a href="/ProductDetails/@prod.Product.Id">
                         <img src="@prod.Product.ImageUrl" class="w-full h-32 object-cover" />
                     </a>
                     <MudCardActions>
