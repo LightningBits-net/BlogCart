@@ -21,6 +21,9 @@ Features:
 - NFT generator(coming Soon!)
 
 
+<img width="1455" alt="Code is law" src="https://user-images.githubusercontent.com/63980943/184522828-c3a2c673-351d-4e93-a66e-332225127ebf.png">
+<img width="1519" alt="image" src="https://user-images.githubusercontent.com/63980943/184663776-9851bf90-57e8-4662-ac31-169131094a07.png">
+
 Running the project locally:
 - Clone the repository: git clone https://github.com/lightningnit/eCommerce.git
 - Navigate to the project directory: cd eCommerce
@@ -74,3 +77,4 @@ Intial Templates built upon where provided by:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
