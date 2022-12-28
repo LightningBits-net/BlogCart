@@ -42,6 +42,7 @@ else
                 </MudCardActions>
                 <MudCardActions>
                     <MudButton Href="/summary" Variant="Variant.Filled" FullWidth="true" Color="Color.Primary" ButtonType="ButtonType.Submit">Check out</MudButton>
+                    <MudButton Href="/summary" Variant="Variant.Filled" FullWidth="true" Color="Color.Dark" ButtonType="ButtonType.Submit">Keep Shopping</MudButton>
                 </MudCardActions>
             </MudCard>
         </div>
@@ -72,11 +73,11 @@ else
         }
     </div>
 </body>
-        }
-    }
+}
+}
 
-            @code {
-    public bool IsProcessing { get; set; } = false;
+@code {
+        public bool IsProcessing { get; set; } = false;
         private List<ShoppingCart> ShoppingCart = new List<ShoppingCart>();
         private IEnumerable<ProductDTO> Products { get; set; }
         private double OrderTotal { get; set; } = 0;
@@ -129,4 +130,4 @@ else
             IsProcessing = false;
         }
 
-            }
+    }

@@ -1,4 +1,6 @@
-﻿<AuthorizeView>
+﻿
+
+<AuthorizeView>
     <Authorized>
         <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
             <MudDrawerHeader>
@@ -15,6 +17,9 @@
                 <MudNavLink Href=" https://e-commerce-server.azurewebsites.net" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Admin Login</MudNavLink>
                 <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
             </MudNavMenu>
+            <MudText>Hello:</MudText>
+            <MudText>@context.User.Identity.Name</MudText>
+            <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
             <MudButton Href="/logout" StartIcon="@Icons.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-out</MudButton>
         </MudDrawer>
     </Authorized>
