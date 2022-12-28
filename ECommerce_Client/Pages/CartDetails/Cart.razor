@@ -3,7 +3,6 @@
 @inject IProductService _productService
 @inject ICartService _cartService
 @inject MudBlazor.ISnackbar snackBar
-@inject NavigationManager _navigationManager
 @*@inject IOrderService _orderService*@
 
 @if (IsProcessing)
@@ -24,118 +23,110 @@ else
     }
     else
     {
-        <body class="font-sans">
-            <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
-                <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">
-                    Shopping Cart.
-                </h1>
-            </div>
-            <div class="container mx-auto flex flex-wrap pb-5">
-                @* Products in Cart view*@
-                <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-5">
-                    <MudCard Elevation="25">
-                        <MudCardHeader>
-                            <MudText Typo="Typo.h5" Color="Color.Default">Order Total</MudText>
-                        </MudCardHeader>
-                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="w-full h-full object-cover" />
-                        <MudCardActions>
-                            <MudText Typo="Typo.body1" Color="Color.Default">@OrderTotal.ToString("c")</MudText>
-                        </MudCardActions>
-                        <MudCardActions>
-                            <MudButton Href="/summary" Variant="Variant.Filled" FullWidth="true" Color="Color.Primary" ButtonType="ButtonType.Submit">Check out</MudButton>
-                        </MudCardActions>
-                    </MudCard>
-                </div>
+<body class="font-sans">
+    <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
+        <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">
+            Shopping Cart.
+        </h1>
+    </div>
+    <div class="container mx-auto flex flex-wrap pb-5">
+        @* Products in Cart view*@
+        <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-5">
+            <MudCard Elevation="25">
+                <MudCardHeader>
+                    <MudText Typo="Typo.h5" Color="Color.Default">Order Total</MudText>
+                </MudCardHeader>
+                    <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="w-full h-full object-cover" />
+                <MudCardActions>
+                    <MudText Typo="Typo.body1" Color="Color.Default">@OrderTotal.ToString("c")</MudText>
+                </MudCardActions>
+                <MudCardActions>
+                    <MudButton Href="/summary" Variant="Variant.Filled" FullWidth="true" Color="Color.Primary" ButtonType="ButtonType.Submit">Check out</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </div>
 
-                @foreach (var prod in ShoppingCart)
-                {
-                    <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-5">
-                        <MudCard Elevation="25">
-                            <MudCardHeader>
-                                <MudText Typo="Typo.h5" Color="Color.Default">@prod.Product.Name</MudText>
-                                <MudSpacer></MudSpacer>
-                                <MudText Typo="Typo.body1" Color="Color.Default">@prod.ProductPrice.Price.ToString("c")</MudText>
-                            </MudCardHeader>
-                            <a href="/ProductDetails/@prod.Product.Id">
-                                <img src="@prod.Product.ImageUrl" class="w-full h-32 object-cover" />
-                            </a>
-                            <MudCardActions>
-                                <MudText Typo="Typo.body1" Color="Color.Default">Qty: @prod.Count</MudText>
-                                <MudSpacer></MudSpacer>
-                                <MudButton OnClick="()=>Increment(prod.ProductId,prod.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">+</MudButton>
-                                <MudButton OnClick="()=>Decrement(prod.ProductId,prod.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">-</MudButton>
-                            </MudCardActions>
-                            <MudCardActions>
-                                <MudText Typo="Typo.body2" Color="Color.Default">Product Color: @prod.Product.Color</MudText>
-                            </MudCardActions>
-                        </MudCard>
-                    </div>
-                }
-            </div>
-        </body>
-    }
-}
-
-@code {
-    public bool IsProcessing { get; set; } = false;
-    private List<ShoppingCart> ShoppingCart = new List<ShoppingCart>();
-    private IEnumerable<ProductDTO> Products { get; set; }
-    private double OrderTotal { get; set; } = 0;
-
-    protected override async Task OnInitializedAsync()
-    {
-        if (OrderTotal == 0)
+        @foreach (var prod in ShoppingCart)
         {
-            _navigationManager.NavigateTo("/products");
-            snackBar.Add("add something!", Severity.Success);
+            <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-5">
+                <MudCard Elevation="25">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h5" Color="Color.Default">@prod.Product.Name</MudText>
+                        <MudSpacer></MudSpacer>
+                        <MudText Typo="Typo.body1" Color="Color.Default">@prod.ProductPrice.Price.ToString("c")</MudText>
+                    </MudCardHeader>
+                    <a href="/ProductDetails/@prod.Product.Id">
+                        <img src="@prod.Product.ImageUrl" class="w-full h-32 object-cover" />
+                    </a>
+                    <MudCardActions>
+                        <MudText Typo="Typo.body1" Color="Color.Default">Qty: @prod.Count</MudText>
+                        <MudSpacer></MudSpacer>
+                        <MudButton OnClick="()=>Increment(prod.ProductId,prod.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">+</MudButton>
+                        <MudButton OnClick="()=>Decrement(prod.ProductId,prod.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">-</MudButton>
+                    </MudCardActions>
+                    <MudCardActions>
+                        <MudText Typo="Typo.body2" Color="Color.Default">Product Color: @prod.Product.Color</MudText>
+                    </MudCardActions>
+                </MudCard>
+            </div>
         }
-        else
+    </div>
+</body>
+        }
+    }
+
+            @code {
+    public bool IsProcessing { get; set; } = false;
+        private List<ShoppingCart> ShoppingCart = new List<ShoppingCart>();
+        private IEnumerable<ProductDTO> Products { get; set; }
+        private double OrderTotal { get; set; } = 0;
+
+        protected override async Task OnInitializedAsync()
         {
             IsProcessing = true;
             Products = await _productService.GetAll();
             await LoadCart();
             IsProcessing = false;
         }
-    }
 
-    private async Task LoadCart()
-    {
-        OrderTotal = 0;
-        ShoppingCart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
-        foreach (var cart in ShoppingCart)
+        private async Task LoadCart()
         {
-            cart.Product = Products.FirstOrDefault(u => u.Id == cart.ProductId);
-            cart.ProductPrice = cart.Product.ECommerceProductPrices.FirstOrDefault(u => u.Id == cart.ProductPriceId);
-            OrderTotal += (cart.ProductPrice.Price * cart.Count);
+            OrderTotal = 0;
+            ShoppingCart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
+            foreach (var cart in ShoppingCart)
+            {
+                cart.Product = Products.FirstOrDefault(u => u.Id == cart.ProductId);
+                cart.ProductPrice = cart.Product.ECommerceProductPrices.FirstOrDefault(u => u.Id == cart.ProductPriceId);
+                OrderTotal += (cart.ProductPrice.Price * cart.Count);
+            }
         }
-    }
 
-    private async Task Increment(int ProductId, int ProductPriceId, int Count)
-    {
-        IsProcessing = true;
-        await _cartService.IncrementCart(new()
+        private async Task Increment(int ProductId, int ProductPriceId, int Count)
         {
-            Count = Count,
-            ProductId = ProductId,
-            ProductPriceId = ProductPriceId
-        });
+            IsProcessing = true;
+            await _cartService.IncrementCart(new()
+            {
+                Count = Count,
+                ProductId = ProductId,
+                ProductPriceId = ProductPriceId
+            });
 
-        await LoadCart();
-        IsProcessing = false;
-    }
+            await LoadCart();
+            IsProcessing = false;
+        }
 
-    private async Task Decrement(int ProductId, int ProductPriceId, int Count)
-    {
-        IsProcessing = true;
-        await _cartService.DecrementCart(new()
+        private async Task Decrement(int ProductId, int ProductPriceId, int Count)
         {
-            Count = Count,
-            ProductId = ProductId,
-            ProductPriceId = ProductPriceId
-        });
+            IsProcessing = true;
+            await _cartService.DecrementCart(new()
+            {
+                Count = Count,
+                ProductId = ProductId,
+                ProductPriceId = ProductPriceId
+            });
 
-        await LoadCart();
-        IsProcessing = false;
-    }
+            await LoadCart();
+            IsProcessing = false;
+        }
 
-}
+            }
