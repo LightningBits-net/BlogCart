@@ -2,15 +2,6 @@
 Welcome to the eCommerce project! This web application allows users to purchase products online.
 
 Features:
-- User registration and login
-- Product catalog with filtering and search functionality(coming Soon!)
-- Shopping cart and checkout
-- Order history and tracking(coming Soon!)
-- Admin panel for managing products and orders
-- Bitcoin Payments using BTCPayServer(coming Soon!)
-- ChatBot(coming Soon!)
-- Email bot(coming Soon!)
-- NFT generator(coming Soon!)
 - Backend: Blazor server
 - Frontend: Blazor web assembly
 - API: ASP.NET Core
@@ -18,6 +9,17 @@ Features:
 - Checkout: SQLite
 - Authentication and authorization: ASP.NET Core Identity
 - UI: Tailwind CSS, MudBlazor
+- User registration and login
+- Product catalog with filtering
+- Shopping cart and checkout
+- Admin panel for managing products and orders
+- Search functionality(coming Soon!)
+- Order history and tracking(coming Soon!)
+- Bitcoin Payments using BTCPayServer(coming Soon!)
+- ChatBot(coming Soon!)
+- Email bot(coming Soon!)
+- NFT generator(coming Soon!)
+
 
 Running the project locally:
 - Clone the repository: git clone https://github.com/lightningnit/eCommerce.git
