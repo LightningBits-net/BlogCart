@@ -11,7 +11,6 @@ Features:
 - ChatBot(coming Soon!)
 - Email bot(coming Soon!)
 - NFT generator(coming Soon!)
-- Technologies
 - Backend: Blazor server
 - Frontend: Blazor web assembly
 - API: ASP.NET Core
@@ -24,7 +23,7 @@ Running the project locally:
 - Clone the repository: git clone https://github.com/lightningnit/eCommerce.git
 - Navigate to the project directory: cd eCommerce
 - Install the necessary dependencies: dotnet restore
-- Set up the database:
+- Set up your database locally.
 - Create a new SQL database and user.
 - Update the connection string in the appsettings.json file(Api && Server) with the credentials for your database.
 - Run the database migration script: dotnet ef database update
