@@ -1,33 +1,56 @@
-﻿@page "/login"
+﻿
+@page "/login"
+@using System.Security.Cryptography
+@using System.Text
+@inject MudBlazor.ISnackbar snackBar
 
 <body>
     <div class="min-h-screen w-full p-6 flex justify-center items-center">
         <div class="w-full max-w-md">
-            <div class="bg-white text-black border p-8 shadow rounded w-full mb-6">
-                <h1 class="mb-6 text-lg font-bold">Login to your account</h1>
-                <EditForm Model="SignInRequest" OnValidSubmit="LoginUser" >
-                    <DataAnnotationsValidator />
-                    <fieldset class="mb-4">
-                        <MudInput @bind-Value="SignInRequest.UserName" id="email" class="form-control mb-2 w-full text-center black-text" name="email" />
-                        <MudInputLabel class="block text-sm mb-2">Email address</MudInputLabel>
-                    </fieldset>
-                    <fieldset class="mb-4">
-                        <MudInput @bind-Value="SignInRequest.Password" type="password" id="password" class="form-control mb-2 w-full text-center  black-text" />
-                        <MudInputLabel class="block text-sm mb-2">Password</MudInputLabel>
-                    </fieldset>
-                    <div class="pt-1 pb-5 text-sm text-black font-thin">
-                        <label><input class="mr-1" type="checkbox" name="remember" id="remember"> Remember me</label>
+            @if (CaptchaText == CaptchaInput)
+                {
+                    @snackBar.Add("Correct CAPTCHA. Please sign-in.", Severity.Success);
+                <div class="bg-white text-black border p-8 shadow rounded w-full mb-6">
+                    <h1 class="mb-6 text-lg font-bold">Login to your account</h1>
+                    <EditForm Model="SignInRequest" OnValidSubmit="LoginUser">
+                        <DataAnnotationsValidator />
+                        <fieldset class="mb-4">
+                            <MudInput @bind-Value="SignInRequest.UserName" id="email" class="form-control mb-2 w-full text-center black-text" name="email" />
+                            <MudInputLabel class="block text-sm mb-2">Email address</MudInputLabel>
+                        </fieldset>
+                        <fieldset class="mb-4">
+                            <MudInput @bind-Value="SignInRequest.Password" type="password" id="password" class="form-control mb-2 w-full text-center  black-text" />
+                            <MudInputLabel class="block text-sm mb-2">Password</MudInputLabel>
+                        </fieldset>
+                        <div class="pt-1 pb-5 text-sm text-black font-thin">
+                            <label><input class="mr-1" type="checkbox" name="remember" id="remember"> Remember me</label>
+                        </div>
+                        <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto pb-2">Login Now</MudButton>
+                        @if (ShowSignInErrors)
+                        {
+                            <p class="text-center text-danger">@Errors</p>
+                        }
+                        <ValidationMessage For="(()=>SignInRequest.Password)"></ValidationMessage>
+                        <ValidationMessage For="(()=>SignInRequest.UserName)"></ValidationMessage>
+                    </EditForm>
+                    <p class="text-center text-sm text-black font-thin">Don't have an account yet? <a href="/register" class="text-indigo-500 no-underline hover:underline">Sign up</a></p>
+                </div>
+            }
+            else
+            {
+                <div class="bg-white text-black border p-8 shadow rounded w-full mb-6">
+                    <h1 class="font-bold">Please Validate Captcha before signing in</h1>
+                    <div class="image-container">
+                        <img src="@captcha_image_url" alt="Image">
+                        <p class="image-text">@CaptchaText</p>
                     </div>
-                    <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto pb-2">Login Now</MudButton>
-                    @if (ShowSignInErrors)
-                    {
-                        <p class="text-center text-danger">@Errors</p>
-                    }
-                    <ValidationMessage For="(()=>SignInRequest.Password)"></ValidationMessage>
-                    <ValidationMessage For="(()=>SignInRequest.UserName)"></ValidationMessage>
-                </EditForm>
-            </div>
-            <p class="text-center text-sm text-white font-thin">Don't have an account yet? <a href="/register" class="text-indigo-500 no-underline hover:underline">Sign up</a></p>
+                    <div>
+                        <MudInput @bind-Value="CaptchaInput" type="captcha" id="captcha" class="form-control mb-2 w-full text-center  black-text" />
+                        <MudInputLabel class="block text-sm mb-2">Enter the 4 digit code above</MudInputLabel>
+                        <MudButton OnClick="ValidateCaptcha" ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Dark" Class="ml-auto pb-2">Validate Captcha</MudButton>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </body>
@@ -39,19 +62,40 @@
     public bool IsProcessing { get; set; } = false;
     public bool ShowSignInErrors { get; set; }
     public string Errors { get; set; }
+    private string CaptchaText { get; set; } = "0000";
+    private string CaptchaInput { get; set; }
+    private string CaptchaError { get; set; }
+    private string captcha_image_url = "/img/MatrixPC.png";
 
     [Inject]
     public IAuthenticationService _authSerivce { get; set; }
     [Inject]
     public NavigationManager _navigationManager { get; set; }
     public string ReturnUrl { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // Set the button text to a random 4-digit string
+        Random random = new Random();
+        CaptchaText = random.Next(10000).ToString().PadLeft(4, '0');
+    }
+
     private async Task LoginUser()
     {
         ShowSignInErrors = false;
         IsProcessing = true;
+        // Validate the CAPTCHA
+        if (!await ValidateCaptcha())
+        {
+            IsProcessing = false;
+            return;
+        }
+
+        // Proceed with the login process
         var result = await _authSerivce.Login(SignInRequest);
         if (result.IsAuthSuccessful)
         {
+            snackBar.Add("Log-in is successful", Severity.Success);
             //regiration is successful
             //var absoluteUri = new Uri(_navigationManager.Uri);
             //var queryParam = HttpUtility.ParseQueryString(absoluteUri.Query);
@@ -70,8 +114,91 @@
             //failure
             Errors = result.ErrorMessage;
             ShowSignInErrors = true;
-
         }
         IsProcessing = false;
     }
+
+    private async Task<bool> ValidateCaptcha()
+
+    {
+
+        // Compare the user's input to the expected captcha text
+        if (CaptchaInput != CaptchaText)
+        {
+            snackBar.Add("Incorrect CAPTCHA. Please try again.", Severity.Warning);
+            return false;
+        }
+        // The captcha was entered correctly, so return true
+        return true;
+    }
+
+
+
+
+    //private async Task LoginUser()
+    //{
+    //    ShowSignInErrors = false;
+    //    IsProcessing = true;
+    //    var result = await _authSerivce.Login(SignInRequest);
+    //    if (result.IsAuthSuccessful)
+    //    {
+    //        //regiration is successful
+    //        //var absoluteUri = new Uri(_navigationManager.Uri);
+    //        //var queryParam = HttpUtility.ParseQueryString(absoluteUri.Query);
+    //        //ReturnUrl = queryParam["returnUrl"];
+    //        if (string.IsNullOrEmpty(ReturnUrl))
+    //        {
+    //            _navigationManager.NavigateTo("/products");
+    //        }
+    //        else
+    //        {
+    //            _navigationManager.NavigateTo("/" + ReturnUrl);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        //failure
+    //        Errors = result.ErrorMessage;
+    //        ShowSignInErrors = true;
+
+    //    }
+    //    IsProcessing = false;
+    //}
 }
+
+<style>
+
+    .image-container img {
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
+    .image-container {
+        position: relative;
+        width: fit-content;
+        height: fit-content;
+    }
+
+    .image-text {
+        position: absolute;
+        left: 100px;
+        bottom: 100px;
+        z-index: 1;
+        font-size: 36px;
+        font: bold;
+        color: lawngreen;
+    }
+
+/*
+    .image-text {
+        position: relative;
+        top: 100%;
+        left: 100%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        color: mediumseagreen;
+        font-size: 36px;
+        font-weight: bold;
+    }*/
+    
+</style>
