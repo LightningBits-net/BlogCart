@@ -2,14 +2,16 @@
 <AuthorizeView Roles="@roleAdmin">
     <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
         <MudDrawerHeader>
-            <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">Thrift Boss</MudText>
+            <MudText Typo="Typo.body1" Color="Color.Primary">@context.User.Identity.Name</MudText>
         </MudDrawerHeader>
         <MudNavMenu>
             <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-            <MudText Typo="Typo.body1" Color="Color.Primary">@context.User.Identity.Name</MudText>
             <MudNavGroup Title="Admin Settings" Expanded="false" Color="Color.Dark">
-                <MudNavLink Href="/AdminPanel" Icon="@Icons.Filled.AdminPanelSettings" Match="NavLinkMatch.Prefix">Admin Panel</MudNavLink>
-                <MudNavLink Href="/Identity/Account/Manage" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix">Profile settings</MudNavLink>
+                <MudNavLink Href="/" Match="NavLinkMatch.Prefix">Admin Home</MudNavLink>
+                <MudNavLink Href="/categoryList" Match="NavLinkMatch.Prefix">Category List</MudNavLink>
+                <MudNavLink Href="/category/create" Match="NavLinkMatch.Prefix">Create Category</MudNavLink>
+                <MudNavLink Href="/productList" Match="NavLinkMatch.Prefix">Product List</MudNavLink>
+                <MudNavLink Href="/ProductCreate" Match="NavLinkMatch.Prefix">Edit Product</MudNavLink>
             </MudNavGroup>
             <MudDivider DividerType="DividerType.Middle" Class="my-2" />
             <MudNavGroup Title="Return to Client" Expanded="false" Color="Color.Dark">
@@ -20,10 +22,11 @@
                 <MudNavLink Href="@($"{LocalHost}/About")" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
             </MudNavGroup>
             <MudDivider DividerType="DividerType.Middle" Class="my-2" />
+            <MudNavLink Href="/Identity/Account/Manage" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix">Profile settings</MudNavLink>
         </MudNavMenu>
     </MudDrawer>
 </AuthorizeView>
-
+y
 
 
 @code {
