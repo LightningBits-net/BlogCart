@@ -44,6 +44,11 @@ namespace SharedServices.Repository
             return 0;
         }
 
+        public override bool Equals(object? obj)
+        {
+            return base.Equals(obj);
+        }
+
         public async Task<CategoryDTO> Get(int id)
         {
             var obj = await _db.ECommerceCategories.FirstOrDefaultAsync(u => u.Id == id);
@@ -58,6 +63,16 @@ namespace SharedServices.Repository
         public Task<IEnumerable<CategoryDTO>> GetAll()
         {
             return Task.FromResult(_mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(_db.ECommerceCategories));
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string? ToString()
+        {
+            return base.ToString();
         }
 
         public async Task<CategoryDTO> Update(CategoryDTO objDTO)

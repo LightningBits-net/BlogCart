@@ -17,6 +17,7 @@ namespace SharedServices.Mapper
             CreateMap<OrderDetail, OrderDetailDTO>().ReverseMap();
             CreateMap<OrderHeaderDTO, OrderHeader>().ReverseMap();
             CreateMap<OrderDTO, Order>().ReverseMap();
+            CreateMap<ToDoItemDTO, ToDoItem>().ReverseMap();
         }
     }
        

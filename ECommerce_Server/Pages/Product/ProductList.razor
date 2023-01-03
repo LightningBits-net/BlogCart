@@ -9,10 +9,10 @@
 
 <_AdminPanelHeader></_AdminPanelHeader>
 
-<body class="bg-white">
-    <div class=" container min-f-screen w-full p-2 flex justify-center items-center">
-        <div class="w-full">
-            <div class="bg-white text-black border p-4 shadow rounded w-full mb-20 mt-10">
+<body>
+    <div class="w-full flex justify-center items-center">
+        <div class="w-full max-w-lg">
+            <div class="bg-white text-black border p-4 shadow rounded w-full">
                 <h1 class="mb-8 text-3xl text-white bg-black py-4 ">Product List</h1>
                 @if (ECommerceProducts.Any())
                 {
@@ -22,11 +22,11 @@
                                 <th class=" w-1/4"></th>
                                 <th class=" w-1/2 px-4 py-4">Name</th>
                                 <th class=" w-1/2 px-4 py-4">Category</th>
-                                <th class=" w-1/4 px-4 py-2"></th>
+                                @*<th class=" w-1/4 px-4 py-2"></th>*@
                                 <th class=" w-1/4 px-4 py-2"></th>
                                 <th class=" w-1/4 px-4 py-2">.</th>
-                                <th class=" w-1/4 px-2">Shop <br /> Fav's'</th>
-                                <th class=" w-1/4 px-2">Customer <br /> Fav's'</th>
+                                @*<th class=" w-1/4 px-2">Shop <br /> Fav's'</th>
+                        <th class=" w-1/4 px-2">Customer <br /> Fav's'</th>*@
                             </tr>
                         </thead>
                         <tbody class="">
@@ -38,9 +38,9 @@
                                     </td>
                                     <th class="border px-4 py-2 bold">@prod.Name</th>
                                     <td class="border px-4 py-2">@prod.Category.Name</td>
-                                    <td class="p-2">
-                                        <MudButton Href="@($"ProductPrice/Edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Price</MudButton>
-                                    </td>
+                                    @*<td class="p-2">
+                                <MudButton Href="@($"ProductPrice/Edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Price</MudButton>
+                            </td>*@
                                     <td class="p-2">
                                         <MudButton Href="@($"product/edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
                                     </td>
@@ -52,12 +52,12 @@
                                             </MudButton>
                                         </MudMenu>
                                     </td>
-                                    <td>
-                                        <input type="checkbox" disabled checked="@prod.ShopFavorites">
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" disabled checked="@prod.CustomerFavorites">
-                                    </td>
+                                    @*<td>
+                                <input type="checkbox" disabled checked="@prod.ShopFavorites">
+                            </td>
+                            <td>
+                                <input type="checkbox" disabled checked="@prod.CustomerFavorites">
+                            </td>*@
                                 </tr>
                             }
                         </tbody>

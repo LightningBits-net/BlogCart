@@ -1,27 +1,13 @@
-﻿@page "/"
-@page "/AdminPanel"
-@attribute [Authorize(Roles = SD.Role_Admin)]
+﻿@*@page "/"*@
+@*@inject IToDoItemRepository _toDoItemRepository
+    @inject MudBlazor.ISnackbar snackBar
+    @inject IDialogService DialogService*@
+@*@attribute [Authorize(Roles = SD.Role_Admin)]
 
-
+<_AdminPanelHeader></_AdminPanelHeader>
 <AuthorizeView>
     <Authorized>
-        <PageTitle>@context.User.Identity.Name = null!</PageTitle>
-
-        <div class=" bg-black container mx-auto flex flex-wrap pb-10">
-            <div class="overflow-scroll h-100 max-h-full md:max-h-screen w-full md:w-full lg:w-1/2 px-6 mb-12">
-                <ProductList></ProductList>
-            </div>
-            <div class="w-full h-100 md:w-full lg:w-1/2 px-6 mb-12">
-                <ProductUpsert></ProductUpsert>
-            </div>
-            <div class="w-full md:w-1/2 lg:w-1/2 px-6 mb-12">
-                <CategoryList></CategoryList>
-            </div>
-            <div class=" w-full md:w-1/2 lg:w-1/2 px-6 mb-12 ">
-                <CategoryUpsert></CategoryUpsert>
-            </div>
-        </div>
-        <_FooterDarkGray></_FooterDarkGray>
+        <ToDoList></ToDoList>
     </Authorized>
     <NotAuthorized>
         <PageTitle>Not Authorized</PageTitle>
@@ -35,10 +21,9 @@
         </div>
         <img src="https://images.unsplash.com/photo-1491944799262-a5be522e2300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2068&q=80" class="w-full h-64 object-cover" />
     </NotAuthorized>
-</AuthorizeView>
+</AuthorizeView>*@
 
 
 @code {
-    public string LocalHost = "https://e-commerceclient.azurewebsites.net";
+    //public string LocalHost = "https://e-commerceclient.azurewebsites.net";
 }
-
