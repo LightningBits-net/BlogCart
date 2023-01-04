@@ -144,7 +144,7 @@
             await _productRepository.Update(Product);
             snackBar.Add("Product updated Succesfully.", Severity.Success);
         }
-        _navigationManager.NavigateTo("AdminPanel");
+        _navigationManager.NavigateTo("/productList");
     }
 
     private async Task HandleImageUpLoad(InputFileChangeEventArgs e)

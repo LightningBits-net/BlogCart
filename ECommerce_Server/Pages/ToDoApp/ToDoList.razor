@@ -21,36 +21,46 @@
                                 <table class="w-full">
                                     <thead class="bg-gray-400">
                                         <tr>
-                                            <th class=" w-1/2 px-8 py-4">Name</th>
-                                            <th class=" w-1/4 px-4 py-2">Action</th>
-                                            <th class=" w-1/4 px-4 py-2">Delete</th>
+                                            <th class=" w-3/4 px-4 py-2">Name</th>
+                                            <th class=" w-1/8  px-4 py-2">Action</th>
+                                            <th class=" w-1/8  px-4 py-2">Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var objToDo in ToDoItems)
+                                        @foreach (var objToDo in ToDoItems.Where(x => !x.Completed))
                                         {
                                             <tr>
-                                                @if (objToDo.Completed == true)
-                                                {
-                                                    <td class="border px-4 py-2">
-                                                        <span style="font-size: 1.5em; color:green; font-weight: bold">@objToDo.ToDo</span><br />
-                                                        @objToDo.Comment<br />
-                                                        <span style="font-size: 0.5em">@objToDo.DateCreated</span>
-                                                    </td>
-                                                }
-                                                else
-                                                {
-                                                   <td class="border px-4 py-2">
-                                                        <span style="font-size: 1.5em; color:black; font-weight: bold">@objToDo.ToDo</span><br />
-                                                        @objToDo.Comment<br />
-                                                        <span style="font-size: 0.5em">@objToDo.DateCreated</span>
-                                                    </td>
-                                                }
-                                              
-                                                <td class="p-2">
+                                                <td class="border px-4 py-2">
+                                                    <span style="font-size: 1.5em; color: black; font-weight: bold">@objToDo.ToDo</span><br />
+                                                    @objToDo.Comment<br />
+                                                    <span style="font-size: 0.5em">@objToDo.DateCreated</span>
+                                                </td>
+                                                <td>
                                                     <MudButton Href="@($"ToDoList/edit/{objToDo.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
                                                 </td>
-                                                <td class="p-2">
+                                                <td>
+                                                    <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
+                                                        <MudButton>
+                                                            <MudButton OnClick="@(()=>DeleteToDoItem(objToDo.Id))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete of:<br />"@objToDo.ToDo"</MudButton>
+                                                            <MudButton Href="" Variant="Variant.Filled" Color="Color.Dark">Cancel</MudButton>
+                                                        </MudButton>
+                                                    </MudMenu>
+                                                </td>
+                                            </tr>
+
+                                        }
+                                        @foreach (var objToDo in ToDoItems.Where(x => x.Completed))
+                                        {
+                                            <tr>
+                                                <td class="border px-4 py-2">
+                                                    <span style="font-size: 1.5em; color: green; font-weight: bold">@objToDo.ToDo</span><br />
+                                                    @objToDo.Comment<br />
+                                                    <span style="font-size: 0.5em">@objToDo.DateCreated</span>
+                                                </td>
+                                                <td>
+                                                    <MudButton Href="@($"ToDoList/edit/{objToDo.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
+                                                </td>
+                                                <td>
                                                     <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
                                                         <MudButton>
                                                             <MudButton OnClick="@(()=>DeleteToDoItem(objToDo.Id))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete of:<br />"@objToDo.ToDo"</MudButton>
@@ -77,8 +87,7 @@
                                 }
                             }
                         </div>
-                        <MudButton Href="/ToDo/create" Variant="Variant.Filled" Color="Color.Primary">Add ToDo</MudButton>
-
+                        <button href="/ToDo/create" class="block w-full bg-indigo-600 hover:bg-black text-white rounded font-heading mt-2 py-2 mb-2 ">Add ToDo</button>
                     </div>
                 </div>
             </div>

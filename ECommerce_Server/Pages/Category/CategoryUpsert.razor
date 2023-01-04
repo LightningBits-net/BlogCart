@@ -76,7 +76,7 @@
         if (Category.Id == 0)
         {
             await _categoryRepository.Create(Category);
-            snackBar.Add("Category created Succesfully. Refresh page to view updated category list", Severity.Success);
+            snackBar.Add("Category created Succesfully.", Severity.Success);
         }
         else
         {

@@ -142,7 +142,7 @@
             await _productRepository.Update(Product);
             snackBar.Add("Product updated Succesfully.", Severity.Success);
         }
-        _navigationManager.NavigateTo("AdminPanel");
+        _navigationManager.NavigateTo("/ProductPrice/Edit/{id:int}");
     }
 
     private async Task HandleImageUpLoad(InputFileChangeEventArgs e)
