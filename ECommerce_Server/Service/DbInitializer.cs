@@ -46,12 +46,12 @@ namespace ECommerce_Server.Service
 
                 IdentityUser user = new()
                 {
-                    UserName = "Admin@LightningBits.com",
-                    Email = "Admin@LightningBits.com",
+                    UserName = "Admin@BlueLemonz.com",
+                    Email = "Admin@BlueLemonz.com",
                     EmailConfirmed = true
                 };
 
-                _userManager.CreateAsync(user, "Admin5035!").GetAwaiter().GetResult();
+                _userManager.CreateAsync(user, "Admin123!").GetAwaiter().GetResult();
 
                 _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
 
