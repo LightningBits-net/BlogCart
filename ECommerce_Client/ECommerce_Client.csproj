@@ -17,20 +17,20 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharedUI\SharedUI.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
-
-
   <ItemGroup>
     <Content Update="Properties\launchSettings.json">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
+  <ItemGroup>
+    <None Remove="Pages\SharedUI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\SharedUI\" />
+  </ItemGroup>
 </Project>

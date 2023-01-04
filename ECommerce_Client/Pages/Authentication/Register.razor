@@ -5,7 +5,7 @@
     <div class="min-h-screen w-full p-6 flex justify-center items-center">
         <div class="w-full max-w-sm">
             <div class="bg-white text-black border p-4 shadow rounded w-full mb-6">
-                <h1 class="mb-6 text-lg text-black font-bold">Login to your account</h1>
+                <h1 class="mb-6 text-lg text-black font-bold">Registration Form</h1>
                 <EditForm Model="SignUpRequest" OnValidSubmit="RegisterUser" class="pt-4">
                     <DataAnnotationsValidator />
                     <fieldset class="mb-2">
@@ -28,7 +28,7 @@
                         <MudInput @bind-Value="SignUpRequest.ConfirmPassword" type="password" id="confirm" class="form-control black-text" />
                         <MudInputLabel class="block text-sm mb-2">Confirm Password</MudInputLabel>
                     </fieldset>
-                    <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto pb-2">Login Now</MudButton>
+                    <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto pb-2">Register Now</MudButton>
                     @if (ShowRegistrationErrors)
                     {
                         <div>

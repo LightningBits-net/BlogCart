@@ -1,5 +1,5 @@
-﻿@*@page "/category/create"*@
-@page "/category/edit/{id:int}"
+﻿@page "/categoryList/create"
+@page "/categorylist/edit/{id:int}"
 
 @inject ICategoryRepository _categoryRepository
 @inject IDialogService DialogService
@@ -7,6 +7,8 @@
 @inject MudBlazor.ISnackbar snackBar
 @attribute [Authorize(Roles = SD.Role_Admin)]
 
+
+<_AdminPanelHeader></_AdminPanelHeader>
 <body>
     <div class="w-full flex justify-center items-center">
         <div class="w-full max-w-lg">
@@ -74,7 +76,7 @@
         if (Category.Id == 0)
         {
             await _categoryRepository.Create(Category);
-            snackBar.Add("Category created Succesfully. Refresh page to view updated category list", Severity.Success);
+            snackBar.Add("Category created Succesfully.", Severity.Success);
         }
         else
         {
@@ -82,7 +84,7 @@
             snackBar.Add("Category updated Succesfully.", Severity.Success);
         }
 
-        _navigationManager.NavigateTo("/");
+        _navigationManager.NavigateTo("/categorylist");
     }
 
     void StartCountdown()

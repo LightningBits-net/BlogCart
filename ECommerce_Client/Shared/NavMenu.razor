@@ -1,4 +1,6 @@
-﻿<AuthorizeView>
+﻿
+
+<AuthorizeView>
     <Authorized>
         <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
             <MudDrawerHeader>
@@ -12,9 +14,13 @@
                 <MudNavLink Href="/Blogs" Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
                 <MudNavLink Href="/About" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-                <MudNavLink Href=" https://e-commerce-server.azurewebsites.net" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Admin Login</MudNavLink>
-                <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+                <MudNavGroup Title="@context.User.Identity.Name.Split('@')[0]" Expanded="false" Color="Color.Dark">
+                    <MudNavLink Href=" https://e-commerce-server.azurewebsites.net" Icon="@Icons.Filled.AdminPanelSettings" Match="NavLinkMatch.Prefix">Admin Login</MudNavLink>
+                    <MudNavLink Href="" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix">Settings</MudNavLink>
+                    <MudNavLink Href="" Icon="@Icons.Filled.Favorite" Match="NavLinkMatch.Prefix">Favorites</MudNavLink>
+                </MudNavGroup>
             </MudNavMenu>
+            <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
             <MudButton Href="/logout" StartIcon="@Icons.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-out</MudButton>
         </MudDrawer>
     </Authorized>

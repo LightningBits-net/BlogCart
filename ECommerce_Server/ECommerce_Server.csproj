@@ -30,9 +30,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="cssStyles\" />
+    <None Remove="Pages\ToDoApp\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cssStyles\" />
+    <Folder Include="Pages\ToDoApp\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">

@@ -1,4 +1,4 @@
-﻿@*@page "/category"*@
+﻿@page "/categoryList"
 
 @inject ICategoryRepository _categoryRepository
 @inject IDialogService DialogService
@@ -6,6 +6,8 @@
 @inject MudBlazor.ISnackbar snackBar
 @attribute [Authorize(Roles = SD.Role_Admin)]
 
+
+<_AdminPanelHeader></_AdminPanelHeader>
 <body>
     <div class="w-full flex justify-center items-center">
         <div class="w-full max-w-lg">
@@ -28,7 +30,7 @@
                                     <tr>
                                         <td class="border px-4 py-2">@objCat.Name</td>
                                         <td class="p-2">
-                                            <MudButton Href="@($"category/edit/{objCat.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
+                                            <MudButton Href="@($"categorylist/edit/{objCat.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
                                         </td>
                                         <td class="p-2">
                                             <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">

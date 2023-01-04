@@ -9,6 +9,8 @@
 @inject MudBlazor.ISnackbar snackBar
 @attribute [Authorize(Roles = SD.Role_Admin)]
 
+
+<_AdminPanelHeader></_AdminPanelHeader>
 <body>
     <div class="min-f-screen w-full p-2 flex justify-center items-center">
         <div class="w-full max-w-lg">
@@ -142,7 +144,7 @@
             await _productRepository.Update(Product);
             snackBar.Add("Product updated Succesfully.", Severity.Success);
         }
-        _navigationManager.NavigateTo("AdminPanel");
+        _navigationManager.NavigateTo("/productList");
     }
 
     private async Task HandleImageUpLoad(InputFileChangeEventArgs e)
