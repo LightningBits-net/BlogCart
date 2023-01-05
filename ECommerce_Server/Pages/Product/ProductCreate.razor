@@ -131,7 +131,7 @@
         if (Product.Id == 0)
         {
             await _productRepository.Create(Product);
-            snackBar.Add("Product created Succesfully. Refresh page to view updated product list", Severity.Success);
+            snackBar.Add("Congratulations! Your product has been successfully created. You can now set prices for your product by clicking on the 'Edit' button.", Severity.Success);
         }
         else
         {
@@ -142,7 +142,7 @@
             await _productRepository.Update(Product);
             snackBar.Add("Product updated Succesfully.", Severity.Success);
         }
-        _navigationManager.NavigateTo("/ProductPrice/Edit/{id:int}");
+        _navigationManager.NavigateTo("/productList");
     }
 
     private async Task HandleImageUpLoad(InputFileChangeEventArgs e)
