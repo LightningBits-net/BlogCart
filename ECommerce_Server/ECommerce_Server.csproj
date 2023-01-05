@@ -35,7 +35,6 @@
   <ItemGroup>
     <Folder Include="cssStyles\" />
     <Folder Include="Pages\ToDoApp\" />
-    <Folder Include="wwwroot\img\Product\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">
@@ -44,8 +43,5 @@
     <ProjectReference Include="..\SharedUI\SharedUI.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\img\Product\" />
   </ItemGroup>
 </Project>
