@@ -20,6 +20,7 @@ namespace SharedServices.Models
 
         public bool CustomerFavorites { get; set; }
 
+        [Required(ErrorMessage = "Please enter a color or *")]
         public string Color { get; set; }
 
         public string ImageUrl { get; set; }
