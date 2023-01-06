@@ -15,6 +15,7 @@ Features:
 - Product catalog with filtering
 - Shopping cart and checkout
 - Admin panel for managing products and orders
+- ToDo app
 - Search functionality(coming Soon!)
 - Order history and tracking(coming Soon!)
 - Bitcoin Payments using BTCPayServer(coming Soon!)
