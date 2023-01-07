@@ -1,19 +1,20 @@
 ﻿@page "/ServerPreview"
 @inject IProductService _productService
 
-
+<PageTitle>Server Preview</PageTitle>
+<div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
+        <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Server Preview </h1>
+</div>
 @if (IsProcessing)
 {
-    <PageTitle>Loading</PageTitle>
     <div class="text-center">
         <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
     </div>
 }
 else
 {
-    <PageTitle>@CategoryName</PageTitle>
     <body class="font-sans">
-        <div class="container mx-auto flex flex-wrap pt-20 pb-20">
+        <div class="container mx-auto flex flex-wrap pb-20">
             @foreach (var product in ECommerceProducts)
             {
                 @if (product.Category.Name == CategoryName)
@@ -25,16 +26,17 @@ else
                                 <MudSpacer />
                                 <MudText Color="Color.Primary">@product.ECommerceProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c")</MudText>
                             </MudCardActions>
-                            <a href="/ProductDetails/@product.Id">
-                                <img src="@product.ImageUrl" class="w-full h-64 object-cover" />
-                            </a>
+                            <img src="@product.ImageUrl" class="w-full h-64 object-cover" />
                             <MudCardContent>
                                 <p class="h-48 min-h-0">
                                     <MudText Typo="Typo.body1" Color="Color.Inherit"> @((MarkupString)product.Description)</MudText>
                                 </p>
                             </MudCardContent>
                             <MudCardActions>
-                                <MudText Class="h-40" Typo="Typo.body2" Color="Color.Default"> Color:@product.Color</MudText>
+                                @if (product.Color != "*")
+                                {
+                                    <MudText Class="h-40" Typo="Typo.body2" Color="Color.Default"> Color:@product.Color</MudText>
+                                }
                                 <MudSpacer />
                                 <MudText Class="h-40" Typo="Typo.body2" Color="Color.Default"> Cat:@product.Category.Name</MudText>
                             </MudCardActions>
