@@ -12,7 +12,7 @@
     <Authorized>
         <body>
             <div class="w-full flex justify-center items-center">
-                <div class="w-full max-w-lg">
+                <div class="w-full max-w-xlg">
                     <div class="bg-white text-black border p-4 shadow rounded w-full">
                         <h1 class="mb-8 text-3xl text-white bg-black py-4">ToDo List</h1>
                         <div class="w-full p-2 flex justify-center items-center bg-white text-black">
@@ -26,13 +26,13 @@
                                             <th class=" w-1/8  px-4 py-2">Delete</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="text-black">
                                         @foreach (var objToDo in ToDoItems.Where(x => !x.Completed))
                                         {
                                             <tr>
                                                 <td class="border px-4 py-2">
-                                                    <span style="font-size: 1.5em; color: black; font-weight: bold">@objToDo.ToDo</span><br />
-                                                    @objToDo.Comment<br />
+                                                    <span style="font-size: 1.5em; color: black; font-weight: bold">@objToDo.ToDo</span>
+                                                    <span style="font-size: 1em; color: black">@((MarkupString)objToDo.Comment)</span>
                                                     <span style="font-size: 0.5em">@objToDo.DateCreated</span>
                                                 </td>
                                                 <td>
