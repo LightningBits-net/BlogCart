@@ -45,8 +45,10 @@ else
                                 </p>
                             </MudCardContent>
                             <MudCardActions>
-                                <MudText Class="h-40" Typo="Typo.body2" Color="Color.Default"> Color:@product.Color</MudText>
-                                <MudSpacer />
+                                @if (product.Color != "*")
+                                {
+                                    <MudText Class="h-40" Typo="Typo.body2" Color="Color.Default"> Color:@product.Color</MudText>
+                                }                                <MudSpacer />
                                 <MudText Class="h-40" Typo="Typo.body2" Color="Color.Default"> Cat:@product.Category.Name</MudText>
                             </MudCardActions>
                         </MudCard>
