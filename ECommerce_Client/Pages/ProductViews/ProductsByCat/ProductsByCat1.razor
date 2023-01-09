@@ -16,12 +16,13 @@ else
     <body class="font-sans">
         <div>
             <ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">
-                @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
-                {
-                    <li>
-                        <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/@category">@category</a>
-                    </li>
-                }
+                @*@foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())*@
+                    @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct().Where(c => c != ExCategoryName))
+                    {
+                        <li>
+                            <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/@category">@category</a>
+                        </li>
+                    }
             </ul>
         </div>
         <div class="container mx-auto flex flex-wrap pb-20">
@@ -66,6 +67,8 @@ else
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
     public string CategoryName { get; set; } = "Clothing";
+    public string ExCategoryName { get; set; } = "ServerPreview";
+
 
     protected override async Task OnInitializedAsync()
     {
