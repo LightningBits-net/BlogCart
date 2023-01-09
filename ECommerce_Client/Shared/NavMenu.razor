@@ -9,19 +9,19 @@
             <MudNavMenu>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
                 <MudNavLink Href="/" Match="NavLinkMatch.All"></MudNavLink>
-                <MudNavLink Href="/" Icon="@Icons.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
-                <MudNavLink Href="/products" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
-                <MudNavLink Href="/Blogs" Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
-                <MudNavLink Href="/About" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
+                <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
+                <MudNavLink Href="/products" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
+                <MudNavLink Href="/Blogs" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
+                <MudNavLink Href="/About" Icon="@Icons.Material.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
                 <MudNavGroup Title="@context.User.Identity.Name.Split('@')[0]" Expanded="false" Color="Color.Dark">
-                    <MudNavLink Href=" https://e-commerce-server.azurewebsites.net" Icon="@Icons.Filled.AdminPanelSettings" Match="NavLinkMatch.Prefix">Admin Login</MudNavLink>
-                    <MudNavLink Href="" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix">Settings</MudNavLink>
-                    <MudNavLink Href="" Icon="@Icons.Filled.Favorite" Match="NavLinkMatch.Prefix">Favorites</MudNavLink>
+                    <MudNavLink Href=" https://e-commerce-server.azurewebsites.net" Icon="@Icons.Material.Filled.AdminPanelSettings" Match="NavLinkMatch.Prefix">Admin Login</MudNavLink>
+                    <MudNavLink Href="" Icon="@Icons.Material.Filled.Settings" Match="NavLinkMatch.Prefix">Settings</MudNavLink>
+                    <MudNavLink Href="" Icon="@Icons.Material.Filled.Favorite" Match="NavLinkMatch.Prefix">Favorites</MudNavLink>
                 </MudNavGroup>
             </MudNavMenu>
             <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
-            <MudButton Href="/logout" StartIcon="@Icons.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-out</MudButton>
+            <MudButton Href="/logout" StartIcon="@Icons.Material.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-out</MudButton>
         </MudDrawer>
     </Authorized>
     <NotAuthorized>
@@ -32,15 +32,15 @@
             <MudNavMenu>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
                 <MudNavLink Href="/" Match="NavLinkMatch.All"></MudNavLink>
-                <MudNavLink Href="/" Icon="@Icons.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
-                <MudNavLink Href="/products" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
-                <MudNavLink Href="/Blogs" Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
-                <MudNavLink Href="/About" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
+                <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
+                <MudNavLink Href="/products" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
+                <MudNavLink Href="/Blogs" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
+                <MudNavLink Href="/About" Icon="@Icons.Material.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
             </MudNavMenu>
-            <MudButton Href="/login" StartIcon="@Icons.Filled.Login" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Login/Register</MudButton>
+            <MudButton Href="/login" StartIcon="@Icons.Material.Filled.Login" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Login/Register</MudButton>
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-            <MudButton Href="/ServerPreview" StartIcon="@Icons.Filled.Photo" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Server Preview</MudButton>
+            <MudButton Href="/ServerPreview" StartIcon="@Icons.Material.Filled.Photo" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Server Preview</MudButton>
         </MudDrawer>
     </NotAuthorized>
 </AuthorizeView>
