@@ -9,7 +9,14 @@
 
 <_FeaturedBlog></_FeaturedBlog>
 
-
+@if (IsProcessing)
+{
+    <div class="text-center">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
+}
+else
+{
 <div>
     <ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">
         @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
@@ -67,6 +74,7 @@
         </MudCard>
     </div>
 </div>
+}
 <_FooterDarkGray></_FooterDarkGray>
 
 
