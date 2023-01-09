@@ -28,11 +28,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Pages\SharedUI\" />
     <None Remove="cssStyles\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\SharedUI\" />
     <Folder Include="cssStyles\" />
   </ItemGroup>
 </Project>
