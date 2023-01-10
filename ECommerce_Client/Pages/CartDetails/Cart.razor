@@ -33,18 +33,18 @@ else
     <div class="container mx-auto flex flex-wrap pb-5">
         @* Products in Cart view*@
         <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-5">
-            <MudCard Elevation="25" Outlined="true" Style="background-color:darkgray;">
+            <MudCard Elevation="25" Outlined="true" Style="background-color:black;">
                 <MudCardHeader>
                     <MudText Typo="Typo.h5" Color="Color.Dark">Order Total</MudText>
+                    <MudSpacer></MudSpacer>
+                    <MudText Typo="Typo.body1" Color="Color.Success">@OrderTotal.ToString("c")</MudText>
                 </MudCardHeader>
                     <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="w-full h-full object-cover" />
-                <MudCardActions>
-                    <MudText Typo="Typo.body1" Color="Color.Dark">@OrderTotal.ToString("c")</MudText>
-                </MudCardActions>
-                <MudCardActions>
-                    <MudButton Href="/summary" Variant="Variant.Filled" FullWidth="true" Color="Color.Primary" ButtonType="ButtonType.Submit">Check out</MudButton>
-                    <MudButton Href="/products" Variant="Variant.Filled" FullWidth="true" Color="Color.Dark" ButtonType="ButtonType.Submit">Keep Shopping</MudButton>
-                </MudCardActions>
+                    <MudCardActions>
+                        <MudButton Href="/summary" Variant="Variant.Outlined" Color="Color.Success" ButtonType="ButtonType.Submit">Check out</MudButton>
+                        <MudSpacer></MudSpacer>
+                        <MudButton Href="/products" Variant="Variant.Outlined" Color="Color.Dark" ButtonType="ButtonType.Submit">Keep Shopping</MudButton>
+                    </MudCardActions>
             </MudCard>
         </div>
 
@@ -67,7 +67,10 @@ else
                         <MudButton OnClick="()=>Decrement(prod.ProductId,prod.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">-</MudButton>
                     </MudCardActions>
                     <MudCardActions>
-                        <MudText Typo="Typo.body2" Color="Color.Default">Product Color: @prod.Product.Color</MudText>
+                        @if (prod.Product.Color != "*")
+                        {
+                            <MudText Typo="Typo.body2" Color="Color.Default"> Color:@prod.Product.Color</MudText>
+                        }
                     </MudCardActions>
                 </MudCard>
             </div>
