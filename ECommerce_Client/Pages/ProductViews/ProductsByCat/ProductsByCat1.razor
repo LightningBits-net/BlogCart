@@ -38,9 +38,7 @@ else
                             <MudCardActions>
                                 <MudText Typo="Typo.h5" Color="Color.Default">@product.Name</MudText>
                                 <MudSpacer />
-                                @*<MudText Color="Color.Primary">@product.ECommerceProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c")</MudText>*@
                                 <MudText Color="Color.Primary">@(product.ECommerceProductPrices.Any() ? "starting at " + product.ECommerceProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c") : "sold out")</MudText>
-
                             </MudCardActions>
                             <a href="/ProductDetails/@product.Id">
                                 <img src="@product.ImageUrl" class="w-full h-64 object-cover" />

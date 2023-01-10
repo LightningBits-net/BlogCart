@@ -1,7 +1,7 @@
 ﻿@page "/ServerPreview"
 @inject IProductService _productService
 
-<PageTitle>Server Preview</PageTitle>
+<PageTitle>@CategoryName</PageTitle>
 <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
         <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Server Preview </h1>
 </div>
@@ -16,12 +16,12 @@ else
 <body class="font-sans">
     <div>
         <ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">
-            @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
-            {
                 <li>
-                    <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/@category">@category</a>
+                    <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/Services">Services</a>
                 </li>
-            }
+                <li>
+                    <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/@CategoryName">@CategoryName</a>
+                </li>
         </ul>
     </div>
     <div class="container mx-auto flex flex-wrap pb-20">
@@ -45,10 +45,10 @@ else
                         <MudCardActions>
                             @if (product.Color != "*")
                             {
-                                <MudText Class="h-40" Typo="Typo.body2" Color="Color.Default"> Color:@product.Color</MudText>
+                                <MudText Typo="Typo.body2" Color="Color.Default"> Color:@product.Color</MudText>
                             }
-                            <MudSpacer />
-                            <MudText Class="h-40" Typo="Typo.body2" Color="Color.Default"> Cat:@product.Category.Name</MudText>
+                                <MudSpacer />
+                                <MudText Typo="Typo.body2" Color="Color.Default"> Cat:@product.Category.Name</MudText>
                         </MudCardActions>
                     </MudCard>
                 </div>
