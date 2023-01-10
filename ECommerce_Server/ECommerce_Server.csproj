@@ -24,9 +24,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.1" />
     <PackageReference Include="MudBlazor" Version="6.1.7" />
-    <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="20.3.0.61" />
-    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.3.0.61" />
-    <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.3.0.61" />
+    <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="20.4.0.43" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.43" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.4.0.43" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="cssStyles\" />
