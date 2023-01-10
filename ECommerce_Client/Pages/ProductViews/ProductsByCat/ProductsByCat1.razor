@@ -16,13 +16,16 @@ else
     <body class="font-sans">
         <div>
             <ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">
-                @*@foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())*@
-                    @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct().Where(c => c != ExCategoryName))
-                    {
-                        <li>
-                            <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/@category">@category</a>
-                        </li>
-                    }
+                @foreach (var category in ECommerceProducts
+                 .GroupBy(p => p.Category.Name)
+                 .OrderBy(g => g.Count())
+                 .Select(g => g.Key)
+                 .Where(c => c != ExCategoryName && c != ExCategoryName2))
+                {
+                    <li>
+                        <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/@category">@category</a>
+                    </li>
+                }
             </ul>
         </div>
         <div class="container mx-auto flex flex-wrap pb-20">
@@ -35,7 +38,9 @@ else
                             <MudCardActions>
                                 <MudText Typo="Typo.h5" Color="Color.Default">@product.Name</MudText>
                                 <MudSpacer />
-                                <MudText Color="Color.Primary">@product.ECommerceProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c")</MudText>
+                                @*<MudText Color="Color.Primary">@product.ECommerceProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c")</MudText>*@
+                                <MudText Color="Color.Primary">@(product.ECommerceProductPrices.Any() ? "starting at " + product.ECommerceProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c") : "sold out")</MudText>
+
                             </MudCardActions>
                             <a href="/ProductDetails/@product.Id">
                                 <img src="@product.ImageUrl" class="w-full h-64 object-cover" />
@@ -48,13 +53,12 @@ else
                             <MudCardActions>
                                 @if (product.Color != "*")
                                 {
-                                    <MudText Class="h-40" Typo="Typo.body2" Color="Color.Default"> Color:@product.Color</MudText>
+                                    <MudText Typo="Typo.body2" Color="Color.Default"> Color:@product.Color</MudText>
                                 }                                <MudSpacer />
-                                <MudText Class="h-40" Typo="Typo.body2" Color="Color.Default"> Cat:@product.Category.Name</MudText>
+                                <MudText  Typo="Typo.body2" Color="Color.Default"> Cat:@product.Category.Name</MudText>
                             </MudCardActions>
                         </MudCard>
                     </div>
-
                 }
             }
         </div>
@@ -68,6 +72,8 @@ else
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
     public string CategoryName { get; set; } = "Clothing";
     public string ExCategoryName { get; set; } = "ServerPreview";
+    public string ExCategoryName2 { get; set; } = "Services";
+
 
 
     protected override async Task OnInitializedAsync()

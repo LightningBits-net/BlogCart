@@ -1,25 +1,36 @@
 ﻿
 @page "/Products"
 @page "/ProductsHome"
-
 @inject IProductService _productService
 
+<PageTitle>Products</PageTitle>
 <_ProductsHeader></_ProductsHeader>
 <_ProductsBannerMenu></_ProductsBannerMenu>
 @if (IsProcessing)
 {
-    <PageTitle>Loading</PageTitle>
     <div class="text-center">
         <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
     </div>
 }
 else
 {
-    <PageTitle>Products</PageTitle>
     <body class="font-sans">
         <div>
+            <!--<ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">-->
+                @*@foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())*@
+                <!--@foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct().Where(c => c != ExCategoryName))
+                {
+                    <li>
+                        <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/@category">@category</a>
+                    </li>
+                }
+            </ul>-->
             <ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">
-                @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
+                @foreach (var category in ECommerceProducts
+                  .GroupBy(p => p.Category.Name)
+                  .OrderBy(g => g.Count())
+                  .Select(g => g.Key)
+                  .Where(c => c != ExCategoryName && c != ExCategoryName2))
                 {
                     <li>
                         <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/@category">@category</a>
@@ -64,6 +75,10 @@ else
 @code {
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
+    public string CategoryName { get; set; } = "Server Preview";
+    public string ExCategoryName { get; set; } = "ServerPreview";
+    public string ExCategoryName2 { get; set; } = "Services";
+
 
     protected override async Task OnInitializedAsync()
     {
