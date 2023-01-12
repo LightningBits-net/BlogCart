@@ -1,19 +1,18 @@
 ﻿@page "/AllProducts"
 
 @inject IProductService _productService
+    <PageTitle>Products</PageTitle>
 
     <_ProductsHeader></_ProductsHeader>
     <_ProductsBannerMenu></_ProductsBannerMenu>
     @if (IsProcessing)
     {
-        <PageTitle>Loading</PageTitle>
         <div class="text-center">
             <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
         </div>
     }
     else
     {
-        <PageTitle>Products</PageTitle>
         <body class="font-sans">
             <ul class="flex justify-center pb-6 pl-6 pr-6">
                 @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())

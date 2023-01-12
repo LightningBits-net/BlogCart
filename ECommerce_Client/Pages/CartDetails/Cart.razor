@@ -4,83 +4,82 @@
 @inject IProductService _productService
 @inject ICartService _cartService
 @inject MudBlazor.ISnackbar snackBar
-@*@inject IOrderService _orderService*@
 
-@if (IsProcessing)
-{
-    <PageTitle>Loading</PageTitle>
-    <div class="text-center">
-        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-    </div>
-}
-else
-{
     <PageTitle>Your Cart</PageTitle>
-    @if (!ShoppingCart.Any())
+
+    @if (IsProcessing)
     {
-        <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
-            <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">OOPS! it Looks like your Shopping cart is Empty.</h1>
+        <div class="text-center">
+            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
         </div>
     }
     else
     {
-<body class="font-sans">
-    <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
-        <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">
-            Shopping Cart.
-        </h1>
-    </div>
-    <div class="container mx-auto flex flex-wrap pb-5">
-        @* Products in Cart view*@
-        <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-5">
-            <MudCard Elevation="25" Outlined="true" Style="background-color:black;">
-                <MudCardHeader>
-                    <MudText Typo="Typo.h5" Color="Color.Dark">Order Total</MudText>
-                    <MudSpacer></MudSpacer>
-                    <MudText Typo="Typo.body1" Color="Color.Success">@OrderTotal.ToString("c")</MudText>
-                </MudCardHeader>
-                    <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="w-full h-full object-cover" />
-                    <MudCardActions>
-                        <MudButton Href="/summary" Variant="Variant.Outlined" Color="Color.Success" ButtonType="ButtonType.Submit">Check out</MudButton>
-                        <MudSpacer></MudSpacer>
-                        <MudButton Href="/products" Variant="Variant.Outlined" Color="Color.Dark" ButtonType="ButtonType.Submit">Keep Shopping</MudButton>
-                    </MudCardActions>
-            </MudCard>
-        </div>
-
-        @foreach (var prod in ShoppingCart)
+        @if (!ShoppingCart.Any())
         {
-            <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-5">
-                <MudCard Elevation="25">
-                    <MudCardHeader>
-                        <MudText Typo="Typo.h5" Color="Color.Default">@prod.Product.Name</MudText>
-                        <MudSpacer></MudSpacer>
-                        <MudText Typo="Typo.body1" Color="Color.Default">@prod.ProductPrice.Price.ToString("c")</MudText>
-                    </MudCardHeader>
-                    <a href="/ProductDetails/@prod.Product.Id">
-                        <img src="@prod.Product.ImageUrl" class="w-full h-32 object-cover" />
-                    </a>
-                    <MudCardActions>
-                        <MudText Typo="Typo.body1" Color="Color.Default">Qty: @prod.Count</MudText>
-                        <MudSpacer></MudSpacer>
-                        <MudButton OnClick="()=>Increment(prod.ProductId,prod.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">+</MudButton>
-                        <MudButton OnClick="()=>Decrement(prod.ProductId,prod.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">-</MudButton>
-                    </MudCardActions>
-                    <MudCardActions>
-                        @if (prod.Product.Color != "*")
-                        {
-                            <MudText Typo="Typo.body2" Color="Color.Default"> Color:@prod.Product.Color</MudText>
-                        }
-                    </MudCardActions>
-                </MudCard>
+            <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
+                <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">OOPS! it Looks like your Shopping cart is Empty.</h1>
             </div>
         }
-    </div>
-</body>
-}
-}
+        else
+        {
+            <body class="font-sans">
+                <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
+                    <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">
+                        Shopping Cart.
+                    </h1>
+                </div>
+                <div class="container mx-auto flex flex-wrap pb-5">
+                    @* Products in Cart view*@
+                    <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-5">
+                        <MudCard Elevation="25" Outlined="true" Style="background-color:black;">
+                            <MudCardHeader>
+                                <MudText Typo="Typo.h5" Color="Color.Dark">Order Total</MudText>
+                                <MudSpacer></MudSpacer>
+                                <MudText Typo="Typo.body1" Color="Color.Success">@OrderTotal.ToString("c")</MudText>
+                            </MudCardHeader>
+                            <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="w-full h-full object-cover" />
+                            <MudCardActions>
+                                <MudButton Href="/summary" Variant="Variant.Outlined" Color="Color.Success" ButtonType="ButtonType.Submit">Check out</MudButton>
+                                <MudSpacer></MudSpacer>
+                                <MudButton Href="/products" Variant="Variant.Outlined" Color="Color.Dark" ButtonType="ButtonType.Submit">Keep Shopping</MudButton>
+                            </MudCardActions>
+                        </MudCard>
+                    </div>
 
-@code {
+                    @foreach (var prod in ShoppingCart)
+                    {
+                        <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-5">
+                            <MudCard Elevation="25">
+                                <MudCardHeader>
+                                    <MudText Typo="Typo.h5" Color="Color.Default">@prod.Product.Name</MudText>
+                                    <MudSpacer></MudSpacer>
+                                    <MudText Typo="Typo.body1" Color="Color.Default">@prod.ProductPrice.Price.ToString("c")</MudText>
+                                </MudCardHeader>
+                                <a href="/ProductDetails/@prod.Product.Id">
+                                    <img src="@prod.Product.ImageUrl" class="w-full h-32 object-cover" />
+                                </a>
+                                <MudCardActions>
+                                    <MudText Typo="Typo.body1" Color="Color.Default">Qty: @prod.Count</MudText>
+                                    <MudSpacer></MudSpacer>
+                                    <MudButton OnClick="()=>Increment(prod.ProductId,prod.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">+</MudButton>
+                                    <MudButton OnClick="()=>Decrement(prod.ProductId,prod.ProductPriceId,1)" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">-</MudButton>
+                                </MudCardActions>
+                                <MudCardActions>
+                                    @if (prod.Product.Color != "*")
+                                    {
+                                        <MudText Typo="Typo.body2" Color="Color.Default"> Color:@prod.Product.Color</MudText>
+                                    }
+                                </MudCardActions>
+                            </MudCard>
+                        </div>
+                    }
+                </div>
+            </body>
+        }
+    }
+
+    @code {
         public bool IsProcessing { get; set; } = false;
         private List<ShoppingCart> ShoppingCart = new List<ShoppingCart>();
         private IEnumerable<ProductDTO> Products { get; set; }

@@ -6,6 +6,7 @@
 @*@attribute [Authorize]*@
 @inject NavigationManager _navigationManager
 
+<PageTitle>My Favorite</PageTitle>
 
 <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
     <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">My Favorite Products.</h1>
@@ -17,14 +18,12 @@
 
 @if (IsLoading)
 {
-    <PageTitle>Loading</PageTitle>
     <div class="text-center">
         <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
     </div>
 }
 else
 {
-    <PageTitle>My Fav</PageTitle>
     <body class="font-sans">
         <div class="container mx-auto flex flex-wrap pb-20">
             @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
