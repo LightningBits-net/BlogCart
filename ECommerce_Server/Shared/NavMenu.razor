@@ -1,17 +1,19 @@
 ﻿
 <AuthorizeView Roles="@roleAdmin">
     <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
-
-        <MudText Typo="Typo.body1" Style="" Color="Color.Primary">@context.User.Identity.Name.Split('@')[0]</MudText>
-        <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-        <MudNavLink Href="/ToDoList" Match="NavLinkMatch.Prefix">ToDo List</MudNavLink>
-        <MudNavLink Href="/ToDo/create" Match="NavLinkMatch.Prefix">Add ToDo</MudNavLink>
         <MudDivider DividerType="DividerType.Middle" Class="my-2" />
         <MudNavMenu>
+            <MudNavGroup Title="@context.User.Identity.Name.Split('@')[0]" Expanded="false" Color="Color.Dark">
+                <MudNavLink Href="/Identity/Account/Manage" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix">Profile settings</MudNavLink>
+            </MudNavGroup>
+            <MudDivider DividerType="DividerType.Middle" Class="my-2" />
+            <MudNavGroup Title="Blog Manager" Expanded="false" Color="Color.Dark">
+                <MudNavLink Href="#" Match="NavLinkMatch.Prefix">Blog</MudNavLink>
+            </MudNavGroup>
             <MudNavGroup Title="Product Management" Expanded="false" Color="Color.Dark">
-                <MudNavLink Href="/" Match="NavLinkMatch.Prefix">Home</MudNavLink>
+                <MudNavLink Href="/todolist" Match="NavLinkMatch.Prefix">Home</MudNavLink>
                 <MudNavLink Href="/categoryList" Match="NavLinkMatch.Prefix">Category List</MudNavLink>
-                <MudNavLink Href="/category/create" Match="NavLinkMatch.Prefix">Create Category</MudNavLink>
+                <MudNavLink Href="/categoryLIST/create" Match="NavLinkMatch.Prefix">Create Category</MudNavLink>
                 <MudNavLink Href="/productList" Match="NavLinkMatch.Prefix">Product List</MudNavLink>
                 <MudNavLink Href="/ProductCreate" Match="NavLinkMatch.Prefix">Edit Product</MudNavLink>
             </MudNavGroup>
@@ -24,7 +26,6 @@
                 <MudNavLink Href="@($"{LocalHost}/About")" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
             </MudNavGroup>
             <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-            <MudNavLink Href="/Identity/Account/Manage" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix">Profile settings</MudNavLink>
         </MudNavMenu>
     </MudDrawer>
 </AuthorizeView>
@@ -34,6 +35,6 @@ y
 @code {
     [Parameter]
     public bool SideBarOpen { get; set; }
-    public string LocalHost = " https://e-commerceclient.azurewebsites.net";
+    public string LocalHost = "lightningBits.net";
     private string roleAdmin = SharedServices.Commons.SD.Role_Admin;
 }

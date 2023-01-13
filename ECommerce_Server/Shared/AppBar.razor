@@ -3,7 +3,7 @@
         <MudAppBar Elevation="21" Dense="true">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Edge="Edge.Start"
                            OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
-            <MudButton Href="@($"{LocalHost}")" StartIcon="@Icons.Filled.Home" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit"></MudButton>
+            <MudButton Href="/" StartIcon="@Icons.Filled.Home" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit"></MudButton>
             <MudSpacer />
             <MudButton Href="Identity/Account/Logout" StartIcon="@Icons.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-out</MudButton>
         </MudAppBar>
@@ -12,7 +12,7 @@
         <MudAppBar Elevation="21" Dense="true">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Edge="Edge.Start"
                            OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
-            <MudButton Href="@($"{LocalHost}")" StartIcon="@Icons.Filled.Home" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit"></MudButton>
+            <MudButton Href="/" StartIcon="@Icons.Filled.Home" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit"></MudButton>
             <MudSpacer />
             <MudButton Href="Identity/Account/login" StartIcon="@Icons.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Please Register or LogIn</MudButton>
         </MudAppBar>Please Register or LogIn
@@ -23,5 +23,4 @@
 @code {
     [Parameter]
     public EventCallback OnSidebarToggled { get; set; }
-    public string LocalHost = "https://e-commerceclient.azurewebsites.net";
 }
