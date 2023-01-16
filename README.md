@@ -1,7 +1,7 @@
 
 Welcome to the eCommerce project! This web application allows users to purchase products online.
 
--Live Demo: https://e-commerceclient.azurewebsites.net/
+-Live Demo: https://LightningBits.net/
 
 Features:
 - Backend: Blazor server
