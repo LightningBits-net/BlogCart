@@ -1,27 +1,44 @@
 ﻿@page "/"
 
-<PageTitle>Welcome to LightningBits</PageTitle>
+
+
+<PageTitle>LightningBits.net</PageTitle>
 <body class="font-sans">
     <div class="py-24 px-6 bg-white text-black dark:bg-black dark:text-white">
-        <div class="max-w-5xl mx-auto flex justify-center">
-            <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none max-w-xl animate__animated animate__slideInRight duration-500">LightningBits.net</h1>
-        </div>
-        <div class="items-center justify-center mx-auto px-2">
+            @if (showTitle)
+            {
+                <div class="max-w-5xl mx-auto flex justify-center">
+                    <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none max-w-xl animate__animated animate__slideInRight duration-500">LightningBits.net</h1>
+                </div>
+             }
             <img src="/img/lb_logo.png" class="w-64 pb-5 pt-10 mx-auto animate__animated animate__bounce animate__slow duration-2s ease-in-out">
-            <div class="text-center p-4 animate__animated animate__slideInRight duration-500">
-                <h2 class="text-3xl font-medium">Empower Your Self-Sovereignty</h2>
-                <p>Welcome to our Ecommerce and Blog platform,</p>
-                <p>where individuals are empowered to take control of their own commerce and knowledge</p>
+        @if (showContent)
+        {
+            <div>
+                <div class="items-center justify-center mx-auto px-2">
+                    <div class="text-center p-4 animate__animated animate__slideInRight duration-500">
+                        <h2 class="text-3xl font-medium">Empower Your Self-Sovereignty</h2>
+                        <p>Welcome to our Ecommerce and Blog platform,</p>
+                        <p>where individuals are empowered to take control of their own commerce and knowledge</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <a href="/ThriftBoss" class="block bg-indigo-500 px-4 py-2 rounded-lg text-white hover:bg-indigo-600 mx-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">View Demo Shop</a>
+                        <a href="/portfolio" class="block  bg-indigo-500 px-4 py-2 rounded-lg text-white hover:bg-indigo-600 mx-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Portfolio</a>
+                    </div>
+                </div>
             </div>
-            <div class="flex justify-center">
-                <a href="/ThriftBoss" class="block bg-indigo-500 px-4 py-2 rounded-lg text-white hover:bg-indigo-600 mx-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">View Demo Shop</a>
-                <a href="/about" class="block  bg-indigo-500 px-4 py-2 rounded-lg text-white hover:bg-indigo-600 mx-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">About Us</a>
-            </div>
-        </div>
+        }
     </div>
 </body>
-    
 
-@code{
+@code {
+    private bool showContent = false;
+    private bool showTitle = false;
 
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(3000);
+        showContent = true;
+        showTitle = true;
+    }
 }

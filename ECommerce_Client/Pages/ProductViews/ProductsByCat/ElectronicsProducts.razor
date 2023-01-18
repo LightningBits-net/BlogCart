@@ -1,8 +1,7 @@
-﻿@page "/NFT's"
+﻿@page "/Electronics"
 @inject IProductService _productService
 
 <PageTitle>@CategoryName</PageTitle>
-
 <_ProductsBannerMenu></_ProductsBannerMenu>
 @if (IsProcessing)
 {
@@ -19,7 +18,7 @@ else
                 .GroupBy(p => p.Category.Name)
                 .OrderBy(g => g.Count())
                 .Select(g => g.Key)
-                .Where(c => c != ExCategoryName && c != ExCategoryName2))
+                .Where(c => c != ExCategoryName && c != ExCategoryName2 && c != ExCategoryName3))
                 {
                     <li>
                         <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/@category">@category</a>
@@ -47,7 +46,6 @@ else
                                     <MudText Typo="Typo.body1" Color="Color.Inherit"> @((MarkupString)product.Description)</MudText>
                                 </p>
                             </MudCardContent>
-                            <MudSpacer></MudSpacer>
                             <MudCardActions>
                                 @if (product.Color != "*")
                                 {
@@ -67,9 +65,10 @@ else
 @code {
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
-    public string CategoryName { get; set; } = "NFT's";
+    public string CategoryName { get; set; } = "Electronics";
     public string ExCategoryName { get; set; } = "ServerPreview";
     public string ExCategoryName2 { get; set; } = "Services";
+    public string ExCategoryName3 { get; set; } = "NFT's";
 
     protected override async Task OnInitializedAsync()
     {
