@@ -9,7 +9,7 @@
 
 <_AdminPanelHeader></_AdminPanelHeader>
 
-<body>
+<body class="bg-white text-black dark:text-white dark:bg-black">
     <div class="w-full flex justify-center items-center">
         <div class="w-full max-w-lg">
             <div class="bg-white text-black border p-4 shadow rounded w-full">
@@ -26,7 +26,7 @@
                                 <th class=" w-1/4 px-4 py-2"></th>
                                 <th class=" w-1/4 px-4 py-2">.</th>
                                 @*<th class=" w-1/4 px-2">Shop <br /> Fav's'</th>
-                        <th class=" w-1/4 px-2">Customer <br /> Fav's'</th>*@
+                                    <th class=" w-1/4 px-2">Customer <br /> Fav's'</th>*@
                             </tr>
                         </thead>
                         <tbody class="">
@@ -39,8 +39,8 @@
                                     <th class="border px-4 py-2 bold">@prod.Name</th>
                                     <td class="border px-4 py-2">@prod.Category.Name</td>
                                     @*<td class="p-2">
-                                <MudButton Href="@($"ProductPrice/Edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Price</MudButton>
-                            </td>*@
+                                            <MudButton Href="@($"ProductPrice/Edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Price</MudButton>
+                                        </td>*@
                                     <td class="p-2">
                                         <MudButton Href="@($"product/edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
                                     </td>
@@ -53,11 +53,11 @@
                                         </MudMenu>
                                     </td>
                                     @*<td>
-                                <input type="checkbox" disabled checked="@prod.ShopFavorites">
-                            </td>
-                            <td>
-                                <input type="checkbox" disabled checked="@prod.CustomerFavorites">
-                            </td>*@
+                                            <input type="checkbox" disabled checked="@prod.ShopFavorites">
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" disabled checked="@prod.CustomerFavorites">
+                                        </td>*@
                                 </tr>
                             }
                         </tbody>
