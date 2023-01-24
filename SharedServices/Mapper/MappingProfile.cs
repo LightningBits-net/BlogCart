@@ -18,6 +18,8 @@ namespace SharedServices.Mapper
             CreateMap<OrderHeaderDTO, OrderHeader>().ReverseMap();
             CreateMap<OrderDTO, Order>().ReverseMap();
             CreateMap<ToDoItemDTO, ToDoItem>().ReverseMap();
+            CreateMap<BlogCategory, BlogCategoryDTO>().ReverseMap();
+            CreateMap<Blog, BlogDTO>().ReverseMap();
         }
     }
        

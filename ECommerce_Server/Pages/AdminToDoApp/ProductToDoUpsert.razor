@@ -1,0 +1,114 @@
+﻿@page "/ToDo/create"
+@page "/ToDoList/edit/{id:int}"
+@inject IToDoItemRepository _toDoItemRepository
+@inject IDialogService DialogService
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+@attribute [Authorize(Roles = SD.Role_Admin)]
+
+
+
+<_ToDoPanelHeader></_ToDoPanelHeader>
+<body>
+    <div class="w-full flex justify-center items-center">
+        <div class="w-full max-w-lg">
+            <div class="bg-white text-black border p-4 shadow rounded w-full">
+                <h1 class="mb-8 text-3xl text-white bg-black py-4 ">@Title ToDo</h1>
+                @if (IsLoading)
+                {
+                    <div class="text-center">
+                        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                    </div>
+                }
+                else
+                {
+            <EditForm Model="ToDoItem" OnValidSubmit="UpsertToDoItem">
+                <DataAnnotationsValidator />
+                <InputText @bind-Value="ToDoItem.ToDo" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-md" placeholder="Enter ToDo Title"></InputText>
+                <ValidationMessage For="()=>ToDoItem.ToDo"></ValidationMessage>
+                <SfRichTextEditor @bind-Value="ToDoItem.Comment">
+                </SfRichTextEditor>
+                @*<InputText @bind-Value="ToDoItem.Comment" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-md"></InputText>*@
+                <label class="pt-4 p-1">Completed</label>
+                <InputCheckbox @bind-Value="ToDoItem.Completed">
+                </InputCheckbox>
+                <br />
+                <button href="/ToDo/Create" class="block w-full bg-indigo-500 hover:bg-black text-white rounded font-heading mt-2 py-2">@Title</button>
+                <br />
+            </EditForm>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private ToDoItemDTO ToDoItem { get; set; } = new ToDoItemDTO();
+
+    private string Title { get; set; } = "Create";
+    public bool IsLoading { get; set; }
+    private int Count { get; set; } = 10;
+
+    protected override void OnInitialized()
+    {
+        ToDoItem.Comment = "Description:";
+        
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Id == 0)
+            {
+                IsLoading = false;
+            }
+            else
+            {
+                Title = "Update";
+                await LoadToDoItem();
+            }
+        }
+    }
+
+    private async Task LoadToDoItem()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        ToDoItem = await _toDoItemRepository.Get(Id);
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task UpsertToDoItem()
+    {
+        if (ToDoItem.Id == 0)
+        {
+            await _toDoItemRepository.Create(ToDoItem);
+            snackBar.Add("ToDo created Succesfully. Refresh page to view updated category list", Severity.Success);
+        }
+        else
+        {
+            await _toDoItemRepository.Update(ToDoItem);
+            snackBar.Add("ToDo updated Succesfully.", Severity.Success);
+        }
+
+        _navigationManager.NavigateTo("/TodoList");
+    }
+
+    void StartCountdown()
+    {
+        var timer = new Timer(new TimerCallback(_ =>
+        {
+            if (Count <= 0) return;
+            Count--;
+
+            // Note that the following line is necessary because otherwise
+            // Blazor would not recognize the state change and not refresh the UI
+            this.StateHasChanged();
+        }), null, 1000, 1000);
+    }
+}
+

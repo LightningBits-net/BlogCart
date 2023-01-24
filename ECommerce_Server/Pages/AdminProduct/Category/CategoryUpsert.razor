@@ -1,0 +1,103 @@
+﻿@page "/categoryList/create"
+@page "/categorylist/edit/{id:int}"
+
+@inject ICategoryRepository _categoryRepository
+@inject IDialogService DialogService
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+@attribute [Authorize(Roles = SD.Role_Admin)]
+
+
+<_AdminPanelHeader></_AdminPanelHeader>
+<body>
+    <div class="w-full flex justify-center items-center">
+        <div class="w-full max-w-lg">
+            <div class="bg-white text-black border p-4 shadow rounded w-full">
+                <h1 class="mb-8 text-3xl text-white bg-black py-4 ">@Title Category</h1>
+                @if (IsLoading)
+                {
+                    <div class="text-center">
+                        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                    </div>
+                }
+                else
+                {
+                    <EditForm Model="Category" OnValidSubmit="UpsertCategory">
+                        <DataAnnotationsValidator />
+                        <InputText @bind-Value="Category.Name" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-md" placeholder="Enter Category"></InputText>
+                        <ValidationMessage For="()=>Category.Name"></ValidationMessage>
+                        <br />
+                        <button href="/category/Create" class="block w-full bg-indigo-500 hover:bg-black text-white rounded font-heading mt-2 py-2">@Title</button>
+                        <br />
+                    </EditForm>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+    private CategoryDTO Category { get; set; } = new CategoryDTO();
+    private string Title { get; set; } = "Create";
+    public bool IsLoading { get; set; }
+    private int Count { get; set; } = 10;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Id == 0)
+            {
+                IsLoading = false;
+            }
+            else
+            {
+                Title = "Update";
+                await LoadCategory();
+            }
+        }
+    }
+
+    private async Task LoadCategory()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        Category = await _categoryRepository.Get(Id);
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task UpsertCategory()
+    {
+        if (Category.Id == 0)
+        {
+            await _categoryRepository.Create(Category);
+            snackBar.Add("Category created Succesfully.", Severity.Success);
+        }
+        else
+        {
+            await _categoryRepository.Update(Category);
+            snackBar.Add("Category updated Succesfully.", Severity.Success);
+        }
+
+        _navigationManager.NavigateTo("/categorylist");
+    }
+
+    void StartCountdown()
+    {
+        var timer = new Timer(new TimerCallback(_ =>
+        {
+            if (Count <= 0) return;
+            Count--;
+
+            // Note that the following line is necessary because otherwise
+            // Blazor would not recognize the state change and not refresh the UI
+            this.StateHasChanged();
+        }), null, 1000, 1000);
+    }
+}
+

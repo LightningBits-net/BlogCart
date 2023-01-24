@@ -30,7 +30,7 @@ namespace ECommerce_Server.Service
         {
             FileInfo fileInfo = new(file.Name);
             var fileName = Guid.NewGuid().ToString()+fileInfo.Extension;
-            var folderDirectory = $"{_webHostEnvironment.WebRootPath}/img/product";
+            var folderDirectory = $"{_webHostEnvironment.WebRootPath}/img/images";
             if(!Directory.Exists(folderDirectory))
             {
                 Directory.CreateDirectory(folderDirectory);
@@ -40,7 +40,7 @@ namespace ECommerce_Server.Service
             await using FileStream fs = new FileStream(filePath, FileMode.Create);
             await file.OpenReadStream(long.MaxValue).CopyToAsync(fs);
 
-            var fullPath = $"/img/product/{fileName}";
+            var fullPath = $"/img/images/{fileName}";
             return fullPath;
         }
 
