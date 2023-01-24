@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SharedServices.Models;
 
 namespace SharedServices.Repository
+{
 	public class BlogRepository : IBlogRepository
 	{
         private readonly ApplicationDbContext _db;
