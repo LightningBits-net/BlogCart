@@ -1,4 +1,5 @@
-﻿@page "/blogView/{ProductId:int}"
+﻿@page "/blogView/{BlogId:int}"
+@inject IBlogRepository _blogRepository
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 
@@ -11,90 +12,40 @@
 else
 {
     <div class="container mx-auto flex justify-center pb-20 pt-10">
-            <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
-                <MudCard Elevation="25">
-                    <MudCardActions>
-                        <MudText Typo="Typo.h5" Color="Color.Default">@Product.Name</MudText>
-                        <MudSpacer />
-                        @if (Product.Color != "*")
-                        {
-                            <MudText Typo="Typo.body2" Color="Color.Default"> Color:@Product.Color</MudText>
-                        }
-                    </MudCardActions>
-                    <img src="@Product.ImageUrl" class="w-full h-64 object-cover" />
-                    <MudCardContent>
-                        <p class="h-48 min-h-0">
-                            <MudText Typo="Typo.body1" Color="Color.Inherit"> @((MarkupString)Product.Description)</MudText>
-                        </p>
-                    </MudCardContent>
-                    <MudText>Please Select one</MudText>
-                    <MudCardActions>
-                        <MudButtonGroup>
-                            @*@foreach (var productPrice in Product.ECommerceProductPrices)
-                            {
-                                if (productPrice.Id == DetailsVM.SelectedProductPriceId)
-                                {
-                                    <MudButton Color="Color.Dark" Width="128px" Height="64px" Style="margin: 5px; padding: 5px;; border: 3px solid #28A745; border-radius: 5px; box-shadow: 5px">
-                                        <p> &nbsp @productPrice.MyProperty &nbsp</p>
-                                        <p> &nbsp @productPrice.Price.ToString("c") &nbsp</p>
-                                        <p> &nbsp @productPrice.Size &nbsp</p>
-                                    </MudButton>
-                                }
-                                else
-                                {
-                                    <MudButton OnClick="(args)=>SelectedProductPrice(args,productPrice.Id)" Color="Color.Info" Width="128px" Height="64px" Style="margin: 5px; padding: 5px; border: 1px solid; border-radius: 20px; box-shadow: 5px">
-                                        <p> &nbsp @productPrice.MyProperty &nbsp</p>
-                                        <p> &nbsp @productPrice.Price.ToString("c") &nbsp</p>
-                                        <p> &nbsp @productPrice.Size &nbsp </p>
-                                    </MudButton>
-                                }
-                            }*@
-                        </MudButtonGroup>
-                    </MudCardActions>
-                    @*@if (DetailsVM.SelectedProductPriceId > 0)
-                    {
-                        <MudButton Class="w-full" OnClick="AddToCart" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success">Add to Cart</MudButton>
-
-                    }*@
-                </MudCard>
+        <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
+            <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+                    <p class="text-gray-700 text-base">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                    </p>
+                </div>
+                <div class="px-6 pt-4 pb-2">
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                </div>
             </div>
         </div>
-        }
+    </div>
+}
 
 
 @code {
+
     [Parameter]
-    public int ProductId { get; set; }
+    public int BlogId { get; set; }
 
-    public ProductDTO Product { get; set; } = new();
+    public BlogDTO Blog { get; set; } = new();
     public bool IsProcessing { get; set; } = false;
-    //public DetailsVM DetailsVM { get; set; } = new();
 
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    IsProcessing = true;
-    //    Product = await _productService.Get(ProductId);
-    //    IsProcessing = false;
-    //}
-
-    //private async Task SelectedProductPrice(MouseEventArgs e, int productPriceId)
-    //{
-    //    DetailsVM.ProductPrice = Product.ECommerceProductPrices.FirstOrDefault(u => u.Id == productPriceId);
-    //    DetailsVM.SelectedProductPriceId = productPriceId;
-    //}
-
-    //private async Task AddToCart()
-    //{
-    //    ShoppingCart shoppingCart = new()
-    //    {
-    //        Count = DetailsVM.Count,
-    //        ProductId = ProductId,
-    //        ProductPriceId = DetailsVM.SelectedProductPriceId
-    //    };
-
-    //    await _cartService.IncrementCart(shoppingCart);
-    //    _navigationManager.NavigateTo("/cart");
-    //    snackBar.Add("Product added to cart Succesfully.", Severity.Success);
-    //}
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        Blog = await _blogRepository.Get(BlogId);
+        IsProcessing = false;
     }
+
+}
 
