@@ -9,7 +9,7 @@
 
 
 <_ToDoPanelHeader></_ToDoPanelHeader>
-<body>
+<body class="bg-white text-black dark:text-white dark:bg-black">
     <div class="w-full flex justify-center items-center">
         <div class="w-full max-w-lg">
             <div class="bg-white text-black border p-4 shadow rounded w-full">
@@ -22,20 +22,20 @@
                 }
                 else
                 {
-            <EditForm Model="ToDoItem" OnValidSubmit="UpsertToDoItem">
-                <DataAnnotationsValidator />
-                <InputText @bind-Value="ToDoItem.ToDo" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-md" placeholder="Enter ToDo Title"></InputText>
-                <ValidationMessage For="()=>ToDoItem.ToDo"></ValidationMessage>
-                <SfRichTextEditor @bind-Value="ToDoItem.Comment">
-                </SfRichTextEditor>
-                @*<InputText @bind-Value="ToDoItem.Comment" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-md"></InputText>*@
-                <label class="pt-4 p-1">Completed</label>
-                <InputCheckbox @bind-Value="ToDoItem.Completed">
-                </InputCheckbox>
-                <br />
-                <button href="/ToDo/Create" class="block w-full bg-indigo-500 hover:bg-black text-white rounded font-heading mt-2 py-2">@Title</button>
-                <br />
-            </EditForm>
+                    <EditForm Model="ToDoItem" OnValidSubmit="UpsertToDoItem">
+                        <DataAnnotationsValidator />
+                        <InputText @bind-Value="ToDoItem.ToDo" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-md" placeholder="Enter ToDo Title"></InputText>
+                        <ValidationMessage For="()=>ToDoItem.ToDo"></ValidationMessage>
+                        <SfRichTextEditor @bind-Value="ToDoItem.Comment">
+                        </SfRichTextEditor>
+                        @*<InputText @bind-Value="ToDoItem.Comment" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-md"></InputText>*@
+                        <label class="pt-4 p-1">Completed</label>
+                        <InputCheckbox @bind-Value="ToDoItem.Completed">
+                        </InputCheckbox>
+                        <br />
+                        <button href="/ToDo/Create" class="block w-full bg-indigo-500 hover:bg-black text-white rounded font-heading mt-2 py-2">@Title</button>
+                        <br />
+                    </EditForm>
                 }
             </div>
         </div>
