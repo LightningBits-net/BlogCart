@@ -1,10 +1,9 @@
-﻿@page "/BlogViewHome"
+﻿@page "/."
 @inject IBlogRepository _blogRepository
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 
 
-<body class="bg-white text-black dark:text-white dark:bg-black">
     @if (IsProcessing)
     {
         <div class="text-center">
@@ -81,7 +80,6 @@
         </div>
         <_FooterDarkGray></_FooterDarkGray>
     }
-</body>
 
 @code {
 

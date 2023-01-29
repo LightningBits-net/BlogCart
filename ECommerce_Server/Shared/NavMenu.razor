@@ -50,7 +50,7 @@
                 <MudNavLink Href="@($"{LocalHost}")" Match="NavLinkMatch.All"></MudNavLink>
                 <MudNavLink Href="@($"{LocalHost}/ThriftBoss")" Icon="@Icons.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
                 <MudNavLink Href="@($"{LocalHost}/Products")" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
-                <MudNavLink Href="/BlogViewHome" Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
+                <MudNavLink Href="/." Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
                 <MudNavLink Href="@($"{LocalHost}/About")" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
             </MudNavMenu>
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
@@ -66,6 +66,6 @@
 @code {
     [Parameter]
     public bool SideBarOpen { get; set; } = false;
-    public string LocalHost = "https://lightningbits.net";
+    public string LocalHost = "https://myblog.lightningbits.net/";
     private string roleAdmin = SharedServices.Commons.SD.Role_Admin;
 }
