@@ -1,17 +1,14 @@
 ﻿@page "/"
 
-
-
 <PageTitle>LightningBits.net</PageTitle>
-<body class="font-sans">
-    <div class="py-24 px-6 bg-white text-black dark:bg-black dark:text-white">
-            @if (showTitle)
-            {
-                <div class="max-w-5xl mx-auto flex justify-center">
-                    <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none max-w-xl animate__animated animate__slideInRight duration-500">LightningBits.net</h1>
-                </div>
-             }
-            <img src="/img/lb_logo.png" class="w-64 pb-5 pt-10 mx-auto animate__animated animate__bounce animate__slow duration-2s ease-in-out">
+    <div class="py-24 px-6">
+        @if (showTitle)
+        {
+            <div class="max-w-5xl mx-auto flex justify-center">
+                <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none max-w-xl animate__animated animate__slideInRight duration-500">LightningBits.net</h1>
+            </div>
+        }
+        <img src="/img/lb_logo.png" class="w-64 pb-5 pt-10 mx-auto animate__animated animate__bounce animate__slow duration-2s ease-in-out">
         @if (showContent)
         {
             <div>
@@ -22,16 +19,18 @@
                         <p>where individuals are empowered to take control of their own commerce and knowledge</p>
                     </div>
                     <div class="flex justify-center">
-                        <a href="/ThriftBoss" class="block bg-indigo-500 px-4 py-2 rounded-lg text-white hover:bg-indigo-600 mx-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">View Demo Shop</a>
+                        <a href="/ThriftBoss" class="block bg-indigo-500 px-4 py-2 rounded-lg text-white hover:bg-indigo-600 mx-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Demo Shop</a>
                         <a href="/portfolio" class="block  bg-indigo-500 px-4 py-2 rounded-lg text-white hover:bg-indigo-600 mx-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Portfolio</a>
+                        <a href="@($"{LocalHost}/BlogViewHome")" class="block bg-indigo-500 px-4 py-2 rounded-lg text-white hover:bg-indigo-600 mx-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Blog</a>
+                        <a href="/portfolio" class="block  bg-indigo-500 px-4 py-2 rounded-lg text-white hover:bg-indigo-600 mx-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My something</a>
                     </div>
                 </div>
             </div>
         }
     </div>
-</body>
-
 @code {
+
+    private string LocalHost = "https://e-commerce-server.azurewebsites.net";
     private bool showContent = false;
     private bool showTitle = false;
 
