@@ -17,7 +17,7 @@ else
                 .GroupBy(p => p.Category.Name)
                 .OrderBy(g => g.Count())
                 .Select(g => g.Key)
-                .Where(c => c != ExCategoryName && c != ExCategoryName2 && c != ExCategoryName3))
+                .Where(c => c == "Electronics" || c == "Sale" || c == "Featured"))
                 {
                     <li>
                         <a class="inline-block py-2 px-2 dark:text-white  text-center hover:text-indigo-400 font-semibold" href="/@category">@category</a>
@@ -65,9 +65,6 @@ else
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
     public string CategoryName { get; set; } = "Sale";
-    public string ExCategoryName { get; set; } = "ServerPreview";
-    public string ExCategoryName2 { get; set; } = "Services";
-    public string ExCategoryName3 { get; set; } = "NFT's";
 
     protected override async Task OnInitializedAsync()
     {
