@@ -6,8 +6,7 @@
 @inject MudBlazor.ISnackbar snackBar
 
 <PageTitle>Your Cart</PageTitle>
-<body class="font-sans">
-    <div class="bg-white text-black dark:bg-black dark:text-white">
+    <div class="p-2">
         @if (IsProcessing)
         {
             <div class="text-center">
@@ -26,9 +25,9 @@
             }
             else
             {
-                <div class="max-w-5xl mx-auto pt-20 flex justify-end">
-                    <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none max-w-xl">
-                        Order Review
+                <div class="max-w-5xl mx-auto pt-20 pr-2 flex justify-end">
+                    <h1 class="font-display-italic dark:text-white text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">
+                    Order Review
                     </h1>
                 </div>
                 <div class="max-w-3xl mx-auto flex justify-end">
@@ -70,13 +69,12 @@
                     }
                 </div>
                 <div class="flex justify-center pb-10 w-full">
-                    <a href="/summary" class="block w-1/4 bg-green-500 px-4 py-2 rounded-lg text-white hover:bg-green-600 mx-4 ">Check out</a>
-                    <a href="/products" class="block w-1/4 bg-gray-600 px-4 py-2 rounded-lg text-white hover:bg-gray-400 mx-4">Keep Shopping</a>
+                    <a href="/summary" class="block w-1/2 bg-green-500 px-4 py-2 rounded-lg text-white hover:bg-green-600 mx-4 ">Check out</a>
+                    <a href="/products" class="block w-1/2 bg-gray-600 px-4 py-2 rounded-lg text-white hover:bg-gray-400 mx-4">Keep Shopping</a>
                 </div>
             }
         }
     </div>
-    </body>
 
 
     @code {

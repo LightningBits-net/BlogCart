@@ -10,7 +10,7 @@
                 <MudNavLink Href="/ThriftBoss" Match="NavLinkMatch.All"></MudNavLink>
                 <MudNavLink Href="/ThriftBoss" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
                 <MudNavLink Href="/products" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
-                <MudNavLink Href="@($"{LocalHost}/.")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
+                <MudNavLink Href="@($"{LocalHost}/Home")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
                 <MudNavLink Href="/About" Icon="@Icons.Material.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
                 <MudNavGroup Title="@context.User.Identity.Name.Split('@')[0]" Expanded="false" Color="Color.Dark">
@@ -32,7 +32,7 @@
                 <MudNavLink Href="/ThriftBoss" Match="NavLinkMatch.All"></MudNavLink>
                 <MudNavLink Href="/ThriftBoss" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
                 <MudNavLink Href="/products" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
-                <MudNavLink Href="@($"{LocalHost}/.")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
+                <MudNavLink Href="@($"{LocalHost}/Home")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
                 <MudNavLink Href="/About" Icon="@Icons.Material.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
             </MudNavMenu>
@@ -47,5 +47,5 @@
 @code {
     [Parameter]
     public bool SideBarOpen { get; set; }
-        public string LocalHost = "https://myblog.lightningbits.net";
+    public string LocalHost = "https://myblog.lightningbits.net";
 }

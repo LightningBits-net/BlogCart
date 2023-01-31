@@ -1,9 +1,9 @@
-﻿@page "/."
+﻿@page "/Home"
 @inject IBlogRepository _blogRepository
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 
-
+<PageTitle>MyBlog</PageTitle>
     @if (IsProcessing)
     {
         <div class="text-center">
@@ -69,7 +69,7 @@
                             @foreach (var blog in Blogs.Where(u => u.Featured == true))
                             {
                                 <ul class="list-reset leading-normal">
-                                    <li><a href="/blogView/@blog.Id" class="text-gray-darkest text-sm hover:text-indigo-400">@((MarkupString)blog.Name)</a></li>
+                                    <li><a href="/Page/@blog.Id" class="text-gray-darkest text-sm hover:text-indigo-400">@((MarkupString)blog.Name)</a></li>
                                 </ul>
                             }
                         </div>

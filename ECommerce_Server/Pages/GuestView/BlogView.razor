@@ -1,9 +1,9 @@
-﻿@page "/../{BlogId:int}"
+﻿@page "/Page/{BlogId:int}"
 @inject IBlogRepository _blogRepository
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 
-
+<PageTitle>MyBlog</PageTitle>
 @if (IsProcessing)
 {
     <div class="text-center">

@@ -11,7 +11,6 @@
 }
 else
 {
-    <body class="font-sans">
         <div>
             <ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">
                 @foreach (var category in ECommerceProducts
@@ -21,7 +20,7 @@ else
                 .Where(c => c != ExCategoryName && c != ExCategoryName2 && c != ExCategoryName3))
                 {
                     <li>
-                        <a class="inline-block py-2 px-2 text-black dark:text-white dark:bg-black text-center hover:text-indigo-400 font-semibold" href="/@category">@category</a>
+                        <a class="inline-block py-2 px-2 dark:text-white  text-center hover:text-indigo-400 font-semibold" href="/@category">@category</a>
                     </li>
                 }
             </ul>
@@ -58,8 +57,8 @@ else
             }
         </div>
         <_FooterDarkGray></_FooterDarkGray>
-    </body>
 }
+
 
 
 @code {

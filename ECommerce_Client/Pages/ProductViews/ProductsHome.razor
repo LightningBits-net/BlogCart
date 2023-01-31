@@ -14,7 +14,6 @@
 }
 else
 {
-    <body class="font-sans">
         <div>
             <!--<ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">-->
                 @*@foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())*@
@@ -33,7 +32,7 @@ else
                   .Where(c => c != ExCategoryName && c != ExCategoryName2))
                 {
                     <li>
-                        <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/@category">@category</a>
+                        <a class="inline-block py-2 px-2 dark:text-white  hover:text-indigo-400 font-semibold" href="/@category">@category</a>
                     </li>
                 }
             </ul>
@@ -68,7 +67,6 @@ else
             }
         </div>
         <_FooterDarkGray></_FooterDarkGray>
-    </body>
 }
 
 

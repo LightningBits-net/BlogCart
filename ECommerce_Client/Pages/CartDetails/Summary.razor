@@ -10,7 +10,6 @@
 
 
 <PageTitle>Order Summary</PageTitle>
-<body class="font-sans">
     <div class="bg-white text-black dark:bg-black dark:text-white">
         @if (IsProcessing)
         {
@@ -131,7 +130,6 @@
                 </div>
         }
     </div>
-</body>
 
     @code {
         public bool IsProcessing { get; set; } = false;
