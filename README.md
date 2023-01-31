@@ -9,6 +9,7 @@ Features:
 - API: ASP.NET Core
 - Database: SQL
 - Checkout: SQLite
+- Blog Platform
 - Authentication and authorization: ASP.NET Core Identity
 - UI: Tailwind CSS, MudBlazor
 - User registration and login
