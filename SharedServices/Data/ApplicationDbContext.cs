@@ -27,6 +27,10 @@ namespace SharedServices.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
+
+        public DbSet<Blog> Blogs { get; set; }
+
+        public DbSet<BlogCategory> BlogCategories { get; set; }
     }
 }
 

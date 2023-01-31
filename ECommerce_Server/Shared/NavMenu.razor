@@ -1,40 +1,71 @@
 ﻿
 <AuthorizeView Roles="@roleAdmin">
-    <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
-        <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-        <MudNavMenu>
-            <MudNavGroup Title="@context.User.Identity.Name.Split('@')[0]" Expanded="false" Color="Color.Dark">
-                <MudNavLink Href="/Identity/Account/Manage" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix">Profile settings</MudNavLink>
-            </MudNavGroup>
+    <Authorized>
+        <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
+            <MudDrawerHeader>
+                <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">@context.User.Identity.Name.Split('@')[0]</MudText>
+            </MudDrawerHeader>
             <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-            <MudNavGroup Title="Blog Manager" Expanded="false" Color="Color.Dark">
-                <MudNavLink Href="#" Match="NavLinkMatch.Prefix">Blog</MudNavLink>
-            </MudNavGroup>
-            <MudNavGroup Title="Product Management" Expanded="false" Color="Color.Dark">
-                <MudNavLink Href="/todolist" Match="NavLinkMatch.Prefix">Home</MudNavLink>
-                <MudNavLink Href="/categoryList" Match="NavLinkMatch.Prefix">Category List</MudNavLink>
-                <MudNavLink Href="/categoryLIST/create" Match="NavLinkMatch.Prefix">Create Category</MudNavLink>
-                <MudNavLink Href="/productList" Match="NavLinkMatch.Prefix">Product List</MudNavLink>
-                <MudNavLink Href="/ProductCreate" Match="NavLinkMatch.Prefix">Edit Product</MudNavLink>
-            </MudNavGroup>
-            <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-            <MudNavGroup Title="Return to Client" Expanded="false" Color="Color.Dark">
+
+            <MudNavMenu>
+                <MudNavGroup Title="Settings" Expanded="false" Color="Color.Dark">
+                    <MudNavLink Href="/Identity/Account/Manage" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix">Profile settings</MudNavLink>
+                </MudNavGroup>
+                <MudDivider DividerType="DividerType.Middle" Class="my-2" />
+                <MudNavGroup Title="Blog Manager" Expanded="false" Color="Color.Dark">
+                    <MudNavLink Href="/BlogList" Match="NavLinkMatch.Prefix">Blog List</MudNavLink>
+                    <MudNavLink Href="/BlogCatList" Match="NavLinkMatch.Prefix">Blog Category</MudNavLink>
+                    <MudNavLink Href="/BlogCatList/create" Match="NavLinkMatch.Prefix">Blog Cat Create</MudNavLink>
+                    <MudNavLink Href="/BlogCreate" Match="NavLinkMatch.Prefix">Create Blog</MudNavLink>
+                </MudNavGroup>
+                <MudNavGroup Title="Product Management" Expanded="false" Color="Color.Dark">
+                    <MudNavLink Href="/categoryList" Match="NavLinkMatch.Prefix">Category List</MudNavLink>
+                    <MudNavLink Href="/categoryLIST/create" Match="NavLinkMatch.Prefix">Create Category</MudNavLink>
+                    <MudNavLink Href="/productList" Match="NavLinkMatch.Prefix">Product List</MudNavLink>
+                    <MudNavLink Href="/ProductCreate" Match="NavLinkMatch.Prefix">Edit Product</MudNavLink>
+                </MudNavGroup>
+                <MudNavGroup Title="ToDo App" Expanded="false" Color="Color.Dark">
+                    <MudNavLink Href="/TodoList" Match="NavLinkMatch.Prefix">ToDo List</MudNavLink>
+                    <MudNavLink Href="/ToDo/create" Match="NavLinkMatch.Prefix">Create ToDo</MudNavLink>
+                </MudNavGroup>
+
+                <MudDivider DividerType="DividerType.Middle" Class="my-2" />
+                <MudNavGroup Title="Return to Website" Expanded="false" Color="Color.Dark">
+                    <MudNavLink Href="@($"{LocalHost}")" Match="NavLinkMatch.All"></MudNavLink>
+                    <MudNavLink Href="@($"{LocalHost}")" Icon="@Icons.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
+                    <MudNavLink Href="@($"{LocalHost}/Products")" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
+                    <MudNavLink Href="/BlogViewHome" Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
+                    <MudNavLink Href="@($"{LocalHost}/About")" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
+                </MudNavGroup>
+                <MudDivider DividerType="DividerType.Middle" Class="my-2" />
+            </MudNavMenu>
+        </MudDrawer>
+    </Authorized>
+    <NotAuthorized>
+        <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
+            <MudDrawerHeader>
+                <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">Thrift Boss</MudText>
+            </MudDrawerHeader>
+            <MudNavMenu>
                 <MudNavLink Href="@($"{LocalHost}")" Match="NavLinkMatch.All"></MudNavLink>
-                <MudNavLink Href="@($"{LocalHost}")" Icon="@Icons.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
+                <MudNavLink Href="@($"{LocalHost}/ThriftBoss")" Icon="@Icons.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
                 <MudNavLink Href="@($"{LocalHost}/Products")" Icon="@Icons.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
-                <MudNavLink Href="@($"{LocalHost}/blogs")" Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
+                <MudNavLink Href="/." Icon="@Icons.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
                 <MudNavLink Href="@($"{LocalHost}/About")" Icon="@Icons.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
-            </MudNavGroup>
-            <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-        </MudNavMenu>
-    </MudDrawer>
+            </MudNavMenu>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+            <MudButton Href="/login" StartIcon="@Icons.Material.Filled.Login" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Login/Register</MudButton>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+            <MudButton Href="/ServerPreview" StartIcon="@Icons.Material.Filled.Photo" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Server Preview</MudButton>
+        </MudDrawer>
+    </NotAuthorized>
 </AuthorizeView>
-y
+
 
 
 @code {
     [Parameter]
-    public bool SideBarOpen { get; set; }
-    public string LocalHost = "lightningBits.net";
+    public bool SideBarOpen { get; set; } = false;
+    public string LocalHost = "https://myblog.lightningbits.net/";
     private string roleAdmin = SharedServices.Commons.SD.Role_Admin;
 }

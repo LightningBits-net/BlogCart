@@ -1,0 +1,97 @@
+﻿@page "/Home"
+@inject IBlogRepository _blogRepository
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+
+<PageTitle>MyBlog</PageTitle>
+    @if (IsProcessing)
+    {
+        <div class="text-center">
+            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+        </div>
+    }
+    else
+    {
+        <div class="w-full bg-white">
+            <!-- title -->
+            <div class="text-center px-6 py-12 mb-6 bg-gray-600 dark:bg-black border-b">
+                <h1 class=" text-white text-xl md:text-4xl pb-4">Blog by Thrift Boss</h1>
+                <p class="leading-loose text-white">
+                    Catch up on the latest thrifts and updates.
+                </p>
+            </div>
+            <!-- /title -->
+            <div class="container max-w-4xl mx-auto md:flex items-start py-8 px-12 md:px-0">
+                <!-- articles -->
+                <div class="w-full md:pr-12 mb-12">
+                    @foreach (var blog in Blogs.Where(u => u.BlogFavorite == true))
+                    {
+                        <article class="mb-12">
+                            <h2 class="mb-4">
+                                <a href="/blogView/@blog.Id" class="text-black text-xl md:text-2xl no-underline hover:underline">
+                                    @((MarkupString)blog.Name)
+                                </a>
+                            </h2>
+                            <div class="mb-4 text-sm text-gray-700">
+                                by <a href="#" class="text-gray-700">@((MarkupString)blog.Author)</a> @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
+                                <span class="font-bold mx-1"> | </span>
+                                <a href="#" class="text-gray-700">2 Comments</a>
+                            </div>
+                            <p class="text-gray-700 leading-normal">
+                                @((MarkupString)blog.Description)
+                            </p>
+                        </article>
+                    }
+                    <div class="flex justify-between text-xs">
+                        <a href="/UnderConstruction" class="bg-indigo-600 text-white no-underline py-2 px-3 rounded">Previous</a>
+                        <a href="/UnderConstruction" class="bg-indigo-600 text-white no-underline py-2 px-3 rounded">Next</a>
+                    </div>
+                </div>
+                <!--/ articles -->
+                <!-- sidebar -->
+                <div class="w-full md:w-64">
+
+                    <aside class="rounded shadow overflow-hidden mb-6">
+                        <h3 class="text-sm bg-indigo-600 text-gray-200 py-3 px-4 border-b">Categories</h3>
+                        <div class="bg-gray-600 dark:bg-black p-4">
+                            @foreach (var category in Blogs.Select(u => u.BlogCategory.Name).Distinct())
+                            {
+                                <ul class="list-reset leading-normal">
+                                    <li><a href="/@category" class="text-gray-darkest text-sm hover:text-indigo-400">@category</a></li>
+                                </ul>
+                            }
+                        </div>
+                    </aside>
+
+                    <aside class="rounded shadow overflow-hidden mb-6">
+                        <h3 class="text-sm bg-indigo-600 text-gray-200 py-3 px-4 border-b">Featured</h3>
+                        <div class="bg-gray-600 dark:bg-black p-4">
+                            @foreach (var blog in Blogs.Where(u => u.Featured == true))
+                            {
+                                <ul class="list-reset leading-normal">
+                                    <li><a href="/Page/@blog.Id" class="text-gray-darkest text-sm hover:text-indigo-400">@((MarkupString)blog.Name)</a></li>
+                                </ul>
+                            }
+                        </div>
+                    </aside>
+                </div>
+                <!-- /sidebar -->
+            </div>
+        </div>
+        <_FooterDarkGray></_FooterDarkGray>
+    }
+
+@code {
+
+    public bool IsProcessing { get; set; } = false;
+    public IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        Blogs = await _blogRepository.GetAll();
+        IsProcessing = false;
+    }
+
+}
+
