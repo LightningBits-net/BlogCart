@@ -20,11 +20,11 @@ else
 <div>
     <ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">
         @foreach (var category in ECommerceProducts
-       .GroupBy(p => p.Category.Name)
-       .OrderBy(g => g.Count())
-       .Select(g => g.Key)
-       .Where(c => c != ExCategoryName && c != ExCategoryName2))
-        {
+          .GroupBy(p => p.Category.Name)
+          .OrderBy(g => g.Count())
+          .Select(g => g.Key)
+          .Where(c => c == "Electronics" || c == "Sale" || c == "Featured"))
+            {
             <li>
                 <a class="inline-block py-2 px-2 text-black dark:text-white hover:text-indigo-400 font-semibold" href="/@category">@category</a>
             </li>
@@ -87,8 +87,6 @@ else
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
     public string CategoryName1 = "Featured";
     public string CategoryName2 = "Sale";
-    public string ExCategoryName { get; set; } = "ServerPreview";
-    public string ExCategoryName2 { get; set; } = "Services";
 
     protected override async Task OnInitializedAsync()
     {

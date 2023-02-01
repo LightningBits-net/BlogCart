@@ -21,7 +21,7 @@
         <p class="mb-6 mx-auto max-w-xlg text-center text-lg leading-relaxed">
             <strong>Welcome to my portfolio!</strong> My name is LightningBits and I am a full stack .NET developer specializing in web design.
             I have a passion for creating intuitive and visually appealing websites that provide a seamless user experience.
-            As a full stack .NET developer with a focus on web design, I am passionate about creating visually appealing and user-friendly websites.
+            As a full stack .NET junior developer with a focus on web design, I am passionate about creating visually appealing and user-friendly websites.
             My expertise in .NET, C#, HTML, CSS, and frameworks such as ASP.NET core allow me to create dynamic and responsive websites.
             Additionally, my experience in front-end technologies like HTML, CSS, and Blazor allows me to deliver beautiful and functional websites that meet clients' needs. I am detail-oriented, proactive, and constantly stay up-to-date with the latest technologies and best practices. I take pride in delivering high-quality results on time and on budget.
             I would be honored to work with you to bring your vision to life.
@@ -32,93 +32,106 @@
 
     <div class="max-w-5xl mx-auto flex flex-wrap items-start">
         <div class="w-full md:w-1/2 p-4 mb-12">
-
-            @if (IsProcessing)
-            {
-                <div class="text-center">
-                    <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-                </div>
-            }
-            else
-            {
-                <MudCarousel Class="mud-width-full" Style="height:250px;" ShowArrows="@arrows" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
-                    @foreach (var portfolio in ECommerceProducts)
-                    {
-                        @if (portfolio.Category.Name == CategoryName)
-
-                        {
-                            <MudCarouselItem Transition="transition" Color="@Color.Dark">
-                                <a href="/ProductDetails/@portfolio.Id">
-                                    <img src="@portfolio.ImageUrl" class="block w-full h-auto mb-12" />
-                                </a>
-                            </MudCarouselItem>
-                        }
-
-                    }
-                </MudCarousel>
-            }
-            @*<img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="block w-full h-auto mb-12" />*@
-            <a href="/about" class="block text-2xl  text-black dark:text-white  text-center mb-6">Full Stack ops</a>
-            <p class="mb-6 text-center leading-relaxed text-sm">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>
+            <img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="block w-full h-auto mb-12" />
+            <a href="/ThriftBoss" class="block text-2xl  text-black dark:text-white  text-center mb-6">Front End</a>
+            <p class="mb-6 text-center leading-relaxed text-sm">
+                IAM well-versed in utilizing the latest technologies to bring creative and user-friendly designs to life.
+                In my <a href="/ThriftBoss" class="text-indigo-500 ">projects</a>,
+                I have demonstrated expertise in C# with Blazor, HTML, and Tailwind CSS to create dynamic and responsive web applications.
+                My experience in these technologies has allowed me to create visually appealing interfaces with seamless functionality that provide the best user experience.
+                Whether it's a single-page application, a full-featured e-commerce platform with Blog, or a simple portfolio website,
+                I have the skills and knowledge to bring your vision to reality.
+            </p>
             <a href="#" class="block text-indigo-500 text-center">Read more</a>
         </div>
-                <div class="w-full md:w-1/2 p-4 mb-12">
-                    <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="block w-full h-auto mb-12" />
-                    <a href="/about" class="block text-2xl text-black dark:text-white  text-center mb-6">What's New?</a>
-                    <p class="mb-6 text-center leading-relaxed text-sm">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>
-                    <a href="#" class="block text-indigo-500 text-center">Read more</a>
-                </div>
-            </div>
-            <!-- /About -->
-            <div class="max-w-5xl mx-auto flex flex-wrap justify-center">
-                <div class="w-full md:w-1/2 p-4 mb-12">
-                    <img src="/img/myHeadShot.jpeg" alt="image" class="block w-full h-auto mb-12" />
-                    <a href="https://myblog.lightningbits.net/Page/3" class="block text-2xl  text-black dark:text-white  text-center mb-6">About</a>
-                    <p class="mb-6 text-center leading-relaxed text-sm">
-                        As a Junior Software Developer specializing in .NET Core, Blazor, Tailwind CSS, and much more!,
-                        he offers a combination of technical knowledge, experience, and a willingness to learn with any software development team.
-
-                        A former union ironworker in New York City,
-                        he has built and renovated some of the world's most iconic structures.
-                        When the Covid pandemic caused the construction industry to shut down,
-                        he was laid off.
-                        While his wife worked full-time as a front-line healthcare worker, he stayed home to care for their 4-month-old baby.
-                        During this time, he remembered his early interest in coding on a Commodore 64 and 128,
-                        and saw the high demand for coding skills in the job market.
-                        He devoted himself to learning how to code and gained new skills.
-
-                        His passion for problem-solving and hands-on experience in construction,
-                        combined with his experience as a stay-at-home dad,
-                        provide him with a unique perspective that he brings to the tech industry.
-                        He is eager to join a software company and contribute to the creation of innovative solutions with his diverse skill set and experience.
-                        He is confident in his dedication and skills, making him a valuable asset to any software development team.
-                    </p>
-                    <a href="#" class="block text-indigo-500 mb-5 text-center">Read more</a>
-                    <a href="https://www.linkedin.com/in/rafael-morel-1b28aa15a/" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full">
-                        Visit my LinkedIn page
-                    </a>
-                </div>
-            </div>
+        <div class="w-full md:w-1/2 p-4 mb-12">
+            <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="block w-full h-auto mb-12" />
+            <a href="/ServerPreview" class="block text-2xl text-black dark:text-white  text-center mb-6">Back End</a>
+            <p class="mb-6 text-center leading-relaxed text-sm">
+            IAM experienced in developing efficient and secure backend solutions
+            that serve as the foundation for modern web applications.
+            My technical skills include utilizing Microsoft Identity for authentication and authorization,
+            implementing JSON Web Tokens (JWT) for stateless authentication, and using Blazor Server SignalR for secure real-time data transfer.
+            Additionally, I employ ASP.NET Core API to effectively serve the front end and SQL databases to manage data storage and retrieval.
+            With these tools, I am able to deliver high-performing, scalable and secure back end systems that meet the demands of modern web applications</p>
+            <a href="#" class="block text-indigo-500 text-center">Read more</a>
         </div>
-        <_FooterDarkGray></_FooterDarkGray>
+    </div>
+    <!-- /About -->
+    <div class="max-w-5xl mx-auto flex flex-wrap justify-center">
+        <div class="w-full md:w-1/2 p-4 mb-12">
+            <img src="/img/myHeadShot.jpeg" alt="image" class="block w-full h-auto mb-12" />
+            <a href="https://myblog.lightningbits.net/Page/3" class="block text-2xl  text-black dark:text-white  text-center mb-6">About</a>
+            <p class="mb-6 text-center leading-relaxed text-sm">
+                As a Junior Software Developer specializing in .NET Core, Blazor, Tailwind CSS, and much more!,
+                he offers a combination of technical knowledge, experience, and a willingness to learn with any software development team.
 
-        @code {
-            public bool IsProcessing { get; set; } = false;
-            public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
-            public string CategoryName { get; set; } = "Portfolio";
+                A former union ironworker in New York City,
+                he has built and renovated some of the world's most iconic structures.
+                When the Covid pandemic caused the construction industry to shut down,
+                he was laid off.
+                While his wife worked full-time as a front-line healthcare worker, he stayed home to care for their 4-month-old baby.
+                During this time, he remembered his early interest in coding on a Commodore 64 and 128,
+                and saw the high demand for coding skills in the job market.
+                He devoted himself to learning how to code and gained new skills.
 
-            protected override async Task OnInitializedAsync()
+                His passion for problem-solving and hands-on experience in construction,
+                combined with his experience as a stay-at-home dad,
+                provide him with a unique perspective that he brings to the tech industry.
+                He is eager to join a software company and contribute to the creation of innovative solutions with his diverse skill set and experience.
+                He is confident in his dedication and skills, making him a valuable asset to any software development team.
+            </p>
+            <a href="#" class="block text-indigo-500 mb-5 text-center">Read more</a>
+            <a href="https://www.linkedin.com/in/rafael-morel-1b28aa15a/" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full">
+                Visit my LinkedIn page
+            </a>
+        </div>
+    </div>
+</div>
+@if (IsProcessing)
+{
+    <div class="text-center">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
+}
+else
+{
+    <MudCarousel Class="mud-width-full" Style="height:250px;" ShowArrows="@arrows" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+        @foreach (var portfolio in ECommerceProducts)
+        {
+            @if (portfolio.Category.Name == CategoryName)
+
             {
-                IsProcessing = true;
-                ECommerceProducts = await _productService.GetAll();
-                IsProcessing = false;
+                <MudCarouselItem Transition="transition" Color="@Color.Dark">
+                    <a href="/ProductDetails/@portfolio.Id">
+                        <img src="@portfolio.ImageUrl" class="block w-full h-64 mb-12" />
+                    </a>
+                </MudCarouselItem>
             }
 
-            private bool arrows = true;
-            private bool bullets = false;
-            private bool enableSwipeGesture = true;
-            private bool autocycle = true;
-            private Transition transition = Transition.Slide;
-
         }
+    </MudCarousel>
+}
+
+<_FooterDarkGray></_FooterDarkGray>
+
+@code {
+    public bool IsProcessing { get; set; } = false;
+    public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
+    public string CategoryName { get; set; } = "Portfolio";
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        ECommerceProducts = await _productService.GetAll();
+        IsProcessing = false;
+    }
+
+    private bool arrows = true;
+    private bool bullets = false;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Fade;
+
+}
 
