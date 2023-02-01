@@ -3,15 +3,18 @@
     <Authorized>
         <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
             <MudDrawerHeader>
-                <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">Thrift Boss</MudText>
+                <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">LightningBits.net</MudText>
             </MudDrawerHeader>
             <MudNavMenu>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-                <MudNavLink Href="/ThriftBoss" Match="NavLinkMatch.All"></MudNavLink>
-                <MudNavLink Href="/ThriftBoss" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
-                <MudNavLink Href="/products" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
+                <MudNavLink Href="/" Match="NavLinkMatch.All"></MudNavLink>
+                <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
+                      @*<MudNavLink Href="/products" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>*@
                 <MudNavLink Href="@($"{LocalHost}/Home")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
                 <MudNavLink Href="/About" Icon="@Icons.Material.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
+                <MudNavGroup Title="My Demo Shops" Expanded="false" Color="Color.Dark">
+                    <MudNavLink Href="/ThriftBoss" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">ThriftBoss</MudNavLink>
+                </MudNavGroup>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
                 <MudNavGroup Title="@context.User.Identity.Name.Split('@')[0]" Expanded="false" Color="Color.Dark">
                     <MudNavLink Href="" Icon="@Icons.Material.Filled.Settings" Match="NavLinkMatch.Prefix">Settings</MudNavLink>
@@ -25,15 +28,17 @@
     <NotAuthorized>
         <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
             <MudDrawerHeader>
-                <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">Thrift Boss</MudText>
+                <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">LightningBits.net</MudText>
             </MudDrawerHeader>
             <MudNavMenu>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-                <MudNavLink Href="/ThriftBoss" Match="NavLinkMatch.All"></MudNavLink>
-                <MudNavLink Href="/ThriftBoss" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
-                <MudNavLink Href="/products" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>
+                <MudNavLink Href="/" Match="NavLinkMatch.All"></MudNavLink>
+                <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
                 <MudNavLink Href="@($"{LocalHost}/Home")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Blogs</MudNavLink>
                 <MudNavLink Href="/About" Icon="@Icons.Material.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">About</MudNavLink>
+                <MudNavGroup Title="My Demo Shops" Expanded="false" Color="Color.Dark">
+                    <MudNavLink Href="/ThriftBoss" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">ThriftBoss</MudNavLink>
+                </MudNavGroup>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
             </MudNavMenu>
             <MudButton Href="/login" StartIcon="@Icons.Material.Filled.Login" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Login/Register</MudButton>
