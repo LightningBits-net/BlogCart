@@ -7,7 +7,7 @@
 
 
 <_BlogPanelHeader></_BlogPanelHeader>
-<body class="bg-white text-black dark:text-white dark:bg-black">
+
     <div class="w-full flex justify-center items-center">
         <div class="w-full max-w-lg">
             <div class="bg-white text-black border p-4 shadow rounded w-full">
@@ -29,7 +29,7 @@
                                     <tr>
                                         <td class="border px-4 py-2">@objCat.Name</td>
                                         <td class="p-2">
-                                            <MudButton Href="@($"categorylist/edit/{objCat.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
+                                            <MudButton Href="@($"blogcatlist/edit/{objCat.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
                                         </td>
                                         <td class="p-2">
                                             <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
@@ -61,7 +61,6 @@
             </div>
         </div>
     </div>
-</body>
 
 
 @code {
