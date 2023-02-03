@@ -105,7 +105,7 @@
         if (DeleteBlogId != 0)
         {
             BlogDTO blog = await _blogRepository.Get(DeleteBlogId);
-            if (!blog.ImageUrl.Contains("/img/lb_logo.png"))
+            if (!blog.ImageUrl.Contains("/img/lb_logoLight.jpg"))
             {
                 _fileUpload.DeleteFile(blog.ImageUrl);
             }

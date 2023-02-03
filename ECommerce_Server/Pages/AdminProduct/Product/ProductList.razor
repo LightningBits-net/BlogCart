@@ -114,7 +114,7 @@
         if (DeleteProductId != 0)
         {
             ProductDTO product = await _productRepository.Get(DeleteProductId);
-            if (!product.ImageUrl.Contains("/img/lb_logo.png"))
+            if (!product.ImageUrl.Contains("/img/lb_logoLight.jpg"))
             {
                 _fileUpload.DeleteFile(product.ImageUrl);
             }
