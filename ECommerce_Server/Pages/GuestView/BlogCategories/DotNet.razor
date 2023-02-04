@@ -1,4 +1,4 @@
-﻿@page "/Home"
+﻿@page "/category/DotNet"
 
 @inject IBlogRepository _blogRepository
 @inject NavigationManager _navigationManager
@@ -14,15 +14,15 @@
 else
 {
 <div class="w-full">
- <_BlogBanner></_BlogBanner>
+    <_BlogBanner></_BlogBanner>
 
-    <ul class="flex justify-center pb-6 pl-6 pr-6">
+    <ul class="flex justify-center py-6">
         @foreach (var category in Blogs.Select(u => u.BlogCategory.Name).Distinct())
-                {
-        <li>
-            <a class="inline-block py-2 px-4 text-center hover:text-indigo-400 font-semibold" href="/category/@category">@category</a>
-        </li>
-                }
+        {
+            <li>
+                <a class="inline-block py-2 px-4 text-center hover:text-indigo-400 font-semibold" href="/@category">@category</a>
+            </li>
+        }
     </ul>
     <div class="container max-w-4xl mx-auto md:flex items-start py-8 px-12 md:px-0">
         <!-- articles -->
@@ -30,23 +30,23 @@ else
             @*@foreach (var blog in Blogs.Where(u => u.BlogFavorite == true))*@
             @foreach (var blog in Blogs.Where(u => u.BlogFavorite == true).OrderByDescending(b => b.DateCreated).Take(5))
 
-                {
-            <article class="mb-12 border-b">
-                <h2 class="mb-4">
-                    <a href="/Page/@blog.Id" class="text-xl md:text-2xl no-underline hover:underline">
-                        @((MarkupString)blog.Name)
-                    </a>
-                </h2>
-                <div class="mb-4 text-sm">
-                    by <a href="#">@((MarkupString)blog.Author)</a> @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
-                    <span class="font-bold mx-1"> | </span>
-                    <a href="#">2 Comments</a>
-                </div>
-                <p class="leading-normal mb-4">
-                    @((MarkupString)blog.Description)
-                </p>
-            </article>
-                }
+            {
+                <article class="mb-12 border-b">
+                    <h2 class="mb-4">
+                        <a href="/Page/@blog.Id" class="text-xl md:text-2xl no-underline hover:underline">
+                            @((MarkupString)blog.Name)
+                        </a>
+                    </h2>
+                    <div class="mb-4 text-sm">
+                        by <a href="#">@((MarkupString)blog.Author)</a> @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
+                        <span class="font-bold mx-1"> | </span>
+                        <a href="#">2 Comments</a>
+                    </div>
+                    <p class="leading-normal mb-4">
+                        @((MarkupString)blog.Description)
+                    </p>
+                </article>
+            }
             @*<div class="flex justify-between text-xs">
                     <a href="/UnderConstruction" class="bg-indigo-600 text-white no-underline py-2 px-3 rounded">Previous</a>
                     <a href="/UnderConstruction" class="bg-indigo-600 text-white no-underline py-2 px-3 rounded">Next</a>
@@ -60,12 +60,12 @@ else
                 <h3 class="text-sm bg-indigo-600 text-white py-3 px-4 border-b">Latest Post</h3>
                 <div class="bg-black p-4 overflow-y-auto">
                     @foreach (var blog in Blogs.OrderByDescending(u => u.DateCreated).Take(5))
-                        {
+                    {
 
-                    <ul class="list-reset leading-normal">
-                        <li><a href="/Page/@blog.Id" class="text-white text-sm hover:text-indigo-400">@((MarkupString)blog.Name)</a></li>
-                    </ul>
-                        }
+                        <ul class="list-reset leading-normal">
+                            <li><a href="/Page/@blog.Id" class="text-white text-sm hover:text-indigo-400">@((MarkupString)blog.Name)</a></li>
+                        </ul>
+                    }
 
                 </div>
             </aside>
@@ -76,11 +76,11 @@ else
                     @*@foreach (var blog in Blogs.Where(u => u.Featured == true))*@
                     @foreach (var blog in Blogs.Where(u => u.Featured == true).OrderByDescending(u => u.DateCreated).Take(5))
 
-                        {
-                    <ul class="list-reset leading-normal">
-                        <li><a href="/Page/@blog.Id" class="text-white text-sm hover:text-indigo-400">@((MarkupString)blog.Name)</a></li>
-                    </ul>
-                        }
+                    {
+                        <ul class="list-reset leading-normal">
+                            <li><a href="/Page/@blog.Id" class="text-white text-sm hover:text-indigo-400">@((MarkupString)blog.Name)</a></li>
+                        </ul>
+                    }
                 </div>
             </aside>
         </div>
@@ -94,7 +94,8 @@ else
 
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
-    public string CategoryName { get; set; } = "Latest";
+    public string CategoryName { get; set; } = "DotNet";
+
 
     protected override async Task OnInitializedAsync()
     {

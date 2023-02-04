@@ -1,0 +1,92 @@
+﻿@inject IBlogRepository _blogRepository
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+
+
+
+
+<div class="container mx-auto flex flex-wrap pb-20">
+    <div class="w-full md:w-1/2 lg:w-1/2 px-2 mb-6">
+        <MudCard Elevation="25">
+            <div class="max-w-5xl mx-auto flex justify-end">
+                <h1 class="font-display-italic font-extrabold text-lg italic leading-none mb-5 mt-5 mr-10  max-w-xl">@CategoryName</h1>
+            </div>
+            <MudCarousel Class="mud-width-full" Style="height: 200px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+                @foreach (var blog in Blogs)
+                {
+                    @if (blog.BlogCategory.Name == CategoryName2)
+                    {
+                        <MudCarouselItem Transition="Transition.Slide" Color="@Color.Dark">
+                            <a href="/ProductDetails/@blog.Id">
+                                <img src="@blog.ImageUrl" class="w-full h-64 object-cover" />
+                            </a>
+                        </MudCarouselItem>
+                    }
+                }
+            </MudCarousel>
+        </MudCard>
+    </div>
+
+    <div class="w-full md:w-1/2 lg:w-1/2 px-2 mb-6">
+        <MudCard>
+            <MudCarousel Class="mud-width-full" Style="height:200px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+                @foreach (var blog in Blogs.Where(u => u.Featured == true).OrderByDescending(b => b.DateCreated).Take(5))
+                {
+
+                    <MudCarouselItem Transition="Transition.Slide">
+                        <div class="max-w-5xl mx-auto flex justify-end">
+                            <a href="/Page/@blog.Id" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
+                                @((MarkupString)blog.Name)
+                            </a>
+                        </div>
+                        <div class="w-1/4 px-2">
+                            <a href="/page/@blog.Id">
+                                <img src="https://learn.microsoft.com/en-us/events/learn-events/learnlive-modern-web-dev-with-dotnet6/media/build-a-web-app-with-blazor-webassembly-and-vs-code.png" class="w-full h-64 object-cover" />
+                            </a>
+                        </div>
+                        <div class="w-3/4 px-2">
+                            <p class="leading-normal">
+                                @((MarkupString)blog.Description)
+                            </p>
+                        </div>
+                    </MudCarouselItem>
+                }
+            </MudCarousel>
+        </MudCard>
+    </div>
+</div>
+
+
+
+<div class="text-center text-md pb-5 py-8">
+    <p>
+        <a href="@($"{LocalHost}/About")" class="hover:underline hover:text-indigo-400 "> Copyright &copy; 2022 LightningBits </a>
+        <a href="https://unsplash.com/" class="hover:underline hover:text-indigo-400  ml-4">Some Images by Unsplashed</a>
+        <a href="/UnderConstruction" class="hover:underline hover:text-indigo-400  ml-4">Privacy Policy</a>
+        <a href="/UnderConstruction" class="hover:underline hover:text-indigo-400  ml-4">Terms &amp; Conditions</a>
+        <a href="@($"{LocalHost}/Contact")" class="hover:underline hover:text-indigo-400  ml-4">Contact Us</a>
+    </p>
+</div>
+
+@code {
+
+    public string LocalHost = "https://lightningBits.net";
+    public bool IsProcessing { get; set; } = false;
+    public IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
+    public string CategoryName { get; set; } = "Latest";
+    public string CategoryName2 { get; set; } = "Featured";
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        Blogs = await _blogRepository.GetAll();
+        IsProcessing = false;
+    }
+
+    //private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
+}
+
