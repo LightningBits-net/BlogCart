@@ -4,55 +4,65 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="description" content="
+    <!--<meta name="description" content="
           LightningBits is a platform that specializes in connecting like-minded individuals worldwide through its user-friendly eCommerce and Blogs built using .NET Core Blazor technologies.
           Not only does it offer a valuable tool for growing and empowering self-sovereignty, but it also serves as a portfolio for showcasing your work.
           Join LightningBits, Empower your self-sovereignty and grow with us today.">
-    <meta property="og:image" content="/img/lb_logoLight.jpg" />
-    <title>LightningBits.net</title>
+    <meta property="og:image" content="/img/lb_logoLight.jpg" />-->
+    <!-- HTML Meta Tags -->
+    <title>LightnignBits.net</title>
+    <meta name="description" content="Unleash the power of connection with LightningBits.net, the .NET Core Blazor-powered SaaS platform for eCommerce and Blogs. Showcase your work, grow your self-sovereignty, and join our community today.">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://lightningbits.net/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LightnignBits.net">
+    <meta property="og:description" content="Unleash the power of connection with LightningBits.net, the .NET Core Blazor-powered SaaS platform for eCommerce and Blogs. Showcase your work, grow your self-sovereignty, and join our community today.">
+    <meta property="og:image" content="https://lightningbits.net/img/lb_logoLight.jpg">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="lightningbits.net">
+    <meta property="twitter:url" content="https://lightningbits.net/">
+    <meta name="twitter:title" content="LightnignBits.net">
+    <meta name="twitter:description" content="Unleash the power of connection with LightningBits.net, the .NET Core Blazor-powered SaaS platform for eCommerce and Blogs. Showcase your work, grow your self-sovereignty, and join our community today.">
+    <meta name="twitter:image" content="https://lightningbits.net/img/lb_logoLight.jpg">
+
+    <!-- Meta Tags Generated via https://www.opengraph.xyz -->
+
+
     <base href="/" />
     <link href="app.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/bba4017977.js"></script>
-    <!--<style>
-        body {
-/*            background-size: cover;
-            background-color: black;
-            color: lightgray;*/
-            text-align: center;
-        }
-    </style>-->
-    <!--<HeadContent>
-        <meta name="Head Content Demo" content="description">
-    </HeadContent>-->
 </head>
 
-<body class="bg-white text-black dark:text-white dark:bg-black text-center">
+    <body class="bg-white text-black dark:text-white dark:bg-black text-center">
 
-    <div id="app">Loading...</div>
+        <div id="app">Loading...</div>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
-    <script src="_framework/blazor.webassembly.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer="defer"></script>
-    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
-    <script>const slideshow = () => ({
-            current: 0,
-            images: [
-                'https://images.unsplash.com/photo-1523194631059-d30921cdc79a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTB8UUhlWlB5T3BwY2N8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
-                'https://images.unsplash.com/photo-1523194258983-4ef0203f0c47?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTF8UUhlWlB5T3BwY2N8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60'
-            ],
-            init() {
-                window.setInterval(() => {
-                    this.current = this.current < this.images.length - 1 ? this.current + 1 : 0
-                }, 4000);
-            }
-        });</script>
-</body>
+        <div id="blazor-error-ui">
+            An unhandled error has occurred.
+            <a href="" class="reload">Reload</a>
+            <a class="dismiss">🗙</a>
+        </div>
+        <script src="_framework/blazor.webassembly.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer="defer"></script>
+        <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+        <script>const slideshow = () => ({
+                current: 0,
+                images: [
+                    'https://images.unsplash.com/photo-1523194631059-d30921cdc79a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTB8UUhlWlB5T3BwY2N8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
+                    'https://images.unsplash.com/photo-1523194258983-4ef0203f0c47?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTF8UUhlWlB5T3BwY2N8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60'
+                ],
+                init() {
+                    window.setInterval(() => {
+                        this.current = this.current < this.images.length - 1 ? this.current + 1 : 0
+                    }, 4000);
+                }
+            });</script>
+    </body>
 </html>
 
