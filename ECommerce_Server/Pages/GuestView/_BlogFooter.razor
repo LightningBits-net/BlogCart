@@ -5,50 +5,65 @@
 
 
 
-<div class="container mx-auto flex flex-wrap pb-20">
-    <div class="w-full md:w-1/2 lg:w-1/2 px-2 mb-6">
+<div class="container mx-auto flex flex-wrap">
+    <div class="w-full md:w-1/2 lg:w-1/2 pb-5">
         <MudCard Elevation="25">
-            <div class="max-w-5xl mx-auto flex justify-end">
-                <h1 class="font-display-italic font-extrabold text-lg italic leading-none mb-5 mt-5 mr-10  max-w-xl">@CategoryName</h1>
-            </div>
-            <MudCarousel Class="mud-width-full" Style="height: 200px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
-                @foreach (var blog in Blogs)
+            <MudCarousel Class="mud-width-full" Style="height:250px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+                @foreach (var blog in Blogs.Where(u => u.Featured == true).OrderByDescending(b => b.DateCreated).Take(5))
                 {
-                    @if (blog.BlogCategory.Name == CategoryName2)
-                    {
-                        <MudCarouselItem Transition="Transition.Slide" Color="@Color.Dark">
-                            <a href="/ProductDetails/@blog.Id">
-                                <img src="@blog.ImageUrl" class="w-full h-64 object-cover" />
-                            </a>
-                        </MudCarouselItem>
-                    }
+                    <MudCarouselItem Transition="Transition.Slide">
+                        <div class="p-6">
+                            <div class="mx-auto flex justify-center">
+                                <a href="/Page/@blog.Id" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
+                                    @((MarkupString)blog.Name)
+                                </a>
+                            </div>
+                            <div class="mx-auto flex justify-center">
+                                <a href="/Page/@blog.Id" class="text-md">
+                                    @((MarkupString)blog.Description)
+                                </a>
+                            </div>
+                            <div class="mt-10">
+                                <p>
+                                    by: @((MarkupString)blog.Author)
+                                </p>
+                                <p>
+                                    @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
+                                </p>
+                            </div>
+                        </div>
+                    </MudCarouselItem>
                 }
             </MudCarousel>
         </MudCard>
     </div>
 
-    <div class="w-full md:w-1/2 lg:w-1/2 px-2 mb-6">
-        <MudCard>
-            <MudCarousel Class="mud-width-full" Style="height:200px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+    <div class="w-full md:w-1/2 lg:w-1/2 pb-5">
+        <MudCard Elevation="25">
+            <MudCarousel Class="mud-width-full" Style="height:250px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
                 @foreach (var blog in Blogs.Where(u => u.Featured == true).OrderByDescending(b => b.DateCreated).Take(5))
                 {
-
                     <MudCarouselItem Transition="Transition.Slide">
-                        <div class="max-w-5xl mx-auto flex justify-end">
-                            <a href="/Page/@blog.Id" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
-                                @((MarkupString)blog.Name)
-                            </a>
-                        </div>
-                        <div class="w-1/4 px-2">
-                            <a href="/page/@blog.Id">
-                                <img src="https://learn.microsoft.com/en-us/events/learn-events/learnlive-modern-web-dev-with-dotnet6/media/build-a-web-app-with-blazor-webassembly-and-vs-code.png" class="w-full h-64 object-cover" />
-                            </a>
-                        </div>
-                        <div class="w-3/4 px-2">
-                            <p class="leading-normal">
-                                @((MarkupString)blog.Description)
-                            </p>
-                        </div>
+                        <div class="p-6">
+                            <div class="mx-auto flex justify-center">
+                                <a href="/Page/@blog.Id" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
+                                    @((MarkupString)blog.Name)
+                                </a>
+                            </div>
+                            <div class="mx-auto flex justify-center">
+                                <a href="/Page/@blog.Id" class="text-md">
+                                    @((MarkupString)blog.Description)
+                                </a>
+                            </div>
+                            <div class="mt-10">
+                                <p>
+                                    by: @((MarkupString)blog.Author)
+                                </p>
+                                <p>
+                                    @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
+                               </p>
+                           </div>
+                    </div>
                     </MudCarouselItem>
                 }
             </MudCarousel>
@@ -84,7 +99,7 @@
     }
 
     //private bool arrows = true;
-    private bool bullets = true;
+    private bool bullets = false;
     private bool enableSwipeGesture = true;
     private bool autocycle = true;
     private Transition transition = Transition.Slide;
