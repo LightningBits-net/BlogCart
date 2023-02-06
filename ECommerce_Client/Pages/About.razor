@@ -15,7 +15,7 @@
 </div>
 
 <!-- /Introduction -->
-<div class="py-24 px-6 bg-gray-200 text-black dark:bg-black dark:text-white ">
+<div class="py-24 px-6">
     <div class="max-w-6xl mx-auto mb-12">
         <h1 class="mx-auto text-center text-2xl md:text-5xl max-w-3xl leading-tight mb-12">Professional Full Stack .NET Developer Committed to Creating User-Friendly Websites.</h1>
         <p class="mb-6 mx-auto max-w-xlg text-center text-lg leading-relaxed">
@@ -32,8 +32,8 @@
 
     <div class="max-w-5xl mx-auto flex flex-wrap items-start">
         <div class="w-full md:w-1/2 p-4 mb-12">
-            <img src="https://learn.microsoft.com/en-us/events/learn-events/learnlive-modern-web-dev-with-dotnet6/media/build-a-web-app-with-blazor-webassembly-and-vs-code.png" class="block w-full h-auto mb-12" />
-            <a href="/ThriftBoss" class="block text-2xl  text-black dark:text-white  text-center mb-6">Front End</a>
+            <img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="block w-full h-auto mb-12" />
+            <a href="/ThriftBoss" class="block text-2xl  text-center mb-6">Front End</a>
             <p class="mb-6 text-center leading-relaxed text-sm">
                 IAM well-versed in utilizing the latest technologies to bring creative and user-friendly designs to life.
                 In my <a href="/ThriftBoss" class="text-indigo-500 ">projects</a>,
@@ -46,7 +46,7 @@
         </div>
         <div class="w-full md:w-1/2 p-4 mb-12">
             <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="block w-full h-auto mb-12" />
-            <a href="/ServerPreview" class="block text-2xl text-black dark:text-white  text-center mb-6">Back End</a>
+            <a href="/ServerPreview" class="block text-2xl text-center mb-6">Back End</a>
             <p class="mb-6 text-center leading-relaxed text-sm">
             IAM experienced in developing efficient and secure backend solutions
             that serve as the foundation for modern web applications.
@@ -77,30 +77,32 @@
         </div>
     </div>
 </div>
-@if (IsProcessing)
-{
-    <div class="text-center">
-        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-    </div>
-}
-else
-{
-    <MudCarousel Class="mud-width-full" Style="height:250px;" ShowArrows="@arrows" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
-        @foreach (var portfolio in ECommerceProducts)
-        {
-            @if (portfolio.Category.Name == CategoryName)
-
+<div class="w-full md:w-1/2 lg:w-3/4 mx-auto">
+    @if (IsProcessing)
+    {
+        <div class="text-center">
+            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+        </div>
+    }
+    else
+    {
+        <MudCarousel Class="mud-width-full" Style="height:250px;" ShowArrows="@arrows" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+            @foreach (var portfolio in ECommerceProducts)
             {
-                <MudCarouselItem Transition="transition" Color="@Color.Dark">
-                    <a href="/ProductDetails/@portfolio.Id">
-                        <img src="@portfolio.ImageUrl" class="block w-full h-64 mb-12" />
-                    </a>
-                </MudCarouselItem>
-            }
+                @if (portfolio.Category.Name == CategoryName)
 
-        }
-    </MudCarousel>
-}
+                {
+                    <MudCarouselItem Transition="transition" Color="@Color.Dark">
+                        <a href="/ProductDetails/@portfolio.Id">
+                            <img src="@portfolio.ImageUrl" class="block w-full h-64 mb-12" />
+                        </a>
+                    </MudCarouselItem>
+                }
+
+            }
+        </MudCarousel>
+    }
+</div>
 
 <_FooterDarkGray></_FooterDarkGray>
 

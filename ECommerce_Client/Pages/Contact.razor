@@ -1,8 +1,54 @@
 ﻿@page "/Contact"
-<PageTitle>A LighntingBits Demo</PageTitle>
-<_Contact />
+
+<PageTitle>Contact Page</PageTitle>
+
+<div class="w-full"
+<!-- title -->
+        <div class="text-center px-6 py-12 mb-6  border-b">
+            <h1 class=" text-xl md:text-4xl pb-4">Get in Touch</h1>
+            <p class="leading-loose">
+               Let me help you bring your software vision to life..
+            </p>
+        </div>
+<!-- /contact -->
+        <div class="container max-w-4xl mx-auto pb-10 px-12 md:px-0">
+            <div class="flex flex-wrap justify-start items-start -mx-4">
+                <div class="w-full md:w-1/2 p-4">
+                    <form>
+                        <fieldset class="mb-4">
+                            <label class="block text-sm pb-2">Name</label>
+                            <input class="block w-full border rounded py-2 px-3 text-sm" type="text" disabled />
+                        </fieldset>
+                        <fieldset class="mb-4">
+                            <label class="block text-sm pb-2">Email</label>
+                            <input class="block w-full border rounded py-2 px-3 text-sm" type="text" disabled />
+                        </fieldset>
+                        <fieldset class="mb-4">
+                            <label class="block text-sm pb-2">Message</label>
+                            <textarea class="block w-full border border-red-300er rounded py-2 px-3 text-sm h-32" disabled></textarea>
+                            <p class="text-xs pt-2">This field is required...</p>
+                        </fieldset>
+                        <button class="text-sm py-2 px-3 bg-indigo-500 text-white rounded">Submit</button>
+                    </form>
+                </div>
+                <div class="w-full md:w-1/2 p-4">
+                    <div class="overflow-hidden mb-6">
+                        <img class="w-full h-64" src="/img/lb_logoDark.png" frameborder="0" style="border:0" allowfullscreen/>
+                    </div>
+                    <p class="font-bold text-xlg mb-1">
+                        LightningBits Ltd
+                    </p>
+                    <p class="text-lg mb-2">
+                        <a href="mailto:RafaelMorel@LightningBits.com" class="hover:text-indigo-500">RafaelMorel@LightningBits.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @code {
 
 }
+
 

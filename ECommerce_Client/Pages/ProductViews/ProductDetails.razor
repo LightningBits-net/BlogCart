@@ -30,7 +30,6 @@ else
                             <MudText Typo="Typo.body1" Color="Color.Inherit"> @((MarkupString)Product.Description)</MudText>
                         </p>
                     </MudCardContent>
-                    <MudText>Please Select one</MudText>
                     <MudCardActions>
                         <MudButtonGroup>
                             @foreach (var productPrice in Product.ECommerceProductPrices)
@@ -57,7 +56,6 @@ else
                     @if (DetailsVM.SelectedProductPriceId > 0)
                     {
                         <MudButton Class="w-full" OnClick="AddToCart" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success">Add to Cart</MudButton>
-
                     }
                 </MudCard>
             </div>
