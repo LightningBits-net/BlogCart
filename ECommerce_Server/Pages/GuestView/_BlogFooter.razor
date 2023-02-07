@@ -8,11 +8,11 @@
 <div class="container mx-auto flex flex-wrap">
     <div class="w-full md:w-1/2 lg:w-1/2 pb-5">
         <MudCard Elevation="25">
-            <MudCarousel Class="mud-width-full" Style="height:250px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
-                @foreach (var blog in Blogs.Where(u => u.Featured == true).OrderByDescending(b => b.DateCreated).Take(5))
+            <MudCarousel Class="mud-width-full" Style="height:300px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+                @foreach (var blog in Blogs.Where(u => u.BlogFavorite == true).OrderByDescending(b => b.DateCreated).Take(5))
                 {
                     <MudCarouselItem Transition="Transition.Slide">
-                        <div class="p-6">
+                        <div class="p-6 ">
                             <div class="mx-auto flex justify-center">
                                 <a href="/Page/@blog.Id" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
                                     @((MarkupString)blog.Name)
@@ -40,11 +40,11 @@
 
     <div class="w-full md:w-1/2 lg:w-1/2 pb-5">
         <MudCard Elevation="25">
-            <MudCarousel Class="mud-width-full" Style="height:250px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+            <MudCarousel Class="mud-width-full" Style="height:300px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
                 @foreach (var blog in Blogs.Where(u => u.Featured == true).OrderByDescending(b => b.DateCreated).Take(5))
                 {
                     <MudCarouselItem Transition="Transition.Slide">
-                        <div class="p-6">
+                        <div class="p-6 ">
                             <div class="mx-auto flex justify-center">
                                 <a href="/Page/@blog.Id" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
                                     @((MarkupString)blog.Name)
@@ -61,9 +61,9 @@
                                 </p>
                                 <p>
                                     @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
-                               </p>
-                           </div>
-                    </div>
+                                </p>
+                            </div>
+                        </div>
                     </MudCarouselItem>
                 }
             </MudCarousel>
@@ -102,6 +102,6 @@
     private bool bullets = false;
     private bool enableSwipeGesture = true;
     private bool autocycle = true;
-    private Transition transition = Transition.Slide;
+    private Transition transition = Transition.Fade;
 }
 

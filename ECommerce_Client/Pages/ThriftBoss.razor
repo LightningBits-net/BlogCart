@@ -1,7 +1,7 @@
 ﻿@page "/ThriftBoss"
 @inject IProductService _productService
 
-<PageTitle>ThriftBoss-Demo</PageTitle>
+<PageTitle>ThriftBoss a Fictional store</PageTitle>
 
 <_LandingPageHeader></_LandingPageHeader>
 
@@ -35,7 +35,7 @@ else
         <div class="w-full md:w-1/2 lg:w-1/2 px-2 mb-6">
             <MudCard>
                 <div class="max-w-5xl mx-auto flex justify-end">
-                    <a href="/featured">
+                    <a href="/featured"  aria-label="visit my featured products page">
                         <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-5 mt-5 mr-10 max-w-xl">@CategoryName1</h1>
                     </a>
                 </div>
@@ -58,7 +58,7 @@ else
         <div class="w-full md:w-1/2 lg:w-1/2 px-2 mb-6">
             <MudCard>
                 <div class="max-w-5xl mx-auto flex justify-end">
-                    <a href="/Sale">
+                    <a href="/Sale"  aria-label="visit my on sale products page">
                         <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-5 mt-5 mr-10  max-w-xl">@CategoryName2</h1>
                     </a>
                 </div>

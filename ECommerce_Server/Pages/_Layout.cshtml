@@ -10,9 +10,9 @@
 
     <!-- HTML Meta Tags -->
     @*<title>BlogCart</title>
-    <meta name="description" content="LightningBits is a platform that specializes in connecting like-minded individuals worldwide through its user-friendly eCommerce and Blogs built using .NET Core Blazor technologies.
-          Not only does it offer a valuable tool for growing and empowering self-sovereignty, but it also serves as a portfolio for showcasing your work.
-          Join LightningBits, Empower your self-sovereignty and grow with us today.">*@
+        <meta name="description" content="LightningBits is a platform that specializes in connecting like-minded individuals worldwide through its user-friendly eCommerce and Blogs built using .NET Core Blazor technologies.
+              Not only does it offer a valuable tool for growing and empowering self-sovereignty, but it also serves as a portfolio for showcasing your work.
+              Join LightningBits, Empower your self-sovereignty and grow with us today.">*@
 
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://myblog.lightningbits.net/">
@@ -36,22 +36,28 @@
     <!-- Meta Tags Generated via https://www.opengraph.xyz -->
 
     <base href="~/" />
+
+    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+
+    @*<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="manifest.json">*@
+
     <link href="app.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
     <link href="_content/Syncfusion.Blazor.Themes/tailwind.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/bba4017977.js"></script>
-
-    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
-    <style>
-        body {
-            text-align: center;
-        }
-    </style>
+    @*<style>
+            body {
+                text-align: center;
+            }
+        </style>*@
 </head>
+
 <body>
     @RenderBody()
-
     <div id="blazor-error-ui">
         <environment include="Staging,Production">
             An error has occurred. This application may no longer respond until reloaded.
@@ -62,10 +68,31 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-    <script src="_framework/blazor.server.js"></script>
+    <script src="_framework/blazor.server.js" autostart="false"></script>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script src="_content/Syncfusion.Blazor.Core/scripts/syncfusion-blazor.min.js" type="text/javascript"></script>
-
+    <script>Blazor.start({
+            reconnectionHandler: {
+                onConnectionDown: (options, error) => {
+                    var isReloading = false;
+                    async function attemptReload() {
+                        if (!isReloading) {
+                            isReloading = true;
+                            var request = new Request({
+                                url: '/healthcheck',
+                                method: 'GET'
+                            });
+                            var result = await fetch(request);
+                            if (result.status == 200) {
+                                document.location.reload();
+                            }
+                            isReloading = false;
+                        }
+                    }
+                    setInterval(attemptReload, 1500);
+                }
+            }
+        });</script>
 </body>
 </html>
 
