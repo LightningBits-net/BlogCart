@@ -39,30 +39,43 @@
     <script src="https://kit.fontawesome.com/bba4017977.js"></script>
 </head>
 
-    <body class="bg-white text-black dark:text-white dark:bg-black text-center">
+<body class="bg-white text-black dark:text-white dark:bg-black text-center">
 
-        <div id="app">Loading...</div>
+    <div id="app">Loading...</div>
 
-        <div id="blazor-error-ui">
-            An unhandled error has occurred.
-            <a href="" class="reload">Reload</a>
-            <a class="dismiss">🗙</a>
-        </div>
-        <script src="_framework/blazor.webassembly.js"></script>
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer="defer"></script>
-        <script src="_content/MudBlazor/MudBlazor.min.js"></script>
-        <script>const slideshow = () => ({
-                current: 0,
-                images: [
-                    'https://images.unsplash.com/photo-1523194631059-d30921cdc79a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTB8UUhlWlB5T3BwY2N8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
-                    'https://images.unsplash.com/photo-1523194258983-4ef0203f0c47?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTF8UUhlWlB5T3BwY2N8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60'
-                ],
-                init() {
-                    window.setInterval(() => {
-                        this.current = this.current < this.images.length - 1 ? this.current + 1 : 0
-                    }, 4000);
-                }
-            });</script>
-    </body>
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer="defer"></script>
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+    <script>const slideshow = () => ({
+            current: 0,
+            images: [
+                'https://images.unsplash.com/photo-1523194631059-d30921cdc79a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTB8UUhlWlB5T3BwY2N8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
+                'https://images.unsplash.com/photo-1523194258983-4ef0203f0c47?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTF8UUhlWlB5T3BwY2N8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60'
+            ],
+            init() {
+                window.setInterval(() => {
+                    this.current = this.current < this.images.length - 1 ? this.current + 1 : 0
+                }, 4000);
+            }
+        });</script>
+    <script>const slideshowPort = () => ({
+            current: 0,
+            images: [
+                'https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80',
+                'https://images.unsplash.com/photo-1506452819137-0422416856b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3173&q=80'
+
+            ],
+            init() {
+                window.setInterval(() => {
+                    this.current = this.current < this.images.length - 1 ? this.current + 1 : 0
+                }, 4000);
+            }
+        });</script>
+</body>
 </html>
 

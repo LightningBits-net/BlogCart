@@ -1,35 +1,32 @@
 ﻿@page "/"
 
 <PageTitle>LightningBits.net</PageTitle>
-    <div class="py-24 px-6">
+<div x-data="{showMenu: false}" class="h-24 z-40 relative container mx-auto px-6 flex items-center justify-between text-white">
+</div>
+@* Landing image*@
+<div x-data="slideshowPort()" x-init="init()" class="-mt-32 relative w-full h-screen flex items-center justify-center">
+    <div class="relative z-10 text-center text-white px-6">
         @if (showTitle)
         {
-            <div class="max-w-5xl mx-auto -mt-10 flex justify-center">
-                <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none max-w-xl animate__animated animate__slideInRight duration-500">LightningBits.net</h1>
-            </div>
+            
+            <h1 class="text-3xl md:text-5xl text-gray-200 font-display font-semibold mt-2 animate__animated animate__slideInRight duration-500">
+                LightningBits.net
+            </h1>
+
         }
-        <img src="/img/lb_logoDark.png" class="mx-auto -mt-20 animate__animated animate__bounce animate__slow duration-4s ease-in-out">
+        <div class="max-w-sm mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
         @if (showContent)
         {
-            <div>
-                <div class="px-2">
-                    <div class="text-center p-4 animate__animated animate__slideInRight duration-500">
-                        <h2 class="text-3xl font-medium">Empower Your Self-Sovereignty</h2>
-                        <p>Welcome to our Ecommerce and Blog platform,</p>
-                        <p>where individuals are empowered to take control of their own commerce and knowledge</p>
-                    </div>
-                    <div class="w-full mx-auto mt-5">
-                        <a href="/ThriftBoss"  aria-label="A Fictional E-commerce store" class="w-1/2 bg-yellow-500 px-4 py-2 rounded-sm text-black hover:bg-yellow-600 mx-4  animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s" >My Demo Shop</a>
-                        <a href="/portfolio"  aria-label="My Portfolio" class="w-1/2 bg-yellow-500 px-4 py-2 rounded-sm text-black hover:bg-yellow-600 mx-4  animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Portfolio</a>
-                    </div>
-                    <div class="w-full mx-auto mt-10">
-                        <a href="@($"{LocalHost}/Home")"  aria-label="Visit my Blog where i write about Tech" class="w-1/2  bg-yellow-500 px-4 py-2 rounded-sm text-black hover:bg-yellow-600 mx-4  animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Blog</a>
-                        <a href="/portfolio"  aria-label="I am for hire" class="w-1/2 bg-yellow-500 px-4 py-2 rounded-sm text-black hover:bg-yellow-600 mx-4  animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">Hire Me</a>
-                    </div>
-                </div>
-            </div>
+            <a href="/portfolio" aria-label="My Portfolio" class="inline-block bg-gray-200 text-indigo-500 text-sm tracking-widest font-heading rounded-full px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Portfolio</a>
+            <a href="@($"{LocalHost}/Home")" aria-label="A Fictional E-commerce store" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading rounded-full rounded-fully px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Blog</a>
         }
+        </div>
+        <p class="mt-4">Software as a Service</p>
     </div>
+    <img x-bind:src="images[current]" class="w-full h-full absolute inset-0 object-cover opacity-95">
+</div>
+<About></About>
+
 @code {
 
     private string LocalHost = "https://myblog.lightningbits.net";

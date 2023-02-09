@@ -62,8 +62,8 @@ else
                 <div class="p-2 overflow-y-auto">
                     @foreach (var blog in Blogs.OrderByDescending(u => u.DateCreated).Take(5))
                     {
-                        <ul class="list-reset leading-normal">
-                            <li class="mb-4">
+                        <ul class="list-reset leading-normal ">
+                            <li class="mb-4 bg-gray-200">
                                 <a href="/Page/@blog.Id" class="text-sm hover:text-indigo-400">
                                     @((MarkupString)blog.Name)
                                     <p class="text-sm">@blog.LastUpdated.ToLocalTime().ToString("MM/dd/yyyy")</p>
@@ -71,7 +71,6 @@ else
                             </li>
                         </ul>
                     }
-
                 </div>
             </aside>
 
