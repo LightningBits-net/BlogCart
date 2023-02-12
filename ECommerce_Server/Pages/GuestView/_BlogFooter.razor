@@ -11,7 +11,7 @@
             <MudCarousel Class="mud-width-full" Style="height:300px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
                 @foreach (var blog in Blogs.Where(u => u.BlogFavorite == true).OrderByDescending(b => b.DateCreated).Take(5))
                 {
-                    <MudCarouselItem Transition="Transition.Slide">
+                    <MudCarouselItem Transition="Transition.Fade">
                         <div class="p-6 ">
                             <div class="mx-auto flex justify-center">
                                 <a href="/Page/@blog.Id" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
@@ -43,7 +43,7 @@
             <MudCarousel Class="mud-width-full" Style="height:300px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
                 @foreach (var blog in Blogs.Where(u => u.Featured == true).OrderByDescending(b => b.DateCreated).Take(5))
                 {
-                    <MudCarouselItem Transition="Transition.Slide">
+                    <MudCarouselItem Transition="Transition.Fade">
                         <div class="p-6 ">
                             <div class="mx-auto flex justify-center">
                                 <a href="/Page/@blog.Id" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
