@@ -37,13 +37,17 @@
                 <MudNavLink Href="@($"{LocalHost}/Home")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">My Blog</MudNavLink>
                 <MudNavLink Href="/About" Icon="@Icons.Material.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">My Portfolio</MudNavLink>
                 <MudNavGroup Title="My Demo Shops" Expanded="false" Color="Color.Dark">
-                    <MudNavLink Href="/ThriftBoss" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">ThriftBoss</MudNavLink>
+                    <MudNavLink Href="/ThriftBoss" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Demo-ThriftBoss</MudNavLink>
+                    <MudNavLink Href="/ServerPreview" Icon="@Icons.Material.Filled.Dashboard" Match="NavLinkMatch.Prefix">Demo-AdminView</MudNavLink>
                 </MudNavGroup>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
             </MudNavMenu>
             <MudButton Href="/login" StartIcon="@Icons.Material.Filled.Login" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Login/Register</MudButton>
             <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-            <MudButton Href="/ServerPreview" StartIcon="@Icons.Material.Filled.Photo" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">BackEnd UI</MudButton>
+            <MudButton Href="/Services" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">SaaS (Software as a Service)</MudButton>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+            <MudButton Href="/portfolio" StartIcon="@Icons.Material.Filled.DataObject" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">My Portfolio</MudButton>
+
         </MudDrawer>
     </NotAuthorized>
 </AuthorizeView>

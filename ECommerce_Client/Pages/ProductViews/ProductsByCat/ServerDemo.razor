@@ -3,7 +3,7 @@
 
 <PageTitle>@CategoryName</PageTitle>
 <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
-        <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Server Preview </h1>
+        <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Admin View</h1>
 </div>
 @if (IsProcessing)
 {
@@ -13,7 +13,7 @@
 }
 else
 {
-    <div>
+    @*<div>
         <ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">
                 <li>
                     <a class="inline-block py-2 px-2 dark:text-white  text-center hover:text-indigo-400 font-semibold" href="/Services">Services</a>
@@ -22,7 +22,7 @@ else
                     <a class="inline-block py-2 px-2 dark:text-white  text-center hover:text-indigo-400 font-semibold" href="/@CategoryName">@CategoryName</a>
                 </li>
         </ul>
-    </div>
+    </div>*@
     <div class="container mx-auto flex flex-wrap pb-20">
         @foreach (var product in ECommerceProducts)
         {
