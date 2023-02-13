@@ -3,7 +3,21 @@
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 
-<PageTitle>MyBlog</PageTitle>
+<PageTitle>@(Blog.Name)</PageTitle>
+<HeadContent>
+    <meta name="description" content="@Blog.Description" />
+    <meta property="og:title" content="@Blog.Name" />
+    <meta property="og:description" content="@Blog.Description" />
+    <meta property="og:image" content="@Blog.ImageUrl" />
+    <meta name="twitter:title" content="@Blog.Name" />
+    <meta name="twitter:description" content="@Blog.Description" />
+    <meta name="twitter:image" content="@Blog.ImageUrl" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@(_navigationManager.Uri)" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="@(_navigationManager.Uri)" />
+</HeadContent>
+
 @if (IsProcessing)
 {
     <div class="text-center">
@@ -54,18 +68,6 @@ else
 
 
     private bool _firstRender = true;
-
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    IsProcessing = true;
-    //    Blog = await _blogRepository.Get(BlogId);
-    //    if(BlogCount==0)
-    //    {
-    //        Blog.Views++;
-    //        await _blogRepository.Update(Blog);
-    //    }
-    //    IsProcessing = false;
-    //}
 
     protected override async Task OnInitializedAsync()
     {
