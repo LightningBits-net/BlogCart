@@ -3,14 +3,14 @@
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 
-<PageTitle>@(Blog.Name)</PageTitle>
+<PageTitle>@((MarkupString)Blog.Name)</PageTitle>
 <HeadContent>
-    <meta name="description" content="@Blog.Description" />
-    <meta property="og:title" content="@Blog.Name" />
-    <meta property="og:description" content="@Blog.Description" />
+    <meta name="description" content="@((MarkupString)Blog.Description)" />
+    <meta property="og:title" content="@((MarkupString)Blog.Name)" />
+    <meta property="og:description" content="@((MarkupString)Blog.Description)" />
     <meta property="og:image" content="@Blog.ImageUrl" />
-    <meta name="twitter:title" content="@Blog.Name" />
-    <meta name="twitter:description" content="@Blog.Description" />
+    <meta name="twitter:title" content="@((MarkupString)Blog.Name)" />
+    <meta name="twitter:description" content="@((MarkupString)Blog.Description)" />
     <meta name="twitter:image" content="@Blog.ImageUrl" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="@(_navigationManager.Uri)" />
