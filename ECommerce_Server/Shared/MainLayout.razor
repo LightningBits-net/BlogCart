@@ -12,7 +12,7 @@
         <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
     </MudScrollToTop>
     <MudMainContent Class="pt-n4">
-        <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Default" Class="d-flex justify-end flex-grow-1 gap-4" Elevation="10" T="bool" Label="Light/Dark Mode" />
+        @*<MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Default" Class="justify-center"  Elevation="10" T="bool" Label="Light/Dark Mode" />*@
         @Body
     </MudMainContent>
 </MudLayout>
@@ -40,7 +40,7 @@
     {
         Palette = new Palette()
         {
-            Primary = "#594ae2ff",
+            Primary = "#0C2340",
             Secondary = "#ff4081ff",
             Dark = "#616161ff",
             Black = "#000000",
@@ -56,7 +56,7 @@
         },
         PaletteDark = new PaletteDark()
         {
-            Primary = "#594ae2ff",
+            Primary = "#0C2340",
             Secondary = "#ff4081ff",
             Black = "#000000",
             White = "#ffffffff",

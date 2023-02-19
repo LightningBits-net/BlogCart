@@ -7,11 +7,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <base href="~/" />
-
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
-
     @*<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -25,7 +22,7 @@
     <script src="https://kit.fontawesome.com/bba4017977.js"></script>
 </head>
 
-<body class="bg-white text-black dark:text-white dark:bg-black text-center">
+<body>
     @RenderBody()
     <div id="blazor-error-ui">
         <environment include="Staging,Production">
@@ -73,11 +70,9 @@
             init() {
                 window.setInterval(() => {
                     this.current = this.current < this.images.length - 1 ? this.current + 1 : 0
-                }, 4000);
+                }, 5000);
             }
         });</script>
-
-
 </body>
 </html >
 

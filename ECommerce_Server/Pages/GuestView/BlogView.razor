@@ -3,14 +3,16 @@
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 
-<PageTitle>@((MarkupString)Blog.Name)</PageTitle>
+@using System.Text.RegularExpressions
+
+<PageTitle>@BlogTitle</PageTitle>
 <HeadContent>
-    <meta name="description" content="@((MarkupString)Blog.Description)" />
-    <meta property="og:title" content="@((MarkupString)Blog.Name)" />
-    <meta property="og:description" content="@((MarkupString)Blog.Description)" />
+    <meta name="description" content="@BlogDescription" />
+    <meta property="og:title" content="@BlogTitle" />
+    <meta property="og:description" content="@BlogDescription" />
     <meta property="og:image" content="@Blog.ImageUrl" />
-    <meta name="twitter:title" content="@((MarkupString)Blog.Name)" />
-    <meta name="twitter:description" content="@((MarkupString)Blog.Description)" />
+    <meta name="twitter:title" content="@BlogTitle" />
+    <meta name="twitter:description" content="@BlogDescription" />
     <meta name="twitter:image" content="@Blog.ImageUrl" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="@(_navigationManager.Uri)" />
@@ -29,12 +31,13 @@ else
 
     <div class="p-2 md:p-10 lg:p-30">
         <div class="pb-20">
+            <_BlogMenu></_BlogMenu>
             <MudCard Elevation="25">
                 <div class="p-2 md:p-10 lg:p-20 rounded overflow-hidden shadow-xlg">
                     <div class="flex justify-center mb-2">
                         <img class="w-full md:w-1/2 lg:w-1/3" src="@Blog.ImageUrl" alt="@Blog.Description">
                     </div>
-                    <div class="text-3xl mb-2">
+                    <div class="text-3xl mb-2 flex justify-center">
                         <h1>@((MarkupString)Blog.Name)</h1>
                     </div>
                     <div>
@@ -44,11 +47,14 @@ else
                     </div>
                     <div class="px-6 pt-4 pb-2">
                         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Written by: @Blog.Author</span>
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Published on @Blog.LastUpdated.ToString("MMMM dd, yyyy")</span>
+                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Published on @Blog.DateCreated.ToString("MMMM dd, yyyy")</span>
                         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Viewed: @Blog.Views</span>
                     </div>
                 </div>
             </MudCard>
+        </div>
+        <div >
+            <_BlogMenu></_BlogMenu>
         </div>
         <div>
             <_BlogFooter></_BlogFooter>
@@ -62,11 +68,10 @@ else
     [Parameter]
     public int BlogId { get; set; }
     public int BlogCount { get; set; } = 0;
-
     public BlogDTO Blog { get; set; } = new();
     public bool IsProcessing { get; set; } = false;
-
-
+    public string BlogTitle { get; set; }
+    public string BlogDescription { get; set; }
     private bool _firstRender = true;
 
     protected override async Task OnInitializedAsync()
@@ -80,6 +85,8 @@ else
             _firstRender = false;
         }
         IsProcessing = false;
+        BlogTitle = Regex.Replace(Blog.Name, "<.*?>", string.Empty);
+        BlogDescription = Regex.Replace(Blog.Description, "<.*?>", string.Empty);
     }
 
 

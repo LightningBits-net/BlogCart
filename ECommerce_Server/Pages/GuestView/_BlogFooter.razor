@@ -6,31 +6,62 @@
 
 
 <div class="container mx-auto flex flex-wrap">
-    <div class="w-full md:w-1/2 lg:w-1/2 pb-5">
+    <div class="w-full md:w-1/2 lg:w-1/2">
         <MudCard Elevation="25">
-            <MudCarousel Class="mud-width-full" Style="height:300px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+            <MudCarousel Class="mud-width-full" Style="height:350px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
                 @foreach (var blog in Blogs.Where(u => u.BlogFavorite == true).OrderByDescending(b => b.DateCreated).Take(5))
                 {
-                    <MudCarouselItem Transition="Transition.Fade">
-                        <div class="p-6 ">
+                    <MudCarouselItem Transition="Transition.Fade" class="flex flex-col">
+                        <div class="p-10">
                             <div class="mx-auto flex justify-center">
-                                <a href="/Page/@blog.Id" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
+                                <a href="@($"{LocalHost}/page/{blog.Id}")" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
                                     @((MarkupString)blog.Name)
                                 </a>
                             </div>
-                            <div class="mx-auto flex justify-center">
-                                <a href="/Page/@blog.Id" class="text-md">
+                            <div class="mx-auto mt-10 flex justify-center">
+                                <a href="@($"{LocalHost}/page/{blog.Id}")" class="text-md">
                                     @((MarkupString)blog.Description)
                                 </a>
                             </div>
-                            <div class="mt-10">
-                                <p>
+                            @*<div class="mx-auto mt-10">
+                                <p class="mt-10">
                                     by: @((MarkupString)blog.Author)
                                 </p>
                                 <p>
                                     @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
                                 </p>
+                            </div>*@
+                        </div>
+                    </MudCarouselItem>
+                }
+            </MudCarousel>
+        </MudCard>
+    </div>
+    <div class="w-full md:w-1/2 lg:w-1/2">
+        <MudCard Elevation="25">
+            <MudCarousel Class="mud-width-full" Style="height:350px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+                @foreach (var blog in Blogs.Where(u => u.Featured == true).OrderByDescending(b => b.DateCreated).Take(5))
+                {
+                    <MudCarouselItem Transition="Transition.Fade" class="flex flex-col">
+                        <div class="p-10">
+                            <div class="mx-auto flex justify-center">
+                                <a href="@($"{LocalHost}/page/{blog.Id}")" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
+                                    @((MarkupString)blog.Name)
+                                </a>
                             </div>
+                            <div class="mx-auto mt-10 flex justify-center">
+                                <a href="@($"{LocalHost}/page/{blog.Id}")" class="text-md">
+                                    @((MarkupString)blog.Description)
+                                </a>
+                            </div>
+                            @*<div class="mx-auto mt-10">
+                                <p class="mt-auto">
+                                    by: @((MarkupString)blog.Author)
+                                </p>
+                                <p>
+                                    @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
+                                </p>
+                            </div>*@
                         </div>
                     </MudCarouselItem>
                 }
@@ -38,37 +69,6 @@
         </MudCard>
     </div>
 
-    <div class="w-full md:w-1/2 lg:w-1/2 pb-5">
-        <MudCard Elevation="25">
-            <MudCarousel Class="mud-width-full" Style="height:300px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
-                @foreach (var blog in Blogs.Where(u => u.Featured == true).OrderByDescending(b => b.DateCreated).Take(5))
-                {
-                    <MudCarouselItem Transition="Transition.Fade">
-                        <div class="p-6 ">
-                            <div class="mx-auto flex justify-center">
-                                <a href="/Page/@blog.Id" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
-                                    @((MarkupString)blog.Name)
-                                </a>
-                            </div>
-                            <div class="mx-auto flex justify-center">
-                                <a href="/Page/@blog.Id" class="text-md">
-                                    @((MarkupString)blog.Description)
-                                </a>
-                            </div>
-                            <div class="mt-10">
-                                <p>
-                                    by: @((MarkupString)blog.Author)
-                                </p>
-                                <p>
-                                    @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
-                                </p>
-                            </div>
-                        </div>
-                    </MudCarouselItem>
-                }
-            </MudCarousel>
-        </MudCard>
-    </div>
 </div>
 
 
@@ -86,6 +86,7 @@
 @code {
 
     public string LocalHost = "https://lightningBits.net";
+    public string MyBlogHost = "https://Myblog.lightningBits.net";
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
     public string CategoryName { get; set; } = "Latest";

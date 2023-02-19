@@ -8,7 +8,7 @@
         <MudAppBar Elevation="21" Dense="true">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Medium" Edge="Edge.End"
                            OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
-            <MudIconButton Href="/LandingPage" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
+            <MudIconButton Href="/" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
             <MudSpacer />
             @if (GetCartCount() < 1)
             {
@@ -31,7 +31,7 @@
         <MudAppBar Elevation="21" Dense="true">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Medium" Edge="Edge.End"
                            OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
-            <MudIconButton Href="/LandingPage" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
+            <MudIconButton Href="/" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
             <MudSpacer />
             @if (GetCartCount() < 1)
             {
@@ -56,6 +56,8 @@
 @code {
     [Parameter]
     public EventCallback OnSidebarToggled { get; set; }
+    private string LocalHost = "https://myblog.lightningbits.net";
+
 
     protected override void OnInitialized()
     {

@@ -1,4 +1,4 @@
-﻿@page "/Home"
+﻿@page "/BlogViewHome"
 @page "/category/home"
 
 @inject IBlogRepository _blogRepository
@@ -9,16 +9,18 @@
 <HeadContent>
     <meta name="description" content="@Description" />
     <meta property="og:title" content="@Title" />
-    <meta property="og:description" content="" />
+    <meta property="og:description" content="@Description" />
     <meta property="og:image" content="@ImageUrl" />
     <meta name="twitter:title" content="@Title" />
-    <meta name="twitter:description" content="" />
+    <meta name="twitter:description" content="@Description" />
     <meta name="twitter:image" content="@ImageUrl" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="@(_navigationManager.Uri)" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="@(_navigationManager.Uri)" />
 </HeadContent>
+
+
 @if (IsProcessing)
 {
     <div class="text-center">
@@ -46,9 +48,9 @@ else
                             </a>
                         </h2>
                         <div class="mb-4 text-sm">
-                            by <a href="/home">@((MarkupString)blog.Author)</a> @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
+                            by <a href="/BlogViewHome">@((MarkupString)blog.Author)</a> @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
                             <span class="font-bold mx-1"> | </span>
-                            <a href="/home">2 Comments</a>
+                            <a href="/BlogViewHome">2 Comments</a>
                         </div>
                         <p class="leading-normal mb-4">
                             @((MarkupString)blog.Description)
@@ -74,9 +76,11 @@ else
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
     public string CategoryName { get; set; } = "Latest";
-    private string Title = "LightningBits.net";
-    private string Description = "Unleash the power of connection with LightningBits.net, the .NET Core Blazor-powered SaaS platform for eCommerce and Blogs. Showcase your work, grow your self-sovereignty, and join our community today.";
-    private string ImageUrl = "/img/lb_logoDark.png";
+    private string Title = "MyBlog.LightningBits.net";
+    private string Description =
+        "Explore the power of C# and .NET Blazor in this in-depth blog post. " +
+        "Learn how to build web applications with Blazor and take advantage of its powerful features.";
+    private string ImageUrl = "/img/Matrixlaptop.png";
 
 
     protected override async Task OnInitializedAsync()

@@ -1,4 +1,5 @@
 ﻿@page "/"
+@implements IDisposable
 
 @inject NavigationManager _navigationManager
 
@@ -6,10 +7,10 @@
 <HeadContent>
     <meta name="description" content="@Description" />
     <meta property="og:title" content="@Title" />
-    <meta property="og:description" content="" />
+    <meta property="og:description" content="@Description" />
     <meta property="og:image" content="@ImageUrl" />
     <meta name="twitter:title" content="@Title" />
-    <meta name="twitter:description" content="" />
+    <meta name="twitter:description" content="@Description" />
     <meta name="twitter:image" content="@ImageUrl" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="@(_navigationManager.Uri)" />
@@ -24,38 +25,60 @@
     <div class="relative z-10 text-center text-white px-6">
         @if (showTitle)
         {
-
-            <h1 class="text-3xl md:text-5xl text-gray-200 font-display font-semibold mt-2 animate__animated animate__slideInRight duration-500">
+            <h1 class="text-5xl md:text-5xl font-display font-semibold mt-2 animate__animated animate__slideInRight duration-500">
                 LightningBits.net
             </h1>
-
         }
+
         <div class="max-w-sm mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             @if (showContent)
             {
-                <a href="/portfolio" aria-label="My Portfolio" class="inline-block bg-gray-200 text-indigo-500 text-sm tracking-widest font-heading rounded-full px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Portfolio</a>
-                <a href="/Home" aria-label="A Fictional E-commerce store" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading rounded-full rounded-fully px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Blog</a>
+                <a href="@($"{LocalHost}/services")" aria-label="My Store" class="inline-block bg-gray-400 text-black hover:bg-gray-300 text-sm tracking-widest font-heading rounded-full px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Store</a>
+                <a href="@($"{MyBlogHost}/BlogViewHome")" aria-label="My blog" class="inline-block bg-blue-900 text-white hover:text-white hover:bg-blue-700 text-sm tracking-widest font-heading rounded-full rounded-fully px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Blog</a>
+                @*<a href="/portfolio" aria-label="My Portfolio" class="inline-block bg-gray-200 text-indigo-500 text-sm tracking-widest font-heading rounded-full px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Portfolio</a>
+                    <a href="/" aria-label="My blog" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading rounded-full rounded-fully px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">#</a>*@
             }
         </div>
-        <p class="mt-4">Software as a Service</p>
+        <p class="mt-10">Software as a Service</p>
     </div>
     <img x-bind:src="images[current]" class="w-full h-full absolute inset-0 object-cover opacity-95">
 </div>
 
 @code {
 
-    private string LocalHost = "https://lightningbits.net";
+    private string LocalHost = "https://mystore.lightningbits.net";
+    public string MyBlogHost = "https://myblog.lightningbits.net";
+    private string Title = "LightningBits.net";
+    private string Description = "Unleash the power of connection with LightningBits.net, the .NET Core Blazor-powered SaaS and PaaS platform for eCommerce and Blogs. Showcase your work, grow your self-sovereignty, and join our community today.";
+    private string ImageUrl = "/img/lb_logoLight.jpg";
     private bool showContent = false;
     private bool showTitle = false;
-    private string Title = "LightningBits.net";
-    private string Description = "Unleash the power of connection with LightningBits.net, the .NET Core Blazor-powered SaaS platform for eCommerce and Blogs. Showcase your work, grow your self-sovereignty, and join our community today.";
-    private string ImageUrl = "/img/lb_logoLight.jpg";
+   
 
-    protected override async Task OnInitializedAsync()
+    private bool hasInitialized = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await Task.Delay(3000);
-        showContent = true;
-        showTitle = true;
+        if (firstRender && !hasInitialized)
+        {
+            await Task.Delay(1000);
+            showContent = true;
+            showTitle = true;
+            hasInitialized = true;
+            StateHasChanged();
+        }
     }
+
+    public void Dispose()
+    {
+        hasInitialized = false;
+    }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    await Task.Delay(3000);
+    //    showContent = true;
+    //    showTitle = true;
+    //}
+
 }
 
