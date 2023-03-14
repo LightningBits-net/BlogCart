@@ -7,30 +7,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Looking for a software development company that specializes in building eCommerce websites using .NET Blazor technologies? Look no further! LightningBits has the skills and experience to create a high-quality, user-friendly online store and Blog for your business. Contact us today to learn more.">
-    <meta property="og:image" content="/img/MatrixLaptop.png" />
-    <title>eCommerce_Demo_Server</title>
     <base href="~/" />
+    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+    @*<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="manifest.json">*@
+
     <link href="app.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
     <link href="_content/Syncfusion.Blazor.Themes/tailwind.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/bba4017977.js"></script>
-
-    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
-    <style>
-        body {
-          
-/*            background-size: cover;
-            background-color: black;*/
-            /*color: lightgray;*/
-            text-align: center;
-        }
-    </style>
 </head>
+
 <body>
     @RenderBody()
-
     <div id="blazor-error-ui">
         <environment include="Staging,Production">
             An error has occurred. This application may no longer respond until reloaded.
@@ -41,10 +34,45 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-    <script src="_framework/blazor.server.js"></script>
+    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer="defer"></script>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script src="_content/Syncfusion.Blazor.Core/scripts/syncfusion-blazor.min.js" type="text/javascript"></script>
+    <script>Blazor.start({
+            reconnectionHandler: {
+                onConnectionDown: (options, error) => {
+                    var isReloading = false;
+                    async function attemptReload() {
+                        if (!isReloading) {
+                            isReloading = true;
+                            var request = new Request({
+                                url: '/healthcheck',
+                                method: 'GET'
+                            });
+                            var result = await fetch(request);
+                            if (result.status == 200) {
+                                document.location.reload();
+                            }
+                            isReloading = false;
+                        }
+                    }
+                    setInterval(attemptReload, 1500);
+                }
+            }
+        });</script>
 
+    <script>const slideshowPort = () => ({
+            current: 0,
+            images: [
+                'https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80',
+                'https://images.unsplash.com/photo-1506452819137-0422416856b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3173&q=80'
+            ],
+            init() {
+                window.setInterval(() => {
+                    this.current = this.current < this.images.length - 1 ? this.current + 1 : 0
+                }, 5000);
+            }
+        });</script>
 </body>
-</html>
+</html >
 

@@ -1,0 +1,108 @@
+﻿@inject IBlogRepository _blogRepository
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+
+
+
+
+<div class="container mx-auto flex flex-wrap">
+    <div class="w-full md:w-1/2 lg:w-1/2">
+        <MudCard Elevation="25">
+            <MudCarousel Class="mud-width-full" Style="height:350px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+                @foreach (var blog in Blogs.Where(u => u.BlogFavorite == true).OrderByDescending(b => b.DateCreated).Take(5))
+                {
+                    <MudCarouselItem Transition="Transition.Fade" class="flex flex-col">
+                        <div class="p-10">
+                            <div class="mx-auto flex justify-center">
+                                <a href="@($"{LocalHost}/page/{blog.Id}")" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
+                                    @((MarkupString)blog.Name)
+                                </a>
+                            </div>
+                            <div class="mx-auto mt-10 flex justify-center">
+                                <a href="@($"{LocalHost}/page/{blog.Id}")" class="text-md">
+                                    @((MarkupString)blog.Description)
+                                </a>
+                            </div>
+                            @*<div class="mx-auto mt-10">
+                                <p class="mt-10">
+                                    by: @((MarkupString)blog.Author)
+                                </p>
+                                <p>
+                                    @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
+                                </p>
+                            </div>*@
+                        </div>
+                    </MudCarouselItem>
+                }
+            </MudCarousel>
+        </MudCard>
+    </div>
+    <div class="w-full md:w-1/2 lg:w-1/2">
+        <MudCard Elevation="25">
+            <MudCarousel Class="mud-width-full" Style="height:350px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+                @foreach (var blog in Blogs.Where(u => u.Featured == true).OrderByDescending(b => b.DateCreated).Take(5))
+                {
+                    <MudCarouselItem Transition="Transition.Fade" class="flex flex-col">
+                        <div class="p-10">
+                            <div class="mx-auto flex justify-center">
+                                <a href="@($"{LocalHost}/page/{blog.Id}")" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
+                                    @((MarkupString)blog.Name)
+                                </a>
+                            </div>
+                            <div class="mx-auto mt-10 flex justify-center">
+                                <a href="@($"{LocalHost}/page/{blog.Id}")" class="text-md">
+                                    @((MarkupString)blog.Description)
+                                </a>
+                            </div>
+                            @*<div class="mx-auto mt-10">
+                                <p class="mt-auto">
+                                    by: @((MarkupString)blog.Author)
+                                </p>
+                                <p>
+                                    @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
+                                </p>
+                            </div>*@
+                        </div>
+                    </MudCarouselItem>
+                }
+            </MudCarousel>
+        </MudCard>
+    </div>
+
+</div>
+
+
+
+<div class="text-center text-md pb-5 py-8">
+    <p>
+        <a href="@($"{LocalHost}/About")" class="hover:underline hover:text-indigo-400 "> Copyright &copy; 2022 LightningBits </a>
+        <a href="https://unsplash.com/" class="hover:underline hover:text-indigo-400  ml-4">Some Images by Unsplashed</a>
+        <a href="/UnderConstruction" class="hover:underline hover:text-indigo-400  ml-4">Privacy Policy</a>
+        <a href="/UnderConstruction" class="hover:underline hover:text-indigo-400  ml-4">Terms &amp; Conditions</a>
+        <a href="@($"{LocalHost}/Contact")" class="hover:underline hover:text-indigo-400  ml-4">Contact Us</a>
+    </p>
+</div>
+
+@code {
+
+    public string LocalHost = "https://lightningBits.net";
+    public string MyBlogHost = "https://Myblog.lightningBits.net";
+    public bool IsProcessing { get; set; } = false;
+    public IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
+    public string CategoryName { get; set; } = "Latest";
+    public string CategoryName2 { get; set; } = "Featured";
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        Blogs = await _blogRepository.GetAll();
+        IsProcessing = false;
+    }
+
+    //private bool arrows = true;
+    private bool bullets = false;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Fade;
+}
+

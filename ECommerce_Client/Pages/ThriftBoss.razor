@@ -1,7 +1,7 @@
 ﻿@page "/ThriftBoss"
 @inject IProductService _productService
 
-<PageTitle>ThriftBoss-Demo</PageTitle>
+<PageTitle>ThriftBoss a Fictional store</PageTitle>
 
 <_LandingPageHeader></_LandingPageHeader>
 
@@ -20,11 +20,11 @@ else
 <div>
     <ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">
         @foreach (var category in ECommerceProducts
-       .GroupBy(p => p.Category.Name)
-       .OrderBy(g => g.Count())
-       .Select(g => g.Key)
-       .Where(c => c != ExCategoryName && c != ExCategoryName2))
-        {
+          .GroupBy(p => p.Category.Name)
+          .OrderBy(g => g.Count())
+          .Select(g => g.Key)
+          .Where(c => c == "Electronics" || c == "Sale" || c == "Featured"))
+            {
             <li>
                 <a class="inline-block py-2 px-2 text-black dark:text-white hover:text-indigo-400 font-semibold" href="/@category">@category</a>
             </li>
@@ -35,7 +35,7 @@ else
         <div class="w-full md:w-1/2 lg:w-1/2 px-2 mb-6">
             <MudCard>
                 <div class="max-w-5xl mx-auto flex justify-end">
-                    <a href="/featured">
+                    <a href="/featured"  aria-label="visit my featured products page">
                         <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-5 mt-5 mr-10 max-w-xl">@CategoryName1</h1>
                     </a>
                 </div>
@@ -44,7 +44,7 @@ else
                     {
                         @if (product.Category.Name == CategoryName1)
                         {
-                            <MudCarouselItem Transition="Transition.Slide" Color="@Color.Dark">
+                            <MudCarouselItem Transition="Transition.Slide">
                                 <a href="/ProductDetails/@product.Id">
                                     <img src="@product.ImageUrl" class="w-full h-64 object-cover" />
                                 </a>
@@ -58,7 +58,7 @@ else
         <div class="w-full md:w-1/2 lg:w-1/2 px-2 mb-6">
             <MudCard>
                 <div class="max-w-5xl mx-auto flex justify-end">
-                    <a href="/Sale">
+                    <a href="/Sale"  aria-label="visit my on sale products page">
                         <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-5 mt-5 mr-10  max-w-xl">@CategoryName2</h1>
                     </a>
                 </div>
@@ -87,8 +87,6 @@ else
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
     public string CategoryName1 = "Featured";
     public string CategoryName2 = "Sale";
-    public string ExCategoryName { get; set; } = "ServerPreview";
-    public string ExCategoryName2 { get; set; } = "Services";
 
     protected override async Task OnInitializedAsync()
     {

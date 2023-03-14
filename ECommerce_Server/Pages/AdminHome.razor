@@ -1,17 +1,16 @@
-﻿@page "/"
+﻿@page "/AdminHome"
 @inject NavigationManager _navigationManager
 @attribute [Authorize(Roles = SD.Role_Admin)]
 
 
 <PageTitle>AdminHome</PageTitle>
-<body class="bg-white text-black dark:text-white dark:bg-black">
     <div class="max-w-5xl mx-auto pt-10 p-8 flex justify-end">
         <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none max-w-xl">Welcome Admin</h1>
     </div>
 
     <div class="container mx-auto justify-center flex flex-wrap pb-20">
         <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
-            <MudCard Outlined="true">
+            <MudCard Elevation="25">
                 <MudCardContent>
                     <MudText Typo="Typo.h5">e-Commerce Manager</MudText>
                     <MudText Typo="Typo.body2">Manage all your products here</MudText>
@@ -23,7 +22,7 @@
         </div>
 
         <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
-            <MudCard Outlined="true">
+            <MudCard Elevation="25">
                 <MudCardContent>
                     <MudText Typo="Typo.h5">Blog Manager</MudText>
                     <MudText Typo="Typo.body2">Manage all your Blog post here</MudText>
@@ -36,7 +35,7 @@
 
 
         <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
-            <MudCard Outlined="true">
+            <MudCard Elevation="25">
                 <MudCardContent>
                     <MudText Typo="Typo.h5">TODO App</MudText>
                     <MudText Typo="Typo.body2">Stay organized with your own ToDo list</MudText>
@@ -49,7 +48,7 @@
 
 
         <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
-            <MudCard Outlined="true">
+            <MudCard Elevation="25">
                 <MudCardContent>
                     <MudText Typo="Typo.h5">Order MGNT</MudText>
                     <MudText Typo="Typo.body2">Manage all your Sales here</MudText>
@@ -62,7 +61,7 @@
 
 
         <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
-            <MudCard Outlined="true">
+            <MudCard  Elevation="25">
                 <MudCardContent>
                     <MudText Typo="Typo.h5">Layout Designer</MudText>
                     <MudText Typo="Typo.body2">Manage your website design</MudText>
@@ -73,7 +72,6 @@
             </MudCard>
         </div>
     </div>
-</body>
 
 
         @code{

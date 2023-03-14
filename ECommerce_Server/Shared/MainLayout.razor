@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider Theme="_currentTheme" />
+<MudThemeProvider Theme="MyTheme" @bind-IsDarkMode="@_isDarkMode" @ref="@_mudThemeProvider" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -12,6 +12,7 @@
         <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
     </MudScrollToTop>
     <MudMainContent Class="pt-n4">
+        @*<MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Default" Class="justify-center"  Elevation="10" T="bool" Label="Light/Dark Mode" />*@
         @Body
     </MudMainContent>
 </MudLayout>
@@ -21,13 +22,44 @@
 @code {
     private bool _sidebarOpen = false;
     private void ToggleSidebar() => _sidebarOpen = !_sidebarOpen;
-    private MudTheme _currentTheme = new MudTheme()
+    private int Count { get; set; } = 10;
+
+    private bool _isDarkMode;
+    private MudThemeProvider _mudThemeProvider;
+
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+    //        _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+    //        StateHasChanged();
+    //    }
+    //}
+
+    private MudTheme MyTheme = new MudTheme()
     {
         Palette = new Palette()
         {
+            Primary = "#0C2340",
+            Secondary = "#ff4081ff",
+            Dark = "#616161ff",
             Black = "#000000",
-            @*Background = "#000000",*@
-            @*BackgroundGrey = "#27272f",*@
+            White = "#ffffffff",
+            Surface = "#ffffffff",
+            TextPrimary = "#000000",
+            TextSecondary = "rgba(255,255,255, 0.50)",
+            AppbarBackground = "#ffffffff",
+            AppbarText = "#000000",
+            DrawerBackground = "#ffffffff",
+            DrawerText = "#000000",
+            DrawerIcon = "#000000"
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Primary = "#0C2340",
+            Secondary = "#ff4081ff",
+            Black = "#000000",
+            White = "#ffffffff",
             Surface = "#373740",
             TextPrimary = "#ffffffb3",
             TextSecondary = "rgba(255,255,255, 0.50)",
@@ -37,5 +69,25 @@
             DrawerText = "#ffffffb3",
             DrawerIcon = "#ffffffb3"
         },
+
+        //LayoutProperties = new LayoutProperties()
+        //{
+        //    DrawerWidthLeft = "260px",
+        //    DrawerWidthRight = "300px"
+        //}
     };
+
+    //void StartCountdown()
+    //{
+    //    var timer = new Timer(new TimerCallback(_ =>
+    //    {
+    //        if (Count <= 0) return;
+    //        Count--;
+
+    //        // Note that the following line is necessary because otherwise
+    //        // Blazor would not recognize the state change and not refresh the UI
+    //        this.StateHasChanged();
+    //    }), null, 1000, 1000);
+    //}
+
 }

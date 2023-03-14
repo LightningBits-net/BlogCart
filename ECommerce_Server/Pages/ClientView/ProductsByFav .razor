@@ -24,7 +24,6 @@
 }
 else
 {
-    <body class="font-sans">
         <div class="container mx-auto flex flex-wrap pb-20">
             @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
             {
@@ -57,7 +56,6 @@ else
             }
         </div>
         <_FooterDarkGray></_FooterDarkGray>
-    </body>
 }
 
 

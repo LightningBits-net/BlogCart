@@ -1,0 +1,125 @@
+﻿@page "/productList"
+@inject IProductRepository _productRepository
+@inject IDialogService DialogService
+@inject IFileUpload _fileUpload
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+@attribute [Authorize(Roles = SD.Role_Admin)]
+
+
+<_AdminPanelHeader></_AdminPanelHeader>
+
+    <div class="w-full flex justify-center items-center">
+        <div class="w-full max-w-lg">
+            <div class="bg-white text-black border p-4 shadow rounded w-full">
+                <h1 class="mb-8 text-3xl text-white bg-black py-4 ">Product List</h1>
+                @if (ECommerceProducts.Any())
+                {
+                    <table class="w-full">
+                        <thead class="bg-gray-400 w-full text-black">
+                            <tr>
+                                <th class=" w-1/4"></th>
+                                <th class=" w-1/2 px-4 py-4">Name</th>
+                                <th class=" w-1/2 px-4 py-4">Category</th>
+                                @*<th class=" w-1/4 px-4 py-2"></th>*@
+                                <th class=" w-1/4 px-4 py-2"></th>
+                                <th class=" w-1/4 px-4 py-2">.</th>
+                                @*<th class=" w-1/4 px-2">Shop <br /> Fav's'</th>
+                                    <th class=" w-1/4 px-2">Customer <br /> Fav's'</th>*@
+                            </tr>
+                        </thead>
+                        <tbody class="">
+                            @foreach (var prod in ECommerceProducts)
+                            {
+                                <tr>
+                                    <td class="border">
+                                        <img src="@prod.ImageUrl" width="100" height="100">
+                                    </td>
+                                    <th class="border px-4 py-2 bold">@prod.Name</th>
+                                    <td class="border px-4 py-2">@prod.Category.Name</td>
+                                    @*<td class="p-2">
+                                            <MudButton Href="@($"ProductPrice/Edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Price</MudButton>
+                                        </td>*@
+                                    <td class="p-2">
+                                        <MudButton Href="@($"product/edit/{prod.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
+                                    </td>
+                                    <td>
+                                        <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
+                                            <MudButton>
+                                                <MudButton OnClick="@(()=>DeleteProduct(prod.Id))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete of: <br />@prod.Name</MudButton>
+                                                <MudButton Href="" Variant="Variant.Filled" Color="Color.Dark">Cancel</MudButton>
+                                            </MudButton>
+                                        </MudMenu>
+                                    </td>
+                                    @*<td>
+                                            <input type="checkbox" disabled checked="@prod.ShopFavorites">
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" disabled checked="@prod.CustomerFavorites">
+                                        </td>*@
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    if (IsLoading)
+                    {
+                        <div class="text-center">
+                            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                        </div>
+                    }
+                    else
+                    {
+                        <p>No Data to Display</p>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+@code {
+    public bool IsLoading { get; set; }
+    private IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
+    private int DeleteProductId { get; set; } = 0;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadProducts();
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    private async Task LoadProducts()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        ECommerceProducts = await _productRepository.GetAll();
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task DeleteProduct(int id)
+    {
+        DeleteProductId = id;
+        IsLoading = true;
+        if (DeleteProductId != 0)
+        {
+            ProductDTO product = await _productRepository.Get(DeleteProductId);
+            if (!product.ImageUrl.Contains("/img/lb_logoLight.jpg"))
+            {
+                _fileUpload.DeleteFile(product.ImageUrl);
+            }
+            await _productRepository.Delete(DeleteProductId);
+            snackBar.Add("Product Deleted.", Severity.Success);
+            await LoadProducts();
+        }
+        IsLoading = false;
+    }
+}
