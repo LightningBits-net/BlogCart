@@ -21,10 +21,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="Pages\LandingPage.razor" />
-    <Content Remove="Pages\LandingPage.razor" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Update="Properties\launchSettings.json">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

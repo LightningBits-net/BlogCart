@@ -33,13 +33,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cssStyles\" />
-    <Folder Include="wwwroot\img\ClientDemo\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\img\ClientDemo\" />
   </ItemGroup>
 </Project>
