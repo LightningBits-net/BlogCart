@@ -9,13 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedServices", "SharedServices\SharedServices.csproj", "{B6E3099E-0D31-423E-85E7-2FD00F4D7FD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedServices", "src\SharedServices\SharedServices.csproj", "{B6E3099E-0D31-423E-85E7-2FD00F4D7FD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce_Server", "ECommerce_Server\ECommerce_Server.csproj", "{34207474-EECE-4D0F-A515-E6B55CD7C200}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce_Server", "src\ECommerce_Server\ECommerce_Server.csproj", "{34207474-EECE-4D0F-A515-E6B55CD7C200}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce_Client", "ECommerce_Client\ECommerce_Client.csproj", "{DDBD3EE9-A0D6-4D0A-BAC5-40C446EF7570}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce_Client", "src\ECommerce_Client\ECommerce_Client.csproj", "{DDBD3EE9-A0D6-4D0A-BAC5-40C446EF7570}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedApi", "SharedApi\SharedApi.csproj", "{DD89AE15-4201-4E9B-9EE1-E7CCAEC7EE73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedApi", "src\SharedApi\SharedApi.csproj", "{DD89AE15-4201-4E9B-9EE1-E7CCAEC7EE73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
