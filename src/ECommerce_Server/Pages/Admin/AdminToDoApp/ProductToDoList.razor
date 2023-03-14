@@ -1,0 +1,134 @@
+﻿@page "/TodoList"
+@inject IToDoItemRepository _toDoItemRepository
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+@inject IDialogService DialogService
+@attribute [Authorize(Roles = SD.Role_Admin)]
+
+
+
+<_ToDoPanelHeader></_ToDoPanelHeader>
+            <div class="w-full flex justify-center items-center">
+                <div class="w-full max-w-lg">
+                    <div class="bg-white text-black border p-4 shadow rounded w-full">
+                        <h1 class="mb-8 text-3xl text-white bg-black py-4">ToDo List</h1>
+                        <div class="w-full p-2 flex justify-center items-center bg-white text-black">
+                            @if (ToDoItems.Any())
+                            {
+                                <table class="w-full">
+                                    <thead class="bg-gray-400">
+                                        <tr>
+                                            <th class=" w-3/4 px-4 py-2">Name</th>
+                                            <th class=" w-1/8  px-4 py-2">Action</th>
+                                            <th class=" w-1/8  px-4 py-2">Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-black">
+                                        @foreach (var objToDo in ToDoItems.Where(x => !x.Completed))
+                                        {
+                                            <tr>
+                                                <td class="border px-4 py-2">
+                                                    <span style="font-size: 1.5em; color: black; font-weight: bold">@objToDo.ToDo</span>
+                                                    <span style="font-size: 1em; color: black">@((MarkupString)objToDo.Comment)</span>
+                                                    <span style="font-size: 0.5em">@objToDo.DateCreated</span>
+                                                </td>
+                                                <td>
+                                                    <MudButton Href="@($"ToDoList/edit/{objToDo.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
+                                                </td>
+                                                <td>
+                                                    <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
+                                                        <MudButton>
+                                                            <MudButton OnClick="@(()=>DeleteToDoItem(objToDo.Id))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete of:<br />"@objToDo.ToDo"</MudButton>
+                                                            <MudButton Href="" Variant="Variant.Filled" Color="Color.Dark">Cancel</MudButton>
+                                                        </MudButton>
+                                                    </MudMenu>
+                                                </td>
+                                            </tr>
+
+                                        }
+                                        @foreach (var objToDo in ToDoItems.Where(x => x.Completed))
+                                        {
+                                            <tr>
+                                                <td class="border px-4 py-2">
+                                                    <span style="font-size: 1.5em; color: green; font-weight: bold">@objToDo.ToDo</span><br />
+                                                    @objToDo.Comment<br />
+                                                    <span style="font-size: 0.5em">@objToDo.DateCreated</span>
+                                                </td>
+                                                <td>
+                                                    <MudButton Href="@($"ToDoList/edit/{objToDo.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
+                                                </td>
+                                                <td>
+                                                    <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
+                                                        <MudButton>
+                                                            <MudButton OnClick="@(()=>DeleteToDoItem(objToDo.Id))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete of:<br />"@objToDo.ToDo"</MudButton>
+                                                            <MudButton Href="" Variant="Variant.Filled" Color="Color.Dark">Cancel</MudButton>
+                                                        </MudButton>
+                                                    </MudMenu>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                if (IsLoading)
+                                {
+                                    <div class="text-center">
+                                        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p>No Data to Display</p>
+                                }
+                            }
+                        </div>
+                        <MudButton Href="/ToDo/create" Variant="Variant.Filled" Color="Color.Dark">Add ToDo</MudButton>
+                    </div>
+
+                </div>
+            </div>
+
+        @*<div class="text-white max-w-5xl mx-auto p-8 py-24 flex justify-start items-center">
+            <div class="flex-1">
+                <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-12">Not Authorized</h1>
+            </div>
+            <div class="hidden md:block w-56">
+                <MudButton Href="@($"{LocalHost}")" StartIcon="@Icons.Filled.Login" Variant="Variant.Filled" Size="Size.Small" Color="Color.Primary">Go Back</MudButton>
+            </div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1491944799262-a5be522e2300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2068&q=80" class="w-full h-64 object-cover" />*@
+
+
+@code {
+    public string LocalHost = "https://e-commerceclient.azurewebsites.net";
+
+    public bool IsLoading { get; set; }
+    private IEnumerable<ToDoItemDTO> ToDoItems { get; set; } = new List<ToDoItemDTO>();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadToDoItems();
+        }
+    }
+
+    private async Task LoadToDoItems()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        ToDoItems = await _toDoItemRepository.GetAll();
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task DeleteToDoItem(int id)
+    {
+        await _toDoItemRepository.Delete(id);
+        await LoadToDoItems();
+        snackBar.Add("Category Deleted.", Severity.Success);
+    }
+}
+

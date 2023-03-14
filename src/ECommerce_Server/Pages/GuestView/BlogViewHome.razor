@@ -1,0 +1,94 @@
+﻿@page "/BlogViewHome"
+@page "/category/home"
+
+@inject IBlogRepository _blogRepository
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+
+<PageTitle>@Title</PageTitle>
+<HeadContent>
+    <meta name="description" content="@Description" />
+    <meta property="og:title" content="@Title" />
+    <meta property="og:description" content="@Description" />
+    <meta property="og:image" content="@ImageUrl" />
+    <meta name="twitter:title" content="@Title" />
+    <meta name="twitter:description" content="@Description" />
+    <meta name="twitter:image" content="@ImageUrl" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@(_navigationManager.Uri)" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="@(_navigationManager.Uri)" />
+</HeadContent>
+
+
+@if (IsProcessing)
+{
+    <div class="text-center">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
+}
+else
+{
+    <div class="w-full">
+        <_BlogBanner></_BlogBanner>
+        <!-- Navi -->
+        <_BlogMenu></_BlogMenu>
+        <!-- Navi -->
+        <div class="container max-w-4xl mx-auto md:flex items-start py-8 px-12 md:px-0">
+            <!-- articles -->
+            <div class="w-full md:pr-12 mb-12">
+                @*@foreach (var blog in Blogs.Where(u => u.BlogFavorite == true))*@
+                @foreach (var blog in Blogs.Where(u => u.BlogFavorite == true).OrderByDescending(b => b.DateCreated).Take(5))
+
+                {
+                    <article class="mb-12 border-b">
+                        <h2 class="mb-4">
+                            <a href="/Page/@blog.Id" class="text-xl md:text-2xl no-underline hover:underline">
+                                @((MarkupString)blog.Name)
+                            </a>
+                        </h2>
+                        <div class="mb-4 text-sm">
+                            by <a href="/BlogViewHome">@((MarkupString)blog.Author)</a> @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
+                            <span class="font-bold mx-1"> | </span>
+                            <a href="/BlogViewHome">2 Comments</a>
+                        </div>
+                        <p class="leading-normal mb-4">
+                            @((MarkupString)blog.Description)
+                        </p>
+                    </article>
+                }
+                @*<div class="flex justify-between text-xs">
+                        <a href="/UnderConstruction" class="bg-indigo-600 text-white no-underline py-2 px-3 rounded">Previous</a>
+                        <a href="/UnderConstruction" class="bg-indigo-600 text-white no-underline py-2 px-3 rounded">Next</a>
+                    </div>*@
+            </div>
+            <!--/ articles -->
+            <!-- sidebar -->
+            <_SideView></_SideView>
+            <!-- /sidebar -->
+        </div>
+    </div>
+    <_FooterDarkGray></_FooterDarkGray>
+}
+
+@code {
+
+    public bool IsProcessing { get; set; } = false;
+    public IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
+    public string CategoryName { get; set; } = "Latest";
+    private string Title = "MyBlog.LightningBits.net";
+    private string Description =
+        "Explore the power of C# and .NET Blazor in this in-depth blog post. " +
+        "Learn how to build web applications with Blazor and take advantage of its powerful features.";
+    private string ImageUrl = "/img/Matrixlaptop.png";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        Blogs = await _blogRepository.GetAll();
+        IsProcessing = false;
+    }
+
+}
+
