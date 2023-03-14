@@ -1,0 +1,94 @@
+﻿
+@*@page "/Products"
+@page "/ProductsHome"*@
+@inject IProductService _productService
+
+<PageTitle>Products</PageTitle>
+<_ProductsHeader></_ProductsHeader>
+<_ProductsBannerMenu></_ProductsBannerMenu>
+@if (IsProcessing)
+{
+    <div class="text-center">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
+}
+else
+{
+        <div>
+            <!--<ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">-->
+                @*@foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())*@
+                <!--@foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct().Where(c => c != ExCategoryName))
+                {
+                    <li>
+                        <a class="inline-block py-2 px-2 text-gray-400 hover:text-indigo-400 font-semibold" href="/@category">@category</a>
+                    </li>
+                }
+            </ul>-->
+            <ul class="flex flex-wrap justify-center pb-6 pl-20 pr-20">
+                @foreach (var category in ECommerceProducts
+                  .GroupBy(p => p.Category.Name)
+                  .OrderBy(g => g.Count())
+                  .Select(g => g.Key)
+                  .Where(c => c != ExCategoryName && c != ExCategoryName2))
+                {
+                    <li>
+                        <a class="inline-block py-2 px-2 dark:text-white  hover:text-indigo-400 font-semibold" href="/@category">@category</a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div class="container mx-auto flex flex-wrap pb-20">
+            @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
+            {
+                <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-6">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.h5">@category</MudText>
+                            </CardHeaderContent>
+                        </MudCardHeader>
+                        <MudCarousel Class="mud-width-full" Style="height:250px;" ShowArrows="@arrows" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+                            @foreach (var product in ECommerceProducts.Where(u => u.Category.Name == category))
+                            {
+                                <MudCarouselItem Transition="transition" Color="@Color.Dark">
+                                    <a href="/ProductDetails/@product.Id">
+                                        <img src="@product.ImageUrl" class="w-full h-64 object-cover" />
+                                    </a>
+                                </MudCarouselItem>
+                            }
+                        </MudCarousel>
+                        <MudCardActions>
+                            <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
+                            <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Default" />
+                        </MudCardActions>
+                    </MudCard>
+                </div>
+            }
+        </div>
+        <_FooterDarkGray></_FooterDarkGray>
+}
+
+
+@code {
+    public bool IsProcessing { get; set; } = false;
+    public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
+    public string CategoryName { get; set; } = "Server Preview";
+    public string ExCategoryName { get; set; } = "ServerPreview";
+    public string ExCategoryName2 { get; set; } = "Services";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        ECommerceProducts = await _productService.GetAll();
+        IsProcessing = false;
+    }
+
+    private bool arrows = true;
+    private bool bullets = false;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
+}
+
