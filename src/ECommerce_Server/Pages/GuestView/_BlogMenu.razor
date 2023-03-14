@@ -1,0 +1,25 @@
+﻿@inject IBlogRepository _blogRepository
+
+    <ul class="flex justify-center pb-6 pl-6 pr-6">
+        <li>
+            <a class="inline-block py-2 px-4 text-center no-underline hover:underline font-semibold" href="/category/home">MyBlog </a>
+        </li>
+        @foreach (var category in Blogs.Select(u => u.BlogCategory.Name).Distinct())
+        {
+            <li>
+                <a class="inline-block py-2 px-4 text-center no-underline hover:underline font-semibold" href="/category/@category">@category</a>
+            </li>
+        }
+    </ul>
+
+
+@code {
+
+    private IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Blogs = await _blogRepository.GetAll();
+    }
+}
+

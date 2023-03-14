@@ -1,0 +1,88 @@
+﻿@page "/ProductsByFav"
+
+@inject IProductRepository  _productRepository
+@inject IProductPriceRepository _productPriceRepository
+@inject MudBlazor.ISnackbar snackBar
+@attribute [Authorize(Roles = SD.Role_Customer)]
+@inject NavigationManager _navigationManager
+
+<PageTitle>My Favorite</PageTitle>
+
+<div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
+    <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">My Favorite Products.</h1>
+    <div class="hidden md:block w-56">
+        <MudButton Href="@($"{LocalHost}")" Variant="Variant.Filled" EndIcon="@Icons.Material.Outlined.RequestQuote" Color="Color.Dark">Go Back</MudButton>
+    </div>
+
+</div>
+
+@if (IsLoading)
+{
+    <div class="text-center">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
+}
+else
+{
+        <div class="container mx-auto flex flex-wrap pb-20">
+            @foreach (var category in ECommerceProducts.Select(u => u.Category.Name).Distinct())
+            {
+                @foreach (var product in ECommerceProducts.Where(u => u.Category.Name == category))
+                {
+                    <div class="w-full md:w-1/2 lg:w-1/3 px-6 mb-12">
+                        <MudCard Elevation="25">
+                            <MudCardActions>
+                                <MudText Typo="Typo.h5" Color="Color.Default">@product.Name</MudText>
+                                <MudSpacer />
+                                <MudText Color="Color.Primary">@product.ECommerceProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c")</MudText>
+                            </MudCardActions>
+                            <a href="/ProductDetails/@product.Id">
+                                <img src="@product.ImageUrl" class="w-full h-64 object-cover mb-6" />
+                            </a>
+                            <MudCardContent>
+                                <p class="h-24 min-h-0">
+                                    <MudText Typo="Typo.body1" Color="Color.Inherit"> @((MarkupString)product.Description)</MudText>
+                                </p>
+                            </MudCardContent>
+                            <MudCardActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Primary" />
+                                <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Default" />
+                                <MudSpacer />
+                                <MudText Class="h-40" Typo="Typo.body2" Color="Color.Default"> Cat:@product.Category.Name</MudText>
+                            </MudCardActions>
+                        </MudCard>
+                    </div>
+                }
+            }
+        </div>
+        <_FooterDarkGray></_FooterDarkGray>
+}
+
+
+
+@code {
+    public bool IsLoading { get; set; } = false;
+    public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
+    public string CategoryName = "IsCustomerFav";
+    public string LocalHost = " https://e-commerceclient.azurewebsites.net";
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationState { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationState;
+        if (authState.User.Identity.IsAuthenticated)
+        {
+            IsLoading = true;
+            ECommerceProducts = await _productRepository.GetAll();
+            IsLoading = false;
+        }
+        else
+        {
+            var uri = new Uri(_navigationManager.Uri);
+            _navigationManager.NavigateTo($"/Identity/Account/login?returnUrl={uri.LocalPath}", forceLoad: true);
+        }
+    }
+}
+
