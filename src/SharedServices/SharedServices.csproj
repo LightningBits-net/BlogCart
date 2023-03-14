@@ -24,8 +24,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.3" />
   </ItemGroup>
-  <ItemGroup>
-    <None Remove="Microsoft.AspNetCore.Identity" />
-    <None Remove="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
-  </ItemGroup>
 </Project>
