@@ -33,8 +33,8 @@
         <div class="max-w-sm mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             @if (showContent)
             {
-                <a href="@($"{LocalHost}/services")" aria-label="My Store" class="inline-block bg-gray-400 text-black hover:bg-gray-300 text-sm tracking-widest font-heading rounded-full px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Store</a>
-                <a href="@($"{MyBlogHost}/BlogViewHome")" aria-label="My blog" class="inline-block bg-blue-900 text-white hover:text-white hover:bg-blue-700 text-sm tracking-widest font-heading rounded-full rounded-fully px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Blog</a>
+                <a href="@($"{Constants.MyStoreHost}/services")" aria-label="My Store" class="inline-block bg-gray-400 text-black hover:bg-gray-300 text-sm tracking-widest font-heading rounded-full px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Store</a>
+                <a href="@($"{Constants.MyBlogHost}/Blog/Home")" aria-label="My blog" class="inline-block bg-blue-900 text-white hover:text-white hover:bg-blue-700 text-sm tracking-widest font-heading rounded-full rounded-fully px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Blog</a>
                 @*<a href="/portfolio" aria-label="My Portfolio" class="inline-block bg-gray-200 text-indigo-500 text-sm tracking-widest font-heading rounded-full px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">My Portfolio</a>
                     <a href="/" aria-label="My blog" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading rounded-full rounded-fully px-2 py-4 animate__animated animate__bounce animate__slow duration-2s ease-in-out animate__fadeIn animate__animation-delay-7s">#</a>*@
             }
@@ -45,9 +45,6 @@
 </div>
 
 @code {
-
-    private string LocalHost = "https://mystore.lightningbits.net";
-    public string MyBlogHost = "https://myblog.lightningbits.net";
     private string Title = "LightningBits.net";
     private string Description = "Unleash the power of connection with LightningBits.net, the .NET Core Blazor-powered SaaS and PaaS platform for eCommerce and Blogs. Showcase your work, grow your self-sovereignty, and join our community today.";
     private string ImageUrl = "/img/lb_logoLight.jpg";

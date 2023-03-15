@@ -35,13 +35,13 @@
                     <MudNavLink Href="/" Match="NavLinkMatch.All"></MudNavLink>
                     <MudNavLink Href="https://lightningbits.net/" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
                     <MudNavGroup Title="My Blog" Expanded="false" Color="Color.Dark">
-                        <MudNavLink Href="@($"{MyBlogHost}/BlogViewHome")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Read Me</MudNavLink>
+                        <MudNavLink Href="@($"{Constants.MyBlogHost}/BlogViewHome")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Read Me</MudNavLink>
                     </MudNavGroup>
                     <MudNavGroup Title="My Store" Expanded="false" Color="Color.Dark">
-                        <MudNavLink Href="@($"{MyBlogHost}/services")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Software Services</MudNavLink>
+                        <MudNavLink Href="@($"{Constants.MyBlogHost}/services")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Software Services</MudNavLink>
                         <MudNavGroup Title="My Demo Shops" Expanded="false" Color="Color.Dark">
-                            <MudNavLink Href="@($"{MyStoreHost}/thriftboss")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Demo-ThriftBoss</MudNavLink>
-                            <MudNavLink Href="@($"{MyStoreHost}/serverpreview")" Icon="@Icons.Material.Filled.Dashboard" Match="NavLinkMatch.Prefix">Demo-AdminView</MudNavLink>
+                            <MudNavLink Href="@($"{Constants.MyStoreHost}/thriftboss")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Demo-ThriftBoss</MudNavLink>
+                            <MudNavLink Href="@($"{Constants.MyStoreHost}/serverpreview")" Icon="@Icons.Material.Filled.Dashboard" Match="NavLinkMatch.Prefix">Demo-AdminView</MudNavLink>
                         </MudNavGroup>
                     </MudNavGroup>
                     <MudNavGroup Title="My Portfolio" Expanded="false" Color="Color.Dark">
@@ -59,16 +59,16 @@
             <MudNavMenu>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
                 <MudNavLink Href="/" Match="NavLinkMatch.All"></MudNavLink>
-                <MudNavLink Href="https://lightningbits.net/" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
+                <MudNavLink Href="@($"{Constants.RootHost}/")" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
                 <MudNavGroup Title="My Blog" Expanded="false" Color="Color.Dark">
-                    <MudNavLink Href="@($"{MyBlogHost}/BlogViewHome")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Read Me</MudNavLink>
+                    <MudNavLink Href="@($"{Constants.MyBlogHost}/BlogViewHome")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Read Me</MudNavLink>
                 </MudNavGroup>
                 <MudNavGroup Title="My Store" Expanded="false" Color="Color.Dark">
-                    <MudNavLink Href="@($"{MyStoreHost}/services")" Icon="@Icons.Material.Filled.HomeMini" Match="NavLinkMatch.Prefix">MyStore Home</MudNavLink>
-                    <MudNavLink Href="@($"{MyStoreHost}/services")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Software Services</MudNavLink>
+                    <MudNavLink Href="@($"{Constants.MyStoreHost}/services")" Icon="@Icons.Material.Filled.HomeMini" Match="NavLinkMatch.Prefix">MyStore Home</MudNavLink>
+                    <MudNavLink Href="@($"{Constants.MyStoreHost}/services")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Software Services</MudNavLink>
                     <MudNavGroup Title="My Demo Shops" Expanded="false" Color="Color.Dark">
-                        <MudNavLink Href="@($"{MyStoreHost}/thriftboss")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Demo-ThriftBoss</MudNavLink>
-                        <MudNavLink Href="@($"{MyStoreHost}/serverpreview")" Icon="@Icons.Material.Filled.Dashboard" Match="NavLinkMatch.Prefix">Demo-AdminView</MudNavLink>
+                        <MudNavLink Href="@($"{Constants.MyStoreHost}/thriftboss")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Demo-ThriftBoss</MudNavLink>
+                        <MudNavLink Href="@($"{Constants.MyStoreHost}/serverpreview")" Icon="@Icons.Material.Filled.Dashboard" Match="NavLinkMatch.Prefix">Demo-AdminView</MudNavLink>
                     </MudNavGroup>
                 </MudNavGroup>
                 <MudNavGroup Title="My Portfolio" Expanded="false" Color="Color.Dark">
@@ -88,7 +88,5 @@
 @code {
     [Parameter]
     public bool SideBarOpen { get; set; } = false;
-    public string MyStoreHost = "https://Mystore.lightningbits.net";
-    public string MyBlogHost = "https://myblog.lightningbits.net";
     private string roleAdmin = SharedServices.Commons.SD.Role_Admin;
 }

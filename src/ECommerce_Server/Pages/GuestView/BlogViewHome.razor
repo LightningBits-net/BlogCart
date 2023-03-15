@@ -1,5 +1,6 @@
-﻿@page "/BlogViewHome"
-@page "/category/home"
+﻿@page "/Blog/Home"
+@page "/BlogviewHome"
+@page "/Blog/category/home"
 
 @inject IBlogRepository _blogRepository
 @inject NavigationManager _navigationManager
@@ -43,14 +44,14 @@ else
                 {
                     <article class="mb-12 border-b">
                         <h2 class="mb-4">
-                            <a href="/Page/@blog.Id" class="text-xl md:text-2xl no-underline hover:underline">
+                            <a href="/Blog/Page/@blog.Id" class="text-xl md:text-2xl no-underline hover:underline">
                                 @((MarkupString)blog.Name)
                             </a>
                         </h2>
                         <div class="mb-4 text-sm">
-                            by <a href="/BlogViewHome">@((MarkupString)blog.Author)</a> @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
+                            by <a href="/Blog/Home">@((MarkupString)blog.Author)</a> @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
                             <span class="font-bold mx-1"> | </span>
-                            <a href="/BlogViewHome">2 Comments</a>
+                            <a href="/Blog/Home">2 Comments</a>
                         </div>
                         <p class="leading-normal mb-4">
                             @((MarkupString)blog.Description)

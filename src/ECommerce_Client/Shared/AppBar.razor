@@ -56,9 +56,6 @@
 @code {
     [Parameter]
     public EventCallback OnSidebarToggled { get; set; }
-    private string LocalHost = "https://myblog.lightningbits.net";
-
-
     protected override void OnInitialized()
     {
         _cartService.OnChange += StateHasChanged;

@@ -43,7 +43,7 @@
         </p>
         <p class="mx-auto max-w-lg text-center leading-relaxed">check out my Repository on <a href="https://github.com/LightningBit/E-Commerce" class="text-indigo-500">GitHub</a></p>
         <p class="mx-auto max-w-lg text-center leading-relaxed">check out <a href="/BlogViewHome" class="text-indigo-500">My Blog</a></p>
-        <p class="mx-auto max-w-lg text-center leading-relaxed">check out my SAS <a href="@($"{LocalHost}/services")" class="text-indigo-500">Store</a></p>
+        <p class="mx-auto max-w-lg text-center leading-relaxed">check out my SAS <a href="@($"{Constants.MyStoreHost}/services")" class="text-indigo-500">Store</a></p>
         <p class="mx-auto max-w-lg text-center leading-relaxed">check me out on  <a href="https://www.fiverr.com/s2/5826b93876" class="text-indigo-500">Fivver</a></p>
     </div>
     <!-- /Credentials -->
@@ -54,7 +54,7 @@
             <h2><a href="/page/6" class="block text-2xl font-bold mb-6">Front End</a></h2>
             <p class="mb-6 leading-relaxed text-lg ">
                 IAM well-versed in utilizing the latest technologies to bring creative and user-friendly designs to life.
-                In my <a href="@($"{LocalHost}/thriftboss")" class="text-indigo-500 ">projects</a>,
+                In my <a href="@($"{Constants.MyStoreHost}/thriftboss")" class="text-indigo-500 ">projects</a>,
                 I have demonstrated expertise in C# with Blazor, HTML, and Tailwind CSS to create dynamic and responsive web applications.
                 My experience in these technologies has allowed me to create visually appealing interfaces with seamless functionality that provide the best user experience.
                 Whether it's a single-page application, a full-featured e-commerce platform with Blog, or a simple portfolio website,
@@ -135,7 +135,6 @@
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
     public string CategoryName { get; set; } = "Portfolio";
-    public string LocalHost = "https://lightningbits.net";
     private string Title = "My Portfolio";
     private string Description = "I am a software developer. How can I help you create your vision?";
     private string ImageUrl = "/img/myHeadShot.jpeg";

@@ -8,9 +8,9 @@
             {
                 <ul class="list-reset leading-normal ">
                     <li class="mb-4">
-                        <a href="/Page/@blog.Id" class="text-sm no-underline hover:underline">
+                        <a href="/Blog/Page/@blog.Id" class="text-sm no-underline hover:underline">
                             @((MarkupString)blog.Name)
-                            <p class="text-sm">@blog.LastUpdated.ToLocalTime().ToString("MM/dd/yyyy")</p>
+                            <p class="text-sm">@blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")</p>
                         </a>
                     </li>
                 </ul>
@@ -26,7 +26,7 @@
             {
                 <ul class="list-reset leading-normal">
                     <li class="mb-4">
-                        <a href="/Page/@blog.Id" class="text-sm no-underline hover:underline">
+                        <a href="/Blog/Page/@blog.Id" class="text-sm no-underline hover:underline">
                             @((MarkupString)blog.Name)
                         </a>
                     </li>
