@@ -6,7 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>cf3a4850-3736-4fb5-a74e-8fb2ef774d30</UserSecretsId>
   </PropertyGroup>
-
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+ <!-- <PropertyGroup Condition=" '$(RunConfiguration)' == 'TangyWeb_Server' " />-->
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.3" />
@@ -27,12 +29,6 @@
     <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="20.4.0.50" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.50" />
     <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.4.0.50" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="cssStyles\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="cssStyles\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">
