@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce_Client", "src\ECo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedApi", "src\SharedApi\SharedApi.csproj", "{DD89AE15-4201-4E9B-9EE1-E7CCAEC7EE73}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogCart", "BlogCart\BlogCart.csproj", "{DE24A632-D82A-428E-BB1C-90A4A73EBFCD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{3F1BAE9F-8DA4-4637-A972-9C4D7E2F7995}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F1BAE9F-8DA4-4637-A972-9C4D7E2F7995}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F1BAE9F-8DA4-4637-A972-9C4D7E2F7995}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE24A632-D82A-428E-BB1C-90A4A73EBFCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE24A632-D82A-428E-BB1C-90A4A73EBFCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE24A632-D82A-428E-BB1C-90A4A73EBFCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE24A632-D82A-428E-BB1C-90A4A73EBFCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
