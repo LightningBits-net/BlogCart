@@ -9,14 +9,12 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <None Remove="cssStyles\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="cssStyles\" />
-    <Folder Include="wwwroot\img\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\img\" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="MudBlazor" Version="6.1.9" />
+    <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="20.4.0.50" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.50" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.4.0.50" />
+   <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\SharedServices\SharedServices.csproj">
