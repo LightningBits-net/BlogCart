@@ -1,24 +1,23 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using SharedServices.Repository;
-using SharedServices.Repository.IRepository;
-using Microsoft.EntityFrameworkCore;
-using SharedServices.Data;
-using MudBlazor.Services;
+﻿//using Microsoft.AspNetCore.Components;
+//using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.DependencyInjection;
 using Syncfusion.Blazor;
-//using static MudBlazor.CategoryTypes;
 using BlogCart.Service;
 using BlogCart.Service.IService;
 using Blazored.LocalStorage;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["BaseAPIUrl"]) });
+
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
+
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddMudServices();
 builder.Services.AddSyncfusionBlazor();
