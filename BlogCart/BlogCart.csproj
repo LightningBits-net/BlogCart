@@ -22,9 +22,11 @@
   <ItemGroup>
     <None Remove="Helper\" />
     <None Remove="Pages\ProductViews\" />
+    <None Remove="Pages\Authentication\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helper\" />
     <Folder Include="Pages\ProductViews\" />
+    <Folder Include="Pages\Authentication\" />
   </ItemGroup>
 </Project>
