@@ -1,6 +1,22 @@
 ﻿@page "/"
 @inject ILocalStorageService localStorage
+@inject NavigationManager _navigationManager
 @using BlogCart.Pages.LandingPage
+
+
+<HeadContent>
+    <meta name="description" content="@Description" />
+    <meta property="og:title" content="@Title" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="@ImageUrl" />
+    <meta name="twitter:title" content="@Title" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="@ImageUrl" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@(_navigationManager.Uri)" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="@(_navigationManager.Uri)" />
+</HeadContent>
 
 <div x-data="{showMenu: false}" class="h-24 z-40 relative container mx-auto px-6 flex items-center justify-between text-white">
 </div>
@@ -14,10 +30,8 @@
 <_FooterDarkGray></_FooterDarkGray>
 
 @code {
-    private string LocalHost = "https://myblog.lightningbits.net";
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-    }
+    private string Title = "My Portfolio";
+    private string Description = "I am a software developer. How can I help you create your vision?";
+    private string ImageUrl = "/img/lb_logoLight.jpg";
 }
 

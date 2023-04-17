@@ -8,187 +8,171 @@
 
 
 <PageTitle>Order Summary</PageTitle>
-<div class="bg-white text-black dark:bg-black dark:text-white">
-    @if (IsProcessing)
-    {
-        <div class="text-center">
-            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-        </div>
-    }
-    else
-    {
-        <div class="container mx-auto flex flex-wrap justify-center pt-5 pb-5">
-            <div class="w-full md:w-1/2 lg:w-full mb-2 mt-2 pb-2 px-2 bg-gray-200 text-black">
-                <h1 class="font-display-italic text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Order summary</h1>
-                <table class="w-full justify-center">
-                    <thead class="w-full">
-                        <tr>
-                            <th class="w-1/4 px-10 py-6"></th>
-                            <th class="w-1/4 px-8 py-4 ">Name</th>
-                            <th class="w-1/4 px-8 py-4">Qty</th>
-                            <th class="w-1/4 px-8 py-4">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var prod in Order.OrderDetails)
-                        {
-                            <tr class="w-full">
-                                <td class="border">
-                                    <img src="@prod.Product.ImageUrl" width="100" height="100">
-                                </td>
-                                <td class="border">
-                                    <p class="w-full text-xlg"> @prod.ProductName</p>
-                                </td>
-                                <td class="border ">@prod.Count</td>
-                                <td class="border ">@prod.Price.ToString("c")</td>
-                            </tr>
-                        }
-                    </tbody>
-
-                    <tfoot>
+@if (IsProcessing)
+{
+    <div class="text-center">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
+}
+else
+{
+    <div class="max-w-5xl mx-auto pt-20 pr-2 flex justify-end">
+        <h1 class="font-display-italic dark:text-white text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">
+            Order Summary
+        </h1>
+    </div>
+    <div class="container mx-auto flex flex-wrap justify-center pt-5 pb-5">
+        <div class="w-full md:w-3/4 ">
+            <table class="w-full md:table-fixed lg:table-fixed bg-gray-200 text-black">
+                <thead class="w-full">
+                    <tr>
+                        <th class="w-1/4 px-4 py-6 text-center"></th>
+                        <th class="w-1/4 px-8 py-4 border border-gray-400 text-center">Name</th>
+                        <th class="w-1/4 px-8 py-4 border border-gray-400 text-center">Qty</th>
+                        <th class="w-1/4 px-8 py-4 border border-gray-400 text-center">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var prod in Order.OrderDetails)
+                    {
                         <tr class="w-full">
-                            <td class="border"></td>
-                            <td class="border"></td>
-                            <td class="border font-bold">
-                                est Total
+                            <td class="border border-gray-400 text-center">
+                                <img src="@prod.Product.ImageUrl" width="100" height="100">
                             </td>
-                            <td class="border font-bold "> @Order.OrderHeader.OrderTotal.ToString("c")</td>
-                            <td class="border "></td>
+                            <td class="border border-gray-400 text-center">
+                                <p class="w-full text-xlg"> @prod.ProductName</p>
+                            </td>
+                            <td class="border border-gray-400 text-center">@prod.Count</td>
+                            <td class="border border-gray-400 text-center">@prod.Price.ToString("c")</td>
                         </tr>
-                    </tfoot>
-                </table>
-                @* Address form *@
-                <div class="container mx-auto flex flex-wrap pb-5 pt-5">
-                    <div class="w-full md:w-1/2 lg:w-1/2">
-                        <EditForm Model="@Order.OrderHeader" OnValidSubmit="@HandleCheckout">
-                            <DataAnnotationsValidator />
-                            <h2 class="font-display-italic text-3xl md:text-3xl italic leading-none mb-6 max-w-xl">Enter Details</h2>
-                            <div class="bg-red-100"></div>
-                            <div class="form-group pt-2">
-                                <label class="text-warning">Name</label>
-                                <MudTextField @bind-Value="@Order.OrderHeader.Name" Class="w-full" />
-                                <div class="bg-red-100">
-                                    <ValidationMessage For="@(() => Order.OrderHeader.Name)"></ValidationMessage>
-                                </div>
-                            </div>
-                            <div class="form-group pt-2">
-                                <label class="text-warning">phone</label>
-                                <MudTextField @bind-Value="@Order.OrderHeader.PhoneNumber" Class="w-full" />
-                                <div class="bg-red-100">
-                                    <ValidationMessage For="@(() => Order.OrderHeader.PhoneNumber)"></ValidationMessage>
-                                </div>
-                            </div>
-                            <div class="form-group text-red pt-2">
-                                <label class="text-warning">Email</label>
-                                <MudTextField @bind-Value="@Order.OrderHeader.Email" Class="w-full" />
-                                <div class="bg-red-100">
-                                    <ValidationMessage For="@(() => Order.OrderHeader.Email)"></ValidationMessage>
-                                </div>
-                            </div>
-                            <div class="form-group pt-2">
-                                <label class="text-warning">Street Address</label>
-                                <MudTextField @bind-Value="@Order.OrderHeader.StreetAddress" Class="w-full" />
-                                <div class="bg-red-100">
-                                    <ValidationMessage For="@(() => Order.OrderHeader.StreetAddress)"></ValidationMessage>
-                                </div>
-                            </div>
-                            <div class="form-group pt-2">
-                                <label class="text-warning">City</label>
-                                <MudTextField @bind-Value="@Order.OrderHeader.City" Class="w-full" />
-                                <div class="bg-red-100">
-                                    <ValidationMessage For="@(() => Order.OrderHeader.City)"></ValidationMessage>
-                                </div>
-                            </div>
-                            <div class="form-group pt-2">
-                                <label class="text-warning">State</label>
-                                <MudTextField @bind-Value="@Order.OrderHeader.State" Class="w-full" />
-                                <div class="bg-red-100">
-                                    <ValidationMessage For="@(() => Order.OrderHeader.State)"></ValidationMessage>
-                                </div>
-                            </div>
-                            <div class="form-group pt-2 pb-2">
-                                <label class="text-warning">Postal Code</label>
-                                <MudTextField @bind-Value="@Order.OrderHeader.PostalCode" Class="w-full" />
-                                <div class="bg-red-100">
-                                    <ValidationMessage For="@(() => Order.OrderHeader.PostalCode)"></ValidationMessage>
-                                </div>
-                            </div>
-                            <div class="form-group pt-2 pb-2">
-                                <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto pb-2">Checkout Now</MudButton>
-                            </div>
-                            <MudButton Href="/Cart" FullWidth="true" Variant="Variant.Filled" Color="Color.Dark" Class="ml-auto">Return to Cart</MudButton>
-                        </EditForm>
-                    </div>
-                    <div class="w-full md:w-1/2 lg:w-1/2 mt-5">
-                        <h2 class="font-display-italic text-2xl md:text-3xl italic leading-none mb-6 max-w-xl">Additional Details</h2>
-                        <p>some deliver info and discoumts</p>
-                    </div>
-                </div>
+                    }
+                </tbody>
+            </table>
+            <div class="mx-auto pt-2 flex justify-end">
+                <h1 class="font-display-italic dark:text-white text-center font-extrabold text-2xl italic leading-none">
+                    est Total: @Order.OrderHeader.OrderTotal.ToString("c")
+                </h1>
             </div>
+
         </div>
-    }
-</div>
+    </div>
+
+    <div class="container mx-auto flex flex-wrap justify-center pt-5 pb-5">
+        <div class="w-full md:w-3/4">
+            <MudCard Elevation="4">
+                <MudCardContent>
+                    <EditForm Model="@Order.OrderHeader" OnValidSubmit="@HandleCheckout">
+                        <DataAnnotationsValidator />
+                        <div class="flex flex-wrap -mx-4">
+                            <div class="w-full md:w-1/2 lg:w-1/2 px-4">
+                                <div class="form-group pt-3">
+                                    <MudTextField Label="First and Last name" Class="w-full" @bind-Value="@Order.OrderHeader.Name" For="@(() => Order.OrderHeader.Name)" />
+                                    <ValidationMessage For="@(() => Order.OrderHeader.Name)" />
+                                </div>
+                                <div class="form-group pt-3">
+                                    <MudTextField Label="Phone" Class="w-full" @bind-Value="@Order.OrderHeader.PhoneNumber" For="@(() => Order.OrderHeader.PhoneNumber)" />
+                                    <ValidationMessage For="@(() => Order.OrderHeader.PhoneNumber)" />
+                                </div>
+                                <div class="form-group pt-3">
+                                    <MudTextField Label="Email" Class="w-full" @bind-Value="@Order.OrderHeader.Email" For="@(() => Order.OrderHeader.Email)" />
+                                    <ValidationMessage For="@(() => Order.OrderHeader.Email)" />
+                                </div>
+                            </div>
+                            <div class="w-full md:w-1/2 lg:w-1/2 px-4">
+                                <div class="form-group pt-3">
+                                    <MudTextField Label="Street Address" Class="w-full" @bind-Value="@Order.OrderHeader.StreetAddress" For="@(() => Order.OrderHeader.StreetAddress)" />
+                                    <ValidationMessage For="@(() => Order.OrderHeader.StreetAddress)" />
+                                </div>
+
+                                <div class="form-group pt-3">
+                                    <MudTextField Label="City" Class="w-full" @bind-Value="@Order.OrderHeader.City" For="@(() => Order.OrderHeader.City)" />
+                                    <ValidationMessage For="@(() => Order.OrderHeader.City)" />
+                                </div>
+                                <div class="form-group pt-3">
+                                    <MudTextField Label="State" Class="w-full" @bind-Value="@Order.OrderHeader.State" For="@(() => Order.OrderHeader.State)" />
+                                    <ValidationMessage For="@(() => Order.OrderHeader.State)" />
+                                </div>
+                                <div class="form-group pt-3">
+                                    <MudTextField Label="Postal Code" Class="w-full" @bind-Value="@Order.OrderHeader.PostalCode" For="@(() => Order.OrderHeader.PostalCode)" />
+                                    <ValidationMessage For="@(() => Order.OrderHeader.PostalCode)" />
+                                </div>
+                            </div>
+                        </div>
+                        <MudPaper Elevation="4" Class="p-4 mt-5" Width="100%">
+                            <h2 class="font-display-italic text-2xl md:text-3xl italic leading-none mb-6 max-w-xl">Additional Details</h2>
+                            <p>Some delivery information and discounts.</p>
+                        </MudPaper>
+                        <div class="form-group pt-3 pb-3">
+                            <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Checkout Now</MudButton>
+                        </div>
+                        <MudButton Href="/Cart" FullWidth="true" Variant="Variant.Filled" Color="Color.Dark" Class="ml-auto">Return to Cart</MudButton>
+                    </EditForm>
+                    </MudCardContent>
+                   </MudCard>
+        </div>
+    </div>
+
+
+}
+
+
 
 @code {
     public bool IsProcessing { get; set; } = false;
     private OrderDTO Order { get; set; } = null;
     public IEnumerable<ProductDTO> Products { get; set; } = new List<ProductDTO>();
-    private bool FirstRender = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (FirstRender)
+        if (firstRender)
         {
-            await LoadData();
-            FirstRender = false;
+            List<ShoppingCart> cart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
+            Products = await _productService.GetAll();
+            Order = new()
+            {
+                OrderHeader = new()
+                {
+                    OrderTotal = 0,
+                    Status = SD.Status_Pending
+                },
+                OrderDetails = new List<OrderDetailDTO>()
+            };
+
+            foreach (var item in cart)
+            {
+                ProductDTO product = Products.FirstOrDefault(u => u.Id == item.ProductId);
+                ProductPriceDTO productPrice = product.ECommerceProductPrices.FirstOrDefault(u => u.Id == item.ProductPriceId);
+
+                OrderDetailDTO orderDetailDTO = new()
+                {
+                    ProductId = item.ProductId,
+                    Size = productPrice.Size,
+                    Count = item.Count,
+                    Price = productPrice.Price,
+                    ProductName = product.Name,
+                    Product = product
+                };
+                Order.OrderDetails.Add(orderDetailDTO);
+                Order.OrderHeader.OrderTotal += (item.Count * productPrice.Price);
+            }
+            if (await _localStorage.GetItemAsync<UserDTO>(SD.Local_UserDetails) != null)
+            {
+                var userInfo = await _localStorage.GetItemAsync<UserDTO>(SD.Local_UserDetails);
+                Order.OrderHeader.UserId = userInfo.Id;
+                Order.OrderHeader.Name = userInfo.Name;
+                Order.OrderHeader.Email = userInfo.Email;
+                Order.OrderHeader.PhoneNumber = userInfo.PhoneNumber;
+
+            }
+
+            IsProcessing = false;
             StateHasChanged();
         }
-    }
-
-    private async Task LoadData()
-    {
-        IsProcessing = true;
-        List<ShoppingCart> cart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
-        Products = await _productService.GetAll();
-        Order = new()
-        {
-            OrderHeader = new()
-            {
-                OrderTotal = 0,
-                Status = SD.Status_Pending
-            },
-            OrderDetails = new List<OrderDetailDTO>() // Initialize the OrderDetails property with an empty list.
-        };
-
-        foreach (var item in cart)
-        {
-            ProductDTO product = Products.FirstOrDefault(u => u.Id == item.ProductId);
-            ProductPriceDTO productPrice = product.ECommerceProductPrices.FirstOrDefault(u => u.Id == item.ProductPriceId);
-
-            OrderDetailDTO orderDetailDTO = new()
-            {
-                ProductId = item.ProductId,
-                Size = productPrice.Size,
-                Count = item.Count,
-                Price = productPrice.Price,
-                ProductName = product.Name,
-                Product = product
-            };
-            Order.OrderDetails.Add(orderDetailDTO);
-            Order.OrderHeader.OrderTotal += (item.Count * productPrice.Price);
-        }
-
-        if (await _localStorage.GetItemAsync<UserDTO>(SD.Local_UserDetails) != null)
-        {
-            var userInfo = await _localStorage.GetItemAsync<UserDTO>(SD.Local_UserDetails);
-            Order.OrderHeader.UserId = userInfo.Id;
-            Order.OrderHeader.Name = userInfo.Name;
-            Order.OrderHeader.Email = userInfo.Email;
-            Order.OrderHeader.PhoneNumber = userInfo.PhoneNumber;
-
-        }
-
-        IsProcessing = false;
     }
 
     private async Task HandleCheckout()

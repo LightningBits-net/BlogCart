@@ -6,7 +6,6 @@
 @inject MudBlazor.ISnackbar snackBar
 
 <PageTitle>Your Cart</PageTitle>
-    <div class="p-2">
         @if (IsProcessing)
         {
             <div class="text-center">
@@ -74,7 +73,6 @@
                 </div>
             }
         }
-    </div>
 
 
     @code {
@@ -130,5 +128,4 @@
             await LoadCart();
             IsProcessing = false;
         }
-
     }
