@@ -14,7 +14,7 @@ module.exports = {
                 'sm': '0 0 10px 0', //added
             },
             colors: {
-                'Primary': '#1a4f7a',   //these colors match mudblazor naming conventions
+                'Primary': '##594ae2ff',   //these colors match mudblazor naming conventions
                 'PrimaryLighten': '#2b6cb0',
                 'GrayLight': '#F5F5F',
                 'Surface': '#ffffffff', //Card bg color

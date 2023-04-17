@@ -16,19 +16,21 @@ namespace BlogCart.Service
             _localStorage = localStorageService;
 		}
 
-      
+
 
         public async Task DecrementCart(ShoppingCart cartToDecrement)
         {
             var cart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
 
-            for(int i=0; i<cart.Count; i++) 
+            ShoppingCart itemToRemove = null;
+
+            for (int i = 0; i < cart.Count; i++)
             {
                 if (cart[i].ProductId == cartToDecrement.ProductId && cart[i].ProductPriceId == cartToDecrement.ProductPriceId)
                 {
-                    if (cart[i].Count==1 || cart[i].Count==0)
+                    if (cart[i].Count == 1 || cart[i].Count == 0)
                     {
-                        cart.Remove(cart[i]);
+                        itemToRemove = cart[i];
                     }
                     else
                     {
@@ -36,8 +38,14 @@ namespace BlogCart.Service
                     }
                 }
             }
+
+            if (itemToRemove != null)
+            {
+                cart.Remove(itemToRemove);
+            }
+
             await _localStorage.SetItemAsync(SD.ShoppingCart, cart);
-            //OnChange.Invoke();
+            OnChange?.Invoke();
         }
 
         public async Task IncrementCart(ShoppingCart cartToAdd)
@@ -67,7 +75,10 @@ namespace BlogCart.Service
                 });
             }
             await _localStorage.SetItemAsync(SD.ShoppingCart, cart);
-            //OnChange.Invoke();
+            if (OnChange != null)
+            {
+                OnChange.Invoke();
+            }
         }
     }
 }

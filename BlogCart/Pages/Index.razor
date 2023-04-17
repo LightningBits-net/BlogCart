@@ -1,199 +1,204 @@
 ﻿@page "/"
+@inject ILocalStorageService localStorage
 
-    <div x-data="{showMenu: false}" class="h-24 z-40 relative container mx-auto px-6 flex items-center justify-between text-white">
+<div x-data="{showMenu: false}" class="h-24 z-40 relative container mx-auto px-6 flex items-center justify-between text-white">
+</div>
+@* Landing image*@
+<div x-data="slideshowPort()" x-init="init()" class="-mt-32 relative w-full h-screen bg-blue-100 flex items-center justify-center">
+    <div class="relative z-10 text-center text-white px-6">
+        <h1 class="text-3xl md:text-5xl font-display font-semibold mt-2">Code is law</h1>
+        <div class="max-w-sm mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <a href="/services" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4">Shop now</a>
+            <a href="@($"{Constants.MyBlogHost}/blogviewhome")" class="inline-block bg-gray-100 text-indigo-500 text-sm tracking-widest font-heading px-8 py-4">MyBlog</a>
+        </div>
+        <p class="mt-4">A unique layout with a striking design</p>
+
     </div>
-    @* Landing image*@
-    <div x-data="slideshowPort()" x-init="init()" class="-mt-32 relative w-full h-screen bg-blue-100 flex items-center justify-center">
-        <div class="relative z-10 text-center text-white px-6">
-            <h1 class="text-3xl md:text-5xl font-display font-semibold mt-2">Code is law</h1>
-            <div class="max-w-sm mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                <a href="/services" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4">Shop now</a>
-                <a href="@($"{Constants.MyBlogHost}/blogviewhome")" class="inline-block bg-gray-100 text-indigo-500 text-sm tracking-widest font-heading px-8 py-4">MyBlog</a>
+    <img x-bind:src="images[current]" class="w-full h-full absolute inset-0 object-cover opacity-95">
+</div>
+@* About us banner*@
+<div class="dark:bg-black mx-auto px-6 flex flex-wrap items-center py-24">
+    <div class="w-full lg:flex-1">
+        <div class="dark:text-amber-200 uppercase text-sm tracking-widest">Why LightningBits?</div>
+        <h2 class="dark:text-white text-3xl md:text-4xl font-semibold font-display mt-3">C# is the future of good Code and life as we know it.</h2>
+    </div>
+    <div class="w-full lg:w-auto text-center">
+        <svg class="inline-block w-32 h-32 -mb-10 -mt-4 lg:mt-0 lg:mb-0 lg:transform lg:rotate-90 lg:-ml-8" x="0px" y="0px" viewBox="0 0 100 125">
+            <path d="M91.8 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7C70 47.3 68 45 64 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-.6 0-1 .4-1 1s.4 1 1 1c3 0 4.5 1.7 6.2 3.7 1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7.6 0 1-.4 1-1s-.4-1-1-1z" />
+        </svg>
+    </div>
+    <div class="w-full lg:flex-1 text-center">
+        <p class="dark:text-white">Don't be Evil, Can't be Evil</p>
+        <a href="#" class="inline-block bg-gray-500 text-black text-sm tracking-widest font-heading px-8 py-4 mt-4 border-2 border-black py-3 px-8 uppercase font-display font-thin tracking-wide text-xs hover:bg-black hover:text-indigo-600 hover:border-indigo-600">Learn more</a>
+    </div>
+</div>
+@* Main products Mosaic*@
+<div class="dark:bg-black p-4 grid grid-cols-1 md:grid-cols-5 grid-rows-2 gap-4">
+    <a href="#" class="relative block bg-black text-white md:col-span-2">
+        <div class="relative z-10 p-12">
+            <h3 class="font-display text-2xl">Best Sellers</h3>
+            <p class="text-sm mt-2">Lorem ipsum dolor sit amet, consectetur.</p>
+            <div class="inline-block bg-gray-500 text-black text-sm tracking-widest font-heading px-8 py-4 mt-6 py-3 px-8 uppercase font-display font-thin tracking-wide text-xs hover:bg-black hover:text-indigo-600 hover:border-indigo-600">Shop now</div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1617042375876-a13e36732a04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75">
+    </a>
+    <a href="#" class="relative block bg-black text-white md:col-span-3 lg:col-span-1">
+        <div class="relative z-10 p-12">
+            <h3 class="font-display text-2xl">Limited</h3>
+            <p class="text-sm mt-2">Lorem ipsum dolor sit amet, consectetur.</p>
+            <div class="inline-block bg-gray-500 text-black text-sm tracking-widest font-heading px-8 py-4 mt-6 py-3 px-8 uppercase font-display font-thin tracking-wide text-xs hover:bg-black hover:text-indigo-600 hover:border-indigo-600">Shop now</div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1624571409108-e9a41746af53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75">
+    </a>
+    <a href="#" class="relative block bg-black text-white md:col-span-3 lg:col-span-2 lg:row-span-2">
+        <div class="relative z-10 p-12">
+            <h3 class="font-display text-2xl">New In</h3>
+            <p class="text-sm mt-2">Lorem ipsum dolor sit amet, consectetur.</p>
+            <div class="inline-block bg-gray-500 text-black text-sm tracking-widest font-heading px-8 py-4 mt-6 py-3 px-8 uppercase font-display font-thin tracking-wide text-xs hover:bg-black hover:text-indigo-600 hover:border-indigo-600">Shop now</div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1581094651181-35942459ef62?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75">
+    </a>
+    <a href="#" class="relative block bg-black text-white md:col-span-2 lg:col-span-1">
+        <div class="relative z-10 p-12">
+            <h3 class="font-display text-2xl">Sale</h3>
+            <p class="text-sm mt-2">Lorem ipsum dolor sit amet, consectetur.</p>
+            <div class="inline-block bg-gray-500 text-black text-sm tracking-widest font-heading px-8 py-4 mt-6 py-3 px-8 uppercase font-display font-thin tracking-wide text-xs hover:bg-black hover:text-indigo-600 hover:border-indigo-600">Shop now</div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1580983561252-463dca6ad904?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75">
+    </a>
+    <a href="#" class="relative block bg-black text-white md:col-span-5 lg:col-span-2">
+        <div class="relative z-10 p-12">
+            <h3 class="font-display text-2xl">Half Price</h3>
+            <p class="text-sm mt-2">Lorem ipsum dolor sit amet, consectetur.</p>
+            <div class="inline-block bg-gray-500 text-black text-sm tracking-widest font-heading px-8 py-4 mt-6 py-3 px-8 uppercase font-display font-thin tracking-wide text-xs hover:bg-black hover:text-indigo-600 hover:border-indigo-600">Shop now</div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1587377838789-968194a7cc88?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2358&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75">
+    </a>
+</div>
+@* Blog banner*@
+<div class="dark:bg-black text-center py-12">
+    <a href="#" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4">Place holder for blog carousel</a>
+</div>
+@* Main Services *@
+<div class="dark:bg-black bg-gray-300 p-4 grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 md:h-screen">
+    <div class="dark:bg-black dark:text-white text-gray-700 text-center md:col-span-2 flex items-center justify-center">
+        <div class="relative z-10 p-12">
+            <div class="uppercase text-sm text-gray-700 tracking-widest">don't'</div>
+            <h3 class="font-display font-semibold text-3xl mt-2">Can't be Evil</h3>
+            <p class="mt-3 mx-auto max-w-md">Whether in the sun or on the couch, hydration is key to maintaining happy code.</p>
+            <a href="#" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4 mt-6">Read more</a>
+        </div>
+    </div>
+    <div class="h-64 md:h-auto md:col-span-2 md:row-span-2 relative">
+        <img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="absolute inset-0 w-full h-full object-cover">
+    </div>
+    <div class="h-64 md:h-auto col-span-1 row-span-1 relative">
+        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="absolute inset-0 w-full h-full object-cover">
+    </div>
+    <div class="h-64 md:h-auto col-span-1 row-span-1 relative">
+        <img src="https://images.unsplash.com/photo-1461685265823-f8d5d0b08b9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="absolute inset-0 w-full h-full object-cover">
+    </div>
+</div>
+@* Testomnial Quotes*@
+<div class="dark:bg-gray-300 dark:text-black mx-auto px-6 py-12">
+    <h2 class="font-display font-semibold text-3xl">Testimonials</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24 mt-12">
+        <div class="relative">
+            <p class="relative z-10 text-justify">“Experience is the name everyone gives to their mistakes.”</p>
+            <div class="relative z-10 text-sm flex items-center justify-end">
+                <svg class="inline-block w-32 h-32 -mb-8" x="0px" y="0px" viewBox="0 0 100 125">
+                    <path d="M91.8 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7C70 47.3 68 45 64 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-.6 0-1 .4-1 1s.4 1 1 1c3 0 4.5 1.7 6.2 3.7 1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7.6 0 1-.4 1-1s-.4-1-1-1z" />
+                </svg>
+                <span>  Oscar Wilde</span>
             </div>
-            <p class="mt-4">A unique layout with a striking design</p>
-
-        </div>
-        <img x-bind:src="images[current]" class="w-full h-full absolute inset-0 object-cover opacity-95">
-    </div>
-    @* About us banner*@
-    <div class="dark:bg-black mx-auto px-6 flex flex-wrap items-center py-24">
-        <div class="w-full lg:flex-1">
-            <div class="dark:text-amber-200 uppercase text-sm tracking-widest">Why LightningBits?</div>
-            <h2 class="dark:text-white text-3xl md:text-4xl font-semibold font-display mt-3">C# is the future of good Code and life as we know it.</h2>
-        </div>
-        <div class="w-full lg:w-auto text-center">
-            <svg class="inline-block w-32 h-32 -mb-10 -mt-4 lg:mt-0 lg:mb-0 lg:transform lg:rotate-90 lg:-ml-8" x="0px" y="0px" viewBox="0 0 100 125">
-                <path d="M91.8 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7C70 47.3 68 45 64 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-.6 0-1 .4-1 1s.4 1 1 1c3 0 4.5 1.7 6.2 3.7 1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7.6 0 1-.4 1-1s-.4-1-1-1z" />
+            <svg class="absolute top-0 left-0 w-28 h-28 -mt-10 -ml-8 opacity-5" viewBox="0 0 95.333 95.332">
+                <path d="M30.512,43.939c-2.348-0.676-4.696-1.019-6.98-1.019c-3.527,0-6.47,0.806-8.752,1.793
+                                            c2.2-8.054,7.485-21.951,18.013-23.516c0.975-0.145,1.774-0.85,2.04-1.799l2.301-8.23c0.194-0.696,0.079-1.441-0.318-2.045
+                                            s-1.035-1.007-1.75-1.105c-0.777-0.106-1.569-0.16-2.354-0.16c-12.637,0-25.152,13.19-30.433,32.076
+                                            c-3.1,11.08-4.009,27.738,3.627,38.223c4.273,5.867,10.507,9,18.529,9.313c0.033,0.001,0.065,0.002,0.098,0.002
+                                            c9.898,0,18.675-6.666,21.345-16.209c1.595-5.705,0.874-11.688-2.032-16.851C40.971,49.307,36.236,45.586,30.512,43.939z" />
+                <path d="M92.471,54.413c-2.875-5.106-7.61-8.827-13.334-10.474c-2.348-0.676-4.696-1.019-6.979-1.019
+                                            c-3.527,0-6.471,0.806-8.753,1.793c2.2-8.054,7.485-21.951,18.014-23.516c0.975-0.145,1.773-0.85,2.04-1.799l2.301-8.23
+                                            c0.194-0.696,0.079-1.441-0.318-2.045c-0.396-0.604-1.034-1.007-1.75-1.105c-0.776-0.106-1.568-0.16-2.354-0.16
+                                            c-12.637,0-25.152,13.19-30.434,32.076c-3.099,11.08-4.008,27.738,3.629,38.225c4.272,5.866,10.507,9,18.528,9.312
+                                            c0.033,0.001,0.065,0.002,0.099,0.002c9.897,0,18.675-6.666,21.345-16.209C96.098,65.559,95.376,59.575,92.471,54.413z" />
             </svg>
         </div>
-        <div class="w-full lg:flex-1 text-center">
-            <p class="dark:text-white">Don't be Evil, Can't be Evil</p>
-            <a href="#" class="inline-block bg-gray-500 text-black text-sm tracking-widest font-heading px-8 py-4 mt-4 border-2 border-black py-3 px-8 uppercase font-display font-thin tracking-wide text-xs hover:bg-black hover:text-indigo-600 hover:border-indigo-600">Learn more</a>
-        </div>
-    </div>
-    @* Main products Mosaic*@
-    <div class="dark:bg-black p-4 grid grid-cols-1 md:grid-cols-5 grid-rows-2 gap-4">
-        <a href="#" class="relative block bg-black text-white md:col-span-2">
-            <div class="relative z-10 p-12">
-                <h3 class="font-display text-2xl">Best Sellers</h3>
-                <p class="text-sm mt-2">Lorem ipsum dolor sit amet, consectetur.</p>
-                <div class="inline-block bg-gray-500 text-black text-sm tracking-widest font-heading px-8 py-4 mt-6 py-3 px-8 uppercase font-display font-thin tracking-wide text-xs hover:bg-black hover:text-indigo-600 hover:border-indigo-600">Shop now</div>
+        <div class="relative">
+            <p class="relative z-10 text-justify">“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”</p>
+            <div class="relative z-10 text-sm flex items-center justify-end">
+                <svg class="inline-block w-32 h-32 -mb-8" x="0px" y="0px" viewBox="0 0 100 125">
+                    <path d="M91.8 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7C70 47.3 68 45 64 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-.6 0-1 .4-1 1s.4 1 1 1c3 0 4.5 1.7 6.2 3.7 1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7.6 0 1-.4 1-1s-.4-1-1-1z" />
+                </svg>
+                <span>  Martin Fowler</span>
             </div>
-            <img src="https://images.unsplash.com/photo-1617042375876-a13e36732a04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75">
-        </a>
-        <a href="#" class="relative block bg-black text-white md:col-span-3 lg:col-span-1">
-            <div class="relative z-10 p-12">
-                <h3 class="font-display text-2xl">Limited</h3>
-                <p class="text-sm mt-2">Lorem ipsum dolor sit amet, consectetur.</p>
-                <div class="inline-block bg-gray-500 text-black text-sm tracking-widest font-heading px-8 py-4 mt-6 py-3 px-8 uppercase font-display font-thin tracking-wide text-xs hover:bg-black hover:text-indigo-600 hover:border-indigo-600">Shop now</div>
-            </div>
-            <img src="https://images.unsplash.com/photo-1624571409108-e9a41746af53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75">
-        </a>
-        <a href="#" class="relative block bg-black text-white md:col-span-3 lg:col-span-2 lg:row-span-2">
-            <div class="relative z-10 p-12">
-                <h3 class="font-display text-2xl">New In</h3>
-                <p class="text-sm mt-2">Lorem ipsum dolor sit amet, consectetur.</p>
-                <div class="inline-block bg-gray-500 text-black text-sm tracking-widest font-heading px-8 py-4 mt-6 py-3 px-8 uppercase font-display font-thin tracking-wide text-xs hover:bg-black hover:text-indigo-600 hover:border-indigo-600">Shop now</div>
-            </div>
-            <img src="https://images.unsplash.com/photo-1581094651181-35942459ef62?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75">
-        </a>
-        <a href="#" class="relative block bg-black text-white md:col-span-2 lg:col-span-1">
-            <div class="relative z-10 p-12">
-                <h3 class="font-display text-2xl">Sale</h3>
-                <p class="text-sm mt-2">Lorem ipsum dolor sit amet, consectetur.</p>
-                <div class="inline-block bg-gray-500 text-black text-sm tracking-widest font-heading px-8 py-4 mt-6 py-3 px-8 uppercase font-display font-thin tracking-wide text-xs hover:bg-black hover:text-indigo-600 hover:border-indigo-600">Shop now</div>
-            </div>
-            <img src="https://images.unsplash.com/photo-1580983561252-463dca6ad904?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75">
-        </a>
-        <a href="#" class="relative block bg-black text-white md:col-span-5 lg:col-span-2">
-            <div class="relative z-10 p-12">
-                <h3 class="font-display text-2xl">Half Price</h3>
-                <p class="text-sm mt-2">Lorem ipsum dolor sit amet, consectetur.</p>
-                <div class="inline-block bg-gray-500 text-black text-sm tracking-widest font-heading px-8 py-4 mt-6 py-3 px-8 uppercase font-display font-thin tracking-wide text-xs hover:bg-black hover:text-indigo-600 hover:border-indigo-600">Shop now</div>
-            </div>
-            <img src="https://images.unsplash.com/photo-1587377838789-968194a7cc88?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2358&q=80" class="absolute inset-0 w-full h-full object-cover opacity-75">
-        </a>
-    </div>
-    @* Blog banner*@
-    <div class="dark:bg-black text-center py-12">
-        <a href="#" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4">Place holder for blog carousel</a>
-    </div>
-    @* Main Services *@
-    <div class="dark:bg-black bg-gray-300 p-4 grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 md:h-screen">
-        <div class="dark:bg-black dark:text-white text-gray-700 text-center md:col-span-2 flex items-center justify-center">
-            <div class="relative z-10 p-12">
-                <div class="uppercase text-sm text-gray-700 tracking-widest">don't'</div>
-                <h3 class="font-display font-semibold text-3xl mt-2">Can't be Evil</h3>
-                <p class="mt-3 mx-auto max-w-md">Whether in the sun or on the couch, hydration is key to maintaining happy code.</p>
-                <a href="#" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4 mt-6">Read more</a>
-            </div>
-        </div>
-        <div class="h-64 md:h-auto md:col-span-2 md:row-span-2 relative">
-            <img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="absolute inset-0 w-full h-full object-cover">
-        </div>
-        <div class="h-64 md:h-auto col-span-1 row-span-1 relative">
-            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="absolute inset-0 w-full h-full object-cover">
-        </div>
-        <div class="h-64 md:h-auto col-span-1 row-span-1 relative">
-            <img src="https://images.unsplash.com/photo-1461685265823-f8d5d0b08b9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="absolute inset-0 w-full h-full object-cover">
-        </div>
-    </div>
-    @* Testomnial Quotes*@
-    <div class="dark:bg-gray-300 dark:text-black mx-auto px-6 py-12">
-        <h2 class="font-display font-semibold text-3xl">Testimonials</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24 mt-12">
-            <div class="relative">
-                <p class="relative z-10 text-justify">“Experience is the name everyone gives to their mistakes.”</p>
-                <div class="relative z-10 text-sm flex items-center justify-end">
-                    <svg class="inline-block w-32 h-32 -mb-8" x="0px" y="0px" viewBox="0 0 100 125">
-                        <path d="M91.8 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7C70 47.3 68 45 64 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-.6 0-1 .4-1 1s.4 1 1 1c3 0 4.5 1.7 6.2 3.7 1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7.6 0 1-.4 1-1s-.4-1-1-1z" />
-                    </svg>
-                    <span>  Oscar Wilde</span>
-                </div>
-                <svg class="absolute top-0 left-0 w-28 h-28 -mt-10 -ml-8 opacity-5" viewBox="0 0 95.333 95.332">
-                    <path d="M30.512,43.939c-2.348-0.676-4.696-1.019-6.98-1.019c-3.527,0-6.47,0.806-8.752,1.793
+            <svg class="absolute top-0 left-0 w-28 h-28 -mt-10 -ml-8 opacity-5" viewBox="0 0 95.333 95.332">
+                <path d="M30.512,43.939c-2.348-0.676-4.696-1.019-6.98-1.019c-3.527,0-6.47,0.806-8.752,1.793
                                             c2.2-8.054,7.485-21.951,18.013-23.516c0.975-0.145,1.774-0.85,2.04-1.799l2.301-8.23c0.194-0.696,0.079-1.441-0.318-2.045
                                             s-1.035-1.007-1.75-1.105c-0.777-0.106-1.569-0.16-2.354-0.16c-12.637,0-25.152,13.19-30.433,32.076
                                             c-3.1,11.08-4.009,27.738,3.627,38.223c4.273,5.867,10.507,9,18.529,9.313c0.033,0.001,0.065,0.002,0.098,0.002
                                             c9.898,0,18.675-6.666,21.345-16.209c1.595-5.705,0.874-11.688-2.032-16.851C40.971,49.307,36.236,45.586,30.512,43.939z" />
-                    <path d="M92.471,54.413c-2.875-5.106-7.61-8.827-13.334-10.474c-2.348-0.676-4.696-1.019-6.979-1.019
+                <path d="M92.471,54.413c-2.875-5.106-7.61-8.827-13.334-10.474c-2.348-0.676-4.696-1.019-6.979-1.019
                                             c-3.527,0-6.471,0.806-8.753,1.793c2.2-8.054,7.485-21.951,18.014-23.516c0.975-0.145,1.773-0.85,2.04-1.799l2.301-8.23
                                             c0.194-0.696,0.079-1.441-0.318-2.045c-0.396-0.604-1.034-1.007-1.75-1.105c-0.776-0.106-1.568-0.16-2.354-0.16
                                             c-12.637,0-25.152,13.19-30.434,32.076c-3.099,11.08-4.008,27.738,3.629,38.225c4.272,5.866,10.507,9,18.528,9.312
                                             c0.033,0.001,0.065,0.002,0.099,0.002c9.897,0,18.675-6.666,21.345-16.209C96.098,65.559,95.376,59.575,92.471,54.413z" />
+            </svg>
+        </div>
+        <div class="relative">
+            <p class="relative z-10 text-justify">“Make it work, make it right, make it fast.”</p>
+            <div class="relative z-10 text-sm flex items-center justify-end">
+                <svg class="inline-block w-32 h-32 -mb-8" x="0px" y="0px" viewBox="0 0 100 125">
+                    <path d="M91.8 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7C70 47.3 68 45 64 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-.6 0-1 .4-1 1s.4 1 1 1c3 0 4.5 1.7 6.2 3.7 1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7.6 0 1-.4 1-1s-.4-1-1-1z" />
                 </svg>
+                <span>  Kent Beck</span>
             </div>
-            <div class="relative">
-                <p class="relative z-10 text-justify">“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”</p>
-                <div class="relative z-10 text-sm flex items-center justify-end">
-                    <svg class="inline-block w-32 h-32 -mb-8" x="0px" y="0px" viewBox="0 0 100 125">
-                        <path d="M91.8 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7C70 47.3 68 45 64 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-.6 0-1 .4-1 1s.4 1 1 1c3 0 4.5 1.7 6.2 3.7 1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7.6 0 1-.4 1-1s-.4-1-1-1z" />
-                    </svg>
-                    <span>  Martin Fowler</span>
-                </div>
-                <svg class="absolute top-0 left-0 w-28 h-28 -mt-10 -ml-8 opacity-5" viewBox="0 0 95.333 95.332">
-                    <path d="M30.512,43.939c-2.348-0.676-4.696-1.019-6.98-1.019c-3.527,0-6.47,0.806-8.752,1.793
+            <svg class="absolute top-0 left-0 w-28 h-28 -mt-10 -ml-8 opacity-5" viewBox="0 0 95.333 95.332">
+                <path d="M30.512,43.939c-2.348-0.676-4.696-1.019-6.98-1.019c-3.527,0-6.47,0.806-8.752,1.793
                                             c2.2-8.054,7.485-21.951,18.013-23.516c0.975-0.145,1.774-0.85,2.04-1.799l2.301-8.23c0.194-0.696,0.079-1.441-0.318-2.045
                                             s-1.035-1.007-1.75-1.105c-0.777-0.106-1.569-0.16-2.354-0.16c-12.637,0-25.152,13.19-30.433,32.076
                                             c-3.1,11.08-4.009,27.738,3.627,38.223c4.273,5.867,10.507,9,18.529,9.313c0.033,0.001,0.065,0.002,0.098,0.002
                                             c9.898,0,18.675-6.666,21.345-16.209c1.595-5.705,0.874-11.688-2.032-16.851C40.971,49.307,36.236,45.586,30.512,43.939z" />
-                    <path d="M92.471,54.413c-2.875-5.106-7.61-8.827-13.334-10.474c-2.348-0.676-4.696-1.019-6.979-1.019
+                <path d="M92.471,54.413c-2.875-5.106-7.61-8.827-13.334-10.474c-2.348-0.676-4.696-1.019-6.979-1.019
                                             c-3.527,0-6.471,0.806-8.753,1.793c2.2-8.054,7.485-21.951,18.014-23.516c0.975-0.145,1.773-0.85,2.04-1.799l2.301-8.23
                                             c0.194-0.696,0.079-1.441-0.318-2.045c-0.396-0.604-1.034-1.007-1.75-1.105c-0.776-0.106-1.568-0.16-2.354-0.16
                                             c-12.637,0-25.152,13.19-30.434,32.076c-3.099,11.08-4.008,27.738,3.629,38.225c4.272,5.866,10.507,9,18.528,9.312
                                             c0.033,0.001,0.065,0.002,0.099,0.002c9.897,0,18.675-6.666,21.345-16.209C96.098,65.559,95.376,59.575,92.471,54.413z" />
-                </svg>
-            </div>
-            <div class="relative">
-                <p class="relative z-10 text-justify">“Make it work, make it right, make it fast.”</p>
-                <div class="relative z-10 text-sm flex items-center justify-end">
-                    <svg class="inline-block w-32 h-32 -mb-8" x="0px" y="0px" viewBox="0 0 100 125">
-                        <path d="M91.8 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7C70 47.3 68 45 64 45c-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-3.9 0-5.9 2.3-7.7 4.3-1.7 2-3.2 3.7-6.2 3.7s-4.5-1.7-6.2-3.7c-1.8-2-3.8-4.3-7.7-4.3-.6 0-1 .4-1 1s.4 1 1 1c3 0 4.5 1.7 6.2 3.7 1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7s4.5 1.7 6.2 3.7c1.8 2 3.8 4.3 7.7 4.3 3.9 0 5.9-2.3 7.7-4.3 1.7-2 3.2-3.7 6.2-3.7.6 0 1-.4 1-1s-.4-1-1-1z" />
-                    </svg>
-                    <span>  Kent Beck</span>
-                </div>
-                <svg class="absolute top-0 left-0 w-28 h-28 -mt-10 -ml-8 opacity-5" viewBox="0 0 95.333 95.332">
-                    <path d="M30.512,43.939c-2.348-0.676-4.696-1.019-6.98-1.019c-3.527,0-6.47,0.806-8.752,1.793
-                                            c2.2-8.054,7.485-21.951,18.013-23.516c0.975-0.145,1.774-0.85,2.04-1.799l2.301-8.23c0.194-0.696,0.079-1.441-0.318-2.045
-                                            s-1.035-1.007-1.75-1.105c-0.777-0.106-1.569-0.16-2.354-0.16c-12.637,0-25.152,13.19-30.433,32.076
-                                            c-3.1,11.08-4.009,27.738,3.627,38.223c4.273,5.867,10.507,9,18.529,9.313c0.033,0.001,0.065,0.002,0.098,0.002
-                                            c9.898,0,18.675-6.666,21.345-16.209c1.595-5.705,0.874-11.688-2.032-16.851C40.971,49.307,36.236,45.586,30.512,43.939z" />
-                    <path d="M92.471,54.413c-2.875-5.106-7.61-8.827-13.334-10.474c-2.348-0.676-4.696-1.019-6.979-1.019
-                                            c-3.527,0-6.471,0.806-8.753,1.793c2.2-8.054,7.485-21.951,18.014-23.516c0.975-0.145,1.773-0.85,2.04-1.799l2.301-8.23
-                                            c0.194-0.696,0.079-1.441-0.318-2.045c-0.396-0.604-1.034-1.007-1.75-1.105c-0.776-0.106-1.568-0.16-2.354-0.16
-                                            c-12.637,0-25.152,13.19-30.434,32.076c-3.099,11.08-4.008,27.738,3.629,38.225c4.272,5.866,10.507,9,18.528,9.312
-                                            c0.033,0.001,0.065,0.002,0.099,0.002c9.897,0,18.675-6.666,21.345-16.209C96.098,65.559,95.376,59.575,92.471,54.413z" />
-                </svg>
-            </div>
+            </svg>
         </div>
     </div>
-    @* Secondary services*@
-    <div class="dark:bg-black bg-gray-300 p-4 grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 md:h-screen">
-        <div class="h-64 md:h-auto md:col-span-2 md:row-span-2 relative">
-            <img src="https://images.unsplash.com/photo-1640763502425-7668dc1e4023?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="absolute inset-0 w-full h-full object-cover">
-        </div>
-        <div class="dark:text-white text-gray-700 text-center md:col-span-2 flex items-center justify-center">
-            <div class="relative z-10 p-12">
-                <div class="uppercase text-sm text-gray-700 tracking-widest">Only the best </div>
-                <h3 class="font-display font-semibold text-3xl mt-2">Microsoft Services</h3>
-                <p class="mt-3 mx-auto max-w-md">We're humans too and we understand that good code should provide security in the short and long run.</p>
-                <a href="#" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4 mt-6">Shop now</a>
-            </div>
-        </div>
-        <div class="h-64 md:h-auto col-span-1 row-span-1 relative">
-            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80" class="absolute inset-0 w-full h-full object-cover">
-        </div>
-        <div class="h-64 md:h-auto col-span-1 row-span-1 relative">
-            <img src="https://images.unsplash.com/photo-1488229297570-58520851e868?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80" class="absolute inset-0 w-full h-full object-cover">
+</div>
+@* Secondary services*@
+<div class="dark:bg-black bg-gray-300 p-4 grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 md:h-screen">
+    <div class="h-64 md:h-auto md:col-span-2 md:row-span-2 relative">
+        <img src="https://images.unsplash.com/photo-1640763502425-7668dc1e4023?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="absolute inset-0 w-full h-full object-cover">
+    </div>
+    <div class="dark:text-white text-gray-700 text-center md:col-span-2 flex items-center justify-center">
+        <div class="relative z-10 p-12">
+            <div class="uppercase text-sm text-gray-700 tracking-widest">Only the best </div>
+            <h3 class="font-display font-semibold text-3xl mt-2">Microsoft Services</h3>
+            <p class="mt-3 mx-auto max-w-md">We're humans too and we understand that good code should provide security in the short and long run.</p>
+            <a href="#" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4 mt-6">Shop now</a>
         </div>
     </div>
-    @*Footer*@
-    <div class="text-gray-800 text-opacity-40 font-semibold text-xs tracking-widest px-12">
+    <div class="h-64 md:h-auto col-span-1 row-span-1 relative">
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80" class="absolute inset-0 w-full h-full object-cover">
     </div>
-    <div class="dark:bg-gray-600 dark:text-indigo-100 text-indigo-500 text-sm lg:text-base text-center font-heading font-light tracking-widest uppercase p-12">©2022 design by LightningBits. images by unsplash</div>
+    <div class="h-64 md:h-auto col-span-1 row-span-1 relative">
+        <img src="https://images.unsplash.com/photo-1488229297570-58520851e868?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80" class="absolute inset-0 w-full h-full object-cover">
+    </div>
+</div>
+@*Footer*@
+<div class="text-gray-800 text-opacity-40 font-semibold text-xs tracking-widest px-12">
+</div>
+<div class="dark:bg-gray-600 dark:text-indigo-100 text-indigo-500 text-sm lg:text-base text-center font-heading font-light tracking-widest uppercase p-12">©2022 design by LightningBits. images by unsplash</div>
 
 
 @code {
     private string LocalHost = "https://myblog.lightningbits.net";
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
 }
 

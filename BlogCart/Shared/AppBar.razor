@@ -1,72 +1,66 @@
-﻿@using ViewModels
-@inject ISyncLocalStorageService _localStorage
+﻿@inherits LayoutComponentBase
+@inject ILocalStorageService _localStorage
 @inject ICartService _cartService
-@*@implements IDisposable*@
+@implements IDisposable
 
 
-        <!--<MudAppBar Elevation="21" Dense="true">
-            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Medium" Edge="Edge.End"
-                           OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
-            <MudIconButton Href="/" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
-            <MudSpacer />
-            @if (GetCartCount() < 1)
-            {
-                <MudIconButton Href="https://github.com/LightningBit/E-Commerce" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
+<MudAppBar Elevation="21" Dense="true">
+    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Medium" Edge="Edge.End"
+                   OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
+    <MudIconButton Href="/" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
+    <MudSpacer />
+    @if (CartCount < 1)
+    {
+        <MudIconButton Href="https://github.com/LightningBit/E-Commerce" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
 
-            }
-            else
-            {
-                <MudText>( @GetCartCount() )</MudText>
-                <MudIconButton Href="/cart" Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.False" />
-                <MudIconButton Href="https://github.com/LightningBit/E-Commerce" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-            }-->
-            @*<MudIconButton Href="#" Icon="@Icons.Custom.Brands.Facebook" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-                <MudIconButton Href="#" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-                <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Instagram" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-                <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Twitter" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />*@
-        <!--</MudAppBar>-->
-        <MudAppBar Elevation="21" Dense="true">
-            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Medium" Edge="Edge.End"
-                           OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
-            <MudIconButton Href="/" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
-            <MudSpacer />
-            @if (GetCartCount() < 1)
-            {
-                <MudIconButton Href="https://github.com/LightningBit/E-Commerce" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-
-            }
-            else
-            {
-                @*<MudText>( @GetCartCount() )</MudText>*@
-                <MudIconButton Href="/cart" Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.False" />
-                <MudIconButton Href="https://github.com/LightningBit/E-Commerce" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-            }            @*<MudIconButton Href="#" Icon="@Icons.Custom.Brands.Facebook" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-                <MudIconButton Href="#" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-                <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Instagram" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-                <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Twitter" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />*@
-        </MudAppBar>
-
-
+    }
+    else
+    {
+        <MudText>(@CartCount)</MudText>
+        <MudIconButton Href="/cart" Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.False" />
+        <MudIconButton Href="https://github.com/LightningBit/E-Commerce" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
+    }
+    @*<MudIconButton Href="#" Icon="@Icons.Custom.Brands.Facebook" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />*@
+    @*<MudIconButton Href="#" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
+        <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Instagram" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
+        <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Twitter" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />*@
+</MudAppBar>
 
 
 @code {
     [Parameter]
     public EventCallback OnSidebarToggled { get; set; }
-    //protected override void OnInitialized()
-    //{
-    //    _cartService.OnChange += StateHasChanged;
-    //}
 
-    //public void Dispose()
-    //{
-    //    _cartService.OnChange -= StateHasChanged;
-    //}
+    private int CartCount { get; set; }
 
-    private int GetCartCount()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var cart = 1;
-        //var cart = _localStorage.GetItem<List<ShoppingCart>>(SD.ShoppingCart);
-        //return cart == null ? 0 : cart.Count;
-        return cart;
+        if (firstRender)
+        {
+            _cartService.OnChange += UpdateCartCount;
+            await UpdateCartCountAsync();
+        }
+    }
+
+    private async Task UpdateCartCountAsync()
+    {
+        var cart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
+        CartCount = cart?.Sum(c => c.Count) ?? 0;
+        StateHasChanged();
+    }
+
+    private void UpdateCartCount()
+    {
+        _ = UpdateCartCountAsync();
+    }
+
+    public void Dispose()
+    {
+        _cartService.OnChange -= UpdateCartCount;
     }
 }
+
+
+
+
+

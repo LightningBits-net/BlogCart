@@ -1,5 +1,4 @@
-﻿//using Microsoft.AspNetCore.Components;
-//using Microsoft.AspNetCore.Components.Web;
+﻿
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Syncfusion.Blazor;
