@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce_Client", "src\ECo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedApi", "src\SharedApi\SharedApi.csproj", "{DD89AE15-4201-4E9B-9EE1-E7CCAEC7EE73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogCart", "BlogCart\BlogCart.csproj", "{DE24A632-D82A-428E-BB1C-90A4A73EBFCD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogCart", "src\BlogCart\BlogCart.csproj", "{DE24A632-D82A-428E-BB1C-90A4A73EBFCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

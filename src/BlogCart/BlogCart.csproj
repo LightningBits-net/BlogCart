@@ -13,9 +13,10 @@
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.50" />
     <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.4.0.50" />
    <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
+   <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.5" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\SharedServices\SharedServices.csproj">
+    <ProjectReference Include="..\SharedServices\SharedServices.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>

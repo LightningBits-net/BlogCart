@@ -6,6 +6,7 @@ using BlogCart.Service;
 using BlogCart.Service.IService;
 using Blazored.LocalStorage;
 using MudBlazor.Services;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
@@ -16,6 +17,8 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
+//builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+//builder.Services.AddAuthorizationCore();
 
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddMudServices();

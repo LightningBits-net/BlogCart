@@ -399,3 +399,4 @@ FodyWeavers.xsd
 
 *.json
 *.json
+.DS_Store
