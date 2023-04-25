@@ -23,9 +23,13 @@
   <ItemGroup>
     <None Remove="Pages\Authentication\" />
     <None Remove="Pages\SharedUI\" />
+    <None Remove="Properties\PublishProfiles\" />
+    <None Remove="Pages\ThriftBoss\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Authentication\" />
     <Folder Include="Pages\SharedUI\" />
+    <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Pages\ThriftBoss\" />
   </ItemGroup>
 </Project>
