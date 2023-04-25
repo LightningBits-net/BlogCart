@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'BlogCart'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_99F01CF67437494C837DC2A6E640CB1A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4CC55E1E2FA64AB09D4090CF814FFCFF }}
           package: .
