@@ -20,4 +20,12 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Pages\Authentication\" />
+    <None Remove="Pages\SharedUI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Authentication\" />
+    <Folder Include="Pages\SharedUI\" />
+  </ItemGroup>
 </Project>

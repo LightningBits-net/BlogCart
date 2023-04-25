@@ -1,0 +1,17 @@
+﻿@*@page "/logout"
+@inject MudBlazor.ISnackbar snackBar
+
+@code{
+
+    [Inject]
+    public IAuthenticationService _authSerivce { get; set; }
+    [Inject]
+    public NavigationManager _navigationManager { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await _authSerivce.Logout();
+        snackBar.Add("Log-out is successful", Severity.Success);
+        _navigationManager.NavigateTo("/");
+    }
+}*@

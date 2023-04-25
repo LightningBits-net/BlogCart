@@ -30,9 +30,9 @@
                 <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">LightningBits.net</MudText>
             </MudDrawerHeader>
             <MudNavMenu>
-                <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-                <MudNavLink Href="/" Match="NavLinkMatch.All"></MudNavLink>
-                <MudNavLink Href="https://lightningbits.net/" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>
+                <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+                @*<MudNavLink Href="/" Match="NavLinkMatch.All"></MudNavLink>*@
+                @*<MudNavLink Href="https://lightningbits.net/" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix" Style="text-align">Home</MudNavLink>*@
                 <MudNavGroup Title="My Blog" Expanded="false" Color="Color.Dark">
                     <MudNavLink Href="@($"{LocalHost}/BlogViewHome")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Read Me</MudNavLink>
                 </MudNavGroup>
@@ -41,13 +41,13 @@
                     <MudNavGroup Title="My Demo Shops" Expanded="false" Color="Color.Dark">
                         <MudNavLink Href="/ThriftBoss" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Demo-ThriftBoss</MudNavLink>
                         <MudNavLink Href="/ServerPreview" Icon="@Icons.Material.Filled.Dashboard" Match="NavLinkMatch.Prefix">Demo-AdminView</MudNavLink>
-                    </MudNavGroup>
+                    </MudNavGroup>ss
                 </MudNavGroup>
                 <MudNavGroup Title="My Portfolio" Expanded="false" Color="Color.Dark">
                     <MudNavLink Href="@($"{LocalHost}/portfolio")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">About Me</MudNavLink>
                 </MudNavGroup>
-
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+                <MudNavLink Href="/contact" Icon="@Icons.Material.Filled.ContactPage" Match="NavLinkMatch.Prefix" Style="text-align">Contact me</MudNavLink>
             </MudNavMenu>
             @*<MudButton Href="/login" StartIcon="@Icons.Material.Filled.Login" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Login/Register</MudButton>*@
             @*<MudDivider DividerType="DividerType.Middle" Class="my-6" />
