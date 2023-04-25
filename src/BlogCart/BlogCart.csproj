@@ -13,23 +13,10 @@
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.50" />
     <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.4.0.50" />
    <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
-   <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Pages\Authentication\" />
-    <None Remove="Pages\SharedUI\" />
-    <None Remove="Properties\PublishProfiles\" />
-    <None Remove="Pages\ThriftBoss\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Authentication\" />
-    <Folder Include="Pages\SharedUI\" />
-    <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Pages\ThriftBoss\" />
   </ItemGroup>
 </Project>
