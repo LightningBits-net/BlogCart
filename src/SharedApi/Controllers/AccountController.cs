@@ -124,8 +124,6 @@ namespace SharedApi.Controllers
                     ErrorMessage = "Invalid Authentication"
                 });
             }
-
-            return StatusCode(201);
         }
 
         private SigningCredentials GetSigningCredentials()
