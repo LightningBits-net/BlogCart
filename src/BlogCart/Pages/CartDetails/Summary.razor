@@ -107,18 +107,16 @@ else
                         </div>
                         <MudButton Href="/Cart" FullWidth="true" Variant="Variant.Filled" Color="Color.Dark" Class="ml-auto">Return to Cart</MudButton>
                     </EditForm>
-                    </MudCardContent>
-                   </MudCard>
+                </MudCardContent>
+            </MudCard>
         </div>
     </div>
 
 
-}
 
 
-
-@code {
-    public bool IsProcessing { get; set; } = false;
+    @code {
+public bool IsProcessing { get; set; } = false;
     private OrderDTO Order { get; set; } = null;
     public IEnumerable<ProductDTO> Products { get; set; } = new List<ProductDTO>();
 
@@ -204,6 +202,6 @@ else
         //}
     }
 
-}
+    }
 
 

@@ -51,18 +51,32 @@ namespace SharedServices.Repository
             return new ProductPriceDTO();
         }
 
-        public async Task<IEnumerable<ProductPriceDTO>> GetAll(int? id=null)
+        //public async Task<IEnumerable<ProductPriceDTO>> GetAll(int? id=null)
+        //{
+        //    if(id!=null && id>0)
+        //    {
+        //        return _mapper.Map<IEnumerable<ProductPrice>, IEnumerable<ProductPriceDTO>>
+        //        (_db.ECommerceProductPrices.Where(u=>u.ProductId==id));
+        //    }
+        //    else
+        //    {
+        //        return _mapper.Map<IEnumerable<ProductPrice>, IEnumerable<ProductPriceDTO>>(_db.ECommerceProductPrices);
+        //    }
+
+        //}
+
+        public async Task<IEnumerable<ProductPriceDTO>> GetAll(int? id = null)
         {
-            if(id!=null && id>0)
+            if (id != null && id > 0)
             {
-                return _mapper.Map<IEnumerable<ProductPrice>, IEnumerable<ProductPriceDTO>>
-                (_db.ECommerceProductPrices.Where(u=>u.ProductId==id));
+                var productPrices = await _db.ECommerceProductPrices.Where(u => u.ProductId == id).ToListAsync();
+                return _mapper.Map<IEnumerable<ProductPrice>, IEnumerable<ProductPriceDTO>>(productPrices);
             }
             else
             {
-                return _mapper.Map<IEnumerable<ProductPrice>, IEnumerable<ProductPriceDTO>>(_db.ECommerceProductPrices);
+                var productPrices = await _db.ECommerceProductPrices.ToListAsync();
+                return _mapper.Map<IEnumerable<ProductPrice>, IEnumerable<ProductPriceDTO>>(productPrices);
             }
-
         }
 
         public async Task<ProductPriceDTO> Update(ProductPriceDTO objDTO)

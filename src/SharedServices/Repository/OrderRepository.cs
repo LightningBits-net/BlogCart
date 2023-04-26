@@ -69,12 +69,26 @@ namespace SharedServices.Repository
             return 0;
         }
 
+        //public async Task<OrderDTO> Get(int id)
+        //{
+        //    Order order = new()
+        //    {
+        //        OrderHeader = _db.OrderHeaders.FirstOrDefault(u => u.Id == id),
+        //        OrderDetails = _db.OrderDetails.Where(u => u.OrderHeaderId == id),
+        //    };
+        //    if (order != null)
+        //    {
+        //        return _mapper.Map<Order, OrderDTO>(order);
+        //    }
+        //    return new OrderDTO();
+        //}
+
         public async Task<OrderDTO> Get(int id)
         {
             Order order = new()
             {
-                OrderHeader = _db.OrderHeaders.FirstOrDefault(u => u.Id == id),
-                OrderDetails = _db.OrderDetails.Where(u => u.OrderHeaderId == id),
+                OrderHeader = await _db.OrderHeaders.FirstOrDefaultAsync(u => u.Id == id),
+                OrderDetails = await _db.OrderDetails.Where(u => u.OrderHeaderId == id).ToListAsync(),
             };
             if (order != null)
             {
@@ -83,12 +97,14 @@ namespace SharedServices.Repository
             return new OrderDTO();
         }
 
+
+
+
         public async Task<IEnumerable<OrderDTO>> GetAll(string? userId = null, string? status = null)
         {
-
             List<Order> OrderFromDb = new List<Order>();
-            IEnumerable<OrderHeader> orderHeaderList = _db.OrderHeaders;
-            IEnumerable<OrderDetail> orderDetailList = _db.OrderDetails;
+            IEnumerable<OrderHeader> orderHeaderList = await _db.OrderHeaders.ToListAsync();
+            IEnumerable<OrderDetail> orderDetailList = await _db.OrderDetails.ToListAsync();
 
             foreach (OrderHeader header in orderHeaderList)
             {
@@ -102,7 +118,6 @@ namespace SharedServices.Repository
             //do some filtering #TODO
 
             return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(OrderFromDb);
-
         }
 
         public async Task<OrderHeaderDTO> MarkPaymentSuccessful(int id)
