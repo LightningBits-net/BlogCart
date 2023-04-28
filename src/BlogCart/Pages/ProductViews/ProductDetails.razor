@@ -4,6 +4,16 @@
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 
+<PageTitle>@Product.Name</PageTitle>
+
+<head>
+    <title>@Product.Name</title>
+    <meta name="description" content="@Product.Description" />
+    <meta property="og:title" content="@Product.Name" />
+    <meta property="og:description" content="@Product.Description" />
+    <meta property="og:image" content="@Product.ImageUrl" />
+    <meta property="og:url" content="@(_navigationManager.Uri)" />
+</head>
 
 @if (IsProcessing)
 {
@@ -23,7 +33,7 @@ else
                         <MudText Typo="Typo.body2" Color="Color.Default"> Color: @Product.Color</MudText>
                     }
                 </MudCardActions>
-                <img src="@Product.ImageUrl" class="w-full h-64 object-cover" />
+                <img src="@Product.ImageUrl" class="w-full h-64 object-cover" alt="@Product.Name image" />
                 <MudCardContent>
                     <p class="h-48 min-h-0">
                         <MudText Typo="Typo.body1" Color="Color.Inherit"> @((MarkupString)Product.Description)</MudText>
@@ -35,17 +45,17 @@ else
                         {
                             if (productPrice.Id == DetailsVM.SelectedProductPriceId)
                             {
-                                <MudButton Color="Color.Dark" Width="128px" Height="64px" Class="my-2 mr-2" Style="border: 3px solid #28A745; border-radius: 5px; box-shadow: 5px">
-                                    <p class="text-center">@productPrice.MyProperty</p>
-                                    <p class="text-center">@productPrice.Price.ToString("c")</p>
+                                <MudButton Color="Color.Dark" Width="128px" Height="64px" Class="my-2 mr-4" Style="border: 3px solid #28A745; border-radius: 5px; box-shadow: 5px">
+                                    <p class="text-center mr-2">@productPrice.MyProperty</p>
+                                    <p class="text-center mr-2">@productPrice.Price.ToString("c")</p>
                                     <p class="text-center">@productPrice.Size</p>
                                 </MudButton>
                             }
                             else
                             {
-                                <MudButton OnClick="(args)=>SelectedProductPrice(args,productPrice.Id)" Color="Color.Info" Width="128px" Height="64px" Class="my-2 mr-2" Style="border: 1px solid; border-radius: 20px; box-shadow: 5px">
-                                    <p class="text-center">@productPrice.MyProperty</p>
-                                    <p class="text-center">@productPrice.Price.ToString("c")</p>
+                                <MudButton OnClick="(args)=>SelectedProductPrice(args,productPrice.Id)" Color="Color.Info" Width="128px" Height="64px" Class="my-2 mr-4" Style="border: 1px solid; border-radius: 20px; box-shadow: 5px">
+                                    <p class="text-center mr-2">@productPrice.MyProperty</p>
+                                    <p class="text-center mr-2">@productPrice.Price.ToString("c")</p>
                                     <p class="text-center">@productPrice.Size</p>
                                 </MudButton>
                             }
@@ -57,9 +67,12 @@ else
                     <MudButton Class="w-full mt-2" OnClick="AddToCart" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success">Add to Cart</MudButton>
                 }
             </MudCard>
+            <MudButton Class="mt-2" Href="/services" Variant="Variant.Text" Color="Color.Primary">Go Back</MudButton>
+
         </div>
     </div>
 }
+
 
 
 @code {
