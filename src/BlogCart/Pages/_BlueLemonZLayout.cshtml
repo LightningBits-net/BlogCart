@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
-@namespace BlogCart.Pages
+@namespace BlogCart.Pages.BlueLemonZ.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
@@ -61,7 +61,20 @@
             }
         });</script>
 
-    @*<script>const slideshowthriftboss = () => ({
+    <script>const slideshowbluelemonz = () => ({
+            current: 0,
+            images: [
+                'https://images.unsplash.com/photo-1528578577235-b963df6db908?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+                'https://images.unsplash.com/photo-1578353022142-09264fd64295?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=415&q=80'
+            ],
+            init() {
+                window.setInterval(() => {
+                    this.current = this.current < this.images.length - 1 ? this.current + 1 : 0
+                }, 4000);
+            }
+        });</script>
+
+    <script>const slideshowthriftboss = () => ({
             current: 0,
             images: [
                 'https://images.unsplash.com/photo-1523194631059-d30921cdc79a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTB8UUhlWlB5T3BwY2N8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
@@ -72,9 +85,9 @@
                     this.current = this.current < this.images.length - 1 ? this.current + 1 : 0
                 }, 4000);
             }
-        });</script>*@
+        });</script>
 
-    <script>const slideshowPort = () => ({
+    @*<script>const slideshowPort = () => ({
             current: 0,
             images: [
                 'https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80',
@@ -85,8 +98,7 @@
                     this.current = this.current < this.images.length - 1 ? this.current + 1 : 0
                 }, 4000);
             }
-        });</script>
+        });</script>*@
 
 </body>
-</html >
-
+</html>

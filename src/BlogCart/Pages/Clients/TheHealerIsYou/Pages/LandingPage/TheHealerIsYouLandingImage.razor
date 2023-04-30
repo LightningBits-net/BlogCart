@@ -1,0 +1,18 @@
+﻿<div x-data="slideshowPort()" x-init="init()" class="-mt-32 relative w-full h-screen bg-blue-100 flex items-center justify-center">
+    <div class="relative z-10 text-center text-white px-6">
+        <h1 class="text-3xl md:text-5xl font-display font-semibold mt-2">Code is law</h1>
+        <div class="max-w-sm mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <a href="/services" class="inline-block bg-indigo-500 text-white text-sm tracking-widest font-heading px-8 py-4">Shop now</a>
+            <a href="@($"{Constants.MyBlogHost}/blogviewhome")" class="inline-block bg-gray-100 text-indigo-500 text-sm tracking-widest font-heading px-8 py-4">MyBlog</a>
+        </div>
+        <p class="mt-4">A unique layout with a striking design</p>
+
+    </div>
+    <img x-bind:src="images[current]" class="w-full h-full absolute inset-0 object-cover opacity-95">
+</div>
+
+@code {
+   
+
+}
+

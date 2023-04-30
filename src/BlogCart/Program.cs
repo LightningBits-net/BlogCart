@@ -7,6 +7,8 @@ using BlogCart.Service.IService;
 using Blazored.LocalStorage;
 using MudBlazor.Services;
 using Microsoft.AspNetCore.Authentication;
+using BlogCart;
+using Microsoft.JSInterop;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
@@ -24,7 +26,14 @@ builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddMudServices();
 builder.Services.AddSyncfusionBlazor();
 
+builder.Services.AddSingleton<DomainLayoutService>();
+builder.Services.AddHttpContextAccessor();
+
+
+
+
 var app = builder.Build();
+
 
 if (!app.Environment.IsDevelopment())
 {

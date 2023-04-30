@@ -1,30 +1,4 @@
 ﻿
-<!--<AuthorizeView>
-    <Authorized>
-        <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
-            <MudDrawerHeader>
-                <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">LightningBits.net</MudText>
-            </MudDrawerHeader>
-            <MudNavMenu>
-                <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-                <MudNavLink Href="/" Match="NavLinkMatch.All"></MudNavLink>
-                <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.Prefix">Home</MudNavLink>-->
-                @*<MudNavLink Href="/products" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Products</MudNavLink>*@
-                <!--<MudNavLink Href="@($"{LocalHost}/BlogViewHome")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">My Blog</MudNavLink>
-                <MudNavLink Href="/About" Icon="@Icons.Material.Filled.AutoAwesome" Match="NavLinkMatch.Prefix">My Portfolio</MudNavLink>
-                <MudNavGroup Title="My Demo Shops" Expanded="false" Color="Color.Dark">
-                    <MudNavLink Href="/ThriftBoss" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">ThriftBoss</MudNavLink>
-                </MudNavGroup>
-                <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-                <MudNavGroup  Expanded="false" Color="Color.Dark">
-                    <MudNavLink Href="" Icon="@Icons.Material.Filled.Settings" Match="NavLinkMatch.Prefix">Settings</MudNavLink>
-                    <MudNavLink Href="" Icon="@Icons.Material.Filled.Favorite" Match="NavLinkMatch.Prefix">Favorites</MudNavLink>
-                </MudNavGroup>
-            </MudNavMenu>
-            <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />-->
-            @*<MudButton Href="/logout" StartIcon="@Icons.Material.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-out</MudButton>*@
-        <!--</MudDrawer>
-    </Authorized>-->
         <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
             <MudDrawerHeader>
                 <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">LightningBits.net</MudText>
@@ -49,11 +23,6 @@
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
                 <MudNavLink Href="/contact" Icon="@Icons.Material.Filled.ContactPage" Match="NavLinkMatch.Prefix" Style="text-align">Contact me</MudNavLink>
             </MudNavMenu>
-            @*<MudButton Href="/login" StartIcon="@Icons.Material.Filled.Login" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Login/Register</MudButton>*@
-            @*<MudDivider DividerType="DividerType.Middle" Class="my-6" />
-            <MudButton Href="/Services" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">SaaS (Software as a Service)</MudButton>
-            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-            <MudButton Href="@($"{LocalHost}/portfolio")" StartIcon="@Icons.Material.Filled.DataObject" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">My Portfolio</MudButton>*@
         </MudDrawer>
 
 

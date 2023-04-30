@@ -1,13 +1,25 @@
-﻿
+﻿@inject DomainLayoutService DomainLayoutService
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+@using BlogCart.Pages
+
 <Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <CascadingValue Value="DomainLayoutService.GetLayoutForDomain(HttpContextAccessor.HttpContext.Request.Host.Value)">
+            <RouteView RouteData="@routeData" DefaultLayout="null" />
+        </CascadingValue>
     </Found>
     <NotFound>
         <PageTitle>Not found</PageTitle>
         <LayoutView Layout="@typeof(MainLayout)">
-           <Underconstruction></Underconstruction>
+            <Underconstruction></Underconstruction>
         </LayoutView>
     </NotFound>
 </Router>
+
+
+
+
+
 
