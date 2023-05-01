@@ -1,4 +1,4 @@
-﻿using BlogCart.Shared;
+﻿using BlogCart.Shared.MainLayouts;
 
 namespace BlogCart.Service
 {
