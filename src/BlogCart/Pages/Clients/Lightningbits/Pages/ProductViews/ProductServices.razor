@@ -1,16 +1,17 @@
 ﻿@page "/Services"
 @inject IProductService _productService
-
+@inject DomainLayoutService DomainLayoutService
+@layout LightningBitsLayout
 
 <PageTitle>@CategoryName</PageTitle>
 @*<head>
-    <title>@Product.Name</title>
-    <meta name="description" content="@Product.Description" />
-    <meta property="og:title" content="@Product.Name" />
-    <meta property="og:description" content="@Product.Description" />
-    <meta property="og:image" content="@Product.ImageUrl" />
-    <meta property="og:url" content="@(_navigationManager.Uri)" />
-</head>*@
+        <title>@Product.Name</title>
+        <meta name="description" content="@Product.Description" />
+        <meta property="og:title" content="@Product.Name" />
+        <meta property="og:description" content="@Product.Description" />
+        <meta property="og:image" content="@Product.ImageUrl" />
+        <meta property="og:url" content="@(_navigationManager.Uri)" />
+    </head>*@
 
 <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
     <h1 class="font-display-italic dark:text-white text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Services</h1>

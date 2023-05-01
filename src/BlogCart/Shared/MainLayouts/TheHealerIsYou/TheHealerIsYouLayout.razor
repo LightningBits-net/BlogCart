@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject IHttpContextAccessor HttpContextAccessor
+@namespace BlogCart.Shared.MainLayouts
 
 
 <MudThemeProvider Theme="MyTheme" @bind-IsDarkMode="@_isDarkMode" @ref="@_mudThemeProvider" />
@@ -9,7 +10,7 @@
 
 <MudLayout Color="Color.Dark">
     @*<AppBar OnSidebarToggled="ToggleSidebar" />
-    <NavMenu SideBarOpen="_sidebarOpen" />*@
+        <NavMenu SideBarOpen="_sidebarOpen" />*@
     <MudScrollToTop>
         <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
     </MudScrollToTop>

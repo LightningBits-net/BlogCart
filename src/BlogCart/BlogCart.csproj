@@ -19,17 +19,7 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Remove="Pages\Clients\" />
-    <None Remove="Pages\Clients\BlueLemonZ\Pages\LandingPage\" />
-    <None Remove="Pages\Clients\TheHealerIsYou\Pages\LandingPage\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Clients\" />
-    <Folder Include="Pages\Clients\BlueLemonZ\Pages\LandingPage\" />
-    <Folder Include="Pages\Clients\TheHealerIsYou\Pages\LandingPage\" />
-  </ItemGroup>
-  <ItemGroup>
+<!--  <ItemGroup>
     <None Update="Pages\.cshtml_BlueLemonZLayout">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -37,5 +27,5 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Pages\_LayoutBlueLemonZ.cshtml" />
-  </ItemGroup>
+  </ItemGroup>-->
 </Project>
