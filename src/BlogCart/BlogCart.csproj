@@ -19,13 +19,4 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
-<!--  <ItemGroup>
-    <None Update="Pages\.cshtml_BlueLemonZLayout">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="Pages\_LayoutBlueLemonZ.cshtml" />
-  </ItemGroup>-->
 </Project>
