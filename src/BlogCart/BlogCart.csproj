@@ -19,4 +19,14 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\js\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
+    <Folder Include="Pages\CodePlayGround\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Pages\CodePlayGround\" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,157 @@
+﻿@page "/mystery"
+@page "/Code-PlayGround/mystery"
+
+
+<div class="p-4">
+    <div class="bg-gray-200 p-4 rounded-lg">
+        <div class="flex justify-center items-center pt-4">
+            <div class="w-full md:w-1/2 bg-white text-gray-900 rounded-lg shadow-lg p-4 max-h-96 overflow-y-scroll">
+                <h1 class="text-2xl mb-4">Mystery</h1>
+                <div class="mb-4">
+                    <label for="secret" class="block font-medium text-gray-700 mb-2">Secret:</label>
+                    <input id="secret" type="text" @bind-value="Secret" @bind-value:event="oninput" class="border-gray-400 border-2 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-900" />
+                    @if (!string.IsNullOrEmpty(Secret) && !int.TryParse(Secret, out int _))
+                    {
+                        <div class="text-red-600 mt-2">Please enter a valid integer for Secret.</div>
+                    }
+                </div>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 block mx-auto mb-4" @onclick="CalculateMystery">Calculate</button>
+                @if (result.HasValue)
+                {
+                    <div class="mt-4 text-gray-900">
+                        <label for="result" class="block font-medium text-gray-700 mb-2">Result:</label>
+                        <div id="result" class="border-gray-400 border-2 rounded-md px-4 py-2 w-full">@result.Value</div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="flex justify-center items-center pt-4">
+            <div class="w-full md:w-1/2 bg-white text-gray-900 rounded-lg shadow-lg p-4 max-h-96 overflow-y-scroll">
+                <h3 class="text-bold text-2xl">C# Code Explanation:</h3>
+                <p>The <code>Mystery</code> method takes two integer parameters, <code>input</code> and <code>multiplier</code>. Inside the method, <code>input</code> value is incremented by 2 and then multiplied with <code>multiplier</code>. The product of that multiplication is then multiplied by the integer value stored in the <code>Secret</code> field, which is parsed from the string representation of the <code>Secret</code>.</p>
+                <p>The <code>Mystery3</code> method takes a <code>Func&lt;int, int&gt;</code> delegate as a parameter named <code>param</code> and an integer <code>bonus</code>. Inside <code>Mystery3</code>, <code>param</code> delegate is invoked with the integer value 6 as argument, and then the resulting value is added to the <code>bonus</code> value and returned.</p>
+                <p>The <code>CalculateMystery</code> method is responsible for invoking the <code>Mystery</code> and <code>Mystery3</code> methods with specific arguments, depending on the <code>Secret</code> value, and then assigns the resulting value to the <code>result</code> field. Before assigning the value to <code>result</code>, it also checks if the <code>Secret</code> value is a valid integer, and if not, it shows an alert message using the <code>showAlert</code> method. If the <code>Secret</code> value is valid, it shows the <code>result</code> value using the same <code>showAlert</code> method.</p>
+                <p>The <code>showAlert</code> method is used to display an alert message to the user, and it takes a string <code>message</code> as its parameter. It uses the <code>JSRuntime</code> service to invoke the <code>alert</code> method of the JavaScript window object to display the message to the user.</p>
+                <h3 class="text-bold text-2xl">JS Code Explanation:</h3>
+                <p>The <code>mystery</code> function takes an integer parameter <code>input</code>. Inside the function, a variable <code>secret</code> is assigned the integer value 4. Then, the <code>input</code> value is incremented by 2. The function also declares another function called <code>mystery2</code>, which takes a parameter <code>multiplier</code>. Inside the <code>mystery2</code> function, the <code>multiplier</code> parameter is multiplied by the <code>input</code> value, and then the product of that multiplication is multiplied by the <code>secret</code> value. Finally, the <code>mystery2</code> function returns the resulting value.</p>
+                <p>The <code>mystery3</code> function takes a function parameter <code>param</code>. Inside the function, another function called <code>mystery4</code> is declared, which takes a parameter <code>bonus</code>. Inside <code>mystery4</code>, the <code>param</code> function is invoked with the integer value 6 as argument, and then the resulting value is added to the <code>bonus</code> value and returned.</p>
+                <p>The commented code below the functions shows how to invoke them to calculate the result. It declares a variable <code>hidden</code> and assigns the result of invoking the <code>mystery</code> function with the integer value 3 as argument. Then, it declares another</p>
+            </div>
+        </div>
+        <div class="flex justify-center items-center pt-4">
+            <div class="w-full md:w-1/2 bg-white text-gray-900 rounded-lg shadow-lg p-4 max-h-96 overflow-y-scroll">
+                <h1 class="text-2xl text-gray-900 mb-4">JS</h1>
+                <p>
+                    <pre><code>
+export function mystery(input) {
+    var secret = 4;
+    input += 2;
+    function mystery2(multiplier) {
+        multiplier *= input;
+        return secret * multiplier;
+    }
+    return mystery2;
+}
+
+export function mystery3(param) {
+    function mystery4(bonus) {
+        return param(6) + bonus;
+    }
+    return mystery4;
+}
+
+var hidden = mystery(3);
+var jumble = mystery3(hidden);
+var result = jumble(2);
+
+</code></pre>
+                </p>
+            </div>
+        </div>
+
+        <div class="flex justify-center items-center pt-4">
+            <div class="w-full md:w-1/2 bg-white text-gray-900 rounded-lg shadow-lg p-4 max-h-96 overflow-y-scroll">
+                <h1 class="text-2xl text-gray-900 mb-4">C#</h1>
+                <p>
+                    <pre><code>
+private int? result;
+private string Secret = "4";
+
+private int Mystery(int input, int multiplier)
+{
+    input += 2;
+    multiplier *= input;
+    return int.Parse(Secret) * multiplier;
+}
+
+private int Mystery3(Func&lt;int, int&gt; param, int bonus)
+{
+    return param(6) + bonus;
+}
+
+private void CalculateMystery()
+{
+    if (!string.IsNullOrEmpty(Secret) && int.TryParse(Secret, out int _))
+    {
+        int hidden = Mystery(3, 3);
+        int jumble = Mystery3(input => Mystery(3, input), 2);
+        result = jumble;
+        showAlert($"Result: {result}");
+    }
+    else
+    {
+        showAlert("Please enter a valid integer for Secret.");
+    }
+}
+
+private void showAlert(string message)
+{
+    JSRuntime.InvokeVoidAsync("alert", message);
+}
+</code></pre>
+                </p>
+            </div>
+        </div>
+
+        <div class="flex justify-center items-center pt-4">
+            <div class="w-full md:w-1/2 bg-white text-gray-900 rounded-lg shadow-lg p-4">
+                <h3 class="text-bold text-2xl">Conclusion:</h3>
+                <p>
+                    Both C# and JavaScript have their strengths and weaknesses, and the choice between the two ultimately depends on the specific needs of the project. For example, if you are developing a web application, you will need to use JavaScript to handle client-side interactions, while C# might be used on the server-side to handle business logic and data processing. Similarly, if you are developing a desktop application, you will likely choose C# for its performance and features, while using JavaScript for any web-based components of the application.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@code {
+    private int? result;
+    private string Secret = "4";
+
+    private int Mystery(int input, int multiplier)
+    {
+        input += 2;
+        multiplier *= input;
+        return int.Parse(Secret) * multiplier;
+    }
+
+    private int Mystery3(Func<int, int> param, int bonus)
+    {
+        return param(6) + bonus;
+    }
+
+    private void CalculateMystery()
+    {
+        if (!string.IsNullOrEmpty(Secret) && int.TryParse(Secret, out int _))
+        {
+            int hidden = Mystery(3, 3);
+            int jumble = Mystery3(input => Mystery(3, input), 2);
+            result = jumble;
+        }
+    }
+}
+
+

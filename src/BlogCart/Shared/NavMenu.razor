@@ -37,7 +37,7 @@
                     <MudNavLink Href="@($"{LocalHost}/BlogViewHome")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Read Me</MudNavLink>
                 </MudNavGroup>
                 <MudNavGroup Title="My Store" Expanded="false" Color="Color.Dark">
-                    <MudNavLink Href="/services" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Software Services</MudNavLink>
+                    <MudNavLink Href="/services" Icon="@Icons.Material.Filled.Code" Match="NavLinkMatch.Prefix">Software Services</MudNavLink>
                     <MudNavGroup Title="My Demo Shops" Expanded="false" Color="Color.Dark">
                         <MudNavLink Href="/ThriftBoss" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Demo-ThriftBoss</MudNavLink>
                         @*<MudNavLink Href="/ServerPreview" Icon="@Icons.Material.Filled.Dashboard" Match="NavLinkMatch.Prefix">Demo-AdminView</MudNavLink>*@
@@ -47,7 +47,10 @@
                     <MudNavLink Href="@($"{LocalHost}/portfolio")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">About Me</MudNavLink>
                 </MudNavGroup>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-                <MudNavLink Href="/contact" Icon="@Icons.Material.Filled.ContactPage" Match="NavLinkMatch.Prefix" Style="text-align">Contact me</MudNavLink>
+                <MudNavGroup Title="Contact" Expanded="false" Color="Color.Dark">
+                    <MudNavLink Href="mailto:RafaelMorel@LightningBits.com" Icon="@Icons.Material.Filled.Email" Match="NavLinkMatch.Prefix">E-Mail</MudNavLink>
+                    <MudNavLink Href="" Icon="@Icons.Material.Filled.Chat" Match="NavLinkMatch.Prefix">MyChat Coming Soon</MudNavLink>
+                </MudNavGroup>
             </MudNavMenu>
             @*<MudButton Href="/login" StartIcon="@Icons.Material.Filled.Login" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Login/Register</MudButton>*@
             @*<MudDivider DividerType="DividerType.Middle" Class="my-6" />
