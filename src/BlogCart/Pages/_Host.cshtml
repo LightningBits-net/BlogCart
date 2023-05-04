@@ -1,19 +1,40 @@
-﻿@page "/"
+﻿@*@page "/"
 @namespace BlogCart.Pages
 @using BlogCart.Service
+@inject DomainLayoutService DomainLayoutService
+@inject IHttpContextAccessor HttpContextAccessor
+
+
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    var httpContextAccessor = (IHttpContextAccessor)PageContext.HttpContext.RequestServices.GetService(typeof(IHttpContextAccessor));
-    var domain = httpContextAccessor.HttpContext.Request.Host.Value.ToLower();
-
-    var domainLayoutService = new DomainLayoutService();
-    var layoutType = domainLayoutService.GetLayoutForDomain(domain);
+    var domain = HttpContextAccessor.HttpContext.Request.Host.Value.ToLower();
+    var layoutType = DomainLayoutService.GetLayoutForDomain(domain);
     var layoutName = $"_{layoutType.Name}";
 }
 
 @{ Layout = layoutName; }
 
-<component type="typeof(App)" render-mode="ServerPrerendered" />
+<component type="typeof(App)" render-mode="ServerPrerendered" />*@
+
+
+@page "/"
+    @namespace BlogCart.Pages
+    @using BlogCart.Service
+
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+    @{
+        var httpContextAccessor = (IHttpContextAccessor)PageContext.HttpContext.RequestServices.GetService(typeof(IHttpContextAccessor));
+        var domain = httpContextAccessor.HttpContext.Request.Host.Value.ToLower();
+
+        var domainLayoutService = new DomainLayoutService();
+        var layoutType = domainLayoutService.GetLayoutForDomain(domain);
+        var layoutName = $"_{layoutType.Name}";
+    }
+
+    @{ Layout = layoutName; }
+
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
 

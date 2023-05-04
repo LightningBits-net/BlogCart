@@ -24,9 +24,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\js\" />
-    <Folder Include="Pages\CodePlayGround\" />
+    <Folder Include="Pages\Clients\Lightningbits\Pages\CodePlayGround\" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Pages\CodePlayGround\" />
+    <None Remove="Pages\Clients\Lightningbits\Pages\CodePlayGround\" />
   </ItemGroup>
 </Project>

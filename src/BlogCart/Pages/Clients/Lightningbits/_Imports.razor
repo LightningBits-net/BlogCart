@@ -5,12 +5,19 @@
 @using System.Net.Http
 @using System.Net.Http.Json
 @using MudBlazor
+@using Blazored.LocalStorage
 @using BlogCart.Pages
 @using BlogCart.Service.IService
 @using BlogCart.Service
 @using BlogCart.ViewModels
+@using BlogCart.Shared.MainLayouts
 @using SharedServices.Models
 @using SharedServices.Commons
-@using Blazored.LocalStorage
+
+
 @using BlogCart.Pages.Clients.Lightningbits.Pages.LandingPage
-@using BlogCart.Shared.MainLayouts
+@using BlogCart.Pages.Clients.Lightningbits.Pages.CartDetails
+@using BlogCart.Pages.Clients.Lightningbits.Pages.ProductViews
+@layout LightningBitsLayout
+@inject DomainLayoutService _domainLayoutService
+@inject NavigationManager _navigationManager

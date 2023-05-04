@@ -1,8 +1,9 @@
-﻿@page "/"
+﻿@*@page "/"*@
+@page "/lightningbits/"
 @inject ILocalStorageService localStorage
-@inject NavigationManager _navigationManager
-@inject DomainLayoutService DomainLayoutService
-@layout LightningBitsLayout
+@*@inject NavigationManager _navigationManager*@
+@*@inject DomainLayoutService DomainLayoutService
+@layout LightningBitsLayout*@
 
 
 <HeadContent>
@@ -22,13 +23,13 @@
 <div x-data="{showMenu: false}" class="h-24 z-40 relative container mx-auto px-6 flex items-center justify-between text-white">
 </div>
 <LandingImage></LandingImage>
-<AboutUsBanner></AboutUsBanner>
-<MainProductsMosiac></MainProductsMosiac>
-<BlogBanner></BlogBanner>
-<MainServices></MainServices>
-<TestimonialQuotes></TestimonialQuotes>
-<SecondaryServices></SecondaryServices>
-<_FooterDarkGray></_FooterDarkGray>
+@*<AboutUsBanner></AboutUsBanner>*@
+@*<MainProductsMosiac></MainProductsMosiac>y
+    <BlogBanner></BlogBanner>
+    <MainServices></MainServices>
+    <TestimonialQuotes></TestimonialQuotes>
+    <SecondaryServices></SecondaryServices>*@
+@*<_FooterDarkGray></_FooterDarkGray>*@
 
 @code {
     private string Title = "My Portfolio";
