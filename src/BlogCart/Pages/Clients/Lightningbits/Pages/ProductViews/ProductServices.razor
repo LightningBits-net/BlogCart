@@ -1,4 +1,4 @@
-﻿@page "/lightningbits/productviews/ProductServices"
+﻿@page "/lightningbits/product-views/product-services"
 @inject IProductService _productService
 @inject NavigationManager _navigationManager
 
@@ -35,7 +35,7 @@ else
             {
                 <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 px-1 mb-12 hover:shadow-2xl">
                     <MudCard>
-                        <a href="/ProductDetails/@product.Id">
+                        <a href="/lightningbits/product-views/product-details/@product.Id">
                             <div class="p-4 h-28 text-center overflow-y-auto">
                                 <MudText Typo="Typo.h5" Color="Color.Default">@product.Name</MudText>
                                 <MudText class="mt-2" Color="Color.Primary">@(product.ECommerceProductPrices.Any() ? "starting at " + product.ECommerceProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c") : "sold out")</MudText>

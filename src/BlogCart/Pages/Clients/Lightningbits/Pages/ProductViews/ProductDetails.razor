@@ -1,4 +1,4 @@
-﻿@page "/lightningbits/productviews/productdetails/{ProductId:int}"
+﻿@page "/lightningbits/product-views/product-details/{ProductId:int}"
 @inject IProductService _productService
 @inject ICartService _cartService
 @inject NavigationManager _navigationManager
@@ -105,7 +105,7 @@ else
         };
 
         await _cartService.IncrementCart(shoppingCart);
-        _navigationManager.NavigateTo("/cart");
+        _navigationManager.NavigateTo("/lightningbits/cart-details");
         snackBar.Add("Product added to cart Succesfully.", Severity.Success);
     }
 }

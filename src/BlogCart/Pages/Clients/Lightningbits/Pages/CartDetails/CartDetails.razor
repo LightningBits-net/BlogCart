@@ -1,4 +1,4 @@
-﻿@page "/lightningbits/cartdetails"
+﻿@page "/lightningbits/cart-details"
 @inject ILocalStorageService _localStorage
 @inject NavigationManager _navigationManager
 @inject IProductService _productService
@@ -19,7 +19,7 @@
     {
         @if (!ShoppingCart.Any())
         {
-            <div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
+            <div class="max-w-5xl mx-auto pt-10 p-8 flex justify-end">
                 <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">OOPS! it Looks like your Shopping cart is Empty.</h1>
             </div>
             <a href="/Services" class="block justify-center bg-indigo-500 px-4 py-2 rounded-lg text-white hover:bg-indigo-600 mx-4">return to shop</a>
@@ -48,7 +48,7 @@
                                 <MudSpacer></MudSpacer>
                                 <MudText Typo="Typo.body1" Color="Color.Default">@prod.ProductPrice.Price.ToString("c")</MudText>
                             </MudCardHeader>
-                            <a href="/ProductDetails/@prod.Product.Id">
+                            <a href="/lightningbits/product-views/product-details/@prod.Product.Id">
                                 <img src="@prod.Product.ImageUrl" class="w-full h-32 object-cover" />
                             </a>
                             <MudCardContent>
@@ -71,8 +71,8 @@
                 }
             </div>
             <div class="flex justify-center pb-10 w-full">
-                <a href="/summary" class="block w-1/2 bg-green-500 px-4 py-2 rounded-lg text-white hover:bg-green-600 mx-4 ">Check out</a>
-                <a href="/Services" class="block w-1/2 bg-gray-600 px-4 py-2 rounded-lg text-white hover:bg-gray-400 mx-4">Keep Shopping</a>
+                <a href="/lightningbits/cart-details/summary" class="block w-1/2 bg-green-500 px-4 py-2 rounded-lg text-white hover:bg-green-600 mx-4 ">Check out</a>
+                <a href="/lightningbits/product-views/product-services" class="block w-1/2 bg-gray-600 px-4 py-2 rounded-lg text-white hover:bg-gray-400 mx-4">Keep Shopping</a>
             </div>
         }
     }
