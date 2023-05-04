@@ -4,10 +4,10 @@
 @implements IDisposable
 
 
-<MudAppBar Elevation="21" Dense="true">
+<MudAppBar Elevation="20" Dense="true">
     <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Medium" Edge="Edge.End"
                    OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
-    <MudIconButton Href="/" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
+    <MudIconButton Href="https://lightningbits.net/" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
     <MudSpacer />
     @*@if (CartCount < 1)
     {

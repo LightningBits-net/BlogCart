@@ -4,7 +4,7 @@ module.exports = {
     theme: {
         screens: {
             'sm': '640px',
-            'md': '960px', // modified breakpoint for medium screens
+            'md': '1024px', // modified breakpoint for medium screens
             'lg': '1024px',
             'xl': '1280px',
             '2xl': '1536px',

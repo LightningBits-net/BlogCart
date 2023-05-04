@@ -3,7 +3,7 @@
 @inject IProductRepository _productRepository
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
-
+`
 <PageTitle>@Title</PageTitle>
 <HeadContent>
     <meta name="description" content="@Description" />
@@ -35,23 +35,30 @@
         <h1 class="mx-auto text-2xl md:text-5xl font-bold max-w-3xl leading-tight mb-12">Professional Full Stack .NET Developer Committed to Creating User-Friendly Websites.</h1>
         <p class="mb-6 mx-auto max-w-xlg text-lg leading-relaxed">
             <strong>Welcome to my portfolio!</strong> My name is LightningBits and I am a full stack .NET developer specializing in web design.
-            I have a passion for creating intuitive and visually appealing websites that provide a seamless user experience.
-            As a full stack .NET junior developer with a focus on web design, I am passionate about creating visually appealing and user-friendly websites.
-            My expertise in .NET, C#, HTML, CSS, and frameworks such as ASP.NET core allow me to create dynamic and responsive websites.
-            Additionally, my experience in front-end technologies like HTML, CSS, and Blazor allows me to deliver beautiful and functional websites that meet clients' needs. I am detail-oriented, proactive, and constantly stay up-to-date with the latest technologies and best practices. I take pride in delivering high-quality results on time and on budget.
-            I would be honored to work with you to bring your vision to life.
+            With a passion for creating intuitive and visually appealing websites,
+            I strive to provide a seamless user experience.
+            My proficiency in C#, HTML, CSS, Razor and frameworks such as ASP.NETcore, .Net 6-7 allows me to build dynamic and responsive websites.
+            In addition, I have experience working with MAUI, Blazor server and Assembly component libraries, including MudBlazor, Syncfusion, and Blazorize.
+
+            Additionally, I have utilized the OpenAI API to develop chat bots and conversational interfaces
+            that improve user engagement and satisfaction.
+            As a detail-oriented and proactive professional, I constantly stay up-to-date with the latest technologies and best practices.
+            My commitment to delivering high-quality results on time and on budget is a source of pride for me.
+            I would be delighted to collaborate with you to bring your vision to Life.
         </p>
-        <p class="mx-auto max-w-lg text-center leading-relaxed">check out my Repository on <a href="https://github.com/LightningBit/E-Commerce" class="text-indigo-500">GitHub</a></p>
+        <p class="mx-auto max-w-lg text-center leading-relaxed">check out my Commit History on <a href="https://github.com/LightningBit" class="text-indigo-500">GitHub</a></p>
         <p class="mx-auto max-w-lg text-center leading-relaxed">check out <a href="/BlogViewHome" class="text-indigo-500">My Blog</a></p>
         <p class="mx-auto max-w-lg text-center leading-relaxed">check out my SAS <a href="@($"{Constants.MyStoreHost}/services")" class="text-indigo-500">Store</a></p>
         <p class="mx-auto max-w-lg text-center leading-relaxed">check me out on  <a href="https://www.fiverr.com/s2/5826b93876" class="text-indigo-500">Fivver</a></p>
+        <p class="mx-auto max-w-lg text-center leading-relaxed">check me out on  <a href="https://www.upwork.com/freelancers/~0173f3f206d87cb2ab?viewMode=1" class="text-indigo-500">Upwork</a></p>
+
     </div>
     <!-- /Credentials -->
 
     <div class="max-w-5xl mx-auto flex flex-wrap items-start">
         <div class="w-full md:w-1/2 p-1 mb-12">
             <img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="block w-full h-auto mb-12" />
-            <h2><a href="/page/6" class="block text-2xl font-bold mb-6">Front End</a></h2>
+            <h2><a href="/blog/page/6" class="block text-2xl font-bold mb-6">Front End</a></h2>
             <p class="mb-6 leading-relaxed text-lg ">
                 IAM well-versed in utilizing the latest technologies to bring creative and user-friendly designs to life.
                 In my <a href="@($"{Constants.MyStoreHost}/thriftboss")" class="text-indigo-500 ">projects</a>,
@@ -60,11 +67,11 @@
                 Whether it's a single-page application, a full-featured e-commerce platform with Blog, or a simple portfolio website,
                 I have the skills and knowledge to bring your vision to reality.
             </p>
-            <a href="/Page/6" class="block text-indigo-500 text-center">Read more</a>
+            <a href="/blog/Page/6" class="block text-indigo-500 text-center">Read more</a>
         </div>
         <div class="w-full md:w-1/2 p-1 mb-12">
             <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="block w-full h-auto mb-12" />
-            <h2><a href="/page/7" class="block text-2xl font-bold mb-6">Back End</a></h2>
+            <h2><a href="/blog/page/7" class="block text-2xl font-bold mb-6">Back End</a></h2>
             <p class="mb-6 leading-relaxed text-lg ">
                 IAM experienced in developing efficient and secure backend solutions
                 that serve as the foundation for modern web applications.
@@ -73,7 +80,7 @@
                 Additionally, I employ ASP.NET Core API to effectively serve the front end and SQL databases to manage data storage and retrieval.
                 With these tools, I am able to deliver high-performing, scalable and secure back end systems that meet the demands of modern web applications
             </p>
-            <a href="#" class="block text-indigo-500 text-center">Read more</a>
+            <a href="/blog/page/7" class="block text-indigo-500 text-center">Read more</a>
         </div>
     </div>
     <!-- /About -->
@@ -82,7 +89,7 @@
     <div class="max-w-5xl mx-auto flex flex-wrap justify-center">
         <div class="w-full md:w-1/2 p-1 mb-12">
             <img src="/img/myHeadShot.jpeg" alt="image" class="block w-full h-auto mb-12" />
-            <h2> <a href="/page/4" class="block text-2xl font-bold mb-6">About</a></h2>
+            <h2> <a href="/blog/page/4" class="block text-2xl font-bold mb-6">About</a></h2>
             <p class="mb-6 leading-relaxed text-lg">
                 Hello! I am Rafael Morel aka LightningBits, a Junior Software Developer specializing in .NET Core, Blazor, Tailwind CSS, and much more.
                 I offer a combination of technical knowledge, real world experience, and a willingness to learn and contribute as part of a software development team.
@@ -91,14 +98,16 @@
                 With my infant son on my shoulder, I devoted myself to learning to code and gained new skills. My passion for problem-solving and hands-on experience in construction, provide me with a unique perspective that I bring with me to the tech industry.
                 I am eager to join a software company and contribute to the creation of cutting-edge solutions with my diverse skill set and experience. I am dedicated to succeeding, innovating, and staying up to date in this field, making me a valuable asset to any software development team.
             </p>
+            <p class="text-lg text-center mb-2">
+                <a href="mailto:RafaelMorel@LightningBits.com" class="hover:text-indigo-500">RafaelMorel@LightningBits.com</a>
+            </p>
             <div class="full-width mx-auto justify-center flex">
-                <a href="https://www.linkedin.com/in/rafael-morel-1b28aa15a/" class="w-1/2 p-4 bg-blue-800 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded-full">
+                <a href="https://www.linkedin.com/in/rafael-morel-1b28aa15a/" class="w-1/2 p-4 mr-4 bg-blue-800 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded-full">
                     Visit my LinkedIn page
                 </a>
-                <a href="/page/4" class="w-1/2 p-4 bg-blue-800 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded-full">
-                   Read more
+                <a href="/blog/page/4" class="w-1/2 p-4 bg-blue-800 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded-full">
+                    Read more
                 </a>
-
             </div>
         </div>
     </div>

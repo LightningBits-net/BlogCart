@@ -38,15 +38,17 @@
                         <MudNavLink Href="@($"{Constants.MyBlogHost}/BlogViewHome")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Read Me</MudNavLink>
                     </MudNavGroup>
                     <MudNavGroup Title="My Store" Expanded="false" Color="Color.Dark">
-                        <MudNavLink Href="@($"{Constants.MyBlogHost}/services")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Software Services</MudNavLink>
+                        <MudNavLink Href="@($"{Constants.MyBlogHost}/services")" Icon="@Icons.Material.Filled.Code" Match="NavLinkMatch.Prefix">Software Services</MudNavLink>
                         <MudNavGroup Title="My Demo Shops" Expanded="false" Color="Color.Dark">
-                            <MudNavLink Href="@($"{Constants.MyStoreHost}/thriftboss")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Demo-ThriftBoss</MudNavLink>
-                            <MudNavLink Href="@($"{Constants.MyStoreHost}/serverpreview")" Icon="@Icons.Material.Filled.Dashboard" Match="NavLinkMatch.Prefix">Demo-AdminView</MudNavLink>
+                            @*<MudNavLink Href="@($"{Constants.MyStoreHost}/thriftboss")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Demo-ThriftBoss</MudNavLink>
+                <MudNavLink Href="@($"{Constants.MyStoreHost}/serverpreview")" Icon="@Icons.Material.Filled.Dashboard" Match="NavLinkMatch.Prefix">Demo-AdminView</MudNavLink>*@
                         </MudNavGroup>
                     </MudNavGroup>
                     <MudNavGroup Title="My Portfolio" Expanded="false" Color="Color.Dark">
                         <MudNavLink Href="/portfolio" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">About Me</MudNavLink>
                     </MudNavGroup>
+                    <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+                    <MudNavLink Href="/contact" Icon="@Icons.Material.Filled.ContactPage" Match="NavLinkMatch.Prefix" Style="text-align">Contact me</MudNavLink>
                 </MudNavGroup>
             </MudNavMenu>
         </MudDrawer>
@@ -67,15 +69,15 @@
                     <MudNavLink Href="@($"{Constants.MyStoreHost}/services")" Icon="@Icons.Material.Filled.HomeMini" Match="NavLinkMatch.Prefix">MyStore Home</MudNavLink>
                     <MudNavLink Href="@($"{Constants.MyStoreHost}/services")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Software Services</MudNavLink>
                     <MudNavGroup Title="My Demo Shops" Expanded="false" Color="Color.Dark">
-                        <MudNavLink Href="@($"{Constants.MyStoreHost}/thriftboss")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Demo-ThriftBoss</MudNavLink>
-                        <MudNavLink Href="@($"{Constants.MyStoreHost}/serverpreview")" Icon="@Icons.Material.Filled.Dashboard" Match="NavLinkMatch.Prefix">Demo-AdminView</MudNavLink>
+                        @*<MudNavLink Href="@($"{Constants.MyStoreHost}/thriftboss")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Demo-ThriftBoss</MudNavLink>
+                <MudNavLink Href="@($"{Constants.MyStoreHost}/serverpreview")" Icon="@Icons.Material.Filled.Dashboard" Match="NavLinkMatch.Prefix">Demo-AdminView</MudNavLink>*@
                     </MudNavGroup>
                 </MudNavGroup>
                 <MudNavGroup Title="My Portfolio" Expanded="false" Color="Color.Dark">
                     <MudNavLink Href="/portfolio" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">About Me</MudNavLink>
                 </MudNavGroup>
-
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+                <MudNavLink Href="/contact" Icon="@Icons.Material.Filled.ContactPage" Match="NavLinkMatch.Prefix" Style="text-align">Contact me</MudNavLink>
             </MudNavMenu>
         </MudDrawer>
     </NotAuthorized>

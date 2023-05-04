@@ -1,19 +1,23 @@
 ﻿@page "/Services"
 @inject IProductService _productService
-@inject DomainLayoutService DomainLayoutService
-@layout LightningBitsLayout
+@inject NavigationManager _navigationManager
 
-<PageTitle>@CategoryName</PageTitle>
-@*<head>
-        <title>@Product.Name</title>
-        <meta name="description" content="@Product.Description" />
-        <meta property="og:title" content="@Product.Name" />
-        <meta property="og:description" content="@Product.Description" />
-        <meta property="og:image" content="@Product.ImageUrl" />
-        <meta property="og:url" content="@(_navigationManager.Uri)" />
-    </head>*@
 
-<div class="max-w-5xl mx-auto pt-20 p-8 flex justify-end">
+<PageTitle>@Title</PageTitle>
+<HeadContent>
+    <meta name="description" content="@Description" />
+    <meta property="og:title" content="@Title" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="@ImageUrl" />
+    <meta name="twitter:title" content="@Title" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="@ImageUrl" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@(_navigationManager.Uri)" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="@(_navigationManager.Uri)" />
+</HeadContent>
+<div class="max-w-5xl mx-auto pt-10 p-8 flex justify-end">
     <h1 class="font-display-italic dark:text-white text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Services</h1>
 </div>
 @if (IsProcessing)
@@ -27,15 +31,18 @@ else
     <div class="container mx-auto flex flex-wrap pb-20">
         @foreach (var product in ECommerceProducts)
         {
-            @if (product.Category.Name == CategoryName)
+            @if (product.Category.Name == Title)
             {
-                <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 px-1 mb-12">
-                    <MudCard Elevation="25">
+                <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 px-1 mb-12 hover:shadow-2xl">
+                    <MudCard>
                         <a href="/ProductDetails/@product.Id">
-                            <div class="p-4">
+                            <div class="p-4 h-28 text-center overflow-y-auto">
                                 <MudText Typo="Typo.h5" Color="Color.Default">@product.Name</MudText>
                                 <MudText class="mt-2" Color="Color.Primary">@(product.ECommerceProductPrices.Any() ? "starting at " + product.ECommerceProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c") : "sold out")</MudText>
-                            </div>                            <img src="@product.ImageUrl" class="w-full h-64 object-cover" />
+                            </div>
+                            <div>
+                                <img src="@product.ImageUrl" class="w-full h-64 object-cover" />
+                            </div>
                         </a>
                         <div class="h-52 overflow-y-auto">
                             <MudCardContent>
@@ -66,8 +73,9 @@ else
 @code {
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<ProductDTO> ECommerceProducts { get; set; } = new List<ProductDTO>();
-    public string CategoryName { get; set; } = "Services";
-
+    private string Title = "Services";
+    private string Description = "I am a software developer. How can I help you create your vision?";
+    private string ImageUrl = "/img/lb_logoLight.jpg";
 
     protected override async Task OnInitializedAsync()
     {

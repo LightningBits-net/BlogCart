@@ -4,8 +4,7 @@
 @inject IProductService _productService
 @inject IOrderService _orderService
 @*@inject IPaymentService _paymentService*@
-@inject DomainLayoutService DomainLayoutService
-@layout LightningBitsLayout
+
 
 
 <PageTitle>Order Summary</PageTitle>
@@ -18,7 +17,7 @@
 else
 {
     <div class="max-w-5xl mx-auto pt-20 pr-2 flex justify-end">
-        <h1 class="font-display-italic dark:text-white text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">
+        <h1 class="font-display-italic dark:text-white text-black text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">
             Order Summary
         </h1>
     </div>
@@ -27,7 +26,7 @@ else
             <table class="w-full md:table-fixed lg:table-fixed bg-gray-200 text-black">
                 <thead class="w-full">
                     <tr>
-                        <th class="w-1/4 px-4 py-6 text-center"></th>
+                        <th class="w-1/4 px-4 py-6 border border-gray-400 text-center"></th>
                         <th class="w-1/4 px-8 py-4 border border-gray-400 text-center">Name</th>
                         <th class="w-1/4 px-8 py-4 border border-gray-400 text-center">Qty</th>
                         <th class="w-1/4 px-8 py-4 border border-gray-400 text-center">Price</th>
@@ -57,61 +56,77 @@ else
 
         </div>
     </div>
-
-    <div class="container mx-auto flex flex-wrap justify-center pt-5 pb-5">
-        <div class="w-full md:w-3/4">
-            <MudCard Elevation="4">
-                <MudCardContent>
-                    <EditForm Model="@Order.OrderHeader" OnValidSubmit="@HandleCheckout">
-                        <DataAnnotationsValidator />
-                        <div class="flex flex-wrap -mx-4">
-                            <div class="w-full md:w-1/2 lg:w-1/2 px-4">
-                                <div class="form-group pt-3">
-                                    <MudTextField Label="First and Last name" Class="w-full" @bind-Value="@Order.OrderHeader.Name" For="@(() => Order.OrderHeader.Name)" />
-                                    <ValidationMessage For="@(() => Order.OrderHeader.Name)" />
-                                </div>
-                                <div class="form-group pt-3">
-                                    <MudTextField Label="Phone" Class="w-full" @bind-Value="@Order.OrderHeader.PhoneNumber" For="@(() => Order.OrderHeader.PhoneNumber)" />
-                                    <ValidationMessage For="@(() => Order.OrderHeader.PhoneNumber)" />
-                                </div>
-                                <div class="form-group pt-3">
-                                    <MudTextField Label="Email" Class="w-full" @bind-Value="@Order.OrderHeader.Email" For="@(() => Order.OrderHeader.Email)" />
-                                    <ValidationMessage For="@(() => Order.OrderHeader.Email)" />
-                                </div>
-                            </div>
-                            <div class="w-full md:w-1/2 lg:w-1/2 px-4">
-                                <div class="form-group pt-3">
-                                    <MudTextField Label="Street Address" Class="w-full" @bind-Value="@Order.OrderHeader.StreetAddress" For="@(() => Order.OrderHeader.StreetAddress)" />
-                                    <ValidationMessage For="@(() => Order.OrderHeader.StreetAddress)" />
-                                </div>
-
-                                <div class="form-group pt-3">
-                                    <MudTextField Label="City" Class="w-full" @bind-Value="@Order.OrderHeader.City" For="@(() => Order.OrderHeader.City)" />
-                                    <ValidationMessage For="@(() => Order.OrderHeader.City)" />
-                                </div>
-                                <div class="form-group pt-3">
-                                    <MudTextField Label="State" Class="w-full" @bind-Value="@Order.OrderHeader.State" For="@(() => Order.OrderHeader.State)" />
-                                    <ValidationMessage For="@(() => Order.OrderHeader.State)" />
-                                </div>
-                                <div class="form-group pt-3">
-                                    <MudTextField Label="Postal Code" Class="w-full" @bind-Value="@Order.OrderHeader.PostalCode" For="@(() => Order.OrderHeader.PostalCode)" />
-                                    <ValidationMessage For="@(() => Order.OrderHeader.PostalCode)" />
-                                </div>
-                            </div>
-                        </div>
-                        <MudPaper Elevation="4" Class="p-4 mt-5" Width="100%">
-                            <h2 class="font-display-italic text-2xl md:text-3xl italic leading-none mb-6 max-w-xl">Additional Details</h2>
-                            <p>Some delivery information and discounts.</p>
-                        </MudPaper>
-                        <div class="form-group pt-3 pb-3">
-                            <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Checkout Now</MudButton>
-                        </div>
-                        <MudButton Href="/Cart" FullWidth="true" Variant="Variant.Filled" Color="Color.Dark" Class="ml-auto">Return to Cart</MudButton>
-                    </EditForm>
-                </MudCardContent>
-            </MudCard>
+    <div class="justify-center w-1/2 mx-auto">
+        <div class="form-group pt-3 pb-3">
+            <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Checkout Now</MudButton>
         </div>
+        <MudButton Href="/Cart" FullWidth="true" Variant="Variant.Filled" Color="Color.Dark" Class="ml-auto">Return to Cart</MudButton>
+
     </div>
+
+    @*<div class="container mx-auto bg-gray-200 text-black flex flex-wrap justify-center py-5">
+            <div class="w-full md:w-1/2 lg:w-1/2">
+                <MudCard Elevation="4" Class="w-full">
+                    <MudCardContent>
+                        <EditForm Model="@Order.OrderHeader" OnValidSubmit="@HandleCheckout">
+                            <DataAnnotationsValidator />
+                            <div class="flex flex-wrap -mx-2">
+                                <div class="w-full px-2">
+                                    <div class="form-group py-3">
+                                        <MudTextField Label="First and Last name" Class="w-full" @bind-Value="@Order.OrderHeader.Name" For="@(() => Order.OrderHeader.Name)" />
+                                        <ValidationMessage For="@(() => Order.OrderHeader.Name)" />
+                                    </div>
+                                </div>
+                                <div class="w-full px-2">
+                                    <div class="form-group py-3">
+                                        <MudTextField Label="Phone" Class="w-full" @bind-Value="@Order.OrderHeader.PhoneNumber" For="@(() => Order.OrderHeader.PhoneNumber)" />
+                                        <ValidationMessage For="@(() => Order.OrderHeader.PhoneNumber)" />
+                                    </div>
+                                </div>
+                                <div class="w-full px-2">
+                                    <div class="form-group py-3">
+                                        <MudTextField Label="Email" Class="w-full" @bind-Value="@Order.OrderHeader.Email" For="@(() => Order.OrderHeader.Email)" />
+                                        <ValidationMessage For="@(() => Order.OrderHeader.Email)" />
+                                    </div>
+                                </div>
+                                <div class="w-full px-2">
+                                    <div class="form-group py-3">
+                                        <MudTextField Label="Street Address" Class="w-full" @bind-Value="@Order.OrderHeader.StreetAddress" For="@(() => Order.OrderHeader.StreetAddress)" />
+                                        <ValidationMessage For="@(() => Order.OrderHeader.StreetAddress)" />
+                                    </div>
+                                </div>
+                                <div class="w-full px-2">
+                                    <div class="form-group py-3">
+                                        <MudTextField Label="City" Class="w-full" @bind-Value="@Order.OrderHeader.City" For="@(() => Order.OrderHeader.City)" />
+                                        <ValidationMessage For="@(() => Order.OrderHeader.City)" />
+                                    </div>
+                                </div>
+                                <div class="w-full px-2">
+                                    <div class="form-group py-3">
+                                        <MudTextField Label="State" Class="w-full" @bind-Value="@Order.OrderHeader.State" For="@(() => Order.OrderHeader.State)" />
+                                        <ValidationMessage For="@(() => Order.OrderHeader.State)" />
+                                    </div>
+                                </div>
+                                <div class="w-full px-2">
+                                    <div class="form-group py-3">
+                                        <MudTextField Label="Postal Code" Class="w-full" @bind-Value="@Order.OrderHeader.PostalCode" For="@(() => Order.OrderHeader.PostalCode)" />
+                                        <ValidationMessage For="@(() => Order.OrderHeader.PostalCode)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <MudPaper Elevation="4" Class="p-4 mt-5">
+                                <h2 class="font-display-italic text-2xl md:text-3xl italic leading-none mb-6 max-w-xl">Additional Details</h2>
+                                <p>Some delivery information and discounts.</p>
+                            </MudPaper>
+                            <div class="form-group pt-3 pb-3">
+                                <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Checkout Now</MudButton>
+                            </div>
+                            <MudButton Href="/Cart" FullWidth="true" Variant="Variant.Filled" Color="Color.Dark" Class="ml-auto">Return to Cart</MudButton>
+                        </EditForm>
+                    </MudCardContent>
+                </MudCard>
+            </div>
+        </div>*@
 }
 
 
