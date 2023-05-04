@@ -4,11 +4,27 @@
 
 @using BlogCart.Pages
 
-<Router AppAssembly="@typeof(App).Assembly">
+@*<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
         <CascadingValue Value="DomainLayoutService.GetLayoutForDomain(HttpContextAccessor.HttpContext.Request.Host.Value)">
             <RouteView RouteData="@routeData" DefaultLayout="null" />
         </CascadingValue>
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <Underconstruction></Underconstruction>
+        </LayoutView>
+    </NotFound>
+</Router>*@
+
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        @{
+            var domain = HttpContextAccessor.HttpContext.Request.Host.Value.ToLower();
+            var layoutType = DomainLayoutService.GetLayoutForDomain(domain);
+        }
+        <RouteView RouteData="@routeData" DefaultLayout="@layoutType" />
     </Found>
     <NotFound>
         <PageTitle>Not found</PageTitle>

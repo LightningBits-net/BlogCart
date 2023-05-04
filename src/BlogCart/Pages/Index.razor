@@ -2,14 +2,27 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @inject NavigationManager _navigationManager
 @inject DomainLayoutService _domainLayoutService
-hello
 
 
 @code {
-    @code {
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+    //        var domain = HttpContextAccessor.HttpContext.Request.Host.Value.ToLower();
+    //        var layoutType = _domainLayoutService.GetLayoutForDomain(domain);
+    //        var layoutName = layoutType.Name.Replace("Layout", "");
+
+    //        string landingPageRoute = $"/{layoutName}";
+    //        _navigationManager.NavigateTo(landingPageRoute, true);
+    //    }
+    //}
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
         {
-            if (firstRender)
+            try
             {
                 var domain = HttpContextAccessor.HttpContext.Request.Host.Value.ToLower();
                 var layoutType = _domainLayoutService.GetLayoutForDomain(domain);
@@ -18,8 +31,13 @@ hello
                 string landingPageRoute = $"/{layoutName}";
                 _navigationManager.NavigateTo(landingPageRoute, true);
             }
+            catch (NullReferenceException)
+            {
+                // This exception may occur during hot reload, so we can safely ignore it.
+            }
         }
     }
+
 }
 
 

@@ -1,10 +1,8 @@
-﻿@page "/productdetails/{ProductId:int}"
+﻿@page "/lightningbits/productviews/productdetails/{ProductId:int}"
 @inject IProductService _productService
 @inject ICartService _cartService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
-@*@inject DomainLayoutService DomainLayoutService*@
-@*@layout LightningBitsLayout*@
 
 <PageTitle>@Product.Name</PageTitle>
 
