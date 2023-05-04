@@ -12,7 +12,9 @@
         <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
     </MudScrollToTop>
     <MudMainContent>
-        @*<MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Dark" Class="d-flex justify-end flex-grow-1 gap-4" Elevation="10" T="bool" Label="Light/Dark Mode" />*@
+        <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Dark" Class="d-flex justify-end flex-grow-1 gap-4" Elevation="10" T="bool">
+            <MudIcon LightMode="@Icons.Material.Outlined.LightMode" DarkMode="@Icons.Material.Outlined.DarkMode" />
+        </MudSwitch>
         @Body
     </MudMainContent>
 </MudLayout>
