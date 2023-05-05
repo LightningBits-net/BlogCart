@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
-using Syncfusion.Blazor;
+//using Syncfusion.Blazor;
 using BlogCart.Service;
 using BlogCart.Service.IService;
 using Blazored.LocalStorage;
@@ -24,7 +24,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
 
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddMudServices();
-builder.Services.AddSyncfusionBlazor();
+//builder.Services.AddSyncfusionBlazor();
 
 builder.Services.AddSingleton<DomainLayoutService>();
 builder.Services.AddHttpContextAccessor();
