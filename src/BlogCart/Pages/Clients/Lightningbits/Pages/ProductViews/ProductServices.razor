@@ -17,7 +17,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="@(_navigationManager.Uri)" />
 </HeadContent>
-<div class="max-w-5xl mx-auto pt-10 p-8 flex justify-end">
+<div class="max-w-5xl mx-auto pt-10 p-2 flex justify-end">
     <h1 class="font-display-italic dark:text-white text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Services</h1>
 </div>
 @if (IsProcessing)
@@ -28,7 +28,7 @@
 }
 else
 {
-    <div class="container mx-auto flex flex-wrap pb-20">
+    <div class="mx-auto flex flex-wrap pb-20">
         @foreach (var product in ECommerceProducts)
         {
             @if (product.Category.Name == Title)
