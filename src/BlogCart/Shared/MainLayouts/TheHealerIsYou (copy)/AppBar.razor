@@ -2,15 +2,14 @@
 @inject ILocalStorageService _localStorage
 @inject ICartService _cartService
 @implements IDisposable
-@namespace BlogCart.Shared.MainLayouts
 
 
 <MudAppBar Elevation="21" Dense="true">
     <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Medium" Edge="Edge.End"
                    OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
-    <MudIconButton Href="https://lightningbits.net/" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
+    <MudIconButton Href="/" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
     <MudSpacer />
-    @if (CartCount < 1)
+    @*@if (CartCount < 1)
     {
         <MudIconButton Href="https://github.com/LightningBit/E-Commerce" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
 
@@ -18,9 +17,9 @@
     else
     {
         <MudText>(@CartCount)</MudText>
-        <MudIconButton Href="/lightningbits/cart-details" Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.False" />
-        <MudIconButton Href="https://github.com/LightningBit" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-    }
+        <MudIconButton Href="/cart" Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.False" />
+        <MudIconButton Href="https://github.com/LightningBit/E-Commerce" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
+    }*@
     @*<MudIconButton Href="#" Icon="@Icons.Custom.Brands.Facebook" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />*@
     @*<MudIconButton Href="#" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
         <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Instagram" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />

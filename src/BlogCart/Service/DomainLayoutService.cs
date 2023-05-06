@@ -6,7 +6,7 @@ namespace BlogCart.Service
     {
         public Type GetLayoutForDomain(string domain)
         {
-            if (domain == "localhost:7099")
+            if (domain == "mystore.lightningbits.com")
             {
                 return typeof(LightningBitsLayout);
             }
@@ -20,7 +20,8 @@ namespace BlogCart.Service
             }
             else
             {
-                return typeof(MainLayout);
+                //return typeof(MainLayout);
+                return typeof(LightningBitsLayout);
             }
         }
 

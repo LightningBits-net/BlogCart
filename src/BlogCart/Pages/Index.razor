@@ -28,7 +28,7 @@
                 var layoutType = _domainLayoutService.GetLayoutForDomain(domain);
                 var layoutName = layoutType.Name.Replace("Layout", "");
 
-                string landingPageRoute = $"/{layoutName}";
+                string landingPageRoute = $"/mystore.{layoutName}";
                 _navigationManager.NavigateTo(landingPageRoute, true);
             }
             catch (NullReferenceException)
