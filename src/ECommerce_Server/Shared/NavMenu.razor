@@ -3,7 +3,6 @@
     <Authorized>
         <MudDrawer @bind-Open="SideBarOpen" Elevation="10">
                <div class="flex items-center p-4">
-        <img class="logo h-16 w-20 lg:h-20 lg:w-32 mr-2" src="/img/search-med-logo.png" />
         <MudDrawerHeader>
             <MudText Typo="Typo.h6">Menu</MudText>
         </MudDrawerHeader>
@@ -66,18 +65,20 @@
                     <MudNavLink Href="@($"{Constants.MyBlogHost}/BlogViewHome")" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Read Me</MudNavLink>
                 </MudNavGroup>
                 <MudNavGroup Title="My Store" Expanded="false" Color="Color.Dark">
-                    <MudNavLink Href="@($"{Constants.MyStoreHost}/services")" Icon="@Icons.Material.Filled.HomeMini" Match="NavLinkMatch.Prefix">MyStore Home</MudNavLink>
-                    <MudNavLink Href="@($"{Constants.MyStoreHost}/services")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Software Services</MudNavLink>
+                    <MudNavLink Href="https://mystore.lightningbits.net/lightningbits/product-views/product-services" Icon="@Icons.Material.Filled.Code" Match="NavLinkMatch.Prefix">Software Services</MudNavLink>
                     <MudNavGroup Title="My Demo Shops" Expanded="false" Color="Color.Dark">
-                        @*<MudNavLink Href="@($"{Constants.MyStoreHost}/thriftboss")" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Demo-ThriftBoss</MudNavLink>
-                <MudNavLink Href="@($"{Constants.MyStoreHost}/serverpreview")" Icon="@Icons.Material.Filled.Dashboard" Match="NavLinkMatch.Prefix">Demo-AdminView</MudNavLink>*@
+                        <MudNavLink Href="https://mystore.lightningbits.net/lightningbits/ThriftBoss" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Demo-ThriftBoss</MudNavLink>
+                        @*<MudNavLink Href="@($"{Constants.MyStoreHost}/serverpreview")" Icon="@Icons.Material.Filled.Dashboard" Match="NavLinkMatch.Prefix">Demo-AdminView</MudNavLink>*@
                     </MudNavGroup>
                 </MudNavGroup>
                 <MudNavGroup Title="My Portfolio" Expanded="false" Color="Color.Dark">
                     <MudNavLink Href="/portfolio" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">About Me</MudNavLink>
                 </MudNavGroup>
                 <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-                <MudNavLink Href="/contact" Icon="@Icons.Material.Filled.ContactPage" Match="NavLinkMatch.Prefix" Style="text-align">Contact me</MudNavLink>
+                <MudNavGroup Title="Contact" Expanded="false" Color="Color.Dark">
+                    <MudNavLink Href="mailto:RafaelMorel@LightningBits.com" Icon="@Icons.Material.Filled.Email" Match="NavLinkMatch.Prefix">E-Mail</MudNavLink>
+                    <MudNavLink Icon="@Icons.Material.Filled.Chat" Match="NavLinkMatch.Prefix">MyChat Coming Soon</MudNavLink>
+                </MudNavGroup>
             </MudNavMenu>
         </MudDrawer>
     </NotAuthorized>

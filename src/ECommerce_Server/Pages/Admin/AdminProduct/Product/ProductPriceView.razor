@@ -8,10 +8,9 @@
 @attribute [Authorize(Roles = SD.Role_Admin)]
 
 <_AdminPanelHeader></_AdminPanelHeader>
-    <div class="min-f-screen w-full p-2 flex justify-center items-center">
-        <div class="w-full max-w-lg">
-            <div class="bg-white text-black border p-4 shadow rounded w-full mb-20 mt-10">
-                <h1 class="mb-8 text-3xl text-white bg-black py-4 ">Product Price</h1>
+    <div class="w-full p-2 flex justify-center items-center">
+            <div class="bg-white text-black border p-4 shadow-xl rounded w-full mb-10 mt-10">
+                <h1 class="mb-8 text-3xl bg-Primary text-Primary py-4 ">Product Price</h1>
                 @if (IsProcessing)
                 {
                     <div class="text-center">
@@ -64,7 +63,6 @@
                 }
             </div>
         </div>
-    </div>
 
 
 
@@ -78,8 +76,8 @@
     string MyProperty = "";
 
     IEnumerable<string> SizeList = new List<string>()
-{
-            "", "N/A", "Quote", "per month","Per Hour","small", "Medium", "Large", "xLarge", "8oz", "16oz", "24oz"
+        {
+            "", "N/A", "Quote","Per hour","Per week","per month","small", "Medium", "Large", "xLarge", "8oz", "16oz", "24oz"
         };
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
