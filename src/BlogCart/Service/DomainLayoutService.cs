@@ -1,5 +1,6 @@
 ﻿using BlogCart.Shared.MainLayouts;
 
+
 namespace BlogCart.Service
 {
     public class DomainLayoutService
@@ -10,18 +11,26 @@ namespace BlogCart.Service
             {
                 return typeof(LightningBitsLayout);
             }
-            else if (domain == "example1.com")
+            else if (domain == "bluelemonz.com")
             {
                 return typeof(BlueLemonZLayout);
             }
-            else if (domain == "example2.com")
+            else if (domain == "stefmancia.com")
+            {
+                return typeof(StefManciaLayout);
+            }
+            else if (domain == "thehealerisyou.com")
+            {
+                return typeof(TheHealerIsYouLayout);
+            }
+            //development change return to set path
+            else if (domain == "localhost:7099")
             {
                 return typeof(TheHealerIsYouLayout);
             }
             else
             {
-                //return typeof(MainLayout);
-                return typeof(LightningBitsLayout);
+                return typeof(MainLayout);
             }
         }
 

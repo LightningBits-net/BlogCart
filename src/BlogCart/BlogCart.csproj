@@ -16,18 +16,4 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\js\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\js\" />
-    <Folder Include="Pages\Clients\Lightningbits\Pages\CodePlayGround\" />
-    <Folder Include="Pages\Clients\Main\" />
-    <Folder Include="Shared\MainLayouts\TheHealerIsYou %28copy%29\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Pages\Clients\Lightningbits\Pages\CodePlayGround\" />
-    <None Remove="Pages\Clients\Main\" />
-    <None Remove="Shared\MainLayouts\TheHealerIsYou %28copy%29\" />
-  </ItemGroup>
 </Project>

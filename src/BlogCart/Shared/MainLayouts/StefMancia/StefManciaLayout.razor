@@ -1,5 +1,4 @@
 ﻿@inherits LayoutComponentBase
-@inject IHttpContextAccessor HttpContextAccessor
 @namespace BlogCart.Shared.MainLayouts
 
 
@@ -9,8 +8,8 @@
 
 
 <MudLayout Color="Color.Dark">
-    @*<AppBar OnSidebarToggled="ToggleSidebar" />
-        <NavMenu SideBarOpen="_sidebarOpen" />*@
+    <StefManciaAppBar OnSidebarToggled="ToggleSidebar" />
+        <StefManciaNavMenu SideBarOpen="_sidebarOpen" />
     <MudScrollToTop>
         <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
     </MudScrollToTop>
