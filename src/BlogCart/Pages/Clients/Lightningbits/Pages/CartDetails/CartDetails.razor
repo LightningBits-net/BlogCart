@@ -4,8 +4,6 @@
 @inject IProductService _productService
 @inject ICartService _cartService
 @inject MudBlazor.ISnackbar snackBar
-@inject DomainLayoutService DomainLayoutService
-@layout LightningBitsLayout
 
 <PageTitle>Your Cart</PageTitle>
 <div class="p-2">
@@ -27,7 +25,7 @@
         }
         else
         {
-            <div class="max-w-5xl mx-auto pt-20 pr-2 flex justify-end">
+            <div class="max-w-5xl mx-auto pt-10 pr-2 flex justify-end">
                 <h1 class="font-display-italic dark:text-white text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">
                     Order Review
                 </h1>

@@ -4,16 +4,22 @@
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 
-<PageTitle>@Product.Name</PageTitle>
-
 <head>
-    <title>@Product.Name</title>
     <meta name="description" content="@Product.Description" />
     <meta property="og:title" content="@Product.Name" />
     <meta property="og:description" content="@Product.Description" />
     <meta property="og:image" content="@Product.ImageUrl" />
+    <meta name="twitter:title" content="@Product.Name" />
+    <meta name="twitter:description" content="@Product.Description" />
+    <meta name="twitter:image" content="@Product.ImageUrl" />
+    <meta property="og:type" content="article" />
     <meta property="og:url" content="@(_navigationManager.Uri)" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="@(_navigationManager.Uri)" />
 </head>
+
+<PageTitle>@Product.Name</PageTitle>
+
 
 @if (IsProcessing)
 {
@@ -33,7 +39,7 @@ else
                         <MudText Typo="Typo.body2" Color="Color.Default"> Color: @Product.Color</MudText>
                     }
                 </MudCardActions>
-                <img src="@Product.ImageUrl" class="w-full h-64 object-cover" alt="@Product.Name image" />
+                <img src="@Product.ImageUrl" class="w-full h-64 object-cover" alt="@Product.Name" />
                 <MudCardContent>
                     <p class="h-48 min-h-0">
                         <MudText Typo="Typo.body1" Color="Color.Inherit"> @((MarkupString)Product.Description)</MudText>

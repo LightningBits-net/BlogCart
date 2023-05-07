@@ -1,16 +1,12 @@
-﻿@*@page "/"*@
-@page "/lightningbits"
-@inject ILocalStorageService localStorage
-
-
+﻿@page "/lightningbits"
 
 <HeadContent>
     <meta name="description" content="@Description" />
     <meta property="og:title" content="@Title" />
-    <meta property="og:description" content="" />
+    <meta property="og:description" content="@Description" />
     <meta property="og:image" content="@ImageUrl" />
     <meta name="twitter:title" content="@Title" />
-    <meta name="twitter:description" content="" />
+    <meta name="twitter:description" content="@Description" />
     <meta name="twitter:image" content="@ImageUrl" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="@(_navigationManager.Uri)" />
@@ -18,9 +14,9 @@
     <meta property="twitter:url" content="@(_navigationManager.Uri)" />
 </HeadContent>
 
-<div x-data="{showMenu: false}" class="h-24 z-40 relative container mx-auto px-6 flex items-center justify-between text-white">
-</div>
-<LandingImage></LandingImage>
+<PageTitle>@Title</PageTitle>
+
+<LandingPageBanner></LandingPageBanner>
 @*<AboutUsBanner></AboutUsBanner>*@
 @*<MainProductsMosiac></MainProductsMosiac>y
     <BlogBanner></BlogBanner>
@@ -30,8 +26,8 @@
 @*<_FooterDarkGray></_FooterDarkGray>*@
 
 @code {
-    private string Title = "My Portfolio";
-    private string Description = "I am a software developer. How can I help you create your vision?";
+    private string Title = "LightningBits.com";
+    private string Description = "Personalized Software Solutions for Your Unique Needs. With a focus on innovation and customization, I create software tailored to meet the specific needs of your business. As a dedicated developer, I work closely with you to understand your requirements and deliver software that drives success and efficiency. Trust me for your software needs and see your business soar.";
     private string ImageUrl = "/img/lb_logoLight.jpg";
 }
 

@@ -2,8 +2,6 @@
 @inject IProductService _productService
 @inject NavigationManager _navigationManager
 
-
-<PageTitle>@Title</PageTitle>
 <HeadContent>
     <meta name="description" content="@Description" />
     <meta property="og:title" content="@Title" />
@@ -17,6 +15,8 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="@(_navigationManager.Uri)" />
 </HeadContent>
+
+<PageTitle>@Title</PageTitle>
 <div class="max-w-5xl mx-auto pt-10 p-2 flex justify-end">
     <h1 class="font-display-italic dark:text-white text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Services</h1>
 </div>
@@ -34,32 +34,33 @@ else
             @if (product.Category.Name == Title)
             {
                 <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 px-3 mb-12">
-<MudCard Class="transition-shadow duration-300 ease-in-out hover:shadow-2xl">
-    <a href="/lightningbits/product-views/product-details/@product.Id">
-        <div class="p-4 h-28 text-center overflow-y-auto">
-            <MudText Typo="Typo.h5" Color="Color.Default">@product.Name</MudText>
-            <MudText class="mt-2" Color="Color.Primary">@(product.ECommerceProductPrices.Any() ? "starting at " + product.ECommerceProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c") : "sold out")</MudText>
-        </div>
-        <div>
-            <img src="@product.ImageUrl" class="w-full h-64 object-cover" />
-        </div>
-    </a>
-    <div class="h-52 overflow-y-auto">
-        <MudCardContent>
-            <p class="min-h-0">
-                <MudText Typo="Typo.body1" Color="Color.Inherit"> @((MarkupString)product.Description)</MudText>
-            </p>
-        </MudCardContent>
-    </div>
-    <MudCardActions>
-        @if (product.Color != "*")
-        {
-            <MudText Typo="Typo.body2" Color="Color.Default"> Color:@product.Color</MudText>
-        }
-        <MudSpacer />
-        <MudText Typo="Typo.body2" Color="Color.Default"> Cat:@product.Category.Name</MudText>
-    </MudCardActions>
-</MudCard>
+                    <MudCard Class="transition-shadow duration-300 ease-in-out hover:shadow-2xl">
+                        <a href="/lightningbits/product-views/product-details/@product.Id">
+                            <div class="p-4 h-28 text-center overflow-y-auto">
+                                <MudText Typo="Typo.h5" Color="Color.Default">@product.Name</MudText>
+                                <MudText class="mt-2" Color="Color.Primary">@(product.ECommerceProductPrices.Any() ? "starting at " + product.ECommerceProductPrices.OrderBy(u => u.Price).FirstOrDefault()?.Price.ToString("c") : "sold out")</MudText>
+                            </div>
+                            <div>
+                                <img src="@product.ImageUrl" alt="@product.Name"
+                                     class="w-full h-64 object-cover" />
+                            </div>
+                        </a>
+                        <div class="h-52 overflow-y-auto">
+                            <MudCardContent>
+                                <p class="min-h-0">
+                                    <MudText Typo="Typo.body1" Color="Color.Inherit"> @((MarkupString)product.Description)</MudText>
+                                </p>
+                            </MudCardContent>
+                        </div>
+                        <MudCardActions>
+                            @if (product.Color != "*")
+                            {
+                                <MudText Typo="Typo.body2" Color="Color.Default"> Color:@product.Color</MudText>
+                            }
+                            <MudSpacer />
+                            <MudText Typo="Typo.body2" Color="Color.Default"> Cat:@product.Category.Name</MudText>
+                        </MudCardActions>
+                    </MudCard>
                 </div>
             }
         }

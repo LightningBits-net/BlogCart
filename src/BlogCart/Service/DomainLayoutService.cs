@@ -11,6 +11,10 @@ namespace BlogCart.Service
             {
                 return typeof(LightningBitsLayout);
             }
+            if (domain == "lightningbits.com")
+            {
+                return typeof(LightningBitsLayout);
+            }
             else if (domain == "bluelemonz.com")
             {
                 return typeof(BlueLemonZLayout);
@@ -26,7 +30,7 @@ namespace BlogCart.Service
             //development change return to set path
             else if (domain == "localhost:7099")
             {
-                return typeof(TheHealerIsYouLayout);
+                return typeof(LightningBitsLayout);
             }
             else
             {
