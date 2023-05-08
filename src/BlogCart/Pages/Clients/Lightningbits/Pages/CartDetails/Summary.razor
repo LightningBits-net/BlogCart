@@ -5,7 +5,19 @@
 @inject IOrderService _orderService
 @*@inject IPaymentService _paymentService*@
 
-
+<HeadContent>
+    <meta name="description" content="@Description" />
+    <meta property="og:title" content="@Title" />
+    <meta property="og:description" content="@Description" />
+    <meta property="og:image" content="@ImageUrl" />
+    <meta name="twitter:title" content="@Title" />
+    <meta name="twitter:description" content="@Description" />
+    <meta name="twitter:image" content="@ImageUrl" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@(_navigationManager.Uri)" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="@(_navigationManager.Uri)" />
+</HeadContent>
 
 <PageTitle>Order Summary</PageTitle>
 @if (IsProcessing)
@@ -37,7 +49,7 @@ else
                     {
                         <tr class="w-full">
                             <td class="border border-gray-400 text-center">
-                                <img src="@prod.Product.ImageUrl" width="100" height="100">
+                                <img src="@prod.Product.ImageUrl" alt="@prod.Product.Name" width="100" height="100">
                             </td>
                             <td class="border border-gray-400 text-center">
                                 <p class="w-full text-xlg"> @prod.ProductName</p>
@@ -135,6 +147,10 @@ else
     public bool IsProcessing { get; set; } = false;
     private OrderDTO Order { get; set; } = null;
     public IEnumerable<ProductDTO> Products { get; set; } = new List<ProductDTO>();
+    private string Title = "LightningBits.com";
+    private string Description = "Review your order with ease at LightningBits.com. Our personalized software solutions ensure that your order is processed smoothly and efficiently, saving you time and hassle. With a focus on innovation and customization, our dedicated developers work tirelessly to deliver software that exceeds your expectations. You can trust us to provide the best possible service, making it easy to manage your orders and keep your customers happy. Review your order now and experience the power of LightningBits.com.";
+    private string ImageUrl = "/img/lb_logoLight.jpg";
+
 
     protected override async Task OnInitializedAsync()
     {

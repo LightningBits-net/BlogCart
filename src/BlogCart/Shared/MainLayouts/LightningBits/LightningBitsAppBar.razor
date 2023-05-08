@@ -7,24 +7,24 @@
 
 <MudAppBar Elevation="21" Dense="true">
     <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Medium" Edge="Edge.End"
-                   OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
-    <MudIconButton Href="https://lightningbits.com" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
+                   OnClick="async () => await OnSidebarToggled.InvokeAsync()"  aria-label="Toggle Menu Sidebar"/>
+    <MudIconButton Href="https://lightningbits.com" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" aria-label="Go to home page" />
     <MudSpacer />
     @if (CartCount < 1)
     {
-        <MudIconButton Href="https://github.com/LightningBit/E-Commerce" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
+        <MudIconButton Href="https://github.com/LightningBit/E-Commerce" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" aria-label="Go to github Page" />
 
     }
     else
     {
         <MudText>(@CartCount)</MudText>
-        <MudIconButton Href="/lightningbits/cart-details" Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.False" />
-        <MudIconButton Href="https://github.com/LightningBit" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
+        <MudIconButton Href="/lightningbits/cart-details" Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.False" aria-label="Go to Shopping Cart page" />
+        <MudIconButton Href="https://github.com/LightningBit" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" aria-label="Go to Github page"  />
     }
     @*<MudIconButton Href="#" Icon="@Icons.Custom.Brands.Facebook" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />*@
     @*<MudIconButton Href="#" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-        <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Instagram" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-        <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Twitter" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />*@
+        <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Instagram" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />*@
+        @*<MudIconButton Href="#" Icon="@Icons.Custom.Brands.Twitter" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />*@
 </MudAppBar>
 
 

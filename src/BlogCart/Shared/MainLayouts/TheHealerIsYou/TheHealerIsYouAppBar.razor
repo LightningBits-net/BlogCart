@@ -7,12 +7,12 @@
 
 <MudAppBar Elevation="21" Dense="true">
     <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Medium" Edge="Edge.End"
-                   OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
-    <MudIconButton Href="/thehealerisyuou/" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" />
+                   OnClick="async () => await OnSidebarToggled.InvokeAsync()" aria-label="Toggle Menu sidebar" />
+    <MudIconButton Href="/thehealerisyuou/" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" aria-label="Go to Home Page" />
     <MudSpacer />
-    <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Facebook" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-    <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Instagram" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-    <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Twitter" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
+    <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Facebook" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" aria-label="Go to facebook" />
+    <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Instagram" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" aria-label="Go to Instagram" />
+    <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Twitter" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" aria-label="Go to Twitter" />
 </MudAppBar>
 
 

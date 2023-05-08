@@ -5,6 +5,20 @@
 @inject ICartService _cartService
 @inject MudBlazor.ISnackbar snackBar
 
+<HeadContent>
+    <meta name="description" content="@Description" />
+    <meta property="og:title" content="@Title" />
+    <meta property="og:description" content="@Description" />
+    <meta property="og:image" content="@ImageUrl" />
+    <meta name="twitter:title" content="@Title" />
+    <meta name="twitter:description" content="@Description" />
+    <meta name="twitter:image" content="@ImageUrl" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@(_navigationManager.Uri)" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="@(_navigationManager.Uri)" />
+</HeadContent>
+
 <PageTitle>Your Cart</PageTitle>
 <div class="p-2">
     @if (IsProcessing)
@@ -47,7 +61,7 @@
                                 <MudText Typo="Typo.body1" Color="Color.Default">@prod.ProductPrice.Price.ToString("c")</MudText>
                             </MudCardHeader>
                             <a href="/lightningbits/product-views/product-details/@prod.Product.Id">
-                                <img src="@prod.Product.ImageUrl" class="w-full h-32 object-cover" />
+                                <img src="@prod.Product.ImageUrl" alt="@prod.Product.Name" class="w-full h-32 object-cover" />
                             </a>
                             <MudCardContent>
                                 <p class="h-48 min-h-0">
@@ -82,6 +96,10 @@
     private List<ShoppingCart> ShoppingCart = new List<ShoppingCart>();
     public IEnumerable<ProductDTO> Products { get; set; } = new List<ProductDTO>();
     private double OrderTotal { get; set; } = 0;
+    private string Title = "LightningBits.com";
+    private string Description = "Personalized Software Solutions for Your Unique Needs. With a focus on innovation and customization, I create software tailored to meet the specific needs of your business. As a dedicated developer, I work closely with you to understand your requirements and deliver software that drives success and efficiency. Trust me for your software needs and see your business soar.";
+    private string ImageUrl = "/img/lb_logoLight.jpg";
+
 
     protected override async Task OnInitializedAsync()
     {

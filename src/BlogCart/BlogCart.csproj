@@ -16,4 +16,10 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Pages\Clients\Lightningbits\Pages\Directory\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Clients\Lightningbits\Pages\Directory\" />
+  </ItemGroup>
 </Project>
