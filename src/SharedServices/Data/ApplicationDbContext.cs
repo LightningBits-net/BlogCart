@@ -31,6 +31,9 @@ namespace SharedServices.Data
         public DbSet<Blog> Blogs { get; set; }
 
         public DbSet<BlogCategory> BlogCategories { get; set; }
+
+        public DbSet<Client> Clients { get; set; }
+
     }
 }
 
