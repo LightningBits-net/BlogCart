@@ -20,6 +20,7 @@ namespace SharedServices.Mapper
             CreateMap<ToDoItemDTO, ToDoItem>().ReverseMap();
             CreateMap<BlogCategory, BlogCategoryDTO>().ReverseMap();
             CreateMap<Blog, BlogDTO>().ReverseMap();
+            CreateMap<Client, ClientDTO>().ReverseMap();
         }
     }
        

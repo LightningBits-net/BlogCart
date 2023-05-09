@@ -37,8 +37,6 @@ namespace BlogCart.Service
                 return typeof(MainLayout);
             }
         }
-
     }
-
 }
 
