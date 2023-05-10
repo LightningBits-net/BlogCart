@@ -39,9 +39,9 @@ namespace SharedServices.Data
         [ForeignKey("BlogCategoryId")]
         public BlogCategory BlogCategory { get; set; }
 
-        //public int ClientId { get; set; }
+        //public int? ClientId { get; set; }
 
-        ////[ForeignKey("BlogCategoryId")]
+        //////[ForeignKey("BlogCategoryId")]
         //public Client Client { get; set; }
     }
 }

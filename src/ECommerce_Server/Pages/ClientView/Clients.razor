@@ -1,0 +1,77 @@
+﻿@page "/createClient"
+@inject IClientRepository _clientRepository
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+@*@attribute [Authorize(Roles = SD.Role_Admin)]*@
+
+<h1>Create New Client</h1>
+<hr />
+
+<EditForm Model="@newClient" OnValidSubmit="@CreateClient">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label for="DomainName">Domain Name</label>
+        <InputText @bind-Value="@newClient.DomainName" class="form-control" />
+        <ValidationMessage For="@(() => newClient.DomainName)" />
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <InputText @bind-Value="@newClient.Email" class="form-control" />
+        <ValidationMessage For="@(() => newClient.Email)" />
+    </div>
+
+    <div class="form-group">
+        <label for="BillingStartDate">Billing Start Date</label>
+        <InputDate @bind-Value="@newClient.BillingStartDate" class="form-control" />
+        <ValidationMessage For="@(() => newClient.BillingStartDate)" />
+    </div>
+
+    <div class="form-group">
+        <label for="BillingEndDate">Billing End Date</label>
+        <InputDate @bind-Value="@newClient.BillingEndDate" class="form-control" />
+        <ValidationMessage For="@(() => newClient.BillingEndDate)" />
+    </div>
+
+    @*<div class="form-group">
+        <label for="BillingAmount">Billing Amount</label>
+        <InputText @bind-Value="@newClient.BillingAmount" class="form-control" />
+        <ValidationMessage For="@(() => newClient.BillingAmount)" />
+    </div>*@
+
+    <div class="form-group">
+        <label for="BillingCycle">Billing Cycle</label>
+        <InputSelect @bind-Value="@newClient.BillingCycle" class="form-control">
+            <option value="">Select a billing cycle...</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Yearly">Yearly</option>
+        </InputSelect>
+        <ValidationMessage For="@(() => newClient.BillingCycle)" />
+    </div>
+
+    <div class="form-group">
+        <label for="IsActive">Is Active?</label>
+        <InputCheckbox @bind-Value="@newClient.IsActive" class="form-control" />
+        <ValidationMessage For="@(() => newClient.IsActive)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Client</button>
+</EditForm>
+
+@code {
+    private ClientDTO newClient = new ClientDTO();
+
+    private async Task CreateClient()
+    {
+        var result = await _clientRepository.Create(newClient);
+        if (result != null)
+        {
+            snackBar.Add("Client created successfully!", Severity.Success);
+            _navigationManager.NavigateTo("/clients");
+        }
+        else
+        {
+            snackBar.Add("An error occurred while creating the client.", Severity.Error);
+        }
+    }
+}
