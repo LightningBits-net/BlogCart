@@ -13,6 +13,11 @@ namespace SharedServices.Models
         public string Name { get; set; }
 
         public DateTime CreateDate { get; set; }
+
+        public int ClientId { get; set; }
+
+        //[ForeignKey("ClientId")]
+        public ClientDTO Client { get; set; }
     }
 }
 

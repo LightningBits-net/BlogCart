@@ -44,6 +44,11 @@ namespace SharedServices.Models
 
         [ForeignKey("BlogCategoryId")]
         public BlogCategory BlogCategory { get; set; }
+
+        public int ClientId { get; set; }
+
+        //[ForeignKey("ClientId")]
+        public ClientDTO Client { get; set; }
     }
 }
 

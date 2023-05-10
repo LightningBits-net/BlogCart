@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SharedServices.Data
 {
@@ -12,10 +13,10 @@ namespace SharedServices.Data
 
         public DateTime CreateDate { get; set; }
 
-        //public int ClientId { get; set; }
+        public int ClientId { get; set; }
 
-        ////[ForeignKey("BlogCategoryId")]
-        //public Client Client { get; set; }
+        [ForeignKey("ClientId")]
+        public Client Client { get; set; }
     }
 }
 
