@@ -15,6 +15,11 @@ namespace SharedServices.Data
         public DateTime DateCreated { get; set; }
 
         public string Comment { get; set; }
+
+        //public int ClientId { get; set; }
+
+        ////[ForeignKey("BlogCategoryId")]
+        //public Client Client { get; set; }
     }
 }
 

@@ -24,8 +24,6 @@ namespace SharedServices.Data
 
         public string ImageUrl { get; set; }
 
-        public int BlogCategoryId { get; set; }
-
         public int Views { get; set; }
 
         public DateTime DateCreated { get; set; }
@@ -36,7 +34,14 @@ namespace SharedServices.Data
 
         public int Rating { get; set; }
 
+        public int BlogCategoryId { get; set; }
+
         [ForeignKey("BlogCategoryId")]
         public BlogCategory BlogCategory { get; set; }
+
+        //public int ClientId { get; set; }
+
+        ////[ForeignKey("BlogCategoryId")]
+        //public Client Client { get; set; }
     }
 }

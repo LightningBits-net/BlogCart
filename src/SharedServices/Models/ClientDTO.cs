@@ -2,8 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-    namespace SharedServices.Models
-    {
+namespace SharedServices.Models
+{
     public class ClientDTO
     {
         public int ClientId { get; set; }

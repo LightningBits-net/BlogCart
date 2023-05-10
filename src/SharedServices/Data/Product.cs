@@ -29,6 +29,11 @@ namespace SharedServices.Data
         public Category Category { get; set; }
 
         public ICollection<ProductPrice> ECommerceProductPrices { get; set; }
+
+        //public int ClientId { get; set; }
+
+        ////[ForeignKey("BlogCategoryId")]
+        //public Client Client { get; set; }
     }
 }
 

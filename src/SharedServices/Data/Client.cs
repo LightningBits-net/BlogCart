@@ -22,6 +22,7 @@ namespace SharedServices.Data
 
         public string BillingCycle { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal BillingAmount { get; set; }
 
         public DateTime BillingStartDate { get; set; }
@@ -30,4 +31,5 @@ namespace SharedServices.Data
 
     }
 }
+
 
