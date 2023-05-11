@@ -18,8 +18,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Pages\Clients\Lightningbits\Pages\Directory\" />
+    <None Remove="Pages\Clients\Lightningbits\Pages\Blog\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Clients\Lightningbits\Pages\Directory\" />
+    <Folder Include="Pages\Clients\Lightningbits\Pages\Blog\" />
   </ItemGroup>
 </Project>
