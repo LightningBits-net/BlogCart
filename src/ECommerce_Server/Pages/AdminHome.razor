@@ -1,80 +1,81 @@
 ﻿@page "/AdminHome"
+@page "/"
 @inject NavigationManager _navigationManager
-@attribute [Authorize(Roles = SD.Role_Admin)]
+@attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
 
 
 <PageTitle>AdminHome</PageTitle>
-    <div class="max-w-5xl mx-auto pt-10 p-8 flex justify-end">
-        <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none max-w-xl">Welcome Admin</h1>
+<div class="max-w-5xl mx-auto pt-10 p-8 flex justify-end">
+    <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none max-w-xl">Welcome Admin</h1>
+</div>
+
+<div class="container mx-auto justify-center flex flex-wrap pb-20">
+    <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
+        <MudCard Elevation="25">
+            <MudCardContent>
+                <MudText Typo="Typo.h5">BlogCart Manager</MudText>
+                <MudText Typo="Typo.body2">Manage all your products here</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Href="/productlist" FullWidth="true" Variant="Variant.Outlined" Color="Color.Success">Manage Products</MudButton>
+            </MudCardActions>
+        </MudCard>
     </div>
 
-    <div class="container mx-auto justify-center flex flex-wrap pb-20">
-        <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
-            <MudCard Elevation="25">
-                <MudCardContent>
-                    <MudText Typo="Typo.h5">BlogCart Manager</MudText>
-                    <MudText Typo="Typo.body2">Manage all your products here</MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Href="/productlist" FullWidth="true" Variant="Variant.Outlined" Color="Color.Success">Manage Products</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </div>
-
-        <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
-            <MudCard Elevation="25">
-                <MudCardContent>
-                    <MudText Typo="Typo.h5">Blog Manager</MudText>
-                    <MudText Typo="Typo.body2">Manage all your Blog post here</MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Href="/BlogCatlist" Variant="Variant.Outlined" FullWidth="true" Color="Color.Warning">Blog in Preview</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </div>
-
-
-        <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
-            <MudCard Elevation="25">
-                <MudCardContent>
-                    <MudText Typo="Typo.h5">TODO App</MudText>
-                    <MudText Typo="Typo.body2">Stay organized with your own ToDo list</MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Href="/ToDoList" Variant="Variant.Outlined" FullWidth="true" Color="Color.Success">ToDo</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </div>
-
-
-        <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
-            <MudCard Elevation="25">
-                <MudCardContent>
-                    <MudText Typo="Typo.h5">Order MGNT</MudText>
-                    <MudText Typo="Typo.body2">Manage all your Sales here</MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Variant="Variant.Outlined" FullWidth="true" Color="Color.Error">coming soon!</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </div>
-
-
-        <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
-            <MudCard  Elevation="25">
-                <MudCardContent>
-                    <MudText Typo="Typo.h5">Layout Designer</MudText>
-                    <MudText Typo="Typo.body2">Manage your website design</MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Variant="Variant.Outlined" FullWidth="true" Color="Color.Error">coming soon!</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </div>
+    <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
+        <MudCard Elevation="25">
+            <MudCardContent>
+                <MudText Typo="Typo.h5">Blog Manager</MudText>
+                <MudText Typo="Typo.body2">Manage all your Blog post here</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Href="/BlogCatlist" Variant="Variant.Outlined" FullWidth="true" Color="Color.Warning">Blog in Preview</MudButton>
+            </MudCardActions>
+        </MudCard>
     </div>
 
 
-        @code{
+    <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
+        <MudCard Elevation="25">
+            <MudCardContent>
+                <MudText Typo="Typo.h5">TODO App</MudText>
+                <MudText Typo="Typo.body2">Stay organized with your own ToDo list</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Href="/ToDoList" Variant="Variant.Outlined" FullWidth="true" Color="Color.Success">ToDo</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </div>
 
-        }
+
+    <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
+        <MudCard Elevation="25">
+            <MudCardContent>
+                <MudText Typo="Typo.h5">Order MGNT</MudText>
+                <MudText Typo="Typo.body2">Manage all your Sales here</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Outlined" FullWidth="true" Color="Color.Error">coming soon!</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </div>
+
+
+    <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
+        <MudCard Elevation="25">
+            <MudCardContent>
+                <MudText Typo="Typo.h5">Layout Designer</MudText>
+                <MudText Typo="Typo.body2">Manage your website design</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Outlined" FullWidth="true" Color="Color.Error">coming soon!</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </div>
+</div>
+
+
+@code{
+
+}
 

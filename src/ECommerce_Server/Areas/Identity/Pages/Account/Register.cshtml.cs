@@ -24,7 +24,7 @@ using SharedServices.Commons;
 
 namespace ECommerce_Server.Areas.Identity.Pages.Account
 {
-    [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
+    //[Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
