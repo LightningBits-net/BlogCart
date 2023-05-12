@@ -1,13 +1,12 @@
 ﻿
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
-//using Syncfusion.Blazor;
+using BlogCart;
 using BlogCart.Service;
 using BlogCart.Service.IService;
 using Blazored.LocalStorage;
 using MudBlazor.Services;
 using Microsoft.AspNetCore.Authentication;
-using BlogCart;
 using Microsoft.JSInterop;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +15,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["BaseAPIUrl"]) });
 
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();

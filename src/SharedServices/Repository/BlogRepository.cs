@@ -85,6 +85,7 @@ namespace SharedServices.Repository
                 objFromDb.DateCreated = objDTO.DateCreated;
                 objFromDb.Rating = objDTO.Rating;
                 objFromDb.Status = objDTO.Status;
+                objFromDb.ClientId = objDTO.ClientId;
                 //objFromDb.LastUpdated = objDTO.LastUpdated;
 
                 _db.Blogs.Update(objFromDb);

@@ -4,34 +4,34 @@
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
-@attribute [Authorize(Roles = SD.Role_Admin)]
+@attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
 
 
 <_BlogPanelHeader></_BlogPanelHeader>
-    <div class="w-full flex justify-center items-center">
-        <div class="w-full max-w-lg">
-            <div class="bg-white text-black border p-4 shadow rounded w-full">
-                <h1 class="mb-8 text-3xl text-white bg-black py-4 ">@Title Category</h1>
-                @if (IsLoading)
-                {
-                    <div class="text-center">
-                        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-                    </div>
-                }
-                else
-                {
-                    <EditForm Model="BlogCategory" OnValidSubmit="UpsertCategory">
-                        <DataAnnotationsValidator />
-                        <InputText @bind-Value="BlogCategory.Name" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-md" placeholder="Enter Category"></InputText>
-                        <ValidationMessage For="()=>BlogCategory.Name"></ValidationMessage>
-                        <br />
-                        <button href="/BlogCatList/Create" class="block w-full bg-indigo-500 hover:bg-black text-white rounded font-heading mt-2 py-2">@Title</button>
-                        <br />
-                    </EditForm>
-                }
-            </div>
+<div class="w-full flex justify-center items-center">
+    <div class="w-full max-w-lg">
+        <div class="bg-white text-black border p-4 shadow rounded w-full">
+            <h1 class="mb-8 text-3xl text-white bg-black py-4 ">@Title Category</h1>
+            @if (IsLoading)
+            {
+                <div class="text-center">
+                    <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                </div>
+            }
+            else
+            {
+                <EditForm Model="BlogCategory" OnValidSubmit="UpsertCategory">
+                    <DataAnnotationsValidator />
+                    <InputText @bind-Value="BlogCategory.Name" class="block w-full focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-6 text-md" placeholder="Enter Category"></InputText>
+                    <ValidationMessage For="()=>BlogCategory.Name"></ValidationMessage>
+                    <br />
+                    <button href="/BlogCatList/Create" class="block w-full bg-indigo-500 hover:bg-black text-white rounded font-heading mt-2 py-2">@Title</button>
+                    <br />
+                </EditForm>
+            }
         </div>
     </div>
+</div>
 
 
 @code {

@@ -3,64 +3,64 @@
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
-@attribute [Authorize(Roles = SD.Role_Admin)]
+@attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
 
 
 <_BlogPanelHeader></_BlogPanelHeader>
 
-    <div class="w-full flex justify-center items-center">
-        <div class="w-full max-w-lg">
-            <div class="bg-white text-black border p-4 shadow rounded w-full">
-                <h1 class="mb-8 text-3xl text-white bg-black py-4">Category List</h1>
-                <div class="w-full p-2 flex justify-center items-center bg-white text-black">
-                    @if (BlogCategories.Any())
-                    {
-                        <table class="table-auto">
-                            <thead class="bg-gray-400">
+<div class="w-full flex justify-center items-center">
+    <div class="w-full max-w-lg">
+        <div class="bg-white text-black border p-4 shadow rounded w-full">
+            <h1 class="mb-8 text-3xl text-white bg-black py-4">Category List</h1>
+            <div class="w-full p-2 flex justify-center items-center bg-white text-black">
+                @if (BlogCategories.Any())
+                {
+                    <table class="table-auto">
+                        <thead class="bg-gray-400">
+                            <tr>
+                                <th class=" w-1/2 px-8 py-4">Name</th>
+                                <th class=" w-1/4 px-4 py-2">Action</th>
+                                <th class=" w-1/4 px-4 py-2">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var objCat in BlogCategories)
+                            {
                                 <tr>
-                                    <th class=" w-1/2 px-8 py-4">Name</th>
-                                    <th class=" w-1/4 px-4 py-2">Action</th>
-                                    <th class=" w-1/4 px-4 py-2">Delete</th>
+                                    <td class="border px-4 py-2">@objCat.Name</td>
+                                    <td class="p-2">
+                                        <MudButton Href="@($"blogcatlist/edit/{objCat.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
+                                    </td>
+                                    <td class="p-2">
+                                        <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
+                                            <MudButton>
+                                                <MudButton OnClick="@(()=>DeleteCategory(objCat.Id))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete of:<br />"@objCat.Name"</MudButton>
+                                                <MudButton Href="" Variant="Variant.Filled" Color="Color.Dark">Cancel</MudButton>
+                                            </MudButton>
+                                        </MudMenu>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var objCat in BlogCategories)
-                                {
-                                    <tr>
-                                        <td class="border px-4 py-2">@objCat.Name</td>
-                                        <td class="p-2">
-                                            <MudButton Href="@($"blogcatlist/edit/{objCat.Id}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
-                                        </td>
-                                        <td class="p-2">
-                                            <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
-                                                <MudButton>
-                                                    <MudButton OnClick="@(()=>DeleteCategory(objCat.Id))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete of:<br />"@objCat.Name"</MudButton>
-                                                    <MudButton Href="" Variant="Variant.Filled" Color="Color.Dark">Cancel</MudButton>
-                                                </MudButton>
-                                            </MudMenu>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    if (IsLoading)
+                    {
+                        <div class="text-center">
+                            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                        </div>
                     }
                     else
                     {
-                        if (IsLoading)
-                        {
-                            <div class="text-center">
-                                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-                            </div>
-                        }
-                        else
-                        {
-                            <p>No Data to Display</p>
-                        }
+                        <p>No Data to Display</p>
                     }
-                </div>
+                }
             </div>
         </div>
     </div>
+</div>
 
 
 @code {

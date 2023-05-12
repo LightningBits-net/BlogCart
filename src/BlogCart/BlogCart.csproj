@@ -12,11 +12,6 @@
    <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharedServices\SharedServices.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Pages\Clients\Lightningbits\Pages\Directory\" />
     <None Remove="Pages\Clients\Lightningbits\Pages\Blog\" />
   </ItemGroup>

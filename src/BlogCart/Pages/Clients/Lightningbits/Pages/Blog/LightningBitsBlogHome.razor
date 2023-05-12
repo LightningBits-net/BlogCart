@@ -1,9 +1,5 @@
-﻿@page "/Blog"
+﻿@page "/lightningbits/Blog"
 @page "/BlogviewHome"
-
-@inject IBlogRepository _blogRepository
-@inject NavigationManager _navigationManager
-@inject MudBlazor.ISnackbar snackBar
 
 <PageTitle>@Title</PageTitle>
 <HeadContent>
@@ -21,33 +17,22 @@
 </HeadContent>
 
     <div class="w-full">
-        <_BlogBanner></_BlogBanner>
+        <_LightningBitsBlogBanner></_LightningBitsBlogBanner>
         <div class="container max-w-4xl mx-auto md:flex items-start py-8 px-12 md:px-0">
-            <BlogHome></BlogHome>
-            <_SideView></_SideView>
+            <_LightningBitsBlogByCat></_LightningBitsBlogByCat>
+            <_LightningBitsRightSide></_LightningBitsRightSide>
         </div>
     </div>
-    <_FooterDarkGray></_FooterDarkGray>
+    <_LightningBitsFooter></_LightningBitsFooter>
 
 
 @code {
 
-    public bool IsProcessing { get; set; } = false;
-    public IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
-    //public string CategoryName { get; set; } = "Latest";
-    private string Title = "MyBlog.LightningBits.net";
+    private string Title = "MyBlog";
     private string Description =
         "Explore the power of C# and .NET Blazor in this in-depth blog post. " +
         "Learn how to build web applications with Blazor and take advantage of its powerful features.";
     private string ImageUrl = "/img/Matrixlaptop.png";
-
-
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    IsProcessing = true;
-    //    Blogs = await _blogRepository.GetAll();
-    //    IsProcessing = false;
-    //}
 
 }
 

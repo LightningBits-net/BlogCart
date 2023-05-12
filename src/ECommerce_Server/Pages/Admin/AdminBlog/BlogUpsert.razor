@@ -7,110 +7,110 @@
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
-
+@attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
 
 <_BlogPanelHeader></_BlogPanelHeader>
-    <div class="min-f-screen w-full p-4 flex justify-center items-center">
-        <div class="w-full max-w-xlg">
-            <div class="bg-white text-black border p-2 shadow rounded w-full">
-                <h1 class="mb-4 text-3xl text-white bg-black py-4 ">@Title Blog</h1>
-                <h5>**please note that only images inmserted via a url are accepted with in the text editor**</h5>
-                <h5>**Strongly suggest using H1 tag on title then H2 for sub H3 for sub of sub**</h5>
+<div class="min-f-screen w-full p-4 flex justify-center items-center">
+    <div class="w-full max-w-xlg">
+        <div class="bg-white text-black border p-2 shadow rounded w-full">
+            <h1 class="mb-4 text-3xl text-white bg-black py-4 ">@Title Blog</h1>
+            <h5>**please note that only images inmserted via a url are accepted with in the text editor**</h5>
+            <h5>**Strongly suggest using H1 tag on title then H2 for sub H3 for sub of sub**</h5>
 
-                @if (IsLoading)
-                {
-                    <div class="text-center">
-                        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+            @if (IsLoading)
+            {
+                <div class="text-center">
+                    <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                </div>
+            }
+            else
+            {
+                <EditForm Model="Blog" OnValidSubmit="UpsertBlog">
+                    <div class="form-group text-lrg mb-4">
+                        <MudInputLabel Class="font-bold bg-gray-300">Title</MudInputLabel>
+                        <SfRichTextEditor @bind-Value="Blog.Name"
+                                          class="focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-3">
+                        </SfRichTextEditor>
                     </div>
-                }
-                else
-                {
-                    <EditForm Model="Blog" OnValidSubmit="UpsertBlog">
-                        <div class="form-group text-lrg mb-4">
-                            <MudInputLabel Class="font-bold bg-gray-300">Title</MudInputLabel>
-                            <SfRichTextEditor @bind-Value="Blog.Name"
-                                              class="focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-3">
-                            </SfRichTextEditor>
+                    <div class="flex flex-wrap border justify-center">
+                        <div class="form-group bg-gray-300 w-full px-3 mb-3 md:mb-0">
+                            <h3><strong>Primary Image</strong></h3>
                         </div>
-                        <div class="flex flex-wrap border justify-center">
-                            <div class="form-group bg-gray-300 w-full px-3 mb-3 md:mb-0">
-                                <h3><strong>Primary Image</strong></h3>
-                            </div>
-                            <img src="@Blog.ImageUrl"
-                                 class="p-1 bg-black shadow border rounded max-w-sm" />
-                            <div class="form-group w-full px-3 mt-2 mb-3 md:mb-0">
-                                <div class="form-check">
-                                    <InputFile OnChange="HandleImageUpLoad"></InputFile>
-                                </div>
+                        <img src="@Blog.ImageUrl"
+                             class="p-1 bg-black shadow border rounded max-w-sm" />
+                        <div class="form-group w-full px-3 mt-2 mb-3 md:mb-0">
+                            <div class="form-check">
+                                <InputFile OnChange="HandleImageUpLoad"></InputFile>
                             </div>
                         </div>
-                        <div class="form-group h-max text-lrg border mt-4">
-                            <MudInputLabel Class="font-bold bg-gray-300">Blog Body</MudInputLabel>
-                            <SfRichTextEditor @bind-Value="Blog.Body">
-                            </SfRichTextEditor>
-                        </div>
-                        <div class="form-group text-lrg border mt-4">
-                            <MudInputLabel Class="font-bold bg-gray-300">Author</MudInputLabel>
-                            <InputText @bind-Value="Blog.Author" class="block w-full text-center focus:shadow-outline rounded-sm py-2 px-3 mt-3"></InputText>
-                        </div>
-                        <div class="form-group h-fit text-lrg text-bold mt-4">
-                            <MudInputLabel Class="font-bold bg-gray-300">Blog Description</MudInputLabel>
-                            <SfRichTextEditor @bind-Value="Blog.Description">
-                                **in 30 words or less**
-                            </SfRichTextEditor>
-                        </div>
-                        <br />
-                        <div class="flex justify-center mb-4 text-small mx-3">
-                            <div class="form-group border shadow w-1/2 px-3 ">
-                                <div class="form-select">
-                                    <label class="font-bold"><u>-Status-</u></label>
-                                    <InputSelect @bind-Value="Blog.Status" class="form-select text-center">
-                                        <option value="0" disabled="disabled" selected>--Select Status--</option>
-                                        <option value="Published">Published</option>
-                                        <option value="Draft">Draft</option>
-                                        <option value="Archived">Archived</option>
-                                        <option value="Private">Private</option>
-                                    </InputSelect>
-                                </div>
-                            </div>
-                            <div class="form-group border bg-gray-200 shadoww w-1/2 px-3 ">
-                                <div class="form-check">
-                                    <InputCheckbox @bind-Value="Blog.Featured" class="form-check-input"></InputCheckbox>
-                                    <label class="form-check-label font-bold">Featured</label>
-                                </div>
+                    </div>
+                    <div class="form-group h-max text-lrg border mt-4">
+                        <MudInputLabel Class="font-bold bg-gray-300">Blog Body</MudInputLabel>
+                        <SfRichTextEditor @bind-Value="Blog.Body">
+                        </SfRichTextEditor>
+                    </div>
+                    <div class="form-group text-lrg border mt-4">
+                        <MudInputLabel Class="font-bold bg-gray-300">Author</MudInputLabel>
+                        <InputText @bind-Value="Blog.Author" class="block w-full text-center focus:shadow-outline rounded-sm py-2 px-3 mt-3"></InputText>
+                    </div>
+                    <div class="form-group h-fit text-lrg text-bold mt-4">
+                        <MudInputLabel Class="font-bold bg-gray-300">Blog Description</MudInputLabel>
+                        <SfRichTextEditor @bind-Value="Blog.Description">
+                            **in 30 words or less**
+                        </SfRichTextEditor>
+                    </div>
+                    <br />
+                    <div class="flex justify-center mb-4 text-small mx-3">
+                        <div class="form-group border shadow w-1/2 px-3 ">
+                            <div class="form-select">
+                                <label class="font-bold"><u>-Status-</u></label>
+                                <InputSelect @bind-Value="Blog.Status" class="form-select text-center">
+                                    <option value="0" disabled="disabled" selected>--Select Status--</option>
+                                    <option value="Published">Published</option>
+                                    <option value="Draft">Draft</option>
+                                    <option value="Archived">Archived</option>
+                                    <option value="Private">Private</option>
+                                </InputSelect>
                             </div>
                         </div>
-                        <div class="flex justify-center text-small mx-3">
-                            <div class="form-group bg-gray-200 border shadow w-1/2 px-3 ">
-                                <div class="form-check">
-                                    <InputCheckbox @bind-Value="Blog.BlogFavorite" class="form-check-input bg-black text-white width-full"></InputCheckbox>
-                                    <label class="form-check-label font-bold">Blog favorites</label>
-                                </div>
-                            </div>
-                            <div class="form-group border shadow w-1/2 px-3 ">
-                                <div class="form-select">
-                                    <label class="font-bold"><u>Category</u></label>
-                                    <InputSelect @bind-Value="Blog.BlogCategoryId" class="form-select text-center">
-                                        <option value="0" disabled="disabled" selected>--Select Category--</option>
-                                        @foreach (var cat in BlogCategories)
-                                        {
-                                            <option value="@cat.Id">@cat.Name</option>
-                                        }
-                                    </InputSelect>
-                                </div>
+                        <div class="form-group border bg-gray-200 shadoww w-1/2 px-3 ">
+                            <div class="form-check">
+                                <InputCheckbox @bind-Value="Blog.Featured" class="form-check-input"></InputCheckbox>
+                                <label class="form-check-label font-bold">Featured</label>
                             </div>
                         </div>
+                    </div>
+                    <div class="flex justify-center text-small mx-3">
+                        <div class="form-group bg-gray-200 border shadow w-1/2 px-3 ">
+                            <div class="form-check">
+                                <InputCheckbox @bind-Value="Blog.BlogFavorite" class="form-check-input bg-black text-white width-full"></InputCheckbox>
+                                <label class="form-check-label font-bold">Blog favorites</label>
+                            </div>
+                        </div>
+                        <div class="form-group border shadow w-1/2 px-3 ">
+                            <div class="form-select">
+                                <label class="font-bold"><u>Category</u></label>
+                                <InputSelect @bind-Value="Blog.BlogCategoryId" class="form-select text-center">
+                                    <option value="0" disabled="disabled" selected>--Select Category--</option>
+                                    @foreach (var cat in BlogCategories)
+                                    {
+                                        <option value="@cat.Id">@cat.Name</option>
+                                    }
+                                </InputSelect>
+                            </div>
+                        </div>
+                    </div>
 
-                        <br />
-                        <button href="/Blog/Create" class="block w-full bg-indigo-600 hover:bg-black text-white rounded font-heading mt-2 py-2">@Title</button>
-                        <br />
-                        <DataAnnotationsValidator />
-                        <div class="bg-red-100 mb-2"> <ValidationSummary></ValidationSummary> </div>
-                    </EditForm>
-                }
-            </div>
+                    <br />
+                    <button href="/Blog/Create" class="block w-full bg-indigo-600 hover:bg-black text-white rounded font-heading mt-2 py-2">@Title</button>
+                    <br />
+                    <DataAnnotationsValidator />
+                    <div class="bg-red-100 mb-2"> <ValidationSummary></ValidationSummary> </div>
+                </EditForm>
+            }
         </div>
     </div>
+</div>
 
 
 
