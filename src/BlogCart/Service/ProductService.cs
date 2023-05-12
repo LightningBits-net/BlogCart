@@ -20,9 +20,6 @@ namespace BlogCart.Service
       
         public async Task<ProductDTO> Get(int productId)
         {
-//#if DEBUG
-//            await Task.Delay(2000);
-//#endif
             var response = await _httpClient.GetAsync($"/Api/product/{productId}");
             var content = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
@@ -40,10 +37,6 @@ namespace BlogCart.Service
 
         public async Task<IEnumerable<ProductDTO>> GetAll()
         {
-//#if DEBUG
-//            await Task.Delay(2000);
-//#endif
-
             var response = await _httpClient.GetAsync("/Api/Product");
             if (response.IsSuccessStatusCode)
             {

@@ -11,44 +11,40 @@
 }
 else
 {
-    @foreach (var blog in Blogs)
-{
-            <p>@blog.BlogCategory.ClientId</p>
-}
-        <div class="w-full md:pr-12 mb-12">
-            <!-- categories -->
-            <ul class="flex justify-center pb-6 pl-6 pr-6">
-                <li>
-                    <a class="inline-block py-2 px-4 text-center no-underline hover:underline font-semibold" href="@(_navigationManager.Uri)">Home</a>
-                </li>
-                @foreach (var category in Blogs.Select(u => u.BlogCategory.Name).Distinct())
-                {
-                    <li>
-                        <a class="inline-block py-2 px-4 text-center no-underline hover:underline font-semibold" @onclick="() => OnCategorySelectionChange(category)">@category</a>
-                    </li>
-                }
-            </ul>
-            <!-- articles -->
-            @foreach (var blog in GetFilteredBlogs())
-            {
-                <article class="mb-12 border-b">
-                    <h2 class="mb-4">
-                        <a href="/lightningbits/Blog/Page/@blog.Id" class="text-xl md:text-2xl no-underline hover:underline">
-                            @((MarkupString)blog.Name)
-                        </a>
-                    </h2>
-                    <div class="mb-4 text-sm">
-                        by <a href="/lightningbits/Blog/Home">@((MarkupString)blog.Author)</a> @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
-                        <span class="font-bold mx-1"> | </span>
-                        <a href="/lightningbits/Blog/Home">2 Comments</a>
-                    </div>
-                    <p class="leading-normal mb-4">
-                        @((MarkupString)blog.Description)
-                    </p>
-                </article>
-            }
-        </div>
+<div class="w-full md:pr-12 mb-12">
+    <!-- categories -->
+    <ul class="flex justify-center pb-2 pl-2 pr-2 md:pb-6 md:pl-6 md:pr-6">
+        <li>
+            <a class="inline-block py-2 px-4 text-center no-underline hover:underline font-semibold" href="@(_navigationManager.Uri)">Home</a>
+        </li>
+        @foreach (var category in Blogs.Select(u => u.BlogCategory.Name).Distinct())
+        {
+            <li>
+                <a class="inline-block py-2 px-4 text-center no-underline hover:underline font-semibold" @onclick="() => OnCategorySelectionChange(category)">@category</a>
+            </li>
+        }
+    </ul>
+    <!-- articles -->
+    @foreach (var blog in GetFilteredBlogs())
+    {
+        <article class="mb-8 p-2 hover:shadow-2xl transition duration-300">
+            <h2 class="mb-2 text-xl md:text-2xl font-semibold">
+                <a href="/lightningbits/Blog/Page/@blog.Id">
+                    @((MarkupString)blog.Name)
+                </a>
+            </h2>
+            <div class="mb-2 text-sm">
+                by <a href="/lightningbits/Blog/Home">@((MarkupString)blog.Author)</a> @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
+                <span class="font-bold mx-1"> | </span>
+                <a href="/lightningbits/Blog/Home">3 Comments</a>
+            </div>
+            <p class="leading-normal mb-2">
+                @((MarkupString)blog.Description)
+            </p>
+        </article>
     }
+</div>
+}
 
 @code {
     public bool IsProcessing { get; set; } = false;

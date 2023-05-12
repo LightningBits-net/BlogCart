@@ -1,15 +1,16 @@
 ﻿@inject IBlogService _blogService
 
 <div class="w-full md:w-64">
-    <aside class="rounded shadow-lg overflow-hidden mb-6">
+    <aside class="rounded shadow-xlg overflow-hidden mb-6">
         <h3 class="text-sm text-white bg-black py-3 px-4">Latest Post</h3>
         <div class="p-2 overflow-y-auto">
+
             @foreach (var blog in Blogs.OrderByDescending(u => u.DateCreated).Take(5))
             {
                 <ul class="list-reset leading-normal ">
                     <li class="mb-4">
-                        <a href="/lightningbits/Blog/Page/@blog.Id" class="text-sm no-underline hover:underline">
-                            @((MarkupString)blog.Name)
+                        <a href="/lightningbits/Blog/Page/@blog.Id" class="text-sm">
+                            <p class="no-underline hover:underline">@((MarkupString)blog.Name)</p>
                             <p class="text-sm">@blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")</p>
                         </a>
                     </li>
@@ -17,8 +18,7 @@
             }
         </div>
     </aside>
-
-    <aside class="rounded shadow-lg overflow-hidden mb-6">
+    <aside class="rounded shadow-xlg overflow-hidden mb-6">
         <h3 class="text-sm text-white bg-black py-3 px-4">Featured</h3>
         <div class="p-2 overflow-y-auto">
             @*@foreach (var blog in Blogs.Where(u => u.Featured == true))*@
@@ -26,8 +26,9 @@
             {
                 <ul class="list-reset leading-normal">
                     <li class="mb-4">
-                        <a href="/lightningbits/Blog/Page/@blog.Id" class="text-sm no-underline hover:underline">
-                            @((MarkupString)blog.Name)
+                        <a href="/lightningbits/Blog/Page/@blog.Id" class="text-sm">
+                            <p class="no-underline hover:underline">@((MarkupString)blog.Name)</p>
+                            <p class="text-sm">@blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")</p>
                         </a>
                     </li>
                 </ul>

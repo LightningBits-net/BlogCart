@@ -14,10 +14,10 @@ module.exports = {
                 'sm': '0 0 10px 0', //added
             },
             colors: {
-                'Primary': '##594ae2ff',   //these colors match mudblazor naming conventions
-                'PrimaryLighten': '#2b6cb0',
-                'GrayLight': '#F5F5F',
-                'Surface': '#ffffffff', //Card bg color
+                //'Primary': '##594ae2ff',   //these colors match mudblazor naming conventions
+                //'PrimaryLighten': '#2b6cb0',
+                //'GrayLight': '#F5F5F',
+                //'Surface': '#ffffffff', //Card bg color
             },
         },
     },

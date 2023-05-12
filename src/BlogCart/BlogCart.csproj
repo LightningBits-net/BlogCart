@@ -14,9 +14,16 @@
   <ItemGroup>
     <None Remove="Pages\Clients\Lightningbits\Pages\Directory\" />
     <None Remove="Pages\Clients\Lightningbits\Pages\Blog\" />
+    <None Remove="Pages\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Clients\Lightningbits\Pages\Directory\" />
     <Folder Include="Pages\Clients\Lightningbits\Pages\Blog\" />
+    <Folder Include="Pages\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharedServices\SharedServices.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>
