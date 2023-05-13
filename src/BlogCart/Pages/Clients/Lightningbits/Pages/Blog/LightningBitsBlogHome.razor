@@ -1,5 +1,6 @@
 ﻿@page "/lightningbits/Blog/blog-home"
 @page "/BlogviewHome"
+@inject NavigationManager _navigationManager
 
 <PageTitle>@Title</PageTitle>
 <HeadContent>
@@ -16,14 +17,14 @@
     <meta property="twitter:url" content="@(_navigationManager.Uri)" />
 </HeadContent>
 
-    <div class="w-full">
-        <_LightningBitsBlogBanner></_LightningBitsBlogBanner>
-        <div class="container max-w-4xl mx-auto md:flex items-start py-8 px-12 md:px-0">
-            <_LightningBitsBlogByCat></_LightningBitsBlogByCat>
-            <_LightningBitsRightSide></_LightningBitsRightSide>
-        </div>
+<div class="w-full">
+    <_LightningBitsBlogBanner></_LightningBitsBlogBanner>
+    <div class="container max-w-4xl mx-auto md:flex items-start py-8 px-12 md:px-0">
+        <_LightningBitsBlogByCat></_LightningBitsBlogByCat>
+        <_LightningBitsRightSide></_LightningBitsRightSide>
     </div>
-    <_LightningBitsFooter></_LightningBitsFooter>
+</div>
+<_LightningBitsFooter></_LightningBitsFooter>
 
 
 @code {
