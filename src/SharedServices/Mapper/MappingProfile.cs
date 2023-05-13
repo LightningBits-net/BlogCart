@@ -21,6 +21,7 @@ namespace SharedServices.Mapper
             CreateMap<BlogCategory, BlogCategoryDTO>().ReverseMap();
             CreateMap<Blog, BlogDTO>().ReverseMap();
             CreateMap<Client, ClientDTO>().ReverseMap();
+            CreateMap<Client, ClientFrontendDTO>();
         }
     }
        

@@ -16,6 +16,8 @@ namespace SharedServices.Repository.IRepository
 
         public Task<IEnumerable<ClientDTO>> GetAll();
 
+        public Task<ClientFrontendDTO> GetClientFrontendData(int clientId);
+
     }
 }
 

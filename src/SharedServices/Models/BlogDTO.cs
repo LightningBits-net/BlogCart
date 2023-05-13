@@ -47,7 +47,6 @@ namespace SharedServices.Models
 
         public int ClientId { get; set; }
 
-        //[ForeignKey("ClientId")]
         public ClientDTO Client { get; set; }
     }
 }

@@ -22,6 +22,16 @@ namespace SharedServices.Repository
             _mapper = mapper;
         }
 
+        public async Task<ClientFrontendDTO> GetClientFrontendData(int clientId)
+        {
+            var client = await _db.Clients.FirstOrDefaultAsync(c => c.ClientId == clientId);
+            if (client != null)
+            {
+                return _mapper.Map<Client, ClientFrontendDTO>(client);
+            }
+            return null;
+        }
+
         public async Task<ClientDTO> Create(ClientDTO objDTO)
         {
             var obj = _mapper.Map<ClientDTO, Client>(objDTO);
@@ -77,7 +87,6 @@ namespace SharedServices.Repository
             }
             return objDTO;
         }
-
     }
 }
 
