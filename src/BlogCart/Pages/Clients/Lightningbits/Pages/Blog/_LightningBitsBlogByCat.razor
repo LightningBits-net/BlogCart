@@ -1,7 +1,8 @@
 ﻿
 @inject IBlogService _blogService
-@inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
+@inject IClientFrontendService _clientFrontendService
+
 
 @if (IsProcessing)
 {
@@ -9,59 +10,70 @@
         <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
     </div>
 }
+
 else
 {
-<div class="w-full md:pr-12 mb-12">
-    <!-- categories -->
-    <ul class="flex justify-center pb-2 pl-2 pr-2 md:pb-6 md:pl-6 md:pr-6">
-        <li>
-            <a class="inline-block py-2 px-4 text-center no-underline hover:underline font-semibold" href="@(_navigationManager.Uri)">Home</a>
-        </li>
-        @foreach (var category in Blogs.Select(u => u.BlogCategory.Name).Distinct())
-        {
+    <div class="w-full md:pr-12 mb-12">
+        <!-- categories -->
+        <ul class="flex justify-center pb-2 pl-2 pr-2 md:pb-6 md:pl-6 md:pr-6">
             <li>
-                <a class="inline-block py-2 px-4 text-center no-underline hover:underline font-semibold" @onclick="() => OnCategorySelectionChange(category)">@category</a>
+                <a class="inline-block py-2 px-4 text-center no-underline hover:underline font-semibold" href="@(_navigationManager.Uri)">Home</a>
             </li>
+            @foreach (var category in Blogs.Select(u => u.BlogCategory.Name).Distinct())
+            {
+                <li>
+                    <a class="inline-block py-2 px-4 text-center no-underline hover:underline font-semibold" @onclick="() => OnCategorySelectionChange(category)">@category</a>
+                </li>
+            }
+        </ul>
+        <!-- articles -->
+        @foreach (var blog in GetFilteredBlogs())
+        {
+            <article class="mb-8 p-2 hover:shadow-2xl transition duration-300">
+                <h2 class="mb-2 text-xl md:text-2xl font-semibold">
+                    <a href="/lightningbits/Blog/Page/@blog.Id">
+                        @((MarkupString)blog.Name)
+                    </a>
+                </h2>
+                <div class="mb-2 text-sm">
+                    by <a href="/lightningbits/Blog/Home">@((MarkupString)blog.Author)</a> @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
+                    <span class="font-bold mx-1"> | </span>
+                    <a href="/lightningbits/Blog/Home">3 Comments</a>
+                </div>
+                <p class="leading-normal mb-2">
+                    @((MarkupString)blog.Description)
+                </p>
+            </article>
         }
-    </ul>
-    <!-- articles -->
-    @foreach (var blog in GetFilteredBlogs())
-    {
-        <article class="mb-8 p-2 hover:shadow-2xl transition duration-300">
-            <h2 class="mb-2 text-xl md:text-2xl font-semibold">
-                <a href="/lightningbits/Blog/Page/@blog.Id">
-                    @((MarkupString)blog.Name)
-                </a>
-            </h2>
-            <div class="mb-2 text-sm">
-                by <a href="/lightningbits/Blog/Home">@((MarkupString)blog.Author)</a> @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
-                <span class="font-bold mx-1"> | </span>
-                <a href="/lightningbits/Blog/Home">3 Comments</a>
-            </div>
-            <p class="leading-normal mb-2">
-                @((MarkupString)blog.Description)
-            </p>
-        </article>
-    }
-</div>
+    </div>
 }
 
 @code {
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
+    public IEnumerable<ClientFrontendDTO> Clients { get; set; } = new List<ClientFrontendDTO>();
+    private int clientId;
     private string selectedCategory = "SelectedCategory";
-    private string Title = "LightningBits.com";
-    private string Description = "Explore the power of C# and .NET Blazor in this in-depth blog post. " + "Learn how to build web applications with Blazor and take advantage of its powerful features.";
-    private string ImageUrl = "/img/Matrixlaptop.png";
 
     protected override async Task OnInitializedAsync()
     {
-        IsProcessing = true;
-        Blogs = await _blogService.GetAll();
-        IsProcessing = false;
+        Clients = await _clientFrontendService.GetAll();
+        int clientId = GetClientIdByDomain("current-domain.com");
+        await LoadBlogsByClientId(clientId);
     }
 
+    private int GetClientIdByDomain(string domain)
+    {
+        var client = Clients.FirstOrDefault(c => c.DomainName == domain);
+        return client?.ClientId ?? 3; // Set the default Client ID to 3
+    }
 
+    private async Task LoadBlogsByClientId(int clientId)
+    {
+        IsProcessing = true;
+        Blogs = await _blogService.GetBlogsByClientId(clientId);
+        IsProcessing = false;
+    }
     private IEnumerable<BlogDTO> GetFilteredBlogs()
     {
         if (selectedCategory == "SelectedCategory")

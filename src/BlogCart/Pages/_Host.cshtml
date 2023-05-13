@@ -1,24 +1,4 @@
-﻿@*@page "/"
-@namespace BlogCart.Pages
-@using BlogCart.Service
-@inject DomainLayoutService DomainLayoutService
-@inject IHttpContextAccessor HttpContextAccessor
-
-
-
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
-@{
-    var domain = HttpContextAccessor.HttpContext.Request.Host.Value.ToLower();
-    var layoutType = DomainLayoutService.GetLayoutForDomain(domain);
-    var layoutName = $"_{layoutType.Name}";
-}
-
-@{ Layout = layoutName; }
-
-<component type="typeof(App)" render-mode="ServerPrerendered" />*@
-
-
+﻿
 @page "/"
     @namespace BlogCart.Pages
     @using BlogCart.Service
