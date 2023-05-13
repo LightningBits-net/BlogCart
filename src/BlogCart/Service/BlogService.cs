@@ -1,7 +1,6 @@
-﻿using System;
-using BlogCart.Service.IService;
+﻿using BlogCart.Service.IService;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using SharedServices.Data;
 using SharedServices.Models;
 
 namespace BlogCart.Service
@@ -18,57 +17,97 @@ namespace BlogCart.Service
             _configuration = configuration;
             BaseServerUrl = _configuration.GetSection("BaseServerUrl").Value;
         }
-      
+
+
         public async Task<BlogDTO> Get(int blogId)
         {
-            var response = await _httpClient.GetAsync($"/Api/blog/{blogId}");
-            var content = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var blog = JsonConvert.DeserializeObject<BlogDTO>(content);
-                blog.ImageUrl = BaseServerUrl + blog.ImageUrl;
-                return blog;
+                var response = await _httpClient.GetAsync($"/Api/blog/{blogId}");
+                var content = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    var blog = JsonConvert.DeserializeObject<BlogDTO>(content);
+                    blog.ImageUrl = BaseServerUrl + blog.ImageUrl;
+                    return blog;
+                }
+                else
+                {
+                    var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
+                    throw new Exception(errorModel.ErrorMessage);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
-                throw new Exception(errorModel.ErrorMessage);
+                Console.WriteLine($"An error occurred while getting the blog: {ex.Message}");
+                return new BlogDTO();
             }
         }
 
-        //public Task<IEnumerable<BlogDTO>> GetAll()
-        //{
-        //    return Task.FromResult(_mapper.Map<IEnumerable<Blog>, IEnumerable<BlogDTO>>(_db.Blogs.Include(u => u.BlogCategory)));
-        //}
         public async Task<IEnumerable<BlogDTO>> GetAll()
         {
-
-            var response = await _httpClient.GetAsync("/Api/Blog");
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var content = await response.Content.ReadAsStringAsync();
-                var blogs = JsonConvert.DeserializeObject<IEnumerable<BlogDTO>>(content);
-                return blogs;
+                var response = await _httpClient.GetAsync("/Api/Blog");
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var blogs = JsonConvert.DeserializeObject<IEnumerable<BlogDTO>>(content);
+                    return blogs;
+                }
+                else
+                {
+                    return Enumerable.Empty<BlogDTO>();
+                }
             }
-            return new List<BlogDTO>();
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while getting all blogs: {ex.Message}");
+                return Enumerable.Empty<BlogDTO>();
+            }
         }
 
         public async Task<BlogDTO> Update(int blogId, int rating, int views)
         {
-            var updatedData = new
+            try
             {
-                Rating = rating,
-                Views = views
-            };
+                var updatedData = new
+                {
+                    Rating = rating,
+                    Views = views
+                };
 
-            var response = await _httpClient.PutAsJsonAsync($"/Api/blog/{blogId}", updatedData);
-            response.EnsureSuccessStatusCode();
-            var content = await response.Content.ReadAsStringAsync();
-            var updatedBlog = JsonConvert.DeserializeObject<BlogDTO>(content);
-            return updatedBlog;
+                var response = await _httpClient.PutAsJsonAsync($"/Api/blog/{blogId}", updatedData);
+                response.EnsureSuccessStatusCode();
+                var content = await response.Content.ReadAsStringAsync();
+                var updatedBlog = JsonConvert.DeserializeObject<BlogDTO>(content);
+                return updatedBlog;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while updating the blog: {ex.Message}");
+                return new BlogDTO();
+            }
         }
 
+        public async Task<IEnumerable<BlogDTO>> GetBlogsByClientId(int clientId)
+        {
+            try
+            {
+                var allBlogs = await GetAll();
 
+                // Filter the blogs based on the client ID
+                var blogsByClient = allBlogs.Where(blog => blog.ClientId == clientId);
+
+                return blogsByClient;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while getting blogs by client ID: {ex.Message}");
+                return Enumerable.Empty<BlogDTO>();
+            }
+        }
     }
 }
+
 

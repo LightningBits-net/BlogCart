@@ -1,5 +1,5 @@
-﻿using System;
-using BlogCart.Service.IService;
+﻿using BlogCart.Service.IService;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using SharedServices.Models;
 
@@ -17,38 +17,57 @@ namespace BlogCart.Service
             _configuration = configuration;
             BaseServerUrl = _configuration.GetSection("BaseServerUrl").Value;
         }
-      
+
         public async Task<ProductDTO> Get(int productId)
         {
-            var response = await _httpClient.GetAsync($"/Api/product/{productId}");
-            var content = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var product = JsonConvert.DeserializeObject<ProductDTO>(content);
-                product.ImageUrl = BaseServerUrl + product.ImageUrl;
-                return product;
+                var response = await _httpClient.GetAsync($"/Api/product/{productId}");
+                var content = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    var product = JsonConvert.DeserializeObject<ProductDTO>(content);
+                    product.ImageUrl = BaseServerUrl + product.ImageUrl;
+                    return product;
+                }
+                else
+                {
+                    var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
+                    throw new Exception(errorModel.ErrorMessage);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
-                throw new Exception(errorModel.ErrorMessage);
+                Console.WriteLine($"An error occurred while getting the product: {ex.Message}");
+                return new ProductDTO();
             }
         }
 
         public async Task<IEnumerable<ProductDTO>> GetAll()
         {
-            var response = await _httpClient.GetAsync("/Api/Product");
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var content = await response.Content.ReadAsStringAsync();
-                var products = JsonConvert.DeserializeObject<IEnumerable<ProductDTO>>(content);
-                foreach(var prod in products)
+                var response = await _httpClient.GetAsync("/Api/Product");
+                if (response.IsSuccessStatusCode)
                 {
-                    prod.ImageUrl = BaseServerUrl + prod.ImageUrl;
+                    var content = await response.Content.ReadAsStringAsync();
+                    var products = JsonConvert.DeserializeObject<IEnumerable<ProductDTO>>(content);
+                    foreach (var prod in products)
+                    {
+                        prod.ImageUrl = BaseServerUrl + prod.ImageUrl;
+                    }
+                    return products;
                 }
-                return products;
+                else
+                {
+                    return Enumerable.Empty<ProductDTO>();
+                }
             }
-            return new List<ProductDTO>();
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while getting all products: {ex.Message}");
+                return Enumerable.Empty<ProductDTO>();
+            }
         }
     }
 }
