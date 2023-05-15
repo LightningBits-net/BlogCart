@@ -31,7 +31,7 @@ namespace SharedServices.Models
         [Range(1, int.MaxValue, ErrorMessage = "Please select a catogory")]
         public int BlogCategoryId { get; set; }
 
-        public int Views { get; set; }
+        public float Views { get; set; }
 
         public DateTime DateCreated { get; set; }
 
