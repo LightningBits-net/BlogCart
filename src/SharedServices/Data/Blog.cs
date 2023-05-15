@@ -24,7 +24,7 @@ namespace SharedServices.Data
 
         public string ImageUrl { get; set; }
 
-        public int Views { get; set; }
+        public float Views { get; set; }
 
         public DateTime DateCreated { get; set; }
 

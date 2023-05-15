@@ -74,7 +74,6 @@ namespace BlogCart.Service
                 var updatedData = new
                 {
                     Rating = rating,
-                    Views = views
                 };
 
                 var response = await _httpClient.PutAsJsonAsync($"/Api/blog/{blogId}", updatedData);

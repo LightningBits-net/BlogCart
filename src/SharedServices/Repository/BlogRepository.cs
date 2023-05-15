@@ -54,14 +54,17 @@ namespace SharedServices.Repository
 
         public async Task<BlogDTO> Get(int id)
         {
-            var obj = await _db.Blogs.Include(u => u.BlogCategory).FirstOrDefaultAsync(u => u.Id == id);
-            if (obj != null)
+            var blog = await _db.Blogs.Include(u => u.BlogCategory).FirstOrDefaultAsync(u => u.Id == id);
+            if (blog != null)
             {
-                return _mapper.Map<Blog, BlogDTO>(obj);
+                blog.Views += 0.5f; // Increment by 0.5
+                _db.Blogs.Update(blog);
+                await _db.SaveChangesAsync();
+                return _mapper.Map<Blog, BlogDTO>(blog);
             }
             return new BlogDTO();
-
         }
+
         public Task<IEnumerable<BlogDTO>> GetAll()
         {
             return Task.FromResult(_mapper.Map<IEnumerable<Blog>, IEnumerable<BlogDTO>>(_db.Blogs.Include(u => u.BlogCategory)));

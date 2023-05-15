@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SharedServices.Repository.IRepository;
 using SharedServices.Models;
+using System.Net.Http;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -53,17 +54,22 @@ namespace SharedApi.Controllers
             return Ok(blog);
         }
 
-        [HttpPut("{blogId}")]
-        public async Task<IActionResult> Update(int blogId)
-        {
-            var blog = await _blogRepository.Get(blogId);
-            if (blog == null)
-            {
-                return NotFound();
-            }
-            var updatedBlog = await _blogRepository.Update(blog);
-            return Ok(updatedBlog);
-        }
+        //[HttpPut("{blogId}")]
+        //public async Task<IActionResult> Update(int blogId, [FromBody] BlogDTO updatedBlog)
+        //{
+        //    var blog = await _blogRepository.Get(blogId);
+        //    if (blog == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    blog.Rating = updatedBlog.Rating;
+        //    blog.Views = updatedBlog.Views;
+
+        //    var updated = await _blogRepository.Update(blog);
+        //    return Ok(updated);
+        //}
+
     }
 }
 
