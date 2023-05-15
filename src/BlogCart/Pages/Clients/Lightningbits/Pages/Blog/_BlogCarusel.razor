@@ -1,0 +1,75 @@
+﻿@inject IBlogService _blogService
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+
+
+
+<div class="container mx-auto flex flex-wrap">
+    <div class="w-full md:w-1/2 lg:w-1/2">
+        <MudCard Elevation="25">
+            <MudCarousel Class="mud-width-full" Style="height:350px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+                @foreach (var blog in Blogs.Where(u => u.BlogFavorite == true).OrderByDescending(b => b.DateCreated).Take(5))
+                {
+                  <MudCarouselItem Transition="Transition.Fade" class="flex flex-col">
+    <div class="p-10">
+        <div class="mx-auto flex justify-center">
+            <button class="text-lg font-extrabold font-display-italic no-underline hover:underline"
+                    @onclick="@(() => _navigationManager.NavigateTo($"/lightningbits/blog/page/{blog.Id}"))">
+                @((MarkupString)blog.Name)
+            </button>
+        </div>
+        <div class="mx-auto mt-10 flex justify-center">
+            @((MarkupString)blog.Description)
+        </div>
+    </div>
+</MudCarouselItem>
+                }
+            </MudCarousel>
+        </MudCard>
+    </div>
+
+    <div class="w-full md:w-1/2 lg:w-1/2">
+        <MudCard Elevation="25">
+            <MudCarousel Class="mud-width-full" Style="height:350px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
+                @foreach (var blog in Blogs.Where(u => u.Featured == true).OrderByDescending(b => b.DateCreated).Take(5))
+                {
+                    <MudCarouselItem Transition="Transition.Fade" class="flex flex-col">
+                        <div class="p-10">
+                            <div class="mx-auto flex justify-center">
+                                <a href="@($"/lightningbits/blog/page/{blog.Id}")" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
+                                    @((MarkupString)blog.Name)
+                                </a>
+                            </div>
+                            <div class="mx-auto mt-10 flex justify-center">
+                                <a href="@($"/lightningbits/blog/page/{blog.Id}")" class="text-md">
+                                    @((MarkupString)blog.Description)
+                                </a>
+                            </div>
+                        </div>
+                    </MudCarouselItem>
+                }
+            </MudCarousel>
+        </MudCard>
+    </div>
+</div>
+
+@code {
+    public bool IsProcessing { get; set; } = false;
+    public IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
+    public string CategoryName { get; set; } = "Latest";
+    public string CategoryName2 { get; set; } = "Featured";
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        Blogs = await _blogService.GetAll();
+        IsProcessing = false;
+    }
+
+    //private bool arrows = true;
+    private bool bullets = false;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Fade;
+}
+

@@ -28,10 +28,8 @@
 }
 else
 {
-
     <div class="p-2 md:p-10 lg:p-30">
         <div class="pb-20">
-            <_BlogMenu></_BlogMenu>
             <MudCard Elevation="25">
                 <div class="p-2 md:p-10 lg:p-20 rounded overflow-hidden shadow-xlg">
                     <div class="flex justify-center mb-2">
@@ -45,49 +43,52 @@ else
                             @((MarkupString)Blog.Body)
                         </p>
                     </div>
-                    <div class="px-6 pt-4 pb-2">
+                    <div class="px-6 pt-4 pb-2 text-center">
                         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Written by: @Blog.Author</span>
                         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Published on @Blog.DateCreated.ToString("MMMM dd, yyyy")</span>
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Viewed: @Blog.Views</span>
+                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Viewed: @(Math.Floor(Blog.Views))</span>
+                    </div>
+                    <div class="flex justify-center mt-4">
+                        <MudButton Color="Color.Primary" Variant="Variant.Filled" @onclick="@(() => _navigationManager.NavigateTo("/lightningbits/Blog"))">Return</MudButton>
                     </div>
                 </div>
+
             </MudCard>
         </div>
-        <div >
-            <_BlogMenu></_BlogMenu>
-        </div>
         <div>
-            <_BlogFooter></_BlogFooter>
+            <_BlogCarusel></_BlogCarusel>
         </div>
     </div>
+
 }
+
 
 
 @code {
 
     [Parameter]
     public int BlogId { get; set; }
-    public int BlogCount { get; set; } = 0;
     public BlogDTO Blog { get; set; } = new();
     public bool IsProcessing { get; set; } = false;
     public string BlogTitle { get; set; }
     public string BlogDescription { get; set; }
     private bool _firstRender = true;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
+        await base.OnParametersSetAsync();
+
         IsProcessing = true;
         Blog = await _blogService.Get(BlogId);
-        //if (_firstRender && BlogCount == 0)
-        //{
-        //    Blog.Views++;
-        //    await _blogService.Update(Blog);
-        //    _firstRender = false;
-        //}
+
         IsProcessing = false;
+
         BlogTitle = Regex.Replace(Blog.Name, "<.*?>", string.Empty);
         BlogDescription = Regex.Replace(Blog.Description, "<.*?>", string.Empty);
+
+        StateHasChanged();
     }
+
 
 
 }
