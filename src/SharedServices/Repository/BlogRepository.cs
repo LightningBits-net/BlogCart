@@ -20,15 +20,6 @@ namespace SharedServices.Repository
             _mapper = mapper;
         }
 
-        //public async Task<BlogDTO> Create(BlogDTO objDTO)
-        //{
-        //    var obj = _mapper.Map<BlogDTO, Blog>(objDTO);
-
-        //    var addedobj = _db.Blogs.Add(obj);
-        //    await _db.SaveChangesAsync();
-
-        //    return _mapper.Map<Blog, BlogDTO>(addedobj.Entity);
-        //}
         public async Task<BlogDTO> Create(BlogDTO objDTO)
         {
             var obj = _mapper.Map<BlogDTO, Blog>(objDTO);

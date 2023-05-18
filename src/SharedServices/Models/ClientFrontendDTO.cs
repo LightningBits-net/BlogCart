@@ -5,8 +5,9 @@ namespace SharedServices.Models
 	{
         public int ClientId { get; set; }
         public string DomainName { get; set; }
-        public int Counter { get; set; }
+        public float Counter { get; set; }
+        public string ImageUrl { get; set; }
+        public string Description { get; set; }
     }
-
 }
 

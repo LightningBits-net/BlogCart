@@ -10,13 +10,21 @@ namespace SharedServices.Data
         [Key]
         public int ClientId { get; set; }
 
+        public string Name { get; set; }
+
+        public string Address { get; set; }
+
         public string DomainName { get; set; }
 
         public DateTime DateCreated { get; set; }
 
+        public string Description { get; set; }
+
         public string Email { get; set; }
 
-        public int Counter { get; set; }
+        public float Counter { get; set; }
+
+        public string ImageUrl { get; set; }
 
         public bool IsActive { get; set; }
 
