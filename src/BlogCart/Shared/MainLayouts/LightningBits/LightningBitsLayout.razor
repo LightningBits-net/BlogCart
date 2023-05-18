@@ -1,5 +1,8 @@
 ﻿@inherits LayoutComponentBase
 @namespace BlogCart.Shared.MainLayouts
+@inject IClientFrontendService ClientFrontendService
+@inject IHttpContextAccessor HttpContextAccessor
+
 
 
 <MudThemeProvider Theme="MyTheme" @bind-IsDarkMode="@_isDarkMode" @ref="@_mudThemeProvider" />
@@ -9,21 +12,21 @@
 
 <MudLayout Color="Color.Dark">
     <LightningBitsAppBar OnSidebarToggled="ToggleSidebar" />
-        <LightningBitsNavMenu SideBarOpen="_sidebarOpen" />
+    <LightningBitsNavMenu SideBarOpen="_sidebarOpen" />
     <MudScrollToTop>
         <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
     </MudScrollToTop>
     <MudMainContent>
-        @*<MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Dark" Class="d-flex justify-end flex-grow-1 gap-4" Elevation="10" T="bool">*@
-            @*<MudIcon LightMode="@Icons.Material.Outlined.LightMode" DarkMode="@Icons.Material.Outlined.DarkMode" />*@
-        @*</MudSwitch>*@
-        @Body
+        <CascadingValue Value="ClientId">
+            @Body
+        </CascadingValue>
     </MudMainContent>
+
 </MudLayout>
 
 
-
 @code {
+    private int ClientId { get; set; } = 0;
     private bool _sidebarOpen = false;
     private void ToggleSidebar() => _sidebarOpen = !_sidebarOpen;
     private bool _isDarkMode;
@@ -31,12 +34,28 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
         {
-            _isDarkMode = await _mudThemeProvider.GetSystemPreference();
-            StateHasChanged();
+            if (firstRender)
+            {
+                ClientId = 3; //set to client default is 3 test is --
+                _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+                StateHasChanged();
+            }
+        }
+        else
+        {
+            if (firstRender)
+            {
+                var domain = HttpContextAccessor.HttpContext.Request.Host.Value.ToLower();
+                ClientId = await ClientFrontendService.GetClientIdFromDomain(domain);
+
+                _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+                StateHasChanged();
+            }
         }
     }
+
 
     private MudTheme MyTheme = new MudTheme()
     {

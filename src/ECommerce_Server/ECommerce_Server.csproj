@@ -38,4 +38,10 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Pages\Admin\AdminClient\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Admin\AdminClient\" />
+  </ItemGroup>
 </Project>

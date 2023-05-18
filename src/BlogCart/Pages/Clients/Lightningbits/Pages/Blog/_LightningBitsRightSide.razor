@@ -1,5 +1,5 @@
 ﻿@inject IBlogService _blogService
-@inject IClientFrontendService _clientFrontendService
+@*@inject IClientFrontendService _clientFrontendService*@
 
 
 <div class="w-full md:w-64">
@@ -40,28 +40,16 @@
 
 
 @code {
+    [CascadingParameter]
+    public int ClientId { get; set; }
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
-    public IEnumerable<ClientFrontendDTO> Clients { get; set; } = new List<ClientFrontendDTO>();
-    private int clientId;
 
     protected override async Task OnInitializedAsync()
     {
-        Clients = await _clientFrontendService.GetAll();
-        int clientId = GetClientIdByDomain("current-domain.com");
-        await LoadBlogsByClientId(clientId);
-    }
-
-    private int GetClientIdByDomain(string domain)
-    {
-        var client = Clients.FirstOrDefault(c => c.DomainName == domain);
-        return client?.ClientId ?? 3; // Set the default Client ID to 3
-    }
-
-    private async Task LoadBlogsByClientId(int clientId)
-    {
         IsProcessing = true;
-        Blogs = await _blogService.GetBlogsByClientId(clientId);
+        Blogs = await _blogService.GetAll();
+        Blogs = Blogs.Where(b => b.ClientId == ClientId);  // filter blogs by ClientId
         IsProcessing = false;
     }
 }

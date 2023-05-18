@@ -7,11 +7,11 @@ namespace BlogCart.Service
     {
         public Type GetLayoutForDomain(string domain)
         {
-            if (domain == "mystore.lightningbits.com")
+            if (domain == "lightningbits.net")
             {
                 return typeof(LightningBitsLayout);
             }
-            if (domain == "lightningbits.com")
+            else if (domain == "lightningbits.com")
             {
                 return typeof(LightningBitsLayout);
             }
@@ -28,9 +28,9 @@ namespace BlogCart.Service
                 return typeof(TheHealerIsYouLayout);
             }
             //development change return to set path
-            else if (domain == "localhost:7099")
+            else if (domain == "localhost:7099") 
             {
-                return typeof(LightningBitsLayout);
+                return typeof(LightningBitsLayout); //change clientid to match in layout as well when in develpoment
             }
             else
             {

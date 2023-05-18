@@ -19,8 +19,6 @@
 </head>
 
 <PageTitle>@Product.Name</PageTitle>
-
-
 @if (IsProcessing)
 {
     <div class="text-center">
@@ -73,8 +71,9 @@ else
                     <MudButton Class="w-full mt-2" OnClick="AddToCart" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success">Add to Cart</MudButton>
                 }
             </MudCard>
-            <MudButton Class="mt-2" Href="/services" Variant="Variant.Text" Color="Color.Primary">Go Back</MudButton>
-
+            <div class="flex mt-4">
+                <MudButton Color="Color.Primary" Variant="Variant.Filled" @onclick="@(() => _navigationManager.NavigateTo("/lightningbits/products/product-services"))">Return</MudButton>
+            </div>
         </div>
     </div>
 }
@@ -82,6 +81,7 @@ else
 
 
 @code {
+
     [Parameter]
     public int ProductId { get; set; }
     public ProductDTO Product { get; set; } = new();

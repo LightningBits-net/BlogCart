@@ -1,7 +1,7 @@
 ﻿@inject NavigationManager _navigationManager
 @inject IBlogService _blogService
 @inject MudBlazor.ISnackbar snackBar
-@inject IClientFrontendService _clientFrontendService
+
 
 
 @if (IsProcessing)
@@ -17,7 +17,7 @@ else
         <!-- categories -->
         <ul class="flex justify-center pb-2 pl-2 pr-2 md:pb-6 md:pl-6 md:pr-6">
             <li>
-                <a class="inline-block py-2 px-4 text-center no-underline hover:underline font-semibold cursor-pointer" href="/lightningbits/Blog">Home</a>
+                <a class="inline-block py-2 px-4 text-center no-underline hover:underline font-semibold cursor-pointer" @onclick="ReloadPage">Home</a>
             </li>
             @foreach (var category in Blogs.Select(u => u.BlogCategory.Name).Distinct())
             {
@@ -38,7 +38,7 @@ else
                 <div class="mb-2 text-sm">
                     by <a href="/lightningbits/Blog/Home">@((MarkupString)blog.Author)</a> @blog.DateCreated.ToLocalTime().ToString("MM/dd/yyyy")
                     <span class="font-bold mx-1"> | </span>
-                    <a href="/lightningbits/Blog/Home">Viewed: @(Math.Floor(blog.Views))</a>
+                    <p>Viewed: @(Math.Floor(blog.Views))</p>
                 </div>
                 <p class="leading-normal mb-2">
                     @((MarkupString)blog.Description)
@@ -49,29 +49,17 @@ else
 }
 
 @code {
+    [CascadingParameter]
+    public int ClientId { get; set; }
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
-    public IEnumerable<ClientFrontendDTO> Clients { get; set; } = new List<ClientFrontendDTO>();
-    private int clientId;
     private string selectedCategory = "SelectedCategory";
 
     protected override async Task OnInitializedAsync()
     {
-        Clients = await _clientFrontendService.GetAll();
-        int clientId = GetClientIdByDomain("current-domain.com");
-        await LoadBlogsByClientId(clientId);
-    }
-
-    private int GetClientIdByDomain(string domain)
-    {
-        var client = Clients.FirstOrDefault(c => c.DomainName == domain);
-        return client?.ClientId ?? 3; // Set the default Client ID to 3
-    }
-
-    private async Task LoadBlogsByClientId(int clientId)
-    {
         IsProcessing = true;
-        Blogs = await _blogService.GetBlogsByClientId(clientId);
+        Blogs = await _blogService.GetAll();
+        Blogs = Blogs.Where(b => b.ClientId == ClientId);  // filter blogs by ClientId
         IsProcessing = false;
     }
     private IEnumerable<BlogDTO> GetFilteredBlogs()
@@ -82,12 +70,22 @@ else
         }
         else
         {
-            return Blogs.Where(u => u.BlogCategory.Name == selectedCategory).OrderByDescending(b => b.DateCreated).Take(5);
+            return Blogs.Where(u => u.BlogCategory.Name == selectedCategory && u.ClientId == ClientId).OrderByDescending(b => b.DateCreated).Take(5);
         }
+
     }
+
 
     private void OnCategorySelectionChange(string category)
     {
         selectedCategory = category;
     }
+
+    private void ReloadPage()
+    {
+        _navigationManager.NavigateTo(_navigationManager.Uri, forceLoad: true);
+    }
 }
+
+
+

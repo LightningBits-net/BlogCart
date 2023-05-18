@@ -5,6 +5,7 @@
 @inject IOrderService _orderService
 @*@inject IPaymentService _paymentService*@
 @inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
 
 <HeadContent>
     <meta name="description" content="@Description" />
@@ -49,7 +50,7 @@ else
                     @foreach (var prod in Order.OrderDetails)
                     {
                         <tr class="w-full">
-                            <td class="border border-gray-400 text-center">
+                            <td class="border border-gray-400 flex justify-center items-center">
                                 <img src="@prod.Product.ImageUrl" alt="@prod.Product.Name" width="100" height="100">
                             </td>
                             <td class="border border-gray-400 text-center">
@@ -66,80 +67,14 @@ else
                     est Total: @Order.OrderHeader.OrderTotal.ToString("c")
                 </h1>
             </div>
-
         </div>
     </div>
     <div class="justify-center w-1/2 mx-auto">
         <div class="form-group pt-3 pb-3">
-            <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Checkout Now</MudButton>
+            <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Success" Class="ml-auto" OnClick="@ShowSnackbar">Checkout Now</MudButton>
         </div>
-        <MudButton Href="lightningbits/cart-details" FullWidth="true" Variant="Variant.Filled" Color="Color.Dark" Class="ml-auto">Return to Cart</MudButton>
-
+        <MudButton @onclick="@(() => _navigationManager.NavigateTo("/lightningbits/products/product-services"))" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Return to Cart</MudButton>
     </div>
-
-    @*<div class="container mx-auto bg-gray-200 text-black flex flex-wrap justify-center py-5">
-            <div class="w-full md:w-1/2 lg:w-1/2">
-                <MudCard Elevation="4" Class="w-full">
-                    <MudCardContent>
-                        <EditForm Model="@Order.OrderHeader" OnValidSubmit="@HandleCheckout">
-                            <DataAnnotationsValidator />
-                            <div class="flex flex-wrap -mx-2">
-                                <div class="w-full px-2">
-                                    <div class="form-group py-3">
-                                        <MudTextField Label="First and Last name" Class="w-full" @bind-Value="@Order.OrderHeader.Name" For="@(() => Order.OrderHeader.Name)" />
-                                        <ValidationMessage For="@(() => Order.OrderHeader.Name)" />
-                                    </div>
-                                </div>
-                                <div class="w-full px-2">
-                                    <div class="form-group py-3">
-                                        <MudTextField Label="Phone" Class="w-full" @bind-Value="@Order.OrderHeader.PhoneNumber" For="@(() => Order.OrderHeader.PhoneNumber)" />
-                                        <ValidationMessage For="@(() => Order.OrderHeader.PhoneNumber)" />
-                                    </div>
-                                </div>
-                                <div class="w-full px-2">
-                                    <div class="form-group py-3">
-                                        <MudTextField Label="Email" Class="w-full" @bind-Value="@Order.OrderHeader.Email" For="@(() => Order.OrderHeader.Email)" />
-                                        <ValidationMessage For="@(() => Order.OrderHeader.Email)" />
-                                    </div>
-                                </div>
-                                <div class="w-full px-2">
-                                    <div class="form-group py-3">
-                                        <MudTextField Label="Street Address" Class="w-full" @bind-Value="@Order.OrderHeader.StreetAddress" For="@(() => Order.OrderHeader.StreetAddress)" />
-                                        <ValidationMessage For="@(() => Order.OrderHeader.StreetAddress)" />
-                                    </div>
-                                </div>
-                                <div class="w-full px-2">
-                                    <div class="form-group py-3">
-                                        <MudTextField Label="City" Class="w-full" @bind-Value="@Order.OrderHeader.City" For="@(() => Order.OrderHeader.City)" />
-                                        <ValidationMessage For="@(() => Order.OrderHeader.City)" />
-                                    </div>
-                                </div>
-                                <div class="w-full px-2">
-                                    <div class="form-group py-3">
-                                        <MudTextField Label="State" Class="w-full" @bind-Value="@Order.OrderHeader.State" For="@(() => Order.OrderHeader.State)" />
-                                        <ValidationMessage For="@(() => Order.OrderHeader.State)" />
-                                    </div>
-                                </div>
-                                <div class="w-full px-2">
-                                    <div class="form-group py-3">
-                                        <MudTextField Label="Postal Code" Class="w-full" @bind-Value="@Order.OrderHeader.PostalCode" For="@(() => Order.OrderHeader.PostalCode)" />
-                                        <ValidationMessage For="@(() => Order.OrderHeader.PostalCode)" />
-                                    </div>
-                                </div>
-                            </div>
-                            <MudPaper Elevation="4" Class="p-4 mt-5">
-                                <h2 class="font-display-italic text-2xl md:text-3xl italic leading-none mb-6 max-w-xl">Additional Details</h2>
-                                <p>Some delivery information and discounts.</p>
-                            </MudPaper>
-                            <div class="form-group pt-3 pb-3">
-                                <MudButton ButtonType="ButtonType.Submit" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Checkout Now</MudButton>
-                            </div>
-                            <MudButton Href="/Cart" FullWidth="true" Variant="Variant.Filled" Color="Color.Dark" Class="ml-auto">Return to Cart</MudButton>
-                        </EditForm>
-                    </MudCardContent>
-                </MudCard>
-            </div>
-        </div>*@
 }
 
 
@@ -151,7 +86,6 @@ else
     private string Title = "LightningBits.com";
     private string Description = "Review your order with ease at LightningBits.com. Our personalized software solutions ensure that your order is processed smoothly and efficiently, saving you time and hassle. With a focus on innovation and customization, our dedicated developers work tirelessly to deliver software that exceeds your expectations. You can trust us to provide the best possible service, making it easy to manage your orders and keep your customers happy. Review your order now and experience the power of LightningBits.com.";
     private string ImageUrl = "/img/lb_logoLight.jpg";
-
 
     protected override async Task OnInitializedAsync()
     {
@@ -204,6 +138,21 @@ else
             IsProcessing = false;
             StateHasChanged();
         }
+    }
+
+    void ShowSnackbar()
+    {
+        snackBar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+        snackBar.Configuration.PreventDuplicates = false;
+        snackBar.Configuration.NewestOnTop = false;
+        snackBar.Configuration.VisibleStateDuration = 10000;
+
+        snackBar.Add(
+            @"Sorry, checkout is currently unavailable. Please visit 
+            <a href='https://www.upwork.com/services/product/development-it-fast-affordable-website-development-with-hosting-and-maintenance-1655578908643454976?ref=project_share' target='_blank'>Upwork</a> 
+            to purchase this item.",
+            Severity.Info,
+            config => config.ShowCloseIcon = true);
     }
 
     private async Task HandleCheckout()

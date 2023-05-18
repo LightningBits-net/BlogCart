@@ -33,7 +33,7 @@
         </p>
         <p class="mx-auto max-w-lg text-center leading-relaxed">check out my Commit History on <a href="https://github.com/LightningBit" class="text-indigo-500">GitHub</a></p>
         <p class="mx-auto max-w-lg text-center leading-relaxed">check out <a href="/BlogViewHome" class="text-indigo-500">My Blog</a></p>
-        <p class="mx-auto max-w-lg text-center leading-relaxed">check out my SAS <a href="https://mystore.lightningbits.net/lightningbits/product-views/product-services" class="text-indigo-500">MyStore</a></p>
+        <p class="mx-auto max-w-lg text-center leading-relaxed">check out my SAS <a href="/lightningbits/products/product-services" class="text-indigo-500">MyStore</a></p>
         <p class="mx-auto max-w-lg text-center leading-relaxed">check me out on  <a href="https://www.fiverr.com/s2/5826b93876" class="text-indigo-500">Fivver</a></p>
         <p class="mx-auto max-w-lg text-center leading-relaxed">check me out on  <a href="https://www.upwork.com/freelancers/~0173f3f206d87cb2ab?viewMode=1" class="text-indigo-500">Upwork</a></p>
     </div>
@@ -42,20 +42,20 @@
     <div class="max-w-5xl mx-auto flex flex-wrap items-start h-full">
         <div class="w-full md:w-1/2 p-1 mb-12 flex-grow">
             <img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="block w-full h-auto mb-12" />
-            <h2><a href="https://myblog.lightningbits.net/blog/Page/6" class="block text-2xl font-bold mb-6">Front End</a></h2>
+            <h2><a href="/ightningbits/blog/Page/6" class="block text-2xl font-bold mb-6">Front End</a></h2>
             <p class="mb-6 leading-relaxed text-lg ">
                 IAM well-versed in utilizing the latest technologies to bring creative and user-friendly designs to life.
-                In my <a href="https://mystore.lightningbits.net/lightningbits/ThriftBoss" class="text-indigo-500 ">projects</a>,
+                In my <a href="/lightningbits/ThriftBoss" class="text-indigo-500 ">projects</a>,
                 I have demonstrated expertise in C# with Blazor, HTML, and Tailwind CSS to create dynamic and responsive web applications.
                 My experience in these technologies has allowed me to create visually appealing interfaces with seamless functionality that provide the best user experience.
                 Whether it's a single-page application, a full-featured e-commerce platform with Blog, or a simple portfolio website,
                 I have the skills and knowledge to bring your vision to reality.
             </p>
-            <a href="https://myblog.lightningbits.net/blog/Page/6" class="block text-indigo-500 text-center">Read more</a>
+            <a href="/lightningbits/blog/Page/6" class="block text-indigo-500 text-center">Read more</a>
         </div>
         <div class="w-full md:w-1/2 p-1 mb-12 flex-grow">
             <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80" class="block w-full h-auto mb-12" />
-            <h2><a href="https://myblog.lightningbits.net/blog/Page/7" class="block text-2xl font-bold mb-6">Back End</a></h2>
+            <h2><a href="/lightningbits/blog/Page/7" class="block text-2xl font-bold mb-6">Back End</a></h2>
             <p class="mb-6 leading-relaxed text-lg ">
                 IAM experienced in developing efficient and secure backend solutions
                 that serve as the foundation for modern web applications.
@@ -64,7 +64,7 @@
                 Additionally, I employ ASP.NET Core API to effectively serve the front end and SQL databases to manage data storage and retrieval.
                 With these tools, I am able to deliver high-performing, scalable and secure back end systems that meet the demands of modern web applications
             </p>
-            <a href="https://myblog.lightningbits.net/blog/Page/7" class="block text-indigo-500 text-center">Read more</a>
+            <a href="/lightningbits/blog/Page/7" class="block text-indigo-500 text-center">Read more</a>
         </div>
     </div>
 
@@ -75,38 +75,10 @@
         <div class="w-full md:w-3/4 p-1 mb-12">
             <div class="flex items-center justify-center">
                 <div class="w-1/2 pr-4">
-                    <img src="/img/myHeadShot.jpeg" alt="image" class="block w-full h-auto mb-12" />
-                </div>
-                <div class="w-1/2 pl-4">
-                    @if (IsProcessing)
-                    {
-                        <div class="text-center">
-                            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-                        </div>
-                    }
-                    else
-                    {
-                        <MudCarousel Style="height:150px;" ShowArrows="@arrows" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
-                            @foreach (var portfolio in ECommerceProducts)
-                            {
-                                @if (portfolio.Category.Name == CategoryName)
-
-                                {
-                                    <MudCarouselItem Transition="transition" Color="@Color.Dark">
-                                        <a href="/ProductDetails/@portfolio.Id">
-                                            <img src="@portfolio.ImageUrl" class="block w-full h-full object-cover" style="height: 100%;" />
-                                        </a>
-                                    </MudCarouselItem>
-                                }
-
-                            }
-                        </MudCarousel>
-                    }
+                    <img src="/lightningbits/img/myHeadShot.jpeg" alt="image" class="block w-full h-auto mb-12" />
                 </div>
             </div>
-
-
-            <h2> <a href="https://myblog.lightningbits.net/blog/Page/4" class="block text-2xl font-bold mb-6">About</a></h2>
+            <h2> <a href="/lightningbits/blog/Page/4" class="block text-2xl font-bold mb-6">About</a></h2>
             <p class="mb-6 leading-relaxed text-lg">
                 Hello! I am Rafael Morel aka LightningBits, a Junior Software Developer specializing in .NET Core, Blazor, Tailwind CSS, and much more.
                 I offer a combination of technical knowledge, real world experience, and a willingness to learn and contribute as part of a software development team.
@@ -119,7 +91,7 @@
                 <a href="https://www.linkedin.com/in/rafael-morel-1b28aa15a/" class="w-1/2 p-4 mr-5 bg-blue-800 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded-full">
                     Visit my LinkedIn page
                 </a>
-                <a href="https://myblog.lightningbits.net/blog/Page/4" class="w-1/2 p-4 bg-blue-800 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded-full">
+                <a href="/lightningbits/blog/Page/4" class="w-1/2 p-4 bg-blue-800 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded-full">
                     Read more
                 </a>
 

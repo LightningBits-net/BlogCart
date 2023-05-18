@@ -1,0 +1,52 @@
+﻿@page "/stefmancia/Contact"
+@inject NavigationManager _navigationManager
+
+
+<PageTitle>Contact Page</PageTitle>
+<div class="w-full bg-white">
+    <div class="text-center bg-gray-200 text-gray-600  px-6 py-12 mb-6 border-b">
+        <h1 class="text-xl md:text-4xl pb-4">Get in Touch</h1>
+        <p class="leading-loose">
+            Transforming Medical Knowledge into Compelling Communication
+        </p>
+    </div>
+    <div class="container max-w-4xl mx-auto pb-10 px-12 md:px-0">
+        <div class="flex flex-wrap justify-start items-start -mx-4">
+            <div class="w-full bg-white text-gray-900 md:w-1/2 p-4">
+                <form class="border border-gray-600 rounded p-4">
+                    <fieldset class="mb-4">
+                        <label class="block text-sm pb-2 text-gray-900">Name</label>
+                        <input class="block w-full border rounded py-2 px-3 text-sm" type="text" disabled />
+                    </fieldset>
+                    <fieldset class="mb-4">
+                        <label class="block text-sm pb-2 text-gray-900">Email</label>
+                        <input class="block w-full border rounded py-2 px-3 text-sm" type="text" disabled />
+                    </fieldset>
+                    <fieldset class="mb-4">
+                        <label class="block text-sm pb-2 text-gray-900">Message</label>
+                        <textarea class="block w-full border rounded py-2 px-3 text-sm h-32" disabled></textarea>
+                    </fieldset>
+                    <button class="text-sm py-2 px-3 bg-gray-400 text-black rounded" disabled>Submit</button>
+                </form>
+            </div>
+
+            <div class="w-full md:w-1/2 p-4">
+                <div class="overflow-hidden mb-6">
+                    <img class="w-full h-96" src="stefmancia/img/grayqr.png" frameborder="0" style="border:0" allowfullscreen />
+                </div>
+                <p class="text-lg b-2 bg-gray-400 hover:bg-gray-600 text-white rounded shadow-3xl text-center">
+                    <a href="mailto:stefmanciamorel@protonmail.com" class="text-gray-900 hover:color-gray-400 text-center">Email me</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="w-full justify-center text-white pb-5 text-center">
+        <MudButton Color="Color.Primary" Variant="Variant.Outlined" @onclick="@(() => _navigationManager.NavigateTo("/stefmancia"))">Return</MudButton>
+    </div>
+
+</div>
+
+
+@code {
+
+}

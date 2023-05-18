@@ -1,52 +1,24 @@
 ﻿@inherits LayoutComponentBase
 @namespace BlogCart.Shared.MainLayouts
-@*@inject ILocalStorageService _localStorage
-    @inject ICartService _cartService*@
-@*@implements IDisposable*@
+@inject NavigationManager NavigationManager
+
+
 
 
 <MudAppBar Elevation="21" Dense="true">
-    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Medium" Edge="Edge.End"
+    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.End"
                    OnClick="async () => await OnSidebarToggled.InvokeAsync()" aria-label="Toggle Menu sidebar" />
-    <MudIconButton Href="/stefmancia/" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" aria-label="Go to Home Page" />
+    <MudIconButton Href="/stefmancia" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" aria-label="Go to Home Page" />
     <MudSpacer />
-    <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Facebook" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" aria-label="Go to facebook" />
-    <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Instagram" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" aria-label="Go to Instagram" />
-    <MudIconButton Href="#" Icon="@Icons.Custom.Brands.Twitter" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" aria-label="Go to Twitter" />
+    <MudIconButton Href="mailto:stefmanciamorel@protonmail.com" Icon="@Icons.Material.Filled.Email" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" aria-label="Go to Email" />
+    <MudIconButton Href="https://www.facebook.com" Icon="@Icons.Custom.Brands.Facebook" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" aria-label="Go to Facebook" />
+    <MudIconButton Href="https://www.instagram.com" Icon="@Icons.Custom.Brands.Instagram" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" aria-label="Go to Instagram" />
+    <MudIconButton Href="https://www.twitter.com" Icon="@Icons.Custom.Brands.Twitter" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" aria-label="Go to Twitter" />
 </MudAppBar>
-
 
 @code {
     [Parameter]
     public EventCallback OnSidebarToggled { get; set; }
-
-    //private int CartCount { get; set; }
-
-    //protected override async Task OnAfterRenderAsync(bool firstRender)
-    //{
-    //    if (firstRender)
-    //    {
-    //        _cartService.OnChange += UpdateCartCount;
-    //        await UpdateCartCountAsync();
-    //    }
-    //}
-
-    //private async Task UpdateCartCountAsync()
-    //{
-    //    var cart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
-    //    CartCount = cart?.Sum(c => c.Count) ?? 0;
-    //    StateHasChanged();
-    //}
-
-    //private void UpdateCartCount()
-    //{
-    //    _ = UpdateCartCountAsync();
-    //}
-
-    //public void Dispose()
-    //{
-    //    _cartService.OnChange -= UpdateCartCount;
-    //}
 }
 
 

@@ -1,4 +1,4 @@
-﻿<AuthorizeView>
+﻿<AuthorizeView Roles="@roleAdmin">
     <Authorized>
         <MudAppBar Elevation="21" Dense="true">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Edge="Edge.Start"
@@ -23,4 +23,6 @@
 @code {
     [Parameter]
     public EventCallback OnSidebarToggled { get; set; }
+    private string roleAdmin = SharedServices.Commons.SD.Role_Admin;
+    private string roleClient = SharedServices.Commons.SD.Role_Admin;
 }

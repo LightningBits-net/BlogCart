@@ -1,0 +1,148 @@
+﻿@page "/Client-Create"
+@page "/Client/edit/{ClientId:int}"
+
+@inject IClientRepository _clientRepository
+@inject IFileUpload _fileUpload
+@inject IDialogService DialogService
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+@attribute [Authorize(Roles = SD.Role_Admin)]
+
+
+<div class="w-full p-2 flex justify-center items-center">
+    <div class="bg-white text-black border p-4 shadow-xl rounded w-full mb-10 mt-10">
+        <h1 class="mb-8 text-3xl bg-Primary text-Primary py-4 ">@Title Client</h1>
+        <h5>**please note that only images inmserted via a url are accepted with in the text editor**</h5>
+        <h5>**Strongly suggest using H1 tag on title then H2 for sub H3 for sub of sub**</h5>
+
+        @if (IsLoading)
+        {
+            <div class="text-center">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+            </div>
+        }
+        else
+        {
+            <EditForm Model="Client" OnValidSubmit="UpsertClient">
+                <DataAnnotationsValidator />
+                <div class="p-4">
+                    <div class="mb-4">
+                        <label for="Name" class="block text-sm font-medium text-gray-700">Name</label>
+                        <InputText id="Name" class="mt-1 block w-full" @bind-Value="Client.Name" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="Address" class="block text-sm font-medium text-gray-700">Address</label>
+                        <InputText id="Address" class="mt-1 block w-full" @bind-Value="Client.Address" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="DomainName" class="block text-sm font-medium text-gray-700">Domain Name</label>
+                        <InputText id="DomainName" class="mt-1 block w-full" @bind-Value="Client.DomainName" />
+                    </div>
+
+                    <!-- Add the rest of the fields in a similar way -->
+                </div>
+                <br />
+                <button href="/Client/Create" class="block w-full bg-indigo-600 hover:bg-black text-white rounded font-heading mt-2 py-2">@Title</button>
+                <br />
+                <DataAnnotationsValidator />
+                <div class="bg-red-100 mb-2"> <ValidationSummary></ValidationSummary> </div>
+            </EditForm>
+        }
+    </div>
+</div>
+
+
+
+@code {
+
+    [Parameter]
+    public int ClientId { get; set; }
+
+    private ClientDTO Client { get; set; } = new()
+    {
+        ImageUrl = "/img/lb_logoLight.jpg"
+    };
+    private string Title { get; set; } = "Create";
+    public bool IsLoading { get; set; }
+    public string ErrorMessage = "Bad request";
+    public string OldImageUrl { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadClient();
+        }
+    }
+
+    private async Task LoadClient()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        if (ClientId != 0)
+        {
+            Title = "Update";
+            Client = await _clientRepository.Get(ClientId);
+            OldImageUrl = Client.ImageUrl;
+        }
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task UpsertClient()
+    {
+        if (Client.ClientId == 0)
+        {
+            await _clientRepository.Create(Client);
+            snackBar.Add("Client created Succesfully. Refresh page to view updated product list", Severity.Success);
+        }
+        else
+        {
+            if (OldImageUrl != Client.ImageUrl)
+            {
+                _fileUpload.DeleteFile(OldImageUrl);
+            }
+            await _clientRepository.Update(Client);
+            snackBar.Add("Client updated Succesfully.", Severity.Success);
+        }
+        _navigationManager.NavigateTo("/Client-list");
+    }
+
+    private async Task HandleImageUpLoad(InputFileChangeEventArgs e)
+    {
+        IsLoading = true;
+        try
+        {
+            if (e.GetMultipleFiles().Count > 0)
+            {
+                foreach (var file in e.GetMultipleFiles())
+                {
+                    System.IO.FileInfo fileInfo = new System.IO.FileInfo(file.Name);
+                    if (fileInfo.Extension.ToLower() == ".avif" ||
+                        fileInfo.Extension.ToLower() == ".jpeg" ||
+                        fileInfo.Extension.ToLower() == ".png" ||
+                        fileInfo.Extension.ToLower() == ".jpg")
+                    {
+                        Client.ImageUrl = await _fileUpload.UpLoadFile(file);
+                    }
+                    else
+                    {
+                        snackBar.Add("Invalid file type! only avif, jpeg, jpg, and png files are valid.", Severity.Error);
+                        return;
+                    }
+                }
+            }
+            IsLoading = false;
+        }
+        catch (Exception ex)
+        {
+            snackBar.Add($"{ex}", Severity.Info);
+            snackBar.Add($"Invalid Image", Severity.Warning);
+            IsLoading = false;
+        }
+    }
+}
+
+

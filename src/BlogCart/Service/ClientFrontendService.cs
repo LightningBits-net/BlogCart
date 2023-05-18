@@ -1,7 +1,6 @@
-﻿using System;
-using BlogCart.Service.IService;
+﻿using BlogCart.Service.IService;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using SharedServices.Data;
 using SharedServices.Models;
 
 namespace BlogCart.Service
@@ -9,8 +8,8 @@ namespace BlogCart.Service
     public class ClientFrontendService : IClientFrontendService
     {
         private readonly HttpClient _httpClient;
-        private IConfiguration? _configuration;
-        private string? BaseServerUrl;
+        private IConfiguration _configuration;
+        private string BaseServerUrl;
 
         public ClientFrontendService(HttpClient httpClient, IConfiguration configuration)
         {
@@ -21,40 +20,55 @@ namespace BlogCart.Service
 
         public async Task<ClientFrontendDTO> Get(int clientId)
         {
-            var url = $"{BaseServerUrl}/api/client/{clientId}";
-            var response = await _httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<ClientFrontendDTO>();
+            try
+            {
+                var response = await _httpClient.GetAsync($"/Api/ClientFrontend/{clientId}");
+                var content = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    return JsonConvert.DeserializeObject<ClientFrontendDTO>(content);
+                }
+                else
+                {
+                    var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
+                    throw new Exception(errorModel.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while getting the client: {ex.Message}");
+                return new ClientFrontendDTO();
+            }
         }
 
         public async Task<IEnumerable<ClientFrontendDTO>> GetAll()
         {
-            var url = $"{BaseServerUrl}/api/client";
-
             try
             {
-                var response = await _httpClient.GetFromJsonAsync<IEnumerable<ClientFrontendDTO>>(url);
-
-                if (response != null)
+                var response = await _httpClient.GetAsync("/Api/ClientFrontend");
+                if (response.IsSuccessStatusCode)
                 {
-                    return response;
+                    var content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<IEnumerable<ClientFrontendDTO>>(content);
                 }
                 else
                 {
-                    // Handle the case when no clients are found
                     return Enumerable.Empty<ClientFrontendDTO>();
                 }
             }
-            catch (HttpRequestException ex)
+            catch (Exception ex)
             {
-                // Handle the case when the API endpoint is not found or an error occurs
-                // Log the exception or perform any necessary error handling
-                Console.WriteLine($"Error occurred while retrieving clients: {ex.Message}");
-
+                Console.WriteLine($"An error occurred while getting all clients: {ex.Message}");
                 return Enumerable.Empty<ClientFrontendDTO>();
             }
         }
-
+        public async Task<int> GetClientIdFromDomain(string domain)
+        {
+            var clients = await GetAll();
+            var client = clients.FirstOrDefault(c => c.DomainName == domain);
+            return client?.ClientId ?? 0; // return 0 or some default value if client not found
+        }
     }
 }
+
 

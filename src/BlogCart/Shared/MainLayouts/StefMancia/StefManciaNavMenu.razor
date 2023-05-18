@@ -1,23 +1,80 @@
 ﻿@namespace BlogCart.Shared.MainLayouts
-<MudDrawer @bind-Open="SideBarOpen" Elevation="10">
+
+<MudDrawer @bind-Open="SideBarOpen" Width="400px" Elevation="10">
     <MudDrawerHeader>
-        <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top:15px; margin-left:5px;">StefMancia.com</MudText>
+        <MudText Typo="Typo.h3" Color="Color.Default" Style="font-family: 'Allura', cursive; margin-top: 15px; margin-left: 5px;">StefMancia.com</MudText>
     </MudDrawerHeader>
-    <MudNavMenu>
-        <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
-        <MudNavGroup Title="My Blog" Expanded="false" Color="Color.Dark">
-            <MudNavLink Href="/stefmancia/blog-home" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">Read Me</MudNavLink>
-        </MudNavGroup>
-        <MudNavGroup Title="My Store" Expanded="false" Color="Color.Dark">
-            <MudNavLink Href="/" Icon="@Icons.Material.Filled.ShoppingBag" Match="NavLinkMatch.Prefix">Services/products</MudNavLink>
-        </MudNavGroup>
-        <MudNavGroup Title="My Portfolio" Expanded="false" Color="Color.Dark">
-            <MudNavLink Href="/stefaniamancia/aboutme" Icon="@Icons.Material.Filled.ReadMore" Match="NavLinkMatch.Prefix">About Me</MudNavLink>
-        </MudNavGroup>
-        <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-        <MudNavLink Href="/stefmancia/contact" Icon="@Icons.Material.Filled.ContactPage" Match="NavLinkMatch.Prefix" Style="text-align">Contact me</MudNavLink>
-    </MudNavMenu>
+    <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+    <div class="text-center">
+        <a href="/stefmancia/contact" class="inline-block mx-2 py-2 px-4 rounded-lg text-gray-200 hover:text-gray-600 hover:bg-gray-100 transition duration-300">Contact</a>
+        <a href="/stefmancia/about" class="inline-block mx-2 py-2 px-4 rounded-lg text-gray-200 hover:text-gray-600 hover:bg-gray-100 transition duration-300">About</a>
+    </div>
+    <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+    <div class="mt-2">
+        <a href="/stefmancia/portfolio">
+            <h3 class="text-xl text-center text-white text-bold">Featured publishings</h3>
+        </a>
+        <ul class="mt-4 max-h-96 pl-2 pr-2 overflow-y-auto">
+            <li class="py-2">
+                <button class="w-full py-2 hover:bg-gray-500">
+                    "Title 1: An Overview of Medical Writing"
+                </button>
+            </li>
+            <li class="py-2">
+                <button class="w-full py-2 hover:bg-gray-500">
+                    "Title 2: The Role of a Medical Writer in Pharmaceutical Industry"
+                </button>
+            </li>
+            <li class="py-2">
+                <button class="w-full py-2 text-left hover:bg-gray-500  hover:text-white">
+                    "Title 3: A Guide to Effective Medical Research"
+                </button>
+            </li>
+            <li class="py-2">
+                <button class="w-full py-2 hover:bg-gray-500  hover:text-white">
+                    "Title 4: Medical Writing: Ethical Considerations"
+                </button>
+            </li>
+            <li class="py-2">
+                <button class="w-full py-2 hover:bg-gray-500 hover:text-white">
+                    "Title 5: Bridging the Gap: Medical Writing for Non-Medical Audience"
+                </button>
+            </li>
+            <li class="py-2">
+                <button class="w-full py-2 text-left hover:bg-gray-500  focus:bg-blue-500">
+                    "Title 1: An Overview of Medical Writing"
+                </button>
+            </li>
+            <li class="py-2">
+                <button class="w-full py-2 hover:bg-gray-500">
+                    "Title 2: The Role of a Medical Writer in Pharmaceutical Industry"
+                </button>
+            </li>
+            <li class="py-2">
+                <button class="w-full py-2 hover:bg-gray-500  hover:text-white">
+                    "Title 3: A Guide to Effective Medical Research"
+                </button>
+            </li>
+            <li class="py-2">
+                <button class="w-full py-2 hover:bg-gray-500 hover:text-white">
+                    "Title 4: Medical Writing: Ethical Considerations"
+                </button>
+            </li>
+            <li class="py-2">
+                <button class="w-full py-2 hover:bg-gray-500 hover:text-white">
+                    "Title 5: Bridging the Gap: Medical Writing for Non-Medical Audience"
+                </button>
+            </li>
+        </ul>
+    </div>
+    <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+    <div class="text-center mt-5">logo here</div>
+    <div class="absolute bottom-0 left-0 right-0 p-4 flex justify-center">
+        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-800 hover:text-gray-900  hover:bg-gray-300 transition duration-300" @onclick="() => SideBarOpen = false">Close</button>
+    </div>
+
 </MudDrawer>
+
 
 
 @code {

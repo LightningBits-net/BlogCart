@@ -9,17 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="~/" />
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_ico_lightningbits/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_ico_lightningbits/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_ico_lightningbits/favicon-16x16.png">
-    <link rel="manifest" href="/favicon_ico_lightningbits/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/lightningbits/favicon_ico_lightningbits/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/lightningbits/favicon_ico_lightningbits/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/lightningbits/favicon_ico_lightningbits/favicon-16x16.png">
+    <link rel="manifest" href="/lightningbits/favicon_ico_lightningbits/site.webmanifest">
     <link href="app.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/bba4017977.js"></script>
 </head>
-
 <body>
     @RenderBody()
     <div id="blazor-error-ui">
@@ -53,7 +52,7 @@
                             isReloading = false;
                         }
                     }
-                    setInterval(attemptReload, 1500);
+                    setInterval(attemptReload, 3000);
                 }
             }
         });</script>

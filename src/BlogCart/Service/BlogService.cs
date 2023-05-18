@@ -1,6 +1,7 @@
 ﻿using BlogCart.Service.IService;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+//using SharedServices.Data;
 using SharedServices.Models;
 
 namespace BlogCart.Service
@@ -53,6 +54,10 @@ namespace BlogCart.Service
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     var blogs = JsonConvert.DeserializeObject<IEnumerable<BlogDTO>>(content);
+                    foreach (var blog in blogs)
+                    {
+                        blog.ImageUrl = BaseServerUrl + blog.ImageUrl;
+                    }
                     return blogs;
                 }
                 else

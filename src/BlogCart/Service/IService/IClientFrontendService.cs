@@ -7,6 +7,7 @@ namespace BlogCart.Service.IService
     {
         public Task<ClientFrontendDTO> Get(int clientId);
         public Task<IEnumerable<ClientFrontendDTO>> GetAll();
+        public Task<int> GetClientIdFromDomain(string domain);
     }
 }
 

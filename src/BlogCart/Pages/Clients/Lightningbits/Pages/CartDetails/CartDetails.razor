@@ -63,15 +63,16 @@
                             <a href="/lightningbits/product-views/product-details/@prod.Product.Id">
                                 <img src="@prod.Product.ImageUrl" alt="@prod.Product.Name" class="w-full h-32 object-cover" />
                             </a>
-                            <MudCardContent>
+                            <MudCardContent class="overflow-auto">
                                 <p class="h-48 min-h-0">
                                     @if (prod.Product.Color != "*")
                                     {
-                                        <MudText Typo="Typo.body2" Color="Color.Primary"> Color:@prod.Product.Color</MudText>
+                                        <MudText Typo="Typo.body2" Color="Color.Primary">Color: @prod.Product.Color</MudText>
                                     }
-                                    <MudText Typo="Typo.body1" Color="Color.Inherit"> @((MarkupString)@prod.Product.Description)</MudText>
+                                    <MudText Typo="Typo.body1" Color="Color.Inherit">@((MarkupString)@prod.Product.Description)</MudText>
                                 </p>
                             </MudCardContent>
+
                             <MudCardActions>
                                 <MudText Typo="Typo.body1" Color="Color.Default">Qty: @prod.Count</MudText>
                                 <MudSpacer></MudSpacer>
@@ -82,9 +83,14 @@
                     </div>
                 }
             </div>
-            <div class="flex justify-center pb-10 w-full">
-                <a href="/lightningbits/cart-details/summary" class="block w-1/2 bg-green-500 px-4 py-2 rounded-lg text-white hover:bg-green-600 mx-4 ">Check out</a>
-                <a href="/lightningbits/product-views/product-services" class="block w-1/2 bg-gray-600 px-4 py-2 rounded-lg text-white hover:bg-gray-400 mx-4">Keep Shopping</a>
+            <div class="flex justify-center pb-10">
+                <div class="w-3/4 mx-auto flex items-center">
+                    <MudButton Color="Color.Success" Variant="Variant.Filled"
+                               Href="/lightningbits/cart-details/summary" class="w-1/2">Check out</MudButton>
+                    <MudButton Color="Color.Primary" Variant="Variant.Filled"
+                               @onclick="@(() => _navigationManager.NavigateTo("/lightningbits/products/product-services"))"
+                               class="w-1/2 ml-4">Return</MudButton>
+                </div>
             </div>
         }
     }
@@ -99,7 +105,6 @@
     private string Title = "LightningBits.com";
     private string Description = "Personalized Software Solutions for Your Unique Needs. With a focus on innovation and customization, I create software tailored to meet the specific needs of your business. As a dedicated developer, I work closely with you to understand your requirements and deliver software that drives success and efficiency. Trust me for your software needs and see your business soar.";
     private string ImageUrl = "/img/lb_logoLight.jpg";
-
 
     protected override async Task OnInitializedAsync()
     {
