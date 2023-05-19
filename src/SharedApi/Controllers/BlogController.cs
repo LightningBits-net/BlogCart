@@ -22,37 +22,112 @@ namespace SharedApi.Controllers
             _blogRepository = blogRepository;
         }
 
+        //[HttpGet]
+        //public async Task<IActionResult> GetAll()
+        //{
+        //    return Ok(await _blogRepository.GetAll());
+        //}
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _blogRepository.GetAll());
+            try
+            {
+                var blogs = await _blogRepository.GetAll();
+                if (blogs == null || !blogs.Any())
+                {
+                    return NotFound(new ErrorModelDTO()
+                    {
+                        ErrorMessage = "No blogs found.",
+                        StatusCode = StatusCodes.Status404NotFound
+                    });
+                }
+
+                var publishedBlogs = blogs.Where(blog => blog.Status == "Published");
+                return Ok(publishedBlogs);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or perform any necessary error handling
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorModelDTO()
+                {
+                    ErrorMessage = "An error occurred while retrieving the blogs.",
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                });
+            }
         }
 
 
         [HttpGet("{blogId}")]
         public async Task<IActionResult> Get(int? blogId)
         {
-            if (blogId==null || blogId==0)
+            if (blogId == null || blogId == 0)
             {
                 return BadRequest(new ErrorModelDTO()
                 {
-                    ErrorMessage="Invalid Id",
-                    StatusCode=StatusCodes.Status400BadRequest
+                    ErrorMessage = "Invalid Id",
+                    StatusCode = StatusCodes.Status400BadRequest
                 });
             }
 
-            var blog = await _blogRepository.Get(blogId.Value);
-            if (blog==null)
+            try
             {
-                return BadRequest(new ErrorModelDTO()
+                var blog = await _blogRepository.Get(blogId.Value);
+                if (blog == null)
                 {
-                    ErrorMessage="Invalid Id",
-                    StatusCode=StatusCodes.Status404NotFound
+                    return NotFound(new ErrorModelDTO()
+                    {
+                        ErrorMessage = "Blog not found.",
+                        StatusCode = StatusCodes.Status404NotFound
+                    });
+                }
+
+                if (blog.Status != "Published")
+                {
+                    return StatusCode(StatusCodes.Status403Forbidden, new ErrorModelDTO()
+                    {
+                        ErrorMessage = "Blog is not published.",
+                        StatusCode = StatusCodes.Status403Forbidden
+                    });
+                }
+
+                return Ok(blog);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or perform any necessary error handling
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorModelDTO()
+                {
+                    ErrorMessage = "An error occurred while retrieving the blog.",
+                    StatusCode = StatusCodes.Status500InternalServerError,
                 });
             }
-            //return Ok(await _productRepository.GetAll());
-            return Ok(blog);
         }
+
+
+        //[HttpGet("{blogId}")]
+        //public async Task<IActionResult> Get(int? blogId)
+        //{
+        //    if (blogId==null || blogId==0)
+        //    {
+        //        return BadRequest(new ErrorModelDTO()
+        //        {
+        //            ErrorMessage="Invalid Id",
+        //            StatusCode=StatusCodes.Status400BadRequest
+        //        });
+        //    }
+
+        //    var blog = await _blogRepository.Get(blogId.Value);
+        //    if (blog==null)
+        //    {
+        //        return BadRequest(new ErrorModelDTO()
+        //        {
+        //            ErrorMessage="Invalid Id",
+        //            StatusCode=StatusCodes.Status404NotFound
+        //        });
+        //    }
+        //    //return Ok(await _productRepository.GetAll());
+        //    return Ok(blog);
+        //}
 
         //[HttpPut("{blogId}")]
         //public async Task<IActionResult> Update(int blogId, [FromBody] BlogDTO updatedBlog)

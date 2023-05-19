@@ -30,7 +30,7 @@ namespace BlogCart.Service
             //development change return to set path
             else if (domain == "localhost:7099") 
             {
-                return typeof(LightningBitsLayout); //change clientid to match in layout as well when in develpoment
+                return typeof(LightningBitsLayout); //change clientid to match in layout as well when in develpoment @ LayoutPage in shared folder
             }
             else
             {

@@ -29,5 +29,9 @@
     <Folder Include="wwwroot\Lightningbits\favicon_ico_lightningbits\" />
     <Folder Include="wwwroot\StefMancia\" />
     <Folder Include="wwwroot\StefMancia\img\" />
+    <Folder Include="Pages\Clients\Lightningbits\Pages\Blog\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Pages\Clients\Lightningbits\Pages\Blog\" />
   </ItemGroup>
 </Project>
