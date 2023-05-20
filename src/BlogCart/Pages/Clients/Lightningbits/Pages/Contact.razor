@@ -1,54 +1,71 @@
 ﻿@page "/lightningbits/Contact"
+@inject NavigationManager _navigationManager
+
 
 <PageTitle>Contact Page</PageTitle>
+<div class="w-full bg-white">
 
-<div class="w-full"
-<!-- title -->
-        <div class="text-center px-6 py-12 mb-6  border-b">
-            <h1 class=" text-xl md:text-4xl pb-4">Get in Touch</h1>
-            <p class="leading-loose">
-               Let me help you bring your software vision to life..
-            </p>
-        </div>
-<!-- /contact -->
-        <div class="container max-w-4xl mx-auto pb-10 px-12 md:px-0">
-            <div class="flex flex-wrap justify-start items-start -mx-4">
-                <div class="w-full md:w-1/2 p-4">
-                    <form>
-                        <fieldset class="mb-4">
-                            <label class="block text-sm pb-2">Name</label>
-                            <input class="block w-full border rounded py-2 px-3 text-sm" type="text" disabled />
-                        </fieldset>
-                        <fieldset class="mb-4">
-                            <label class="block text-sm pb-2">Email</label>
-                            <input class="block w-full border rounded py-2 px-3 text-sm" type="text" disabled />
-                        </fieldset>
-                        <fieldset class="mb-4">
-                            <label class="block text-sm pb-2">Message</label>
-                            <textarea class="block w-full border border-red-300er rounded py-2 px-3 text-sm h-32" disabled></textarea>
-                            <p class="text-xs pt-2">This field is required...</p>
-                        </fieldset>
-                        <button class="text-sm py-2 px-3 bg-indigo-500 text-white rounded">Submit</button>
-                    </form>
-                </div>
-                <div class="w-full md:w-1/2 p-4">
-                    <div class="overflow-hidden mb-6">
-                        <img class="w-full h-64" src="/img/lb_logoDark.png" frameborder="0" style="border:0" allowfullscreen/>
+    <div class="text-center bg-gray-600 text-gray-200  px-6 py-12 mb-6 border-b">
+        <h1 class="text-xl md:text-4xl pb-4">Get in Touch</h1>
+        <p class="leading-loose">
+            Transforming Medical Knowledge into Compelling Communication
+        </p>
+        <div class="d-flex justify-center align-center mt-5">
+            <div class="mr-4">
+                <MudButton Href="mailto:RafaelMorel@LightningBits.com" Color="Color.Primary" Variant="Variant.Filled">Email</MudButton>
+            </div>
+            <div>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@ToggleOpen">
+                    @(_isOpen ? "Close" : "QR code")
+                </MudButton>
+                <MudPopover Open="@_isOpen" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+                    <div class="d-flex flex-column pa-1">
+                        @if (_isOpen)
+                        {
+                            <div class="overflow-hidden mb-6">
+                                <img class="w-full h-96" src="" frameborder="0" style="border:0" allowfullscreen />
+                            </div>
+                        }
                     </div>
-                    <p class="font-bold text-xlg mb-1">
-                        LightningBits Ltd
-                    </p>
-                    <p class="text-lg mb-2">
-                        <a href="mailto:RafaelMorel@LightningBits.com" class="hover:text-indigo-500">RafaelMorel@LightningBits.com</a>
-                    </p>
-                </div>
+                </MudPopover>
             </div>
         </div>
     </div>
-
+    <div class="container max-w-4xl mx-auto pb-10 px-12 md:px-0">
+        <div class="flex flex-wrap justify-center items-center -mx-4">
+            <div class="w-full bg-white text-gray-900 md:w-1/2 p-4">
+                <form class="border border-gray-600 rounded p-4">
+                    <fieldset class="mb-4">
+                        <label class="block text-sm pb-2 text-gray-900">Name</label>
+                        <input class="block w-full border rounded py-2 px-3 text-sm" type="text" disabled />
+                    </fieldset>
+                    <fieldset class="mb-4">
+                        <label class="block text-sm pb-2 text-gray-900">Email</label>
+                        <input class="block w-full border rounded py-2 px-3 text-sm" type="text" disabled />
+                    </fieldset>
+                    <fieldset class="mb-4">
+                        <label class="block text-sm pb-2 text-gray-900">Message</label>
+                        <textarea class="block w-full border rounded py-2 px-3 text-sm h-32" disabled></textarea>
+                    </fieldset>
+                    <button class="text-sm py-2 px-3 bg-gray-400 text-black rounded" disabled>Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="w-full justify-center text-white pb-5 text-center">
+        <MudButton Color="Color.Primary" Variant="Variant.Outlined" @onclick="@(() => _navigationManager.NavigateTo("/lightningbits"))">Return</MudButton>
+    </div>
+</div>
 
 @code {
 
+    public bool _isOpen;
+
+    public void ToggleOpen()
+    {
+        _isOpen = !_isOpen;
+    }
 }
+
 
 
