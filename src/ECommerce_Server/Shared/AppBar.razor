@@ -1,4 +1,4 @@
-﻿<AuthorizeView Roles="@roleAdmin">
+﻿<AuthorizeView Roles="@($"{roleAdmin},{roleClient}")">
     <Authorized>
         <MudAppBar Elevation="21" Dense="true">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Edge="Edge.Start"
@@ -11,18 +11,15 @@
         <MudAppBar Elevation="21" Dense="true">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Edge="Edge.Start"
                            OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
-            <MudButton Href="/" StartIcon="@Icons.Filled.Home" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit"></MudButton>
             <MudSpacer />
-            <MudIconButton Href="https://github.com/LightningBit" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" />
-            @*<MudButton Href="Identity/Account/login" StartIcon="@Icons.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Please Register or LogIn</MudButton>*@
+            <MudButton Href="Identity/Account/Login" StartIcon="@Icons.Filled.Login" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-in</MudButton>
         </MudAppBar>
     </NotAuthorized>
 </AuthorizeView>
-
 
 @code {
     [Parameter]
     public EventCallback OnSidebarToggled { get; set; }
     private string roleAdmin = SharedServices.Commons.SD.Role_Admin;
-    private string roleClient = SharedServices.Commons.SD.Role_Admin;
+    private string roleClient = SharedServices.Commons.SD.Role_Client;
 }

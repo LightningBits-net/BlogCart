@@ -1,6 +1,7 @@
 ﻿@page "/AdminHome"
 @page "/"
 @inject NavigationManager _navigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
 
 
@@ -9,11 +10,27 @@
     <h1 class="font-display-italic font-extrabold text-5xl md:text-6xl italic leading-none max-w-xl">Welcome Admin</h1>
 </div>
 
+
 <div class="container mx-auto justify-center flex flex-wrap pb-20">
+
+    <AuthorizeView Roles="@SD.Role_Admin">
+        <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
+            <MudCard Elevation="25">
+                <MudCardContent>
+                    <MudText Typo="Typo.h5">Client App</MudText>
+                    <MudText Typo="Typo.body2">Client Admin</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Href="/Client-List" Variant="Variant.Outlined" FullWidth="true" Color="Color.Success">Client List</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </div>
+    </AuthorizeView>
+
     <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
         <MudCard Elevation="25">
             <MudCardContent>
-                <MudText Typo="Typo.h5">BlogCart Manager</MudText>
+                <MudText Typo="Typo.h5">Product Manager</MudText>
                 <MudText Typo="Typo.body2">Manage all your products here</MudText>
             </MudCardContent>
             <MudCardActions>
@@ -33,7 +50,6 @@
             </MudCardActions>
         </MudCard>
     </div>
-
 
     <div class="w-full md:w-1/2 lg:w-1/2 px-1 mb-12">
         <MudCard Elevation="25">
@@ -75,7 +91,7 @@
 </div>
 
 
-@code{
+    @code{
 
-}
+    }
 

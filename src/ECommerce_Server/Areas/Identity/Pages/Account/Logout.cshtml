@@ -4,15 +4,13 @@
 
 
 @functions{
-    public async Task<IActionResult> OnGet()
-    {
-        if (_signInManager.IsSignedIn(User))
+        public async Task<IActionResult> OnGet()
         {
-            await _signInManager.SignOutAsync();
+            if (_signInManager.IsSignedIn(User))
+            {
+                await _signInManager.SignOutAsync();
+            }
+
+            return Redirect("/");
         }
-
-        return Redirect("https://lightningbits.net/adminhome");
-
-        //return Redirect("https://localhost:5000");
-    }
     }
