@@ -22,12 +22,18 @@
         </MudNavGroup>
         <MudDivider DividerType="DividerType.Middle" Class="my-6" />
         <MudNavGroup Title="Contact" Expanded="false" Color="Color.Dark">
+            <MudNavLink Href="/lightningbits/contact" Icon="@Icons.Material.Filled.ContactPage" Match="NavLinkMatch.Prefix">Contact</MudNavLink>
             <MudNavLink Href="mailto:RafaelMorel@LightningBits.com" Icon="@Icons.Material.Filled.Email" Match="NavLinkMatch.Prefix">E-Mail</MudNavLink>
-            <MudNavLink Icon="@Icons.Material.Filled.Chat" Match="NavLinkMatch.Prefix">MyAIChat Coming Soon</MudNavLink>
-            <MudNavLink Icon="@Icons.Material.Filled.Chat" Match="NavLinkMatch.Prefix">ChatGpt Coming Soon</MudNavLink>
         </MudNavGroup>
+        <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+        <MudNavLink Icon="@Icons.Material.Filled.Chat" Match="NavLinkMatch.Prefix">MyAIChat Coming Soon</MudNavLink>
+        <MudNavLink Icon="@Icons.Material.Filled.Chat" Match="NavLinkMatch.Prefix">ChatGpt Coming Soon</MudNavLink>
     </MudNavMenu>
+    <div class="absolute bottom-5 left-0 right-0 p-4 flex justify-center">
+        <img src="/lightningbits/img/lb_logo.png" class="w-1/2" />
+    </div>
 </MudDrawer>
+
 
 @code {
     [Parameter]

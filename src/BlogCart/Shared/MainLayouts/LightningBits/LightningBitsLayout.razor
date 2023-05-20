@@ -49,7 +49,6 @@
             {
                 var domain = HttpContextAccessor.HttpContext.Request.Host.Value.ToLower();
                 ClientId = await ClientFrontendService.GetClientIdFromDomain(domain);
-
                 _isDarkMode = await _mudThemeProvider.GetSystemPreference();
                 StateHasChanged();
             }
