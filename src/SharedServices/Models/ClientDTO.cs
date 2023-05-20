@@ -6,7 +6,7 @@ namespace SharedServices.Models
 {
     public class ClientDTO
     {
-        public int ClientId { get; set; }
+        public int? ClientId { get; set; }
 
         public string Name { get; set; }
 
@@ -14,26 +14,25 @@ namespace SharedServices.Models
 
         public string DomainName { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
 
         public string Description { get; set; }
 
         public string Email { get; set; }
 
-        public float Counter { get; set; }
+        public float? Counter { get; set; }
 
         public string ImageUrl { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         public string BillingCycle { get; set; }
 
-        public decimal BillingAmount { get; set; }
+        public decimal? BillingAmount { get; set; }
 
-        public DateTime BillingStartDate { get; set; }
+        public DateTime? BillingStartDate { get; set; }
 
-        public DateTime BillingEndDate { get; set; }
-
+        public DateTime? BillingEndDate { get; set; }
     }
 }
 
