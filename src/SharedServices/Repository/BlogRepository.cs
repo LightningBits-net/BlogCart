@@ -74,11 +74,11 @@ namespace SharedServices.Repository
                 objFromDb.Featured = objDTO.Featured;
                 objFromDb.BlogFavorite = objDTO.BlogFavorite;
                 objFromDb.ImageUrl = objDTO.ImageUrl;
-                objFromDb.BlogCategoryId = objDTO.BlogCategoryId;
                 objFromDb.Views = objDTO.Views;
                 objFromDb.DateCreated = objDTO.DateCreated;
                 objFromDb.Rating = objDTO.Rating;
                 objFromDb.Status = objDTO.Status;
+                objFromDb.BlogCategoryId = objDTO.BlogCategoryId;
                 objFromDb.ClientId = objDTO.ClientId;
                 //objFromDb.LastUpdated = objDTO.LastUpdated;
 
