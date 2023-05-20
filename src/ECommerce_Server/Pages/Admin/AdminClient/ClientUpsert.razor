@@ -1,0 +1,29 @@
+﻿@*@page "/client/create"
+@page "/client/edit/{id:int}"
+
+@inject IClientRepository _clientRepository
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+@attribute [Authorize(Roles = SD.Role_Admin)]
+
+
+
+
+
+@code {
+    private ClientDTO newClient = new ClientDTO();
+
+    private async Task CreateClient()
+    {
+        var result = await _clientRepository.Create(newClient);
+        if (result != null)
+        {
+            snackBar.Add("Client created successfully!", Severity.Success);
+            _navigationManager.NavigateTo("/client-list");
+        }
+        else
+        {
+            snackBar.Add("An error occurred while creating the client.", Severity.Error);
+        }
+    }
+}*@

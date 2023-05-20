@@ -8,7 +8,7 @@ namespace SharedServices.Data
     public class Client
     {
         [Key]
-        public int? ClientId { get; set; }
+        public int ClientId { get; set; }
 
         public string Name { get; set; }
 
@@ -22,20 +22,19 @@ namespace SharedServices.Data
 
         public string Email { get; set; }
 
-        public float? Counter { get; set; }
+        public float Counter { get; set; }
 
         public string ImageUrl { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         public string BillingCycle { get; set; }
 
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal? BillingAmount { get; set; }
+        public decimal BillingAmount { get; set; }
 
-        public DateTime? BillingStartDate { get; set; }
+        public DateTime BillingStartDate { get; set; }
 
-        public DateTime? BillingEndDate { get; set; }
+        public DateTime BillingEndDate { get; set; }
     }
 }
 

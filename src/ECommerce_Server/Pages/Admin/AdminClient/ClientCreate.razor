@@ -1,59 +1,31 @@
-﻿@page "/Client-Create"
-@page "/Client/edit/{ClientId:int}"
-
+﻿@*@page "/clientcreate"
 @inject IClientRepository _clientRepository
 @inject IFileUpload _fileUpload
 @inject IDialogService DialogService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
-@attribute [Authorize(Roles = SD.Role_Admin)]
+@attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
 
 
-<div class="w-full p-2 flex justify-center items-center">
-    <div class="bg-white text-black border p-4 shadow-xl rounded w-full mb-10 mt-10">
-        <h1 class="mb-8 text-3xl bg-Primary text-Primary py-4 ">@Title Client</h1>
-        <h5>**please note that only images inmserted via a url are accepted with in the text editor**</h5>
-        <h5>**Strongly suggest using H1 tag on title then H2 for sub H3 for sub of sub**</h5>
+<_ClientPanelHeader></_ClientPanelHeader>
 
-        @if (IsLoading)
-        {
-            <div class="text-center">
-                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-            </div>
-        }
-        else
-        {
-            <EditForm Model="Client" OnValidSubmit="UpsertClient">
-                <DataAnnotationsValidator />
-                <div class="p-4">
-                    <div class="mb-4">
-                        <label for="Name" class="block text-sm font-medium text-gray-700">Name</label>
-                        <InputText id="Name" class="mt-1 block w-full" @bind-Value="Client.Name" />
-                    </div>
 
-                    <div class="mb-4">
-                        <label for="Address" class="block text-sm font-medium text-gray-700">Address</label>
-                        <InputText id="Address" class="mt-1 block w-full" @bind-Value="Client.Address" />
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="DomainName" class="block text-sm font-medium text-gray-700">Domain Name</label>
-                        <InputText id="DomainName" class="mt-1 block w-full" @bind-Value="Client.DomainName" />
-                    </div>
-
-                    <!-- Add the rest of the fields in a similar way -->
-                </div>
-                <br />
-                <button href="/Client/Create" class="block w-full bg-indigo-600 hover:bg-black text-white rounded font-heading mt-2 py-2">@Title</button>
-                <br />
-                <DataAnnotationsValidator />
-                <div class="bg-red-100 mb-2"> <ValidationSummary></ValidationSummary> </div>
-            </EditForm>
-        }
+<div class="flex justify-center">
+    <div class="w-full max-w-sm">
+        <h2 class="text-center text-3xl leading-9 font-extrabold text-gray-900">
+            @Title Client
+        </h2>
+        <MudForm class="mt-8" OnValidSubmit="UpsertClient">
+            <MudTextField @bind-Value="Client.Name" Label="Name" Required="true" />
+            <MudTextField @bind-Value="Client.Address" Label="Address" />
+            <MudTextField @bind-Value="Client.DomainName" Label="Domain Name" Required="true" />
+            <MudTextField @bind-Value="Client.Description" Label="Description" />
+            <MudTextField @bind-Value="Client.Email" Label="Email" Required="true" />
+            <MudTextField @bind-Value="Client.ImageUrl" Label="Image URL" />
+            <MudButton Type="submit" Color="Color.Primary" class="mt-6" FullWidth="true">@Title</MudButton>
+        </MudForm>
     </div>
 </div>
-
-
 
 @code {
 
@@ -143,6 +115,5 @@
             IsLoading = false;
         }
     }
-}
-
+}*@
 

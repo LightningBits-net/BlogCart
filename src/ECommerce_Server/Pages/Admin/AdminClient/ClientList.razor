@@ -1,4 +1,4 @@
-﻿@page "/Client-List"
+﻿@page "/ClientList"
 @inject IClientRepository _clientRepository
 @inject IDialogService DialogService
 @inject IFileUpload _fileUpload
@@ -7,7 +7,7 @@
 @attribute [Authorize(Roles = SD.Role_Admin)]
 
 
-@*<_BlogPanelHeader></_BlogPanelHeader>*@
+<_ClientPanelHeader></_ClientPanelHeader>
 <div class="flex justify-center items-center overflow-x-auto">
     <div class="overflow-x-auto">
         <div class="bg-white text-black border p-4 shadow rounded overflow-x-auto">
@@ -45,8 +45,8 @@
                                 <td>
                                     <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
                                         <MudButton>
-                                            <MudButton OnClick="@(()=>DeleteBlog(client.ClientId))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete of: <br />@client.DomainName</MudButton>
-                                            <MudButton Href="" Variant="Variant.Filled" Color="Color.Dark">Cancel</MudButton>
+                                            @*<MudButton OnClick="@(()=>DeleteBlog(client.ClientId))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete of: <br />@client.DomainName</MudButton>
+                                            <MudButton Href="" Variant="Variant.Filled" Color="Color.Dark">Cancel</MudButton>*@
                                         </MudButton>
                                     </MudMenu>
                                 </td>
