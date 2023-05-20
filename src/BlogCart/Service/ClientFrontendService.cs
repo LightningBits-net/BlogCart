@@ -62,12 +62,28 @@ namespace BlogCart.Service
                 return Enumerable.Empty<ClientFrontendDTO>();
             }
         }
+        //public async Task<int> GetClientIdFromDomain(string domain)
+        //{
+        //    var clients = await GetAll();
+        //    var client = clients.FirstOrDefault(c => c.DomainName == domain);
+        //    return client?.ClientId ?? 0; // return 0 or some default value if client not found
+        //}
         public async Task<int> GetClientIdFromDomain(string domain)
         {
             var clients = await GetAll();
             var client = clients.FirstOrDefault(c => c.DomainName == domain);
-            return client?.ClientId ?? 0; // return 0 or some default value if client not found
+            if (client != null)
+            {
+                var response = await _httpClient.GetAsync($"/api/ClientFrontend/{client.ClientId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    client = JsonConvert.DeserializeObject<ClientFrontendDTO>(content);
+                }
+            }
+            return client?.ClientId ?? 0; // Return client ID or 0 if client not found
         }
+
     }
 }
 
