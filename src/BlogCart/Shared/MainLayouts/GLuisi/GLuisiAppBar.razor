@@ -1,0 +1,24 @@
+﻿@inherits LayoutComponentBase
+@namespace BlogCart.Shared.MainLayouts
+@inject NavigationManager NavigationManager
+
+
+
+
+<MudAppBar Elevation="21" Dense="true">
+    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.End"
+                   OnClick="async () => await OnSidebarToggled.InvokeAsync()" aria-label="Toggle Menu sidebar" />
+    <MudIconButton Href="/gluisi" Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Size="Size.Medium" aria-label="Go to Home Page" />
+    <MudSpacer />
+    <MudIconButton Href="mailto:Giovanniluisi978@gmail.com" Icon="@Icons.Material.Filled.Email" Color="Color.Inherit" Size="Size.Medium" Edge="Edge.Start" aria-label="Go to Email" />
+</MudAppBar>
+
+@code {
+    [Parameter]
+    public EventCallback OnSidebarToggled { get; set; }
+}
+
+
+
+
+

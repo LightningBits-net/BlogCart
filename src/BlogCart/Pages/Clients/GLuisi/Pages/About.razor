@@ -1,0 +1,39 @@
+﻿@page "/gluisi/about"
+@inject NavigationManager _navigationManager
+
+
+    <PageTitle>About Page</PageTitle>
+
+<div class="min-h-screen shadow-2xl bg-white flex justify-center items-center">
+    <div class="w-full md:w-1/2">
+        <article class="overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm">
+            <img alt="Office"
+                 src="https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1176&q=80"
+                 class="h-96 object-cover w-full" />
+            <div class="p-4 sm:p-6">
+                <a href="#">
+                    <h3 class="text-lg font-medium text-gray-900">
+                        Meet the Medical Writer
+                    </h3>
+                </a>
+                <p class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
+                    Our expert medical writer has decades of experience in the medical field and has dedicated his life to creating publications that are not only insightful, but also easy to understand. He has an extensive background in various medical disciplines, which helps him create comprehensive and detailed content. His mission is to make complex medical topics accessible to both professionals and laypeople.
+                </p>
+                <a href="#"
+                   class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600">
+                    Learn More About His Work
+                    <span aria-hidden="true" class="block transition-all group-hover:ms-0.5 rtl:rotate-180">
+                        &rarr;
+                    </span>
+                </a>
+            </div>
+        </article>
+        <div class="w-full justify-center pb-5 mt-10 text-center">
+            <MudButton Color="Color.Primary" Variant="Variant.Outlined" @onclick="@(() => _navigationManager.NavigateTo("/stefmancia"))">Return</MudButton>
+        </div>
+    </div>
+</div>
+
+
+
+

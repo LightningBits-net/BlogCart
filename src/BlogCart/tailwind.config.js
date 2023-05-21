@@ -18,6 +18,9 @@ module.exports = {
                 //'PrimaryLighten': '#2b6cb0',
                 //'GrayLight': '#F5F5F',
                 //'Surface': '#ffffffff', //Card bg color
+                'medicare-blue': '#00447A',
+                'darken-medicare-blue': '#003057', // a darker shade of Medicare Blue
+                'custom-gray': '#D3D3D3',
             },
         },
     },

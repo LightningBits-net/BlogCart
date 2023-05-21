@@ -27,10 +27,20 @@ namespace BlogCart.Service
             {
                 return typeof(TheHealerIsYouLayout);
             }
+            else if (domain == "gluisi.com")
+            {
+                return typeof(GLuisiLayout);
+            }
+
+
+
+
+
+
             //development change return to set path
             else if (domain == "localhost:7099") 
             {
-                return typeof(LightningBitsLayout); //change clientid to match in layout as well when in develpoment @ LayoutPage in shared folder
+                return typeof(GLuisiLayout); //change clientid to match in layout as well when in develpoment @ LayoutPage in shared folder
             }
             else
             {

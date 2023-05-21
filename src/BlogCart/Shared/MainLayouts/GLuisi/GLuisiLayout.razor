@@ -1,0 +1,78 @@
+﻿@inherits LayoutComponentBase
+@namespace BlogCart.Shared.MainLayouts
+
+
+<MudThemeProvider Theme="MyTheme" @bind-IsDarkMode="@_isDarkMode" @ref="@_mudThemeProvider" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+
+<MudLayout Color="Color.Dark">
+    <GLuisiAppBar OnSidebarToggled="ToggleSidebar" />
+    <GLuisiNavMenu SideBarOpen="_sidebarOpen" />
+    <MudScrollToTop>
+        <MudFab Color="Color.Dark" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+    <MudMainContent OnSidebarToggled="ToggleSidebar">
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+\
+@code {
+    private bool _sidebarOpen = false;
+    private void ToggleSidebar() => _sidebarOpen = !_sidebarOpen;
+
+    private bool _isDarkMode;
+    private MudThemeProvider _mudThemeProvider;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+            StateHasChanged();
+        }
+    }
+
+    private MudTheme MyTheme = new MudTheme()
+    {
+        Palette = new PaletteLight()
+        {
+            Primary = "#336699",  //medicare blue
+            Secondary = " #bdbdbd",
+            Dark = "#336699",  //medicare blue
+            Black = "#000000",
+            White = "#ffffffff",
+            Background = "#32333d",
+            BackgroundGrey = "#27272f",
+            Surface = "#ffffffff",
+            TextPrimary = "#000000",
+            TextSecondary = "rgba(0, 0, 0, 0.50)",
+            AppbarBackground = "#336699",
+            AppbarText = "#ffffffff",
+            DrawerBackground = "#336699",
+            DrawerText = "#ffffffff",
+            DrawerIcon = "#ffffffff",
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Primary = "#336699",
+            Secondary = "#808080",
+            Dark = "#336699",  //medicare blue
+            Black = "#000000",
+            White = "#ffffffff",
+            Background = "#32333d",
+            BackgroundGrey = "#27272f",
+            Surface = "#757575",
+            TextPrimary = "#ffffffb3",
+            TextSecondary = "rgba(255, 255, 255, 0.50)",
+            AppbarBackground = "#336699",
+            AppbarText = "#ffffffff",
+            DrawerBackground = "#336699",
+            DrawerText = "#ffffffff",
+            DrawerIcon = "#ffffffff",
+        },
+    };
+}
+

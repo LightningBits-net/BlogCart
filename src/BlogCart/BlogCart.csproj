@@ -16,22 +16,4 @@
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\Lightningbits\" />
-    <Content Remove="wwwroot\Lightningbits\img\" />
-    <Content Remove="wwwroot\Lightningbits\favicon_ico_lightningbits\" />
-    <Content Remove="wwwroot\StefMancia\" />
-    <Content Remove="wwwroot\StefMancia\img\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\Lightningbits\" />
-    <Folder Include="wwwroot\Lightningbits\img\" />
-    <Folder Include="wwwroot\Lightningbits\favicon_ico_lightningbits\" />
-    <Folder Include="wwwroot\StefMancia\" />
-    <Folder Include="wwwroot\StefMancia\img\" />
-    <Folder Include="Pages\Clients\Lightningbits\Pages\Blog\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Pages\Clients\Lightningbits\Pages\Blog\" />
-  </ItemGroup>
 </Project>

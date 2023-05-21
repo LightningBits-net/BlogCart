@@ -5,18 +5,6 @@
 
 
 @code {
-    //protected override async Task OnAfterRenderAsync(bool firstRender)
-    //{
-    //    if (firstRender)
-    //    {
-    //        var domain = HttpContextAccessor.HttpContext.Request.Host.Value.ToLower();
-    //        var layoutType = _domainLayoutService.GetLayoutForDomain(domain);
-    //        var layoutName = layoutType.Name.Replace("Layout", "");
-
-    //        string landingPageRoute = $"/{layoutName}";
-    //        _navigationManager.NavigateTo(landingPageRoute, true);
-    //    }
-    //}
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
