@@ -34,6 +34,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="Pages\Clients\ProductsByFav .razor" />
+    <Content Remove="Pages\Clients\ClientBlogList.razor" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Update="Properties\launchSettings.json">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

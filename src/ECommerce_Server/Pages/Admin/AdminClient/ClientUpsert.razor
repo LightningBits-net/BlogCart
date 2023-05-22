@@ -1,29 +1,147 @@
-﻿@*@page "/client/create"
+﻿@page "/clientcreate"
 @page "/client/edit/{id:int}"
 
 @inject IClientRepository _clientRepository
 @inject NavigationManager _navigationManager
+@inject IFileUpload _fileUpload
 @inject MudBlazor.ISnackbar snackBar
 @attribute [Authorize(Roles = SD.Role_Admin)]
 
+<PageTitle>@(newClient.ClientId != 0 ? "Edit Client" : "Create Client")</PageTitle>
 
+@if (IsLoading)
+{
+    <div class="text-center">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </div>
+}
+else
+{
 
+    <MudContainer>
+        <MudCard>
+            <div class="flex flex-wrap border justify-center">
+                <div class="form-group bg-gray-300 w-full px-3 mb-3 md:mb-0">
+                    <h3><strong>Primary Image</strong></h3>
+                </div>
+                <img src="@newClient.ImageUrl"
+                     class="p-1 bg-black shadow border rounded max-w-sm" />
+                <div class="form-group w-full px-3 mt-2 mb-3 md:mb-0">
+                    <div class="form-check">
+                        <InputFile OnChange="HandleImageUpLoad"></InputFile>
+                    </div>
+                </div>
+            </div>
+            <MudCardContent>
+                <MudForm>
+                    <MudTextField @bind-Value="newClient.Name" Label="Name" Required="true" />
+                    <MudTextField @bind-Value="newClient.Address" Label="Address" />
+                    <MudTextField @bind-Value="newClient.DomainName" Label="Domain Name" Required="true" />
+                    <MudDatePicker @bind-Value="newClient.DateCreated" Label="Date Created" />
+                    <MudTextField @bind-Value="newClient.Description" Label="Description" />
+                    <MudTextField @bind-Value="newClient.Email" Label="Email" Required="true" />
+                    <MudNumericField @bind-Value="newClient.Counter" Label="Counter" />
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="UpsertClient">
+                        @(newClient.ClientId != 0 ? "Update" : "Create")
+                    </MudButton>
+                    @*<DataAnnotationsValidator />
+                    <div class="bg-red-100 mb-2"> <ValidationSummary></ValidationSummary> </div>*@
+
+                </MudForm>
+            </MudCardContent>
+        </MudCard>
+    </MudContainer>
+}
 
 
 @code {
-    private ClientDTO newClient = new ClientDTO();
 
-    private async Task CreateClient()
+    private ClientDTO newClient { get; set; } = new()
     {
-        var result = await _clientRepository.Create(newClient);
-        if (result != null)
+        ImageUrl = "/img/lb_logoLight.jpg"
+    };
+
+    private IEnumerable<ClientDTO> newClients { get; set; } = new List<ClientDTO>();
+    public bool IsLoading { get; set; }
+    public string OldImageUrl { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
         {
-            snackBar.Add("Client created successfully!", Severity.Success);
-            _navigationManager.NavigateTo("/client-list");
+            await LoadnewClient();
+        }
+    }
+
+    private async Task LoadnewClient()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        newClients = await _clientRepository.GetAll();
+        if (Id != 0)
+        {
+            //Title = "Update";
+            newClient = await _clientRepository.Get(Id);
+            OldImageUrl = newClient.ImageUrl;
+        }
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task UpsertClient()
+    {
+        if (newClient.ClientId == 0)
+        {
+            await _clientRepository.Create(newClient);
+            snackBar.Add("Client created Succesfully. Refresh page to view updated product list", Severity.Success);
         }
         else
         {
-            snackBar.Add("An error occurred while creating the client.", Severity.Error);
+            if (OldImageUrl != newClient.ImageUrl)
+            {
+                _fileUpload.DeleteFile(OldImageUrl);
+            }
+            await _clientRepository.Update(newClient);
+            snackBar.Add("Client updated Succesfully.", Severity.Success);
+        }
+        _navigationManager.NavigateTo("/clientList");
+    }
+
+    private async Task HandleImageUpLoad(InputFileChangeEventArgs e)
+    {
+        IsLoading = true;
+        try
+        {
+            if (e.GetMultipleFiles().Count > 0)
+            {
+                foreach (var file in e.GetMultipleFiles())
+                {
+                    System.IO.FileInfo fileInfo = new System.IO.FileInfo(file.Name);
+                    if (fileInfo.Extension.ToLower() == ".avif" ||
+                        fileInfo.Extension.ToLower() == ".jpeg" ||
+                        fileInfo.Extension.ToLower() == ".png" ||
+                        fileInfo.Extension.ToLower() == ".jpg")
+                    {
+                        newClient.ImageUrl = await _fileUpload.UpLoadFile(file);
+                    }
+                    else
+                    {
+                        snackBar.Add("Invalid file type! only avif, jpeg, jpg, and png files are valid.", Severity.Error);
+                        return;
+                    }
+                }
+            }
+            IsLoading = false;
+        }
+        catch (Exception ex)
+        {
+            snackBar.Add($"{ex}", Severity.Info);
+            snackBar.Add($"Invalid Image", Severity.Warning);
+            IsLoading = false;
         }
     }
-}*@
+
+    }

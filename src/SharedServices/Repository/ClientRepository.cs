@@ -23,16 +23,6 @@ namespace SharedServices.Repository
             _mapper = mapper;
         }
 
-        public async Task<ClientFrontendDTO> GetClientFrontendData(int clientId)
-        {
-            var client = await _db.Clients.FirstOrDefaultAsync(c => c.ClientId == clientId);
-            if (client != null)
-            {
-                return _mapper.Map<Client, ClientFrontendDTO>(client);
-            }
-            return null;
-        }
-
         public async Task<ClientDTO> Create(ClientDTO objDTO)
         {
             var obj = _mapper.Map<ClientDTO, Client>(objDTO);
@@ -54,19 +44,6 @@ namespace SharedServices.Repository
             }
             return 0;
         }
-
-        //public async Task<ClientDTO> Get(int id)
-        //{
-        //    var client = await _db.Clients.FirstOrDefaultAsync(u => u.ClientId == id);
-        //    if (client != null)
-        //    {
-        //        client.Counter += 0.5f; // Increment by 0.5
-        //        _db.Clients.Update(client);
-        //        await _db.SaveChangesAsync();
-        //        return _mapper.Map<Client, ClientDTO>(client);
-        //    }
-        //    return new ClientDTO();
-        //}
 
         public async Task<ClientDTO> Get(int id)
         {
@@ -107,6 +84,16 @@ namespace SharedServices.Repository
                 return _mapper.Map<Client, ClientDTO>(objFromDb);
             }
             return objDTO;
+        }
+
+        public async Task<ClientFrontendDTO> GetClientFrontendData(int clientId)
+        {
+            var client = await _db.Clients.FirstOrDefaultAsync(c => c.ClientId == clientId);
+            if (client != null)
+            {
+                return _mapper.Map<Client, ClientFrontendDTO>(client);
+            }
+            return null;
         }
     }
 }
