@@ -74,11 +74,11 @@ namespace SharedServices.Repository
                 objFromDb.Email = objDTO.Email;
                 objFromDb.Counter = objDTO.Counter;
                 objFromDb.ImageUrl = objDTO.ImageUrl;
-                //objFromDb.IsActive = objDTO.IsActive;
-                //objFromDb.BillingCycle = objDTO.BillingCycle;
-                //objFromDb.BillingAmount = objDTO.BillingAmount;
-                //objFromDb.BillingStartDate = objDTO.BillingStartDate;
-                //objFromDb.BillingEndDate = objDTO.BillingEndDate;
+                objFromDb.IsActive = objDTO.IsActive;
+                objFromDb.BillingCycle = objDTO.BillingCycle;
+                objFromDb.BillingAmount = objDTO.BillingAmount;
+                objFromDb.BillingStartDate = objDTO.BillingStartDate;
+                objFromDb.BillingEndDate = objDTO.BillingEndDate;
                 _db.Clients.Update(objFromDb);
                 await _db.SaveChangesAsync();
                 return _mapper.Map<Client, ClientDTO>(objFromDb);

@@ -1,63 +1,112 @@
-﻿@*@page "/clientcreate"
-@inject IClientRepository _clientRepository
-@inject IFileUpload _fileUpload
-@inject IDialogService DialogService
-@inject NavigationManager _navigationManager
-@inject MudBlazor.ISnackbar snackBar
-@attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
+﻿@page "/clientcreate"
 
+@inject IClientRepository _clientRepository
+@inject NavigationManager _navigationManager
+@inject IFileUpload _fileUpload
+@inject MudBlazor.ISnackbar snackBar
+@attribute [Authorize(Roles = SD.Role_Admin)]
 
 <_ClientPanelHeader></_ClientPanelHeader>
 
+<PageTitle>@(newClient.ClientId != 0 ? "Edit Client" : "Create Client")</PageTitle>
 
-<div class="flex justify-center">
-    <div class="w-full max-w-sm">
-        <h2 class="text-center text-3xl leading-9 font-extrabold text-gray-900">
-            @Title Client
-        </h2>
-        <MudForm class="mt-8" OnValidSubmit="UpsertClient">
-            <MudTextField @bind-Value="Client.Name" Label="Name" Required="true" />
-            <MudTextField @bind-Value="Client.Address" Label="Address" />
-            <MudTextField @bind-Value="Client.DomainName" Label="Domain Name" Required="true" />
-            <MudTextField @bind-Value="Client.Description" Label="Description" />
-            <MudTextField @bind-Value="Client.Email" Label="Email" Required="true" />
-            <MudTextField @bind-Value="Client.ImageUrl" Label="Image URL" />
-            <MudButton Type="submit" Color="Color.Primary" class="mt-6" FullWidth="true">@Title</MudButton>
-        </MudForm>
+@if (IsLoading)
+{
+    <div class="text-center">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
     </div>
-</div>
+}
+else
+{
+    <div class="flex justify-center mt-10 mb-10">
+        <div class="w-full md:w-1/2 bg-white text-center text-black border shadow-2xl rounded overflow-x-auto">
+            <h1 class="mb-8 text-3xl text-white bg-black py-4">Add Client</h1>
+            <MudContainer Class="flex justify-center">
+                <MudCard Class="w-full">
+                    <div class="flex flex-wrap border justify-center">
+                        <div class="form-group bg-gray-300 w-full px-3 mb-3 md:mb-0">
+                            <h3><strong>Primary Image</strong></h3>
+                        </div>
+                        <img src="@newClient.ImageUrl" class="p-1 bg-black shadow border rounded max-w-sm" />
+                        <div class="form-group w-full px-3 mt-2 mb-3 md:mb-0">
+                            <div class="form-check">
+                                <InputFile OnChange="HandleImageUpLoad"></InputFile>
+                            </div>
+                        </div>
+                    </div>
+                    <MudCardContent>        
+                        <MudForm>
+                            <div class="form-group flex items-center">
+                                <label for="name" class="w-1/4">Name</label>
+                                <MudTextField @bind-Value="newClient.Name" Id="name" class="w-3/4" />
+                            </div>
+                            <div class="form-group flex items-center">
+                                <label for="address" class="w-1/4">Address</label>
+                                <MudTextField @bind-Value="newClient.Address" Id="address" class="w-3/4" />
+                            </div>
+                            <div class="form-group flex items-center">
+                                <label for="domainName" class="w-1/4">Domain Name</label>
+                                <MudTextField @bind-Value="newClient.DomainName" Id="domainName" class="w-3/4" />
+                            </div>
+                            <div class="form-group flex items-center">
+                                <label for="description" class="w-1/4">Description</label>
+                                <MudTextField @bind-Value="newClient.Description" Id="description" class="w-3/4" />
+                            </div>
+                            <div class="form-group flex items-center">
+                                <label for="email" class="w-1/4">Email</label>
+                                <MudTextField @bind-Value="newClient.Email" Id="email" class="w-3/4" />
+                            </div>
+                            <div class="form-group flex items-center">
+                                <label for="counter" class="w-1/4">Counter</label>
+                                <MudNumericField @bind-Value="newClient.Counter" Id="counter" class="w-3/4" />
+                            </div>
+                            <div class="form-group mt-8">
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="UpsertClient">
+                                    @(newClient.ClientId != 0 ? "Update" : "Create")
+                                </MudButton>
+                                <MudButton Variant="Variant.Outlined" Color="Color.Primary" Href="/clientlist">Back</MudButton>
+                            </div>
+                        </MudForm>
+                    </MudCardContent>
+                </MudCard>
+            </MudContainer>
+        </div>
+    </div>
+}
+
 
 @code {
 
-    [Parameter]
-    public int ClientId { get; set; }
-
-    private ClientDTO Client { get; set; } = new()
+    private ClientDTO newClient { get; set; } = new()
     {
         ImageUrl = "/img/lb_logoLight.jpg"
     };
-    private string Title { get; set; } = "Create";
+
+    private IEnumerable<ClientDTO> newClients { get; set; } = new List<ClientDTO>();
     public bool IsLoading { get; set; }
-    public string ErrorMessage = "Bad request";
     public string OldImageUrl { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await LoadClient();
+            await LoadnewClient();
         }
     }
 
-    private async Task LoadClient()
+    private async Task LoadnewClient()
     {
         IsLoading = true;
         StateHasChanged();
-        if (ClientId != 0)
+        newClients = await _clientRepository.GetAll();
+        if (Id != 0)
         {
-            Title = "Update";
-            Client = await _clientRepository.Get(ClientId);
-            OldImageUrl = Client.ImageUrl;
+            //Title = "Update";
+            newClient = await _clientRepository.Get(Id);
+            OldImageUrl = newClient.ImageUrl;
         }
         IsLoading = false;
         StateHasChanged();
@@ -65,21 +114,21 @@
 
     private async Task UpsertClient()
     {
-        if (Client.ClientId == 0)
+        if (newClient.ClientId == 0)
         {
-            await _clientRepository.Create(Client);
+            await _clientRepository.Create(newClient);
             snackBar.Add("Client created Succesfully. Refresh page to view updated product list", Severity.Success);
         }
         else
         {
-            if (OldImageUrl != Client.ImageUrl)
+            if (OldImageUrl != newClient.ImageUrl)
             {
                 _fileUpload.DeleteFile(OldImageUrl);
             }
-            await _clientRepository.Update(Client);
+            await _clientRepository.Update(newClient);
             snackBar.Add("Client updated Succesfully.", Severity.Success);
         }
-        _navigationManager.NavigateTo("/Client-list");
+        _navigationManager.NavigateTo("/clientList");
     }
 
     private async Task HandleImageUpLoad(InputFileChangeEventArgs e)
@@ -97,7 +146,7 @@
                         fileInfo.Extension.ToLower() == ".png" ||
                         fileInfo.Extension.ToLower() == ".jpg")
                     {
-                        Client.ImageUrl = await _fileUpload.UpLoadFile(file);
+                        newClient.ImageUrl = await _fileUpload.UpLoadFile(file);
                     }
                     else
                     {
@@ -115,5 +164,5 @@
             IsLoading = false;
         }
     }
-}*@
 
+}

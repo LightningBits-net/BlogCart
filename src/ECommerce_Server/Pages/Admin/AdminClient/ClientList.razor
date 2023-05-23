@@ -9,68 +9,61 @@
 
 <_ClientPanelHeader></_ClientPanelHeader>
 <div class="flex justify-center items-center overflow-x-auto">
-    <div class="overflow-x-auto">
-        <div class="bg-white text-black border p-4 shadow rounded overflow-x-auto">
-            <h1 class="mb-8 text-3xl text-white bg-black py-4">Client List</h1>
-            @if (Clients.Any())
-            {
-                <table class="w-full overflow-x-auto min-h-64">
-
-                    <thead class="bg-gray-400 w-full text-black">
+    <div class="w-full bg-white text-center text-black border p-4 shadow rounded overflow-x-auto">
+        <h1 class="mb-8 w-=full text-3xl text-white bg-black py-4">Client List</h1>
+        @if (Clients.Any())
+        {
+            <table class="w-full overflow-x-auto min-h-64">
+                <thead class="bg-gray-400 w-full text-black">
+                    <tr>
+                        <th class="w-1/8">Client ID</th>
+                        <th class="w-1/4 px-4 py-4">Domain Name</th>
+                        <th class="w-1/8 px-4 py-4">Name</th>
+                        <th class="w-1/8 px-4 py-2">Created on</th>
+                        <th class="w-1/8 px-4 py-2">Counter</th>
+                        <th class="w-1/8 px-4 py-2">.</th>
+                        <th class="w-1/16 px-4 py-2">.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var client in Clients)
+                    {
                         <tr>
-                            <th class=" w-1/8"></th>
-                            <th class=" w-1/4 px-4 py-4">Domain Name</th>
-                            <th class=" w-1/8 px-4 py-4">Name</th>
-                            <th class=" w-1/8 px-4 py-2">Created on</th>
-                            <th class=" w-1/8 px-4 py-2">Counter</th>
-                            <th class=" w-1/8 px-4 py-2">.</th>
-                            <th class=" w-1/8 px-4 py-2">.</th>
+                            <td class="border px-4 py-2">@client.ClientId</td>
+                            <td class="border px-4 py-2">@client.DomainName</td>
+                            <td class="border px-4 py-2">@client.Name</td>
+                            <td class="border px-4 py-2">@client.DateCreated</td>
+                            <td class="border px-4 py-2">@client.Counter</td>
+                            <td class="p-2">
+                                <MudButton Href="@($"client/edit/{client.ClientId}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
+                            </td>
+                            <td>
+                                <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
+                                    <MudButton>
+                                        <MudButton OnClick="@(()=>DeleteClient(client.ClientId))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete of: <br />@client.DomainName</MudButton>
+                                        <MudButton Href="" Variant="Variant.Filled" Color="Color.Dark">Cancel</MudButton>
+                                    </MudButton>
+                                </MudMenu>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody class="">
-                        @foreach (var client in Clients)
-                        {
-                            <tr>
-                                <td class="border">
-                                    <img src="@client.ImageUrl" width="100" height="100">
-                                </td>
-                                <th class="border px-4 py-2 bold">@((MarkupString)client.DomainName)</th>
-                                <td class="border px-4 py-2">@client.Name</td>
-                                <td class="border px-4 py-2">@client.DateCreated</td>
-                                <td class="border px-4 py-2">@client.Counter</td>
-
-                                <td class="p-2">
-                                    <MudButton Href="@($"client/edit/{client.ClientId}")" Variant="Variant.Outlined" Color="Color.Dark">Edit</MudButton>
-                                </td>
-                                <td>
-                                    <MudMenu Icon="@Icons.Material.Filled.Delete" Color="Color.Dark" Variant="Variant.Outlined">
-                                        <MudButton>
-                                            @*<MudButton OnClick="@(()=>DeleteBlog(client.ClientId))" Variant="Variant.Filled" Color="Color.Error">Confirm Delete of: <br />@client.DomainName</MudButton>
-                                            <MudButton Href="" Variant="Variant.Filled" Color="Color.Dark">Cancel</MudButton>*@
-                                        </MudButton>
-                                    </MudMenu>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                    }
+                </tbody>
+            </table> }
+        else
+        {
+            if (IsLoading)
+            {
+                <div class="text-center">
+                    <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                </div>
             }
             else
             {
-                if (IsLoading)
-                {
-                    <div class="text-center">
-                        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-                    </div>
-                }
-                else
-                {
-                    <p>No Data to Display</p>
-                }
+                <p>No Data to Display</p>
             }
-        </div>
+        }
     </div>
-</div>
+    </div>
 
 @code {
     public bool IsLoading { get; set; }
@@ -98,7 +91,7 @@
         StateHasChanged();
     }
 
-    private async Task DeleteBlog(int id)
+    private async Task DeleteClient(int id)
     {
         DeleteClientId = id;
         IsLoading = true;
