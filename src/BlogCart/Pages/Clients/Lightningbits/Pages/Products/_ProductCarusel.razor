@@ -5,18 +5,18 @@
 
 
 <div class="container mx-auto flex flex-wrap">
-    <div class="w-full text-black dark:text-gray-200 md:w-1/2 lg:w-1/2 mt-4 y-2 lg:mr-6">
-        <div class="max-w-5xl mx-auto pt-10 p-5 flex justify-end">
-            <h1 class="font-display-italic dark:text-white text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">Testimonials</h1>
+    <div class="w-full md:w-1/2 lg:w-1/2 mt-4">
+        <div class="max-w-5xl mx-auto pt-10 px-5">
+            <h1 class="font-display-italic text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6">Testimonials</h1>
         </div>
         <MudCard Elevation="25">
             <MudCarousel Class="mud-width-full" Style="height:350px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
                 @foreach (var prod in ECommerceProducts)
                 {
-                    @if (prod.Category.Name == CategoryName)
+                    if (prod.Category.Name == CategoryName)
                     {
-                        <MudCarouselItem Transition="Transition.Fade" class="flex flex-col">
-                            <div class="w-full justify-center mx-auto">
+                        <MudCarouselItem Transition="Transition.Fade" Class="flex flex-col">
+                            <div class="w-full mx-auto">
                                 <img src="@prod.ImageUrl" alt="@prod.Name" />
                             </div>
                         </MudCarouselItem>
@@ -25,15 +25,15 @@
             </MudCarousel>
         </MudCard>
     </div>
-    <div class="w-full md:w-1/2 lg:w-1/2  text-black dark:text-gray-200 mt-4 y-2">
-        <div class="max-w-5xl mx-auto pt-10 p-5 flex justify-end">
-            <h1 class="font-display-italic dark:text-white text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">My Blog</h1>
+    <div class="w-full md:w-1/2 lg:w-1/2 mt-4">
+        <div class="max-w-5xl mx-auto pt-10 px-5">
+            <h1 class="font-display-italic text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6">My Blog</h1>
         </div>
         <MudCard Elevation="25">
             <MudCarousel Class="mud-width-full" Style="height:350px" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" ShowBullets="@bullets" TData="object">
                 @foreach (var blog in Blogs.Where(u => u.Featured == true).OrderByDescending(b => b.DateCreated).Take(5))
                 {
-                    <MudCarouselItem Transition="Transition.Fade" class="flex flex-col">
+                    <MudCarouselItem Transition="Transition.Fade" Class="flex flex-col">
                         <div class="p-10">
                             <div class="mx-auto flex justify-center">
                                 <a href="@($"/lightningbits/blog/page/{blog.Id}")" class="text-lg font-extrabold font-display-italic no-underline hover:underline">
