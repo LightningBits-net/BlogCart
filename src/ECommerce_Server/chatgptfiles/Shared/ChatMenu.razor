@@ -1,0 +1,28 @@
+﻿
+@*<MudDrawer @bind-Open="SideBarOpen" Elevation="10">
+    <div class="text-2xl text-center font-bold text-Primary py-4 px-6">
+        ChatGpt Wizard
+    </div>
+    <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+    <div class="w-full py-3">
+        <div class=" mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-center">
+                <button class="inline-flex items-center px-6 py-3 border border-Primary text-base font-medium rounded-full shadow-xlg text-Primary bg-gray-200 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-Primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    New Chat
+                </button>
+            </div>
+        </div>
+    </div>
+    <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+    <div class="mt-auto text-center">
+        <MudButton Class="ml-2 mb-2" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => SideBarOpen = false)">Close</MudButton>
+    </div>
+</MudDrawer>
+
+@code {
+    [Parameter]
+    public bool SideBarOpen { get; set; } = false;
+}*@

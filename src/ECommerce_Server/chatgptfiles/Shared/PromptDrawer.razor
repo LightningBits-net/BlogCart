@@ -1,0 +1,88 @@
+﻿
+<!--<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => OpenDrawer(Anchor.Bottom))">Prompts</MudButton>
+
+
+<MudDrawer @bind-Open="@open" Anchor="@anchor" Elevation="1" Variant="@DrawerVariant.Temporary">
+    <div class="flex justify-center my-4">
+        <MudText Typo="Typo.h4">Speech Writing</MudText>
+    </div>
+    <MudDrawerHeader>
+        <div class="d-flex justify-center">
+            @if (selected != null && selected.Length > 0)
+            {
+            <MudText>
+                You selected @string.Join(", ", selected.Select(chip => chip.Text)). =>
+                <MudButton Color="Color.Primary" Variant="Variant.Text" OnClick="SubmitSelection">Submit</MudButton>
+            </MudText>
+            }
+            else
+            {
+                <MudText>Nothing selected.</MudText>
+            }
+        </div>
+
+        <MudChipSet @bind-SelectedChips="selected" MultiSelection="true" Filter="true">
+            <MudChip Text="Writing in a Conversational Tone" Default="true"></MudChip>
+            <MudChip Text="Writing with Authority"></MudChip>
+            <MudChip Text="Using Storytelling to Connect with Readers"></MudChip>
+            <MudChip Text="Creating a Sense of Urgency"></MudChip>
+            <MudChip Text="Writing with Empathy" Default="true"></MudChip>
+            <MudChip Text="Using Humor in Writing"></MudChip>
+            <MudChip Text="Writing for a Specific Audience"></MudChip>
+        </MudChipSet>-->
+        @*<MudButton Href="/list-messages">Lis Messages</MudButton>*@
+    <!--</MudDrawerHeader>
+    <div class="text-center">
+        <MudButton Variant="Variant.Filled" FullWidth="true" Color="Color.Secondary" Size="Size.Small" Width Class="w-full">
+            <MudSelect Label="Prompt Sets" @bind-Value="@selectedPrompt" Class="text-center">
+                <MudSelectItem Value="Prompt1">@Prompt1</MudSelectItem>
+                <MudSelectItem Value="Prompt2">@Prompt2</MudSelectItem>
+                <MudSelectItem Value="Prompt3">@Prompt3</MudSelectItem>
+                <MudSelectItem Value="Prompt4">@Prompt4</MudSelectItem>
+                <MudSelectItem Value="Prompt5">@Prompt5</MudSelectItem>
+                <MudSelectItem Value="Prompt6">@Prompt6</MudSelectItem>
+            </MudSelect>
+        </MudButton>
+    </div>
+</MudDrawer>
+
+@if (!string.IsNullOrEmpty(selectedPrompt))
+{
+    <div>
+        <h3>You selected: @selectedPrompt</h3>
+    </div>
+}
+
+
+@code {
+    MudChip[] selected;
+    bool open;
+    Anchor anchor;
+    private string selectedPrompt;
+    private string Prompt1 = "Writing Style";
+    private string Prompt2 = "Tone of Voice";
+    private string Prompt3 = "Audience";
+    private string Prompt4 = "Grammar";
+    private string Prompt5 = "Word Choice";
+    private string Prompt6 = "Content Type";
+
+    void OpenDrawer(Anchor anchor)
+    {
+        open = true;
+        this.anchor = anchor;
+    }
+
+        private void SubmitSelection()
+    {
+        // Implement your logic for handling the selected items here
+    }
+}-->
+
+
+
+
+
+
+
+
+

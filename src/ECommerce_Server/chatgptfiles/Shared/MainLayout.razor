@@ -1,0 +1,80 @@
+﻿@*@inherits LayoutComponentBase
+<MudThemeProvider Theme="MyTheme" @bind-IsDarkMode="@_isDarkMode" @ref="@_mudThemeProvider" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+
+<MudLayout Color="Color.Dark">
+    <AppBar OnSidebarToggled="ToggleSidebar" />
+    <ChatMenu SideBarOpen="_sidebarOpen" />
+    <MudMainContent Class="pt-n4">
+        <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Default" Class="justify-center"  Elevation="10" T="bool" Label="Light/Dark Mode" />
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code{
+
+        private bool _sidebarOpen = false;
+        private void ToggleSidebar() => _sidebarOpen = !_sidebarOpen;
+
+        private int Count { get; set; } = 10;
+        private bool _isDarkMode;
+
+        private MudThemeProvider _mudThemeProvider;
+
+        private MudTheme MyTheme = new MudTheme()
+        {
+            Palette = new PaletteLight()
+            {
+                Primary = "#6187A0",
+                Secondary = "#A9A9A9", // added secondary gray color
+                Surface = "#FAFAFA",  //Card bg color
+                Black = "#000000",
+                White = "#FFFFFF",
+                TextPrimary = "#000000",
+                AppbarBackground = "#FFFFFF", // set the app bar background color
+                TextSecondary = "#757575",
+                AppbarText = "#000000",
+                DrawerBackground = "#FAFAFA",
+                DrawerText = "#000000",
+                DrawerIcon = "#000000"
+            },
+            PaletteDark = new PaletteDark()
+            {
+                Primary = "#6187A0",
+                Secondary = "#4A6572",
+                Black = "#000000",
+                White = "#FFFFFF",
+                Surface = "#1C1C1C",
+                TextPrimary = "#FFFFFF",
+                TextSecondary = "#9E9E9E",
+                AppbarBackground = "#FFFFFF",
+                AppbarText = "#FFFFFF",
+                DrawerBackground = "#212121",
+                DrawerText = "#FFFFFF",
+                DrawerIcon = "#FFFFFF"
+            },
+
+
+        LayoutProperties = new LayoutProperties()
+        {
+            DrawerWidthLeft = "400px",
+            //DrawerWidthRight = "300px"
+        }
+    };
+
+
+    void StartCountdown()
+    {
+        var timer = new Timer(new TimerCallback(_ =>
+        {
+            if (Count <= 0) return;
+            Count--;
+
+            // Note that the following line is necessary because otherwise
+            // Blazor would not recognize the state change and not refresh the UI
+            this.StateHasChanged();
+        }), null, 1000, 1000);
+    }
+}*@

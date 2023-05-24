@@ -34,6 +34,9 @@ namespace SharedServices.Data
 
         public DbSet<Client> Clients { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
+
+        public DbSet<Conversation> Conversations { get; set; }
     }
 }
 

@@ -1,0 +1,77 @@
+﻿@*@page "/api-key-input"
+@inject OpenAIApiService _openAIApiService
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+
+<div class="justify-center pt-20">
+    <h1 class="text-2xl font-semibold">Chat with GPT</h1>
+
+    <MudTextField @bind-Value="ApiKey" Label="API Key" Variant="Variant.Outlined" InputType="InputType.Password" />
+    <MudButton OnClick="ValidateApiKey" Color="Color.Primary">Validate API Key</MudButton>
+
+    @if (IsApiKeyValid)
+    {
+        <MudTextField @bind-Value="UserMessage" Label="Your Message" Variant="Variant.Outlined" />
+        <MudButton OnClick="SendMessage" Color="Color.Primary">Send Message</MudButton>
+    }
+</div>
+
+<div class="flex justify-center">
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => _navigationManager.NavigateTo("/"))">
+        Go Back
+    </MudButton>
+</div>
+
+
+@code {
+    private string ApiKey { get; set; }
+    private string UserMessage { get; set; }
+    private bool IsApiKeyValid { get; set; } = false;
+
+    private async Task ValidateApiKey()
+    {
+        if (string.IsNullOrEmpty(ApiKey))
+        {
+            snackBar.Add("API Key is required.", Severity.Error);
+            IsApiKeyValid = false;
+            return;
+        }
+
+        try
+        {
+            _openAIApiService.SetApiKey(ApiKey);
+            var response = await _openAIApiService.SendMessageAsync("Congratulate me on successfully entering my API keys");
+            snackBar.Add($"API key is valid. Response: {response}", Severity.Success);
+            IsApiKeyValid = true;
+        }
+        catch (Exception ex)
+        {
+            IsApiKeyValid = false;
+            snackBar.Add($"API key is invalid. Error: {ex.Message}", Severity.Error);
+        }
+    }
+    private async Task SendMessage()
+    {
+        if (string.IsNullOrEmpty(UserMessage))
+        {
+            snackBar.Add("Message is required.", Severity.Error);
+            return;
+        }
+
+        try
+        {
+            var response = await _openAIApiService.SendMessageAsync(UserMessage);
+            snackBar.Add($"GPT Response: {response}", Severity.Info);
+        }
+        catch (Exception ex)
+        {
+            snackBar.Add($"Error: {ex.Message}", Severity.Error);
+        }
+    }
+}*@
+
+
+
+
+
+

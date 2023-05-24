@@ -1,0 +1,34 @@
+﻿@*@page "/api-key-input-test"
+@inject OpenAIApiService _openAIApiService
+@inject MudBlazor.ISnackbar snackBar
+
+<MudTextField @bind-Value="@apiKey" Label="API Key" />
+
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="TestApiKey">
+    Test API Key
+</MudButton>
+
+@code {
+    private string apiKey = "";
+
+    private async void TestApiKey()
+    {
+        try
+        {
+            string testMessage = "I just tested my API key";
+            var result = await _openAIApiService.SendMessageAsync(apiKey, testMessage);
+
+            snackBar.Add($"API key is valid. GPT Response: {result}", Severity.Success);
+        }
+        catch (Exception)
+        {
+            snackBar.Add("API key is invalid.", Severity.Error);
+        }
+    }
+}*@
+
+
+
+
+
+
