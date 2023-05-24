@@ -3,6 +3,7 @@
 @inject IBlogCategoryRepository _blogCategoryRepository
 @inject IFileUpload _fileUpload
 @inject IDialogService DialogService
+@inject IClientRepository _clientRepository
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 @attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
@@ -26,6 +27,18 @@
             <EditForm Model="Blog" OnValidSubmit="UpsertBlog">
                 <div class="form-group text-lrg mb-4">
                     <MudInputLabel Class="font-bold bg-gray-300">Title</MudInputLabel>
+                    <div class="form-group border shadow w-1/2 px-3">
+                        <div class="form-select">
+                            <label class="font-bold"><u>Client</u></label>
+                            <InputSelect @bind-Value="Blog.ClientId" class="form-select text-center">
+                                <option value="0" disabled="disabled" selected>--Select Client--</option>
+                                @foreach (var client in Clients)
+                                {
+                                    <option value="@client.ClientId">@client.Name</option>
+                                }
+                            </InputSelect>
+                        </div>
+                    </div>
                     <SfRichTextEditor @bind-Value="Blog.Name"
                                       class="focus:shadow-outline rounded-sm border bg-gray-200 py-2 px-3 mt-3">
                     </SfRichTextEditor>
@@ -122,6 +135,7 @@
         ImageUrl = "/img/lb_logoLight.jpg"
     };
     private IEnumerable<BlogCategoryDTO> BlogCategories { get; set; } = new List<BlogCategoryDTO>();
+    private IEnumerable<ClientDTO> Clients { get; set; } = new List<ClientDTO>(); // Add this property for clients
     private string Title { get; set; } = "Create";
     public bool IsLoading { get; set; }
     public string ErrorMessage = "Bad request";
@@ -140,6 +154,7 @@
         IsLoading = true;
         StateHasChanged();
         BlogCategories = await _blogCategoryRepository.GetAll();
+        Clients = await _clientRepository.GetAll(); // Retrieve the clients
         if (Id != 0)
         {
             Title = "Update";
@@ -155,7 +170,7 @@
         if (Blog.Id == 0)
         {
             await _blogRepository.Create(Blog);
-            snackBar.Add("Product created Succesfully. Refresh page to view updated product list", Severity.Success);
+            snackBar.Add("Product created Successfully. Refresh page to view the updated product list", Severity.Success);
         }
         else
         {
@@ -164,7 +179,7 @@
                 _fileUpload.DeleteFile(OldImageUrl);
             }
             await _blogRepository.Update(Blog);
-            snackBar.Add("Product updated Succesfully.", Severity.Success);
+            snackBar.Add("Product updated Successfully.", Severity.Success);
         }
         _navigationManager.NavigateTo("/Bloglist");
     }
@@ -188,7 +203,7 @@
                     }
                     else
                     {
-                        snackBar.Add("Invalid file type! only avif, jpeg, jpg, and png files are valid.", Severity.Error);
+                        snackBar.Add("Invalid file type! Only avif, jpeg, jpg, and png files are valid.", Severity.Error);
                         return;
                     }
                 }
