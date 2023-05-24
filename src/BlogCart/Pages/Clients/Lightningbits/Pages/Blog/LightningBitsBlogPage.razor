@@ -28,10 +28,10 @@
 }
 else
 {
-    <div class="p-2 md:p-10 lg:p-30">
-        <div class="pb-20">
+    <div class="w-full bg-gray-200">
+        <div class="lg:w-1/2 mx-auto pb-10 pt-10 ">
             <MudCard Elevation="25">
-                <div class="p-2 md:p-10 lg:p-20 rounded overflow-hidden shadow-xlg">
+                <div class="p-4 md:p-10 lg:p-20 rounded overflow-hidden shadow-2xl">
                     <div class="flex justify-center mb-2">
                         <img class="w-full md:w-1/2 lg:w-1/3" src="@Blog.ImageUrl" alt="@Blog.Description">
                     </div>
@@ -43,6 +43,7 @@ else
                             @((MarkupString)Blog.Body)
                         </p>
                     </div>
+
                     <div class="px-6 pt-4 pb-2 text-center">
                         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Written by: @Blog.Author</span>
                         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Published on @Blog.DateCreated.ToString("MMMM dd, yyyy")</span>
@@ -54,11 +55,10 @@ else
                 </div>
             </MudCard>
         </div>
-        <div>
+        <div class="pb-10">
             <_BlogCarusel></_BlogCarusel>
         </div>
     </div>
-
 }
 
 
