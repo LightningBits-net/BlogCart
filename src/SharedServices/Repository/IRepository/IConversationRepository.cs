@@ -7,17 +7,14 @@ namespace SharedServices.Repository.IRepository
 {
         public interface IConversationRepository
         {
-        public interface IConversationRepository
-        {
-            Task<ConversationDTO> Create(ConversationDTO conversationDTO);
             Task<ConversationDTO> Get(int id);
+            Task<IEnumerable<ConversationDTO>> GetAll();
+            Task<int> Delete(int id);
+            Task<ConversationDTO> Create(ConversationDTO objDTO);
+            Task<ConversationDTO> Update(ConversationDTO objDTO);
+
             Task<ConversationDTO> GetByName(string name);
             Task<IEnumerable<ConversationDTO>> GetAllByClientId(int clientId);
-            Task<IEnumerable<ConversationDTO>> GetAll();
-            Task<ConversationDTO> Update(ConversationDTO conversationDTO);
-            Task<int> Delete(int id);
         }
-
-    }
 }
 

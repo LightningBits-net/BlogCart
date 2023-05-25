@@ -1,0 +1,89 @@
+﻿@page "/chat/{conversationId:int}"
+@using ECommerce_Server.Service
+@inject IConversationRepository ConversationRepository
+@inject IMessageRepository MessageRepository
+@inject OpenAIApiService OpenAIApiService
+
+<h1 class="text-center text-2xl font-bold mb-4">Chat</h1>
+
+<div class="flex justify-center items-center h-screen">
+    <div class="w-1/2 bg-gray-100 p-4 rounded-md">
+        <div class="messages">
+            @foreach (var (message, index) in Messages.Select((m, i) => (m, i)))
+            {
+                <div class="@($"{(index % 2 == 0 ? "bg-gray-200" : "")} p-2 rounded-md")">@message.Content</div>
+            }
+        </div>
+
+        <div class="input mt-4">
+            <input type="text" class="w-full px-3 py-2 rounded border border-gray-300" @bind="@UserMessage" />
+            <button class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600" @onclick="SendMessage">Send</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int ConversationId { get; set; }
+
+    private List<MessageDTO> Messages { get; set; } = new List<MessageDTO>();
+    private string UserMessage { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Messages = (await MessageRepository.GetAllByConversationId(ConversationId)).ToList();
+    }
+
+    private async Task SendMessage()
+    {
+        if (!string.IsNullOrWhiteSpace(UserMessage))
+        {
+            // Retrieve the last 20 messages from the current conversation
+            var contextMessages = await MessageRepository.GetAllByConversationId(ConversationId);
+
+            // Get the content of each message as an array of strings
+            var context = contextMessages.Select(m => m.Content).ToArray();
+
+            // Add the user message to the context
+            var messages = context.Append(UserMessage).ToArray();
+
+            // Combine the messages into a single string with a separator
+            var contextString = string.Join("\n", messages);
+
+            // Send the context and the user message to the OpenAI API
+            var response = await OpenAIApiService.SendMessageAsync(contextString);
+
+            // Create a new message object for the user message
+            var userMessage = new MessageDTO
+            {
+                Content = UserMessage,
+                ConversationId = ConversationId,
+                IsUserMessage = true // Indicate that it's a message from the user
+            };
+
+            // Save the user message in the database
+            await MessageRepository.Create(userMessage);
+
+            // Add the user message to the list of messages
+            Messages.Add(userMessage);
+
+            // Create a new message object for the AI response
+            var aiResponse = new MessageDTO
+            {
+                Content = response,
+                ConversationId = ConversationId,
+                IsUserMessage = false // Indicate that it's a response from the AI
+            };
+
+            // Save the AI response in the database
+            await MessageRepository.Create(aiResponse);
+
+            // Add the AI response to the list of messages
+            Messages.Add(aiResponse);
+
+            // Clear the input field
+            UserMessage = string.Empty;
+        }
+    }
+}
+

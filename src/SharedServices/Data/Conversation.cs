@@ -1,7 +1,9 @@
 ﻿using System;
+using SharedServices.Data;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using SharedServices.Models;
 
 namespace SharedServices.Data
 {

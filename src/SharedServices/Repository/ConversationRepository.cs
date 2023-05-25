@@ -1,11 +1,12 @@
-﻿// LightningBits
-using System;
-using SharedServices.Repository.IRepository;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
-using SharedServices.Data;
-using SharedServices;
 using Microsoft.EntityFrameworkCore;
+using SharedServices.Data;
 using SharedServices.Models;
+using SharedServices.Repository.IRepository;
 
 namespace SharedServices.Repository
 {
@@ -22,16 +23,13 @@ namespace SharedServices.Repository
 
         public async Task<int> Delete(int id)
         {
-            var conversation = await _db.Conversations
-                .FirstOrDefaultAsync(c => c.Id == id);
-
-            if (conversation == null)
+            var conversation = await _db.Conversations.FirstOrDefaultAsync(c => c.Id == id);
+            if (conversation != null)
             {
-                return 0;
+                _db.Conversations.Remove(conversation);
+                return await _db.SaveChangesAsync();
             }
-
-            _db.Conversations.Remove(conversation);
-            return await _db.SaveChangesAsync();
+            return 0;
         }
 
         public async Task<ConversationDTO> Get(int id)
@@ -55,11 +53,15 @@ namespace SharedServices.Repository
         public async Task<ConversationDTO> Create(ConversationDTO objDTO)
         {
             var obj = _mapper.Map<ConversationDTO, Conversation>(objDTO);
+            // The ClientId should already be set on obj here, assuming it was provided in objDTO
 
-            var addedobj = await _db.Conversations.AddAsync(obj);
+            // If for some reason you need to manually set the ClientId, you could uncomment the following line:
+            // obj.ClientId = someClientId; // Manually set the ClientId
+
+            var addedObj = await _db.Conversations.AddAsync(obj);
             await _db.SaveChangesAsync();
 
-            return _mapper.Map<Conversation, ConversationDTO>(addedobj.Entity);
+            return _mapper.Map<Conversation, ConversationDTO>(addedObj.Entity);
         }
 
         public async Task<ConversationDTO> GetByName(string name)
@@ -87,7 +89,9 @@ namespace SharedServices.Repository
             if (objFromDb != null)
             {
                 objFromDb.Name = objDTO.Name;
-                objFromDb.ClientId = objDTO.ClientId;
+                // Do not update the ClientId, since a conversation's client should not change.
+                // objFromDb.ClientId = objDTO.ClientId;
+
                 // update other properties if needed
 
                 _db.Conversations.Update(objFromDb);
@@ -96,6 +100,5 @@ namespace SharedServices.Repository
             }
             return null;
         }
-
     }
 }

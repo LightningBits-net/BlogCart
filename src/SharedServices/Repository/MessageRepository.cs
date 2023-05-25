@@ -1,11 +1,12 @@
-﻿// LightningBits
-using System;
-using SharedServices.Repository.IRepository;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
-using SharedServices.Data;
-using SharedServices;
 using Microsoft.EntityFrameworkCore;
+using SharedServices.Data;
 using SharedServices.Models;
+using SharedServices.Repository.IRepository;
 
 namespace SharedServices.Repository
 {
@@ -25,14 +26,29 @@ namespace SharedServices.Repository
             var obj = _mapper.Map<MessageDTO, Message>(objDTO);
             obj.Timestamp = DateTime.UtcNow;
 
-            var addedobj = await _db.Messages.AddAsync(obj);
+            // Determine if the message is from the user or the AI
+            obj.IsUserMessage = objDTO.IsUserMessage;
+
+            var addedObj = await _db.Messages.AddAsync(obj);
             await _db.SaveChangesAsync();
 
-            var clientId = addedobj.Entity.Conversation.ClientId; // Get the client id via navigation properties.
+            var clientId = addedObj.Entity.Conversation.ClientId; // Get the client id via navigation properties.
 
-            return _mapper.Map<Message, MessageDTO>(addedobj.Entity);
+            return _mapper.Map<Message, MessageDTO>(addedObj.Entity);
         }
 
+        //public async Task<MessageDTO> Create(MessageDTO objDTO)
+        //{
+        //    var obj = _mapper.Map<MessageDTO, Message>(objDTO);
+        //    obj.Timestamp = DateTime.UtcNow;
+
+        //    var addedObj = await _db.Messages.AddAsync(obj);
+        //    await _db.SaveChangesAsync();
+
+        //    var clientId = addedObj.Entity.Conversation.ClientId; // Get the client id via navigation properties.
+
+        //    return _mapper.Map<Message, MessageDTO>(addedObj.Entity);
+        //}
 
         public async Task<MessageDTO> Get(int id)
         {
@@ -45,6 +61,17 @@ namespace SharedServices.Repository
             var messages = await _db.Messages.ToListAsync();
             return _mapper.Map<IEnumerable<Message>, IEnumerable<MessageDTO>>(messages);
         }
+        public async Task<IEnumerable<MessageDTO>> GetAllByConversationId(int conversationId)
+        {
+            var messages = await _db.Messages
+                .Where(m => m.ConversationId == conversationId)
+                .OrderByDescending(m => m.Timestamp)
+                .Take(20) // Get the last 20 messages
+                .ToListAsync();
+
+            return _mapper.Map<IEnumerable<Message>, IEnumerable<MessageDTO>>(messages);
+        }
+
 
         public async Task<int> Delete(int id)
         {
@@ -56,6 +83,15 @@ namespace SharedServices.Repository
             }
             return 0;
         }
+
+        //public async Task<IEnumerable<MessageDTO>> GetAllByConversationId(int conversationId)
+        //{
+        //    var messages = await _db.Messages
+        //        .Where(m => m.ConversationId == conversationId)
+        //        .ToListAsync();
+
+        //    return _mapper.Map<IEnumerable<Message>, IEnumerable<MessageDTO>>(messages);
+        //}
 
         public async Task<MessageDTO> Update(MessageDTO objDTO)
         {
@@ -73,7 +109,6 @@ namespace SharedServices.Repository
             }
             return null;
         }
-
     }
 }
 

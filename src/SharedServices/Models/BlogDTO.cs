@@ -42,13 +42,13 @@ namespace SharedServices.Models
 
         public int Rating { get; set; }
 
-        [ForeignKey("BlogCategoryId")]
+        //[ForeignKey("BlogCategoryId")]
         public BlogCategory BlogCategory { get; set; }
 
         public int ClientId { get; set; }
 
-        [ForeignKey("ClientId")]
-        public ClientDTO Client { get; set; }
+        //[ForeignKey("ClientId")]
+        public Client Client { get; set; }
     }
 }
 
