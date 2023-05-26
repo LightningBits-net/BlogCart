@@ -4,23 +4,42 @@
 @inject IMessageRepository MessageRepository
 @inject OpenAIApiService OpenAIApiService
 
-<h1 class="text-center text-2xl font-bold mb-4">Chat</h1>
 
-<div class="flex justify-center items-center h-screen">
-    <div class="w-1/2 bg-gray-100 p-4 rounded-md">
-        <div class="messages">
-            @foreach (var (message, index) in Messages.Select((m, i) => (m, i)))
-            {
-                <div class="@($"{(index % 2 == 0 ? "bg-gray-200" : "")} p-2 rounded-md")">@message.Content</div>
-            }
+<PageTitle>My AI</PageTitle>
+<div class="flex justify-center">
+    <div class="w-full h-screen bg-gray-800 pt-10">
+        <div class="max-w-5xl mx-auto p-2 flex justify-end">
+            <h1 class="font-display-italic text-gray-200 text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6 max-w-xl">My AI Assistant</h1>
         </div>
+        <div class="flex flex-col">
+            <div class="w-full">
+                <div class="sm:w-full md:w-3/4 lg:w-3/4 mx-auto overflow-y-auto max-h-[calc(100vh-15rem)] bg-gray-100 p-4 rounded-md">
+                    <div class="messages overflow-y">
+                        @foreach (var (message, index) in Messages.OrderBy(m => m.Timestamp).Reverse().Select((m, i) => (m, i)))
+                        {
+                            <div class="@($"{(index % 2 == 0 ? "bg-gray-200" : "")} p-2 rounded-md")"
+                                 style="@($"{(index == Messages.Count - 1 ? "pb-4" : "")}")">
+                                @message.Content
+                            </div>
+                        }
+                    </div>
+                </div>
 
-        <div class="input mt-4">
-            <input type="text" class="w-full px-3 py-2 rounded border border-gray-300" @bind="@UserMessage" />
-            <button class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600" @onclick="SendMessage">Send</button>
+
+                <div class="sm:w-full md:w-3/4 lg:w-3/4 flex input mx-auto border border-gray-800 bg-gray-200 rounded-md mb-2 p-4">
+                    <input @bind="UserMessage" type="text" class="text-xl border-none w-full focus:outline-none bg-transparent" placeholder="Enter text...">
+                    <div class="mr-2">  <MudButton Variant="Variant.Filled" Color="Color.Success" @onclick="SendMessage" Style="margin-left">Send</MudButton></div>
+                    <_PromptDrawer></_PromptDrawer>
+                </div>
+            </div>
+         
+            <_Footer></_Footer>
         </div>
     </div>
 </div>
+
+
+
 
 @code {
     [Parameter]
