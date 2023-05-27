@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @namespace BlogCart.Shared.MainLayouts
+@inject IClientFrontendService ClientFrontendService
+@inject IHttpContextAccessor HttpContextAccessor
 
 
 <MudThemeProvider Theme="MyTheme" @bind-IsDarkMode="@_isDarkMode" @ref="@_mudThemeProvider" />
@@ -14,24 +16,41 @@
         <MudFab Color="Color.Dark" Icon="@Icons.Filled.ArrowCircleUp" />
     </MudScrollToTop>
     <MudMainContent>
-        @Body
+        <CascadingValue Value="ClientId">
+            @Body
+        </CascadingValue>
     </MudMainContent>
 </MudLayout>
 
 
 @code {
+    private int ClientId { get; set; } = 0;
     private bool _sidebarOpen = false;
     private void ToggleSidebar() => _sidebarOpen = !_sidebarOpen;
-
     private bool _isDarkMode;
     private MudThemeProvider _mudThemeProvider;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
         {
-            _isDarkMode = await _mudThemeProvider.GetSystemPreference();
-            StateHasChanged();
+            if (firstRender)
+            {
+
+                ClientId = 105; //dev testing client, Also need to set layout in service folder DomianlayoutService to Match
+                _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+                StateHasChanged();
+            }
+        }
+        else
+        {
+            if (firstRender)
+            {
+                var domain = HttpContextAccessor.HttpContext.Request.Host.Value.ToLower();
+                ClientId = await ClientFrontendService.GetClientIdFromDomain(domain);
+                _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+                StateHasChanged();
+            }
         }
     }
 

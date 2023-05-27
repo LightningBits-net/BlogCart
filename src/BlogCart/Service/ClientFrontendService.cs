@@ -1,6 +1,7 @@
 ﻿using BlogCart.Service.IService;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using SharedServices.Data;
 using SharedServices.Models;
 
 namespace BlogCart.Service
@@ -9,7 +10,7 @@ namespace BlogCart.Service
     {
         private readonly HttpClient _httpClient;
         private IConfiguration _configuration;
-        private string BaseServerUrl;
+        private string? BaseServerUrl;
 
         public ClientFrontendService(HttpClient httpClient, IConfiguration configuration)
         {
@@ -26,7 +27,9 @@ namespace BlogCart.Service
                 var content = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
                 {
-                    return JsonConvert.DeserializeObject<ClientFrontendDTO>(content);
+                    var client = JsonConvert.DeserializeObject<ClientFrontendDTO>(content);
+                    client.ImageUrl = BaseServerUrl + client.ImageUrl;
+                    return client;
                 }
                 else
                 {
@@ -49,7 +52,12 @@ namespace BlogCart.Service
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<IEnumerable<ClientFrontendDTO>>(content);
+                    var clients = JsonConvert.DeserializeObject<IEnumerable<ClientFrontendDTO>>(content);
+                    foreach (var client in clients)
+                    {
+                        client.ImageUrl = BaseServerUrl + client.ImageUrl;
+                    }
+                    return clients;
                 }
                 else
                 {
@@ -62,12 +70,7 @@ namespace BlogCart.Service
                 return Enumerable.Empty<ClientFrontendDTO>();
             }
         }
-        //public async Task<int> GetClientIdFromDomain(string domain)
-        //{
-        //    var clients = await GetAll();
-        //    var client = clients.FirstOrDefault(c => c.DomainName == domain);
-        //    return client?.ClientId ?? 0; // return 0 or some default value if client not found
-        //}
+
         public async Task<int> GetClientIdFromDomain(string domain)
         {
             var clients = await GetAll();

@@ -52,31 +52,5 @@ namespace SharedApi.Controllers
 
             return Ok(updatedClientData);
         }
-
-        //[HttpGet("{clientId}")]
-        //public async Task<IActionResult> Get(int? clientId)
-        //{
-        //    if (clientId == null || clientId == 0)
-        //    {
-        //        return BadRequest(new ErrorModelDTO()
-        //        {
-        //            ErrorMessage = "Invalid Id",
-        //            StatusCode = StatusCodes.Status400BadRequest
-        //        });
-        //    }
-
-        //    var clientData = await _clientRepository.Get(clientId.Value);
-        //    if (clientData == null)
-        //    {
-        //        return BadRequest(new ErrorModelDTO()
-        //        {
-        //            ErrorMessage = "Invalid Id",
-        //            StatusCode = StatusCodes.Status404NotFound
-        //        });
-        //    }
-
-        //    return Ok(clientData);
-        //}
-
     }
 }

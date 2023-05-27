@@ -14,11 +14,11 @@ namespace ECommerce_Server.Service
         {
             _webHostEnvironment = webHostEnvironment;
         }
-     
+
 
         public bool DeleteFile(string filePath)
         {
-            if(File.Exists(_webHostEnvironment.WebRootPath+filePath))
+            if (File.Exists(_webHostEnvironment.WebRootPath + filePath))
             {
                 File.Delete(_webHostEnvironment.WebRootPath + filePath);
                 return true;
@@ -29,9 +29,9 @@ namespace ECommerce_Server.Service
         public async Task<string> UpLoadFile(IBrowserFile file)
         {
             FileInfo fileInfo = new(file.Name);
-            var fileName = Guid.NewGuid().ToString()+fileInfo.Extension;
+            var fileName = Guid.NewGuid().ToString() + fileInfo.Extension;
             var folderDirectory = $"{_webHostEnvironment.WebRootPath}/img/images";
-            if(!Directory.Exists(folderDirectory))
+            if (!Directory.Exists(folderDirectory))
             {
                 Directory.CreateDirectory(folderDirectory);
             }
@@ -43,18 +43,6 @@ namespace ECommerce_Server.Service
             var fullPath = $"/img/images/{fileName}";
             return fullPath;
         }
-
-    //        // Get the collection of files from the request
-    //        HttpFileCollection files = Request.Files;
-
-    //// Loop through the collection and save each file to the server
-    //for (int i = 0; i<files.Count; i++)
-    //{
-    //    HttpPostedFile file = files[i];
-
-    //        // Save the file to the server
-    //        file.SaveAs(Server.MapPath("~/uploads/" + file.FileName));
-    //}
-}
+    }
 }
 

@@ -22,11 +22,6 @@ namespace SharedApi.Controllers
             _blogRepository = blogRepository;
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    return Ok(await _blogRepository.GetAll());
-        //}
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -102,49 +97,6 @@ namespace SharedApi.Controllers
                 });
             }
         }
-
-
-        //[HttpGet("{blogId}")]
-        //public async Task<IActionResult> Get(int? blogId)
-        //{
-        //    if (blogId==null || blogId==0)
-        //    {
-        //        return BadRequest(new ErrorModelDTO()
-        //        {
-        //            ErrorMessage="Invalid Id",
-        //            StatusCode=StatusCodes.Status400BadRequest
-        //        });
-        //    }
-
-        //    var blog = await _blogRepository.Get(blogId.Value);
-        //    if (blog==null)
-        //    {
-        //        return BadRequest(new ErrorModelDTO()
-        //        {
-        //            ErrorMessage="Invalid Id",
-        //            StatusCode=StatusCodes.Status404NotFound
-        //        });
-        //    }
-        //    //return Ok(await _productRepository.GetAll());
-        //    return Ok(blog);
-        //}
-
-        //[HttpPut("{blogId}")]
-        //public async Task<IActionResult> Update(int blogId, [FromBody] BlogDTO updatedBlog)
-        //{
-        //    var blog = await _blogRepository.Get(blogId);
-        //    if (blog == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    blog.Rating = updatedBlog.Rating;
-        //    blog.Views = updatedBlog.Views;
-
-        //    var updated = await _blogRepository.Update(blog);
-        //    return Ok(updated);
-        //}
-
     }
 }
 

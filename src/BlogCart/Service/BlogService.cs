@@ -1,7 +1,6 @@
 ﻿using BlogCart.Service.IService;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-//using SharedServices.Data;
 using SharedServices.Models;
 
 namespace BlogCart.Service
