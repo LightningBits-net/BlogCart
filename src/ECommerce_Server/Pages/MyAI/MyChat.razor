@@ -1,0 +1,183 @@
+﻿@page "/chat/{ConversationId:int}"
+@inject IMessageRepository _messageRepository
+@inject OpenAIApiService _openAIApiService
+@inject NavigationManager _navigationManager
+@inject MudBlazor.ISnackbar snackBar
+@attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
+
+@using ECommerce_Server.Service
+
+<div class="container mx-auto flex flex-wrap">
+    <div class="w-full mt-4">
+        <div class="max-w-5xl mx-auto pt-10 px-5">
+            <h1 class="font-display-italic text-center font-extrabold text-5xl md:text-6xl italic leading-none mb-6">My Chat Title here</h1>
+        </div>
+        @if (IsProcessing)
+        {
+            <div class="text-center">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+            </div>
+        }
+        else
+        {
+            <MudCard Elevation="25">
+                <MudCarousel Class="mud-width-full" Color="@Color.Primary" Style="height:350px" EnableSwipeGesture="@enableSwipeGesture" ShowBullets="@bullets" AutoCycle="false" TData="object">
+                    <BulletTemplate Context="selected">
+                        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                            <span class="mud-icon-button-label">
+                                <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Inherit" />
+                            </span>
+                        </div>
+                    </BulletTemplate>
+                    <PreviousButtonTemplate>
+                        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                            <span class="mud-icon-button-label">
+                                <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Inherit" />
+                            </span>
+                        </div>
+                    </PreviousButtonTemplate>
+                    <NextButtonTemplate>
+                        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                            <span class="mud-icon-button-label">
+                                <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Inherit" />
+                            </span>
+                        </div>
+                    </NextButtonTemplate>
+                    <ChildContent>
+                        @if (Messages == null || Messages.Count() == 0)
+                        {
+                            <p>No messages found.</p>
+                        }
+                        else
+                        {
+                            @for (int i = 0; i < Messages.Count(); i += 2)
+                            {
+                                var message = Messages[i];
+                                var answer = (i + 1 < Messages.Count()) ? Messages[i + 1] : null;
+
+                                <MudCarouselItem Transition="Transition.Slide" Class="flex flex-col">
+                                    <MudCardHeader>
+                                        <CardHeaderAvatar>
+                                            <MudAvatar Color="Color.Secondary">U</MudAvatar>
+                                        </CardHeaderAvatar>
+                                        <CardHeaderContent>
+                                            @if (answer != null)
+                                            {
+                                                <MudText Typo="Typo.body1">Your Question: @answer.Content ?</MudText>
+
+                                            }
+                                        </CardHeaderContent>
+                                        <CardHeaderActions>
+                                            <MudButton Variant="Variant.Filled" Color="Color.Transparent" @onclick="() => DeleteMessagePair(message.Id, answer?.Id)">Delete</MudButton>
+                                        </CardHeaderActions>
+                                    </MudCardHeader>
+                                    <MudCardContent>
+                                        <MudText Typo="Typo.body2">Your AI Response: @message.Content</MudText>
+                                    </MudCardContent>
+                                    @*<div class="h-full p-10">
+                                        <MudAvatar Color="Color.Secondary">AI</MudAvatar>
+                                        <div class="flex flex-column justify-center items-center">
+                                            <MudText Align="@Align.Center" Class="mx-auto">Your AI Response: @message.Content</MudText>
+                                        </div>
+                                    </div>*@
+                                </MudCarouselItem>
+                            }
+                        }
+                    </ChildContent>
+                </MudCarousel>
+            </MudCard>
+        }
+
+        <div class="mt-4">
+            <input type="text" class="w-full px-3 py-2 rounded border border-gray-300" placeholder="Enter a new message" @bind="@newMessageContent" />
+        </div>
+        <button class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600" @onclick="SendMessage">Send Message</button>
+    </div>
+</div>
+
+@code {
+    public bool IsProcessing { get; set; } = false;
+    // Hard-coded user ID for testing purposes
+    int userId = 3;
+    private List<MessageDTO> Messages { get; set; } = new List<MessageDTO>();
+    string newMessageContent = string.Empty;
+    [Parameter] public int ConversationId { get; set; }
+
+    private bool arrows = false;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = false;
+    private Transition transition = Transition.Slide;
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        Messages = (await _messageRepository.GetAllByConversationId(ConversationId)).ToList();
+        IsProcessing = false;
+    }
+
+    private async Task SendMessage()
+    {
+        if (!string.IsNullOrWhiteSpace(newMessageContent))
+        {
+            var newMessage = new MessageDTO
+            {
+                Content = newMessageContent,
+                ConversationId = ConversationId,
+                IsUserMessage = true,
+                Timestamp = DateTime.UtcNow
+            };
+
+            await _messageRepository.Create(newMessage);
+
+            Messages = (await _messageRepository.GetAllByConversationId(ConversationId)).ToList();
+
+            var responseMessage = await _openAIApiService.SendMessageAsync(Messages, newMessageContent);
+
+            var responseMessageDto = new MessageDTO
+            {
+                Content = responseMessage,
+                ConversationId = ConversationId,
+                IsUserMessage = false,
+                Timestamp = DateTime.UtcNow
+            };
+
+            await _messageRepository.Create(responseMessageDto);
+
+            Messages = (await _messageRepository.GetAllByConversationId(ConversationId)).ToList();
+
+            newMessageContent = string.Empty;
+        }
+    }
+
+    private async Task DeleteMessagePair(int promptId, int? answerId)
+    {
+        var result1 = await _messageRepository.Delete(promptId);
+
+        if (answerId.HasValue)
+        {
+            var result2 = await _messageRepository.Delete(answerId.Value);
+            if (result1 > 0 && result2 > 0)
+            {
+                Messages = Messages.Where(message => message.Id != promptId && message.Id != answerId.Value).ToList();
+            }
+            else
+            {
+                // Handle failure to delete one or both messages
+            }
+        }
+        else
+        {
+            if (result1 > 0)
+            {
+                Messages = Messages.Where(message => message.Id != promptId).ToList();
+            }
+            else
+            {
+                // Handle failure to delete the prompt message
+            }
+        }
+    }
+}
+
+

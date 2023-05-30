@@ -23,91 +23,116 @@ namespace SharedServices.Repository
 
         public async Task<MessageDTO> Create(MessageDTO objDTO)
         {
-            var obj = _mapper.Map<MessageDTO, Message>(objDTO);
-            obj.Timestamp = DateTime.UtcNow;
+            try
+            {
+                var obj = _mapper.Map<MessageDTO, Message>(objDTO);
+                obj.Timestamp = DateTime.UtcNow;
+                obj.IsUserMessage = objDTO.IsUserMessage;
 
-            // Determine if the message is from the user or the AI
-            obj.IsUserMessage = objDTO.IsUserMessage;
+                var addedObj = await _db.Messages.AddAsync(obj);
+                await _db.SaveChangesAsync();
 
-            var addedObj = await _db.Messages.AddAsync(obj);
-            await _db.SaveChangesAsync();
+                var clientId = addedObj.Entity.Conversation.ClientId;
 
-            var clientId = addedObj.Entity.Conversation.ClientId; // Get the client id via navigation properties.
-
-            return _mapper.Map<Message, MessageDTO>(addedObj.Entity);
+                return _mapper.Map<Message, MessageDTO>(addedObj.Entity);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in MessageRepository.Create: {ex.Message}");
+                return null;
+            }
         }
-
-        //public async Task<MessageDTO> Create(MessageDTO objDTO)
-        //{
-        //    var obj = _mapper.Map<MessageDTO, Message>(objDTO);
-        //    obj.Timestamp = DateTime.UtcNow;
-
-        //    var addedObj = await _db.Messages.AddAsync(obj);
-        //    await _db.SaveChangesAsync();
-
-        //    var clientId = addedObj.Entity.Conversation.ClientId; // Get the client id via navigation properties.
-
-        //    return _mapper.Map<Message, MessageDTO>(addedObj.Entity);
-        //}
 
         public async Task<MessageDTO> Get(int id)
         {
-            var message = await _db.Messages.FirstOrDefaultAsync(m => m.Id == id);
-            return _mapper.Map<Message, MessageDTO>(message);
+            try
+            {
+                var message = await _db.Messages.FirstOrDefaultAsync(m => m.Id == id);
+                return _mapper.Map<Message, MessageDTO>(message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in MessageRepository.Get: {ex.Message}");
+                return null;
+            }
         }
 
         public async Task<IEnumerable<MessageDTO>> GetAll()
         {
-            var messages = await _db.Messages.ToListAsync();
-            return _mapper.Map<IEnumerable<Message>, IEnumerable<MessageDTO>>(messages);
+            try
+            {
+                var messages = await _db.Messages.ToListAsync();
+                return _mapper.Map<IEnumerable<Message>, IEnumerable<MessageDTO>>(messages);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in MessageRepository.GetAll: {ex.Message}");
+                return null;
+            }
         }
+
         public async Task<IEnumerable<MessageDTO>> GetAllByConversationId(int conversationId)
         {
-            var messages = await _db.Messages
-                .Where(m => m.ConversationId == conversationId)
-                .OrderByDescending(m => m.Timestamp)
-                .Take(20) // Get the last 20 messages
-                .ToListAsync();
+            try
+            {
+                var messages = await _db.Messages
+                    .Where(m => m.ConversationId == conversationId)
+                    .OrderByDescending(m => m.Timestamp)
+                    .Take(20)
+                    .ToListAsync();
 
-            return _mapper.Map<IEnumerable<Message>, IEnumerable<MessageDTO>>(messages);
+                return _mapper.Map<IEnumerable<Message>, IEnumerable<MessageDTO>>(messages);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in MessageRepository.GetAllByConversationId: {ex.Message}");
+                return null;
+            }
         }
-
 
         public async Task<int> Delete(int id)
         {
-            var obj = await _db.Messages.FirstOrDefaultAsync(m => m.Id == id);
-            if (obj != null)
+            try
             {
-                _db.Messages.Remove(obj);
-                return await _db.SaveChangesAsync();
+                var obj = await _db.Messages.FirstOrDefaultAsync(m => m.Id == id);
+                if (obj != null)
+                {
+                    _db.Messages.Remove(obj);
+                    return await _db.SaveChangesAsync();
+                }
+                return 0;
             }
-            return 0;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in MessageRepository.Delete: {ex.Message}");
+                return -1;
+            }
         }
 
-        //public async Task<IEnumerable<MessageDTO>> GetAllByConversationId(int conversationId)
-        //{
-        //    var messages = await _db.Messages
-        //        .Where(m => m.ConversationId == conversationId)
-        //        .ToListAsync();
-
-        //    return _mapper.Map<IEnumerable<Message>, IEnumerable<MessageDTO>>(messages);
-        //}
 
         public async Task<MessageDTO> Update(MessageDTO objDTO)
         {
-            var objFromDb = await _db.Messages.FirstOrDefaultAsync(m => m.Id == objDTO.Id);
-            if (objFromDb != null)
+            try
             {
-                objFromDb.Content = objDTO.Content;
-                objFromDb.Timestamp = objDTO.Timestamp;
-                objFromDb.IsUserMessage = objDTO.IsUserMessage;
-                objFromDb.ConversationId = objDTO.ConversationId;
+                var objFromDb = await _db.Messages.FirstOrDefaultAsync(m => m.Id == objDTO.Id);
+                if (objFromDb != null)
+                {
+                    objFromDb.Content = objDTO.Content;
+                    objFromDb.Timestamp = objDTO.Timestamp;
+                    objFromDb.IsUserMessage = objDTO.IsUserMessage;
+                    objFromDb.ConversationId = objDTO.ConversationId;
 
-                _db.Messages.Update(objFromDb);
-                await _db.SaveChangesAsync();
-                return _mapper.Map<Message, MessageDTO>(objFromDb);
+                    _db.Messages.Update(objFromDb);
+                    await _db.SaveChangesAsync();
+                    return _mapper.Map<Message, MessageDTO>(objFromDb);
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in MessageRepository.Update: {ex.Message}");
+                return null;
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using SharedServices.Models;
 
 namespace ECommerce_Server.Service
 {
@@ -20,12 +21,20 @@ namespace ECommerce_Server.Service
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
         }
 
-        public async Task<string> SendMessageAsync(string prompt)
+        public async Task<string> SendMessageAsync(IEnumerable<MessageDTO> conversationHistory, string prompt)
         {
+            var messages = conversationHistory.Select(message => new
+            {
+                role = message.IsUserMessage ? "user" : "assistant",
+                content = message.Content
+            }).ToList();
+
+            messages.Add(new { role = "user", content = prompt });
+
             var requestBody = new
             {
                 model = "gpt-3.5-turbo",
-                messages = new[] { new { role = "user", content = prompt } },
+                messages,
                 temperature = 0.7,
                 max_tokens = 150,
             };

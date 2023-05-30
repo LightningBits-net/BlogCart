@@ -21,14 +21,15 @@
         }
         else
         {
-            <ul class="list-disc pl-6">
-                @foreach (var conversation in Conversations)
-                {
-                    <li>
-                        <button class="text-blue-500" @onclick="() => OpenChat(conversation.Id)">@conversation.Name</button>
-                    </li>
-                }
-            </ul>
+    <ul class="list-disc pl-6">
+        @foreach (var conversation in Conversations)
+        {
+            <li class="flex items-center space-x-2">
+                <button class="text-blue-500" @onclick="() => OpenChat(conversation.Id)">@conversation.Name</button>
+                <button class="text-red-500" @onclick="() => DeleteConversation(conversation.Id)">Delete</button>
+            </li>
+        }
+    </ul>
         }
     </div>
 </div>
@@ -65,5 +66,20 @@
     private void OpenChat(int conversationId)
     {
         _navigationManager.NavigateTo($"/chat/{conversationId}");
+    }
+
+    private async Task DeleteConversation(int conversationId)
+    {
+        var result = await _conversationRepository.Delete(conversationId);
+
+        if (result > 0) // if conversation was deleted
+        {
+            Conversations = await _conversationRepository.GetAllByClientId(clientId);
+            snackBar.Add("Conversation deleted successfully.", Severity.Success);
+        }
+        else
+        {
+            snackBar.Add("Failed to delete conversation.", Severity.Error);
+        }
     }
 }

@@ -23,82 +23,128 @@ namespace SharedServices.Repository
 
         public async Task<int> Delete(int id)
         {
-            var conversation = await _db.Conversations.FirstOrDefaultAsync(c => c.Id == id);
-            if (conversation != null)
+            try
             {
-                _db.Conversations.Remove(conversation);
-                return await _db.SaveChangesAsync();
+                var conversation = await _db.Conversations.FirstOrDefaultAsync(c => c.Id == id);
+                if (conversation != null)
+                {
+                    _db.Conversations.Remove(conversation);
+                    return await _db.SaveChangesAsync();
+                }
+                return 0;
             }
-            return 0;
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return -1;
+            }
         }
 
         public async Task<ConversationDTO> Get(int id)
         {
-            var conversation = await _db.Conversations
-                .Include(c => c.Messages)
-                .FirstOrDefaultAsync(c => c.Id == id);
+            try
+            {
+                var conversation = await _db.Conversations
+                    .Include(c => c.Messages)
+                    .FirstOrDefaultAsync(c => c.Id == id);
 
-            return _mapper.Map<Conversation, ConversationDTO>(conversation);
+                return _mapper.Map<Conversation, ConversationDTO>(conversation);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
         public async Task<IEnumerable<ConversationDTO>> GetAll()
         {
-            var conversations = await _db.Conversations
-                .Include(c => c.Messages)
-                .ToListAsync();
+            try
+            {
+                var conversations = await _db.Conversations
+                    .Include(c => c.Messages)
+                    .ToListAsync();
 
-            return _mapper.Map<IEnumerable<Conversation>, IEnumerable<ConversationDTO>>(conversations);
+                return _mapper.Map<IEnumerable<Conversation>, IEnumerable<ConversationDTO>>(conversations);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
         public async Task<ConversationDTO> Create(ConversationDTO objDTO)
         {
-            var obj = _mapper.Map<ConversationDTO, Conversation>(objDTO);
-            // The ClientId should already be set on obj here, assuming it was provided in objDTO
+            try
+            {
+                var obj = _mapper.Map<ConversationDTO, Conversation>(objDTO);
+                var addedObj = await _db.Conversations.AddAsync(obj);
+                await _db.SaveChangesAsync();
 
-            // If for some reason you need to manually set the ClientId, you could uncomment the following line:
-            // obj.ClientId = someClientId; // Manually set the ClientId
-
-            var addedObj = await _db.Conversations.AddAsync(obj);
-            await _db.SaveChangesAsync();
-
-            return _mapper.Map<Conversation, ConversationDTO>(addedObj.Entity);
+                return _mapper.Map<Conversation, ConversationDTO>(addedObj.Entity);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
         public async Task<ConversationDTO> GetByName(string name)
         {
-            var conversation = await _db.Conversations
-                .Include(c => c.Messages)
-                .FirstOrDefaultAsync(c => c.Name == name);
+            try
+            {
+                var conversation = await _db.Conversations
+                    .Include(c => c.Messages)
+                    .FirstOrDefaultAsync(c => c.Name == name);
 
-            return _mapper.Map<Conversation, ConversationDTO>(conversation);
+                return _mapper.Map<Conversation, ConversationDTO>(conversation);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
         public async Task<IEnumerable<ConversationDTO>> GetAllByClientId(int clientId)
         {
-            var conversations = await _db.Conversations
-                .Include(c => c.Messages)
-                .Where(c => c.ClientId == clientId)
-                .ToListAsync();
+            try
+            {
+                var conversations = await _db.Conversations
+                    .Include(c => c.Messages)
+                    .Where(c => c.ClientId == clientId)
+                    .ToListAsync();
 
-            return _mapper.Map<IEnumerable<Conversation>, IEnumerable<ConversationDTO>>(conversations);
+                return _mapper.Map<IEnumerable<Conversation>, IEnumerable<ConversationDTO>>(conversations);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
         public async Task<ConversationDTO> Update(ConversationDTO objDTO)
         {
-            var objFromDb = await _db.Conversations.Include(c => c.Messages).FirstOrDefaultAsync(u => u.Id == objDTO.Id);
-            if (objFromDb != null)
+            try
             {
-                objFromDb.Name = objDTO.Name;
-                // Do not update the ClientId, since a conversation's client should not change.
-                // objFromDb.ClientId = objDTO.ClientId;
-
-                // update other properties if needed
-
-                _db.Conversations.Update(objFromDb);
-                await _db.SaveChangesAsync();
-                return _mapper.Map<Conversation, ConversationDTO>(objFromDb);
+                var objFromDb = await _db.Conversations.Include(c => c.Messages).FirstOrDefaultAsync(u => u.Id == objDTO.Id);
+                if (objFromDb != null)
+                {
+                    objFromDb.Name = objDTO.Name;
+                    _db.Conversations.Update(objFromDb);
+                    await _db.SaveChangesAsync();
+                    return _mapper.Map<Conversation, ConversationDTO>(objFromDb);
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
     }
 }
