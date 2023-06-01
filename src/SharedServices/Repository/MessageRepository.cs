@@ -21,6 +21,28 @@ namespace SharedServices.Repository
             _mapper = mapper;
         }
 
+        //public async Task<MessageDTO> Create(MessageDTO objDTO)
+        //{
+        //    try
+        //    {
+        //        var obj = _mapper.Map<MessageDTO, Message>(objDTO);
+        //        obj.Timestamp = DateTime.UtcNow;
+        //        obj.IsUserMessage = objDTO.IsUserMessage;
+
+        //        var addedObj = await _db.Messages.AddAsync(obj);
+        //        await _db.SaveChangesAsync();
+
+        //        var clientId = addedObj.Entity.Conversation.ClientId;
+
+        //        return _mapper.Map<Message, MessageDTO>(addedObj.Entity);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Exception in MessageRepository.Create: {ex.Message}");
+        //        return null;
+        //    }
+        //}
+
         public async Task<MessageDTO> Create(MessageDTO objDTO)
         {
             try
@@ -32,7 +54,11 @@ namespace SharedServices.Repository
                 var addedObj = await _db.Messages.AddAsync(obj);
                 await _db.SaveChangesAsync();
 
-                var clientId = addedObj.Entity.Conversation.ClientId;
+                var conversation = await _db.Conversations
+                    .Include(c => c.Client)
+                    .FirstOrDefaultAsync(c => c.Id == obj.ConversationId);
+
+                var clientId = conversation?.ClientId ?? 0;
 
                 return _mapper.Map<Message, MessageDTO>(addedObj.Entity);
             }
@@ -42,6 +68,7 @@ namespace SharedServices.Repository
                 return null;
             }
         }
+
 
         public async Task<MessageDTO> Get(int id)
         {
@@ -109,6 +136,27 @@ namespace SharedServices.Repository
             }
         }
 
+        public async Task<bool> ToggleFavorite(int id)
+        {
+            try
+            {
+                var objFromDb = await _db.Messages.FirstOrDefaultAsync(m => m.Id == id);
+                if (objFromDb != null)
+                {
+                    objFromDb.IsFav = !objFromDb.IsFav; // Correct field name
+                    _db.Messages.Update(objFromDb);
+                    await _db.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in MessageRepository.ToggleFavorite: {ex.Message}");
+                return false;
+            }
+        }
+
 
         public async Task<MessageDTO> Update(MessageDTO objDTO)
         {
@@ -121,6 +169,7 @@ namespace SharedServices.Repository
                     objFromDb.Timestamp = objDTO.Timestamp;
                     objFromDb.IsUserMessage = objDTO.IsUserMessage;
                     objFromDb.ConversationId = objDTO.ConversationId;
+                    objFromDb.IsFav = objDTO.IsFav; // Add this line
 
                     _db.Messages.Update(objFromDb);
                     await _db.SaveChangesAsync();
@@ -134,6 +183,31 @@ namespace SharedServices.Repository
                 return null;
             }
         }
+
+        //public async Task<MessageDTO> Update(MessageDTO objDTO)
+        //{
+        //    try
+        //    {
+        //        var objFromDb = await _db.Messages.FirstOrDefaultAsync(m => m.Id == objDTO.Id);
+        //        if (objFromDb != null)
+        //        {
+        //            objFromDb.Content = objDTO.Content;
+        //            objFromDb.Timestamp = objDTO.Timestamp;
+        //            objFromDb.IsUserMessage = objDTO.IsUserMessage;
+        //            objFromDb.ConversationId = objDTO.ConversationId;
+
+        //            _db.Messages.Update(objFromDb);
+        //            await _db.SaveChangesAsync();
+        //            return _mapper.Map<Message, MessageDTO>(objFromDb);
+        //        }
+        //        return null;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Exception in MessageRepository.Update: {ex.Message}");
+        //        return null;
+        //    }
+        //}
     }
 }
 

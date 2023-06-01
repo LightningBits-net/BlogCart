@@ -23,11 +23,15 @@ namespace ECommerce_Server.Service
 
         public async Task<string> SendMessageAsync(IEnumerable<MessageDTO> conversationHistory, string prompt)
         {
-            var messages = conversationHistory.Select(message => new
+            var messages = new List<object>();
+
+            // Add previous 20 messages as context
+            var contextMessages = conversationHistory.TakeLast(10);
+            messages.AddRange(contextMessages.Select(message => new
             {
                 role = message.IsUserMessage ? "user" : "assistant",
                 content = message.Content
-            }).ToList();
+            }));
 
             messages.Add(new { role = "user", content = prompt });
 
@@ -36,7 +40,7 @@ namespace ECommerce_Server.Service
                 model = "gpt-3.5-turbo",
                 messages,
                 temperature = 0.7,
-                max_tokens = 150,
+                max_tokens = 300,
             };
 
             var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
@@ -55,6 +59,7 @@ namespace ECommerce_Server.Service
 
             return result;
         }
+
     }
 }
 

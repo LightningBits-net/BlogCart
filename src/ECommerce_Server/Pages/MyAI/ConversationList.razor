@@ -21,19 +21,18 @@
         }
         else
         {
-    <ul class="list-disc pl-6">
-        @foreach (var conversation in Conversations)
-        {
-            <li class="flex items-center space-x-2">
-                <button class="text-blue-500" @onclick="() => OpenChat(conversation.Id)">@conversation.Name</button>
-                <button class="text-red-500" @onclick="() => DeleteConversation(conversation.Id)">Delete</button>
-            </li>
-        }
-    </ul>
+            <ul class="list-disc pl-6">
+                @foreach (var conversation in Conversations)
+                {
+                    <li class="flex items-center space-x-2">
+                        <button class="text-blue-500" @onclick="() => OpenChat(conversation.Id)">@conversation.Name</button>
+                        <button class="text-red-500" @onclick="() => DeleteConversation(conversation.Id)">Delete</button>
+                    </li>
+                }
+            </ul>
         }
     </div>
 </div>
-
 @code {
     // Hard-coded client ID for testing purposes
     int clientId = 3;
