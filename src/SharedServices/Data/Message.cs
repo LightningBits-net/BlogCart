@@ -12,6 +12,7 @@ namespace SharedServices.Data
         public DateTime Timestamp { get; set; }
         public bool IsUserMessage { get; set; } // true if the message is from the user, false if it's from the AI.
         public int ConversationId { get; set; } // Foreign key.
+        public bool IsFav { get; set; } 
 
         [ForeignKey("ConversationId")]
         public virtual Conversation Conversation { get; set; }

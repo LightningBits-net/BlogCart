@@ -12,6 +12,7 @@ namespace SharedServices.Repository.IRepository
         Task<IEnumerable<MessageDTO>> GetAll();
         Task<MessageDTO> Update(MessageDTO objDTO);
         Task<int> Delete(int id);
+        Task<bool> ToggleFavorite(int id);
 
         Task<IEnumerable<MessageDTO>> GetAllByConversationId(int conversationId);
     }
