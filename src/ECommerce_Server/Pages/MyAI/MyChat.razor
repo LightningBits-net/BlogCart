@@ -9,9 +9,6 @@
 
 <div class="bg-white container mx-auto flex flex-wrap">
     <div class="w-full h-screen mt-4">
-        @*<div class="max-w-5xl mx-auto pt-5 px-5">
-            <h1 class="text-gray-800 font-display-italic text-center font-extrabold text-2xl md:text-3xl italic leading-none mb-6">My Chat Title here</h1>
-        </div>*@
         @if (IsProcessing)
         {
             <div class="text-center">
@@ -20,122 +17,104 @@
         }
         else
         {
-            <MudCard Elevation="25">
-                <MudCarousel Class="mud-width-full" Color="@Color.Primary" Style="height:550px" EnableSwipeGesture="@enableSwipeGesture" ShowBullets="@bullets" AutoCycle="false" TData="object">
-                    <BulletTemplate Context="selected">
-                        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                            <span class="mud-icon-button-label">
-                                <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Inherit" />
-                            </span>
-                        </div>
-                    </BulletTemplate>
-                    <PreviousButtonTemplate>
-                        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                            <span class="mud-icon-button-label">
-                                <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Inherit" />
-                            </span>
-                        </div>
-                    </PreviousButtonTemplate>
-                    <NextButtonTemplate>
-                        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                            <span class="mud-icon-button-label">
-                                <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Inherit" />
-                            </span>
-                        </div>
-                    </NextButtonTemplate>
-                    <ChildContent>
-                        @if (Messages == null || Messages.Count() == 0)
-                        {
-                            <p class="mt-5 text-lrg text-bold text-center">No Messages found</p>
-                        }
-                        else
-                        {
-                            @for (int i = 0; i < Messages.Count(); i += 2)
-                                {
-                                    var message = Messages[i];
-                                    var answer = (i + 1 < Messages.Count()) ? Messages[i + 1] : null;
-                                    var messageNumber = Messages.Count() - i;
+<MudCard Elevation="25">
+    <MudCarousel Class="mud-width-full" Color="@Color.Primary" Style="height:600px" EnableSwipeGesture="@enableSwipeGesture" ShowBullets="@bullets" ShowArrows="@arrows" AutoCycle="false" TData="object">
+        <BulletTemplate Context="selected">
+            <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                <span class="mud-icon-button-label">
+                    <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Inherit" />
+                </span>
+            </div>
+        </BulletTemplate>
+        <ChildContent>
+            @if (Messages == null || Messages.Count() == 0)
+            {
+                <p class="mt-5 text-lrg text-bold text-center">No Messages found</p>
+            }
+            else
+            {
+                @for (int i = Messages.Count() - 2; i >= 0; i -= 2)
+                {
+                    var prompt = Messages[i];
+                    var response = Messages[i + 1];
+                    var messageNumber = (Messages.Count() - i) / 2;
 
-                                <MudCarouselItem Transition="Transition.Slide" Class="flex flex-col">
-                                    <div class="bg-gray-300">
-                                        @if (MessageIsProcessing)
+                    <MudCarouselItem Transition="Transition.Fade" Class="flex flex-col">
+                        <div class="bg-gray-300">
+                            @if (MessageIsProcessing)
+                            {
+                                <p class="mt-5 text-lrg text-bold text-center">Processing...</p>
+                            }
+                            else
+                            {
+                                <MudCardHeader>
+                                    <CardHeaderAvatar>
+                                        <MudAvatar Color="Color.Primary">U</MudAvatar>
+                                    </CardHeaderAvatar>
+                                    <CardHeaderContent>
+                                        @if (prompt != null)
                                         {
-                                            <p class="mt-5 text-lrg text-bold text-center">Processing...</p>
-                                        }
-                                        else
-                                        {
-                                            <MudCardHeader>
-                                                <CardHeaderAvatar>
-                                                    <MudAvatar Color="Color.Primary">U</MudAvatar>
-                                                </CardHeaderAvatar>
-                                                <CardHeaderContent>
-                                                    @if (answer != null)
-                                                    {
-                                                        <div class="mr-10 h-15 p-5 overflow-x-auto overflow-y-hidden">
-                                                            <div class="flex items-center">
-                                                                <div class="flex-shrink-0">
-                                                                    <MudText Typo="Typo.h6" class="whitespace-normal">@answer.Content ?</MudText>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    }
-                                                    <div class="absolute top-0 right-0 bg-indigo-500 text-white rounded-full p-2 text-xs">
-                                                        @messageNumber
+                                            <div class="mr-10 h-15 p-5 overflow-x-auto overflow-y-hidden">
+                                                <div class="flex items-center">
+                                                    <div class="flex-shrink-0">
+                                                        <MudText Typo="Typo.h6" class="whitespace-normal">@prompt.Content ?</MudText>
                                                     </div>
-                                                </CardHeaderContent>
-                                            </MudCardHeader>
+                                                </div>
+                                            </div>
                                         }
+                                        <div class="absolute top-0 right-0 bg-indigo-500 text-white rounded-full p-2 text-xs">
+                                            @messageNumber
+                                        </div>
+                                    </CardHeaderContent>
+                                </MudCardHeader>
+                            }
 
-                                    </div>
-                                    <div class="bg-gray-100 flex items-start justify-center h-screen p-5 overflow-auto">
-                                        @if (MessageIsProcessing)
+                        </div>
+                        <div class="bg-gray-100 flex items-start justify-center h-screen p-5 overflow-auto">
+                            @if (MessageIsProcessing)
+                            {
+                                <div class="text-center">
+                                    <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                                </div>
+                            }
+                            else
+                            {
+                                <MudCardContent>
+                                    <div class="flex items-center">
+                                        <MudAvatar Color="Color.Secondary" Class="mr-5">AI</MudAvatar>
+                                        @if (IsCodeSnippet(@response.Content))
                                         {
-                                            <div class="text-center">
-                                                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                                            <div class="bg-white p-10 rounded-md overflow-auto max-w-full text-xlg">
+                                                <pre class="whitespace-pre-wrap"><code>@response.Content</code></pre>
                                             </div>
                                         }
                                         else
                                         {
-                                            <MudCardContent>
-                                                <div class="flex items-center">
-                                                    <MudAvatar Color="Color.Secondary" Class="mr-5">AI</MudAvatar>
-                                                    @if (IsCodeSnippet(@message.Content))
-                                                    {
-                                                        <div class="bg-white p-10 rounded-md overflow-auto max-w-full text-xlg">
-                                                            <pre class="whitespace-pre-wrap"><code>@message.Content</code></pre>
-                                                        </div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <p class="text-left text-lg">@message.Content</p>
-                                                    }
-                                                </div>
-                                                <div class="flex justify-end items-end p-4">
-                                                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Default" @onclick="() => DeleteMessagePair(message.Id, answer?.Id)" />
-                                                    @if (message.IsFav)
-                                                    {
-                                                        <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Inherit" @onclick="(() => ToggleFavorite(message))" />
-                                                    }
-                                                    else
-                                                    {
-                                                        <MudIconButton Icon="@Icons.Material.Outlined.FavoriteBorder" Color="Color.Default" @onclick="(() => ToggleFavorite(message))" />
-                                                    }
-                                                    <i class="fa-duotone fa-clipboard"></i>
-                                                    <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
-                                                    <MudIconButton Icon="@Icons.Material.Filled.ContentCopy" Color="Color.Default" />
-                                                </div>
-
-                                            </MudCardContent>
+                                            <p class="text-left text-lg">@response.Content</p>
                                         }
-
                                     </div>
-                                </MudCarouselItem>
+                                    <div class="flex justify-end items-end p-4">
+                                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Default" @onclick="() => DeleteMessagePair(prompt.Id, response?.Id)" />
+                                        @if (prompt.IsFav)
+                                        {
+                                            <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Inherit" @onclick="(() => ToggleFavorite(prompt))" />
+                                        }
+                                        else
+                                        {
+                                            <MudIconButton Icon="@Icons.Material.Outlined.FavoriteBorder" Color="Color.Default" @onclick="(() => ToggleFavorite(prompt))" />
+                                        }
+                                        <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+                                        <MudIconButton Icon="@Icons.Material.Filled.ContentCopy" Color="Color.Default" />
+                                    </div>
+                                </MudCardContent>
                             }
-
-                        }
-                    </ChildContent>
-                </MudCarousel>
-            </MudCard>
+                        </div>
+                    </MudCarouselItem>
+                }
+            }
+        </ChildContent>
+    </MudCarousel>
+</MudCard>
         }
 
         <div class="w-full md:w-1/2 lg:w-1/2 justify-center text-center mx-auto fixed bottom-0 left-0 right-0 mb-5">
@@ -184,7 +163,10 @@
     private async Task LoadMessages()
     {
         IsProcessing = true;
+
+        // Load the latest messages
         Messages = (await _messageRepository.GetAllByConversationId(ConversationId)).ToList();
+
         IsProcessing = false;
     }
 
@@ -218,13 +200,20 @@
                 };
 
                 await _messageRepository.Create(responseMessageDto);
+                // Purge old messages first
+                await _messageRepository.PurgeMessages(ConversationId);
+
+                // Delete messages with default responses and prompts
+                await _messageRepository.DeleteMessagesWithDefaultResponseAndPrompts(ConversationId);
 
                 await LoadMessages(); // Refresh the Messages list
 
                 MessageIsProcessing = false;
 
                 // Reload the page
-                _navigationManager.NavigateTo(_navigationManager.Uri, forceLoad: true);
+                StateHasChanged();
+
+                //_navigationManager.NavigateTo(_navigationManager.Uri, forceLoad: true);
             }
             catch (HttpRequestException)
             {
@@ -248,6 +237,7 @@
             else
             {
                 // Handle failure to delete one or both messages
+                snackBar.Add("An error occurred. Please try again.", Severity.Error);
             }
         }
         else
@@ -259,6 +249,7 @@
             else
             {
                 // Handle failure to delete the prompt message
+                snackBar.Add("An error occurred. Please try again.", Severity.Error);
             }
         }
     }

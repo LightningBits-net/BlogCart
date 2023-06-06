@@ -23,24 +23,46 @@ namespace ECommerce_Server.Service
 
         public async Task<string> SendMessageAsync(IEnumerable<MessageDTO> conversationHistory, string prompt)
         {
-            var messages = new List<object>();
-
-            // Add previous 20 messages as context
-            var contextMessages = conversationHistory.TakeLast(10);
-            messages.AddRange(contextMessages.Select(message => new
+            try
             {
-                role = message.IsUserMessage ? "user" : "assistant",
-                content = message.Content
-            }));
+                var favMessages = conversationHistory
+              .Where(message => message.IsFav)
+              .OrderByDescending(message => message.Timestamp)
+              .Take(10)
+              .Select(message => new
+              {
+                  role = message.IsUserMessage ? "user" : "assistant",
+                  content = message.Content
+              });
 
-            messages.Add(new { role = "user", content = prompt });
+            var recentNonFavMessages = conversationHistory
+                .Where(message => !message.IsFav)
+                .OrderByDescending(message => message.Timestamp)
+                .Take(6)
+                .Select(message => new
+                {
+                    role = message.IsUserMessage ? "user" : "assistant",
+                    content = message.Content
+                });
+
+
+
+            var messages = new List<object>(favMessages);
+            messages.AddRange(recentNonFavMessages);
+            // Prepend the instruction to the user's prompt
+            messages.Add(new { role = "user", content = "Do not exceed 100 words in total: " + prompt });
+
+            var messagesJson = JsonSerializer.Serialize(messages);
+
+            Console.WriteLine("Messages sent to API: " + messagesJson);
+            Console.WriteLine("Prompt sent to API: " + prompt);  //for development
 
             var requestBody = new
             {
                 model = "gpt-3.5-turbo",
                 messages,
-                temperature = 0.7,
-                max_tokens = 300,
+                temperature = 0.5,
+                max_tokens = 2400,
             };
 
             var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
@@ -49,7 +71,9 @@ namespace ECommerce_Server.Service
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new HttpRequestException($"API request failed with status code: {response.StatusCode}");
+                Console.WriteLine($"API request failed with status code: {response.StatusCode}");
+                // Create and return a default response
+                return CreateDefaultResponse();
             }
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -58,6 +82,19 @@ namespace ECommerce_Server.Service
             var result = JsonDocument.Parse(jsonResponse).RootElement.GetProperty("choices")[0].GetProperty("message").GetProperty("content").GetString();
 
             return result;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"API request failed with error: {ex.Message}");
+                // Handle the error and return a default response
+                return CreateDefaultResponse();
+            }
+        }
+
+        private string CreateDefaultResponse()
+        {
+            // Create a default response message
+            return "I'm sorry, I couldn't provide a response at the moment, if the problem persist Please try again with a shorter message";
         }
 
     }

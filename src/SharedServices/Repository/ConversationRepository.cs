@@ -108,12 +108,29 @@ namespace SharedServices.Repository
             }
         }
 
+        //public async Task<IEnumerable<ConversationDTO>> GetAllByClientId(int clientId)
+        //{
+        //    try
+        //    {
+        //        var conversations = await _db.Conversations
+        //            .Include(c => c.Messages)
+        //            .Where(c => c.ClientId == clientId)
+        //            .ToListAsync();
+
+        //        return _mapper.Map<IEnumerable<Conversation>, IEnumerable<ConversationDTO>>(conversations);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //        return null;
+        //    }
+        //}
         public async Task<IEnumerable<ConversationDTO>> GetAllByClientId(int clientId)
         {
             try
             {
                 var conversations = await _db.Conversations
-                    .Include(c => c.Messages)
+                    .Include(c => c.Messages.OrderByDescending(m => m.IsFav).ThenByDescending(m => m.Timestamp))
                     .Where(c => c.ClientId == clientId)
                     .ToListAsync();
 
@@ -125,6 +142,7 @@ namespace SharedServices.Repository
                 return null;
             }
         }
+
 
         public async Task<ConversationDTO> Update(ConversationDTO objDTO)
         {
