@@ -10,11 +10,12 @@ namespace SharedServices.Data
     public class Conversation
     {
         public int Id { get; set; }
-        public string Name { get; set; } // Optional field to identify a conversation.
-        public int ClientId { get; set; } // Foreign key for the client.
+        public int ClientId { get; set; }
+        public string Name { get; set; }
+        public string? Context { get; set; } 
 
         [ForeignKey("ClientId")]
-        public Client Client { get; set; } // Navigation property.
+        public Client Client { get; set; } 
 
         public virtual ICollection<Message> Messages { get; set; }
     }

@@ -8,11 +8,11 @@ namespace SharedServices.Models
     public class ConversationDTO
     {
         public int Id { get; set; }
+        public int ClientId { get; set; }
         public string Name { get; set; }
-        public int ClientId { get; set; } // Corresponding field in the DTO.
+        public string? Context { get; set; } 
 
-        //[ForeignKey("ClientId")]
-        public Client Client { get; set; } // Navigation property.
+        public Client Client { get; set; } 
 
         public virtual ICollection<MessageDTO> Messages { get; set; }
     }

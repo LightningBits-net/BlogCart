@@ -1,7 +1,10 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using SharedServices.Data;
 using SharedServices.Models;
+using SharedServices.Repository;
+using SharedServices.Repository.IRepository;
 
 namespace ECommerce_Server.Service
 {
@@ -9,8 +12,10 @@ namespace ECommerce_Server.Service
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
+        private readonly IMessageRepository _messageRepository;
 
-        public OpenAIApiService(HttpClient httpClient, IConfiguration configuration)
+
+        public OpenAIApiService(HttpClient httpClient, IConfiguration configuration, IMessageRepository messageRepository) // Modify this line
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri("https://api.openai.com/");
@@ -19,40 +24,34 @@ namespace ECommerce_Server.Service
 
             _apiKey = configuration["APIKeys:MyChatGPTAPI"];
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
+
+            _messageRepository = messageRepository;
+
         }
 
-        public async Task<string> SendMessageAsync(IEnumerable<MessageDTO> conversationHistory, string prompt)
+        public async Task<string> SendMessageAsync(int conversationId, string prompt)
         {
             try
             {
-                var favMessages = conversationHistory
-              .Where(message => message.IsFav)
-              .OrderByDescending(message => message.Timestamp)
-              .Take(10)
-              .Select(message => new
-              {
-                  role = message.IsUserMessage ? "user" : "assistant",
-                  content = message.Content
-              });
+                //var messagesForApiRequest = await _messageRepository.GetMessagesForApiRequest(conversationId);
 
-            var recentNonFavMessages = conversationHistory
-                .Where(message => !message.IsFav)
-                .OrderByDescending(message => message.Timestamp)
-                .Take(6)
-                .Select(message => new
+                //var messages = new List<object>(messagesForApiRequest);
+
+                //messages.Add(new
+                //{
+                //    role = "user",
+                //    content = prompt
+                //});
+                var messagesForApiRequest = await _messageRepository.GetMessagesForApiRequest(conversationId);
+
+                var messages = messagesForApiRequest.Append(new
                 {
-                    role = message.IsUserMessage ? "user" : "assistant",
-                    content = message.Content
+                    role = "user",
+                    content = prompt
                 });
 
 
-
-            var messages = new List<object>(favMessages);
-            messages.AddRange(recentNonFavMessages);
-            // Prepend the instruction to the user's prompt
-            messages.Add(new { role = "user", content = "Do not exceed 100 words in total: " + prompt });
-
-            var messagesJson = JsonSerializer.Serialize(messages);
+                var messagesJson = JsonSerializer.Serialize(messages);
 
             Console.WriteLine("Messages sent to API: " + messagesJson);
             Console.WriteLine("Prompt sent to API: " + prompt);  //for development
@@ -61,7 +60,7 @@ namespace ECommerce_Server.Service
             {
                 model = "gpt-3.5-turbo",
                 messages,
-                temperature = 0.5,
+                temperature = 0.4,
                 max_tokens = 2400,
             };
 
@@ -71,7 +70,10 @@ namespace ECommerce_Server.Service
 
             if (!response.IsSuccessStatusCode)
             {
-                Console.WriteLine($"API request failed with status code: {response.StatusCode}");
+                    await _messageRepository.PurgeMessages(conversationId);
+                    await _messageRepository.DeleteMessagesWithDefaultResponseAndPrompts(conversationId);
+
+                    Console.WriteLine($"API request failed with status code: {response.StatusCode}");
                 // Create and return a default response
                 return CreateDefaultResponse();
             }
