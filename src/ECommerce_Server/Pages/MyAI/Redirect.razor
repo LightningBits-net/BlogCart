@@ -1,0 +1,18 @@
+﻿@page "/redirect"
+@page "/redirect/{ConversationId}"
+@inject NavigationManager NavigationManager
+
+<h3>Loading...</h3>
+
+@code {
+    [Parameter]
+    public string ConversationId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(100); // Wait a moment before redirecting back
+        NavigationManager.NavigateTo($"/chat/{ConversationId}", true);
+    }
+}
+
+

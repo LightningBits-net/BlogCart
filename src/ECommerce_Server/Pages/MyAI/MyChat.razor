@@ -1,5 +1,7 @@
 ﻿@page "/chat/{ConversationId:int}"
+@page "/my-chat"
 @inject IMessageRepository _messageRepository
+@inject IConversationRepository _conversationRepository
 @inject OpenAIApiService _openAIApiService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
@@ -7,8 +9,8 @@
 
 @using ECommerce_Server.Service
 
-<div class="bg-white container mx-auto flex flex-wrap">
-    <div class="w-full h-screen mt-4">
+<div class="container mx-auto flex flex-wrap">
+    <div class="w-full h-screen">
         @if (IsProcessing)
         {
             <div class="text-center">
@@ -17,129 +19,331 @@
         }
         else
         {
-<MudCard Elevation="25">
-    <MudCarousel Class="mud-width-full" Color="@Color.Primary" Style="height:600px" EnableSwipeGesture="@enableSwipeGesture" ShowBullets="@bullets" ShowArrows="@arrows" AutoCycle="false" TData="object">
-        <BulletTemplate Context="selected">
-            <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                <span class="mud-icon-button-label">
-                    <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Inherit" />
-                </span>
-            </div>
-        </BulletTemplate>
-        <ChildContent>
-            @if (Messages == null || Messages.Count() == 0)
+    <MudCard Elevation="25">
+        <div class="bg-gray-300 flex justify-center">
+            @if (MessageIsProcessing)
             {
-                <p class="mt-5 text-lrg text-bold text-center">No Messages found</p>
+                <p class="mt-5 text-lrg text-bold text-center">Processing...</p>
             }
             else
             {
-                @for (int i = Messages.Count() - 2; i >= 0; i -= 2)
-                {
-                    var prompt = Messages[i];
-                    var response = Messages[i + 1];
-                    var messageNumber = (Messages.Count() - i) / 2;
 
-                    <MudCarouselItem Transition="Transition.Fade" Class="flex flex-col">
-                        <div class="bg-gray-300">
-                            @if (MessageIsProcessing)
-                            {
-                                <p class="mt-5 text-lrg text-bold text-center">Processing...</p>
-                            }
-                            else
-                            {
-                                <MudCardHeader>
-                                    <CardHeaderAvatar>
-                                        <MudAvatar Color="Color.Primary">U</MudAvatar>
-                                    </CardHeaderAvatar>
-                                    <CardHeaderContent>
-                                        @if (prompt != null)
-                                        {
-                                            <div class="mr-10 h-15 p-5 overflow-x-auto overflow-y-hidden">
-                                                <div class="flex items-center">
-                                                    <div class="flex-shrink-0">
-                                                        <MudText Typo="Typo.h6" class="whitespace-normal">@prompt.Content ?</MudText>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
+                @if (Conversations == null || Conversations.Count() == 0)
+                {
+                    <p class="text-center">No conversations found.</p>
+                }
+                else
+                {
+        <div class="p-4 flex items-center">
+            <MudNavMenu Dense="true" Rounded="true" Margin="Margin.Dense" Color="Color.Secondary" Class="pa-2">
+                <MudNavGroup Title="Conversations" Expanded="false">
+                    @foreach (var conversation in Conversations)
+                    {
+                        <MudNavLink Href="" @onclick="() => NavigateToConversation(conversation.Id)">@conversation.Name</MudNavLink>
+                    }
+
+                </MudNavGroup>
+            </MudNavMenu>
+       
+        </div>
+                }
+
+            }
+        </div>
+
+
+        <MudCarousel Class="mud-width-full" Color="@Color.Primary" Style="height:600px" EnableSwipeGesture="@enableSwipeGesture" ShowBullets="@bullets" ShowArrows="@arrows" AutoCycle="false" TData="object">
+            <ChildContent>
+                @if (Messages == null || Messages.Count() == 0)
+                {
+                    <p class="mt-5 text-lrg text-bold text-center">No Messages found</p>
+                }
+                else
+                {
+                    @for (int i = Messages.Count() - 2; i >= 0; i -= 2)
+                    {
+                        var prompt = Messages[i];
+                        var response = Messages[i + 1];
+                        var messageNumber = (Messages.Count() - i) / 2;
+
+                        <MudCarouselItem Transition="Transition.Fade" Class="flex flex-col">
+                            <div class="bg-white border border-gray-200 shadow-3xl flex items-start justify-center h-screen p-5 overflow-auto">
+                                @if (MessageIsProcessing)
+                                {
+                                    <div class="text-center">
+                                        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <MudCardContent>
                                         <div class="absolute top-0 right-0 bg-indigo-500 text-white rounded-full p-2 text-xs">
                                             @messageNumber
                                         </div>
-                                    </CardHeaderContent>
-                                </MudCardHeader>
-                            }
 
-                        </div>
-                        <div class="bg-gray-100 flex items-start justify-center h-screen p-5 overflow-auto">
-                            @if (MessageIsProcessing)
-                            {
-                                <div class="text-center">
-                                    <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-                                </div>
-                            }
-                            else
-                            {
-                                <MudCardContent>
-                                    <div class="flex items-center">
-                                        <MudAvatar Color="Color.Secondary" Class="mr-5">AI</MudAvatar>
-                                        @if (IsCodeSnippet(@response.Content))
-                                        {
-                                            <div class="bg-white p-10 rounded-md overflow-auto max-w-full text-xlg">
-                                                <pre class="whitespace-pre-wrap"><code>@response.Content</code></pre>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <p class="text-left text-lg">@response.Content</p>
-                                        }
-                                    </div>
-                                    <div class="flex justify-end items-end p-4">
-                                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Default" @onclick="() => DeleteMessagePair(prompt.Id, response?.Id)" />
-                                        @if (prompt.IsFav)
-                                        {
-                                            <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Inherit" @onclick="(() => ToggleFavorite(prompt))" />
-                                        }
-                                        else
-                                        {
-                                            <MudIconButton Icon="@Icons.Material.Outlined.FavoriteBorder" Color="Color.Default" @onclick="(() => ToggleFavorite(prompt))" />
-                                        }
-                                        <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
-                                        <MudIconButton Icon="@Icons.Material.Filled.ContentCopy" Color="Color.Default" />
-                                    </div>
-                                </MudCardContent>
-                            }
-                        </div>
-                    </MudCarouselItem>
+                                        <div class="flex items-center">
+                                            <MudAvatar Color="Color.Secondary" Class="mr-5">AI</MudAvatar>
+                                            @if (IsCodeSnippet(@response.Content))
+                                            {
+                                                <div class="bg-white p-10 rounded-md overflow-auto max-w-full text-xlg">
+                                                    <pre class="whitespace-pre-wrap"><code>@response.Content</code></pre>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <p class="text-left text-lg">@response.Content</p>
+                                            }
+                                        </div>
+                                        <div class="flex justify-end items-end p-4">
+                                            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Default" @onclick="() => DeleteMessagePair(prompt.Id, response?.Id)" />
+                                            @if (prompt.IsFav)
+                                            {
+                                                <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Inherit" @onclick="(() => ToggleFavorite(prompt))" />
+                                            }
+                                            else
+                                            {
+                                                <MudIconButton Icon="@Icons.Material.Outlined.FavoriteBorder" Color="Color.Default" @onclick="(() => ToggleFavorite(prompt))" />
+                                            }
+                                        </div>
+                                    </MudCardContent>
+                                }
+                            </div>
+                        </MudCarouselItem>
+                    }
                 }
-            }
-        </ChildContent>
-    </MudCarousel>
-</MudCard>
-        }
-
-        <div class="w-full md:w-1/2 lg:w-1/2 justify-center text-center mx-auto fixed bottom-0 left-0 right-0 mb-5">
-            <div class="relative">
-                <input type="text" class="w-full px-3 py-2 pr-12 rounded border border-gray-300" placeholder="Enter a new message" @bind="@newMessageContent" />
-                <button class="absolute inset-y-0 right-0 px-4 py-2 bg-gray-600 text-white rounded-r hover:bg-gray-800" @onclick="SendMessage">Send Message</button>
+            </ChildContent>
+            <BulletTemplate Context="selected">
+                <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                    <span class="mud-icon-button-label">
+                        <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Inherit" />
+                    </span>
+                </div>
+            </BulletTemplate>
+        </MudCarousel>
+        <div class="w-full md:w-1/2 lg:w-1/2 border border-gray-400 shadow-2xl rounded justify-center text-center mx-auto fixed bottom-0 left-0 right-0 mb-2">
+            <div class="relative bg-gray-200 flex items-center">
+                <MudTextField @ref="multilineReference" @bind-Value="@newMessageContent" T="string" Label="Enter Your Message" Variant="Variant.Text" Lines="2" />
+                <div class="ml-10 bg-gray-300 rounded">
+                    <MudIconButton Icon="@Icons.Material.Filled.Send" Color="Color.Primary" Size="Size.Large" @onclick="SendMessage" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Large" @onclick="@(() => OpenDrawer(Anchor.Bottom))" />
+                </div>
             </div>
         </div>
+    </MudCard>
+        }
+
+        @*___________________________________Input field_____________________________________*@
+
+        @*<div class="w-full md:w-1/2 lg:w-1/2 border border-gray-200 bg-white shadow-2xl rounded justify-center text-center mx-auto fixed bottom-0 left-0 right-0 mb-5">
+            <div class="relative mt-2 mr-2 ml-2 flex items-center">
+                <MudTextField @ref="multilineReference" @bind-Value="@newMessageContent" T="string" Label="Enter Your Message" Variant="Variant.Text" Lines="2" />
+                <div class="ml-10">
+                    <MudIconButton Icon="@Icons.Material.Filled.Send" Color="Color.Primary" Size="Size.Large" @onclick="SendMessage" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Large" @onclick="@(() => OpenDrawer(Anchor.Bottom))" />
+                </div>
+            </div>
+        </div>*@
+
+        @*_________________________________Drawer___________________________________________*@
+        <div class="w-full md:w-1/2 lg:w-1/2 justify-center text-center mx-auto">
+            <MudDrawer @bind-Open="@open" Anchor="@anchor" Width="100%" Height="75%" Elevation="20" Variant="@DrawerVariant.Temporary">
+                <div class="p-5 bg-gray-100 h-screen">
+                    <MudGrid>
+                        <MudItem xs="12" sm="6">
+                            <div class="w-full mx-auto bg-white text-black shadow-md border-2 border-gray-300 p-4 rounded-lg flex flex-col items-center">
+                                <h1 class="font-display-italic font-extrabold text-2xl italic leading-none mb-1">Conversation List</h1>
+                                <div class="p-4 flex items-center">
+                                    <input type="text" class="w-full px-3 py-2 rounded border border-gray-300" placeholder="Enter a new conversation name" @bind="@newConversationName" />
+                                    <button class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-1 px-2 ml-2 rounded text-sm" @onclick="CreateConversation">create</button>
+                                </div>
+                                @if (IsProcessing)
+                                {
+                                    <div class="mt-4">
+                                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="w-full">
+                                        @if (Conversations == null || Conversations.Count() == 0)
+                                        {
+                                            <p class="text-center">No conversations found.</p>
+                                        }
+                                        else
+                                        {
+                                            <ul class="list-none pl-6">
+                                                @foreach (var conversation in Conversations)
+                                                {
+                                                    <li class="justify-center">
+                                                        @if (conversation.Id != editingConversationId)
+                                                        {
+                                                            @*<a href="/chat/@conversation.Id" class="hover:text-indigo-700 mr-2">@conversation.Name</a>*@
+                                                            <button class="hover:text-indigo-700 mr-2" @onclick="(() => NavigateToConversation(conversation.Id))">@conversation.Name</button>
+
+                                                            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" Size="Size.Small" @onclick="() => StartEditingConversation(conversation.Id)" />
+                                                            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small" @onclick="() => DeleteConversation(conversation.Id)" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="text" class="w-1/2 px-3 py-2 rounded border border-gray-300" @bind="@editingConversationName" />
+                                                            <MudIconButton Icon="@Icons.Material.Filled.Check" Color="Color.Success" Size="Size.Small" @onclick="() => UpdateConversation(conversation.Id)" />
+                                                            <MudIconButton Icon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Small" @onclick="CancelEditingConversation" />
+                                                        }
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </MudItem>
+                        <MudItem xs="12" sm="6">
+                            <div class="w-full mx-auto bg-white text-black shadow-md border-2 border-gray-300 p-4 rounded-lg flex flex-col items-center">
+                                <h1 class="font-display-italic font-extrabold text-2xl italic leading-none mb-1">Prompt Wizard</h1>
+                                <div class="p-4 flex items-center">
+                                    <select id="promptSelect" class="block appearance-none w-1/2 bg-white border border-gray-200 text-gray-700 text-center py-1 px-2 pr-8 rounded leading-tight text-sm focus:outline-none focus:bg-white focus:border-gray-500">
+                                        <option>@Prompt1</option>
+                                        <option>@Prompt2</option>
+                                        <option>@Prompt3</option>
+                                        <option>@Prompt4</option>
+                                    </select>
+                                    <button class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-1 px-2 ml-2 rounded text-sm">submit</button>
+                                </div>
+                            </div>
+
+                        </MudItem>
+                        <MudItem xs="12">
+                            <div class="bg-white shadow-md border-2 border-gray-300 p-4 rounded-lg">
+                                @if (selected != null && selected.Length > 0)
+                                {
+                                    @*<MudText>
+                                        You selected @string.Join(", ", selected.Select(chip => chip.Text)). =>
+                                        <button class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-3 ml-2 rounded" @onclick="SendPromptDrawMessage">submit</button>
+                                    </MudText>*@
+                                    <MudText>
+                                        <ol>
+                                            @foreach (var prompt in selected)
+                                            {
+                                                <li>@prompt.Text</li>
+                                            }
+                                        </ol>
+                                        <button class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-3 ml-2 rounded" @onclick="SendPromptDrawMessage">Submit</button>
+                                    </MudText>
+                                }
+                                else
+                                {
+                                    <MudText>Select your prompts from the list below</MudText>
+                                }
+                            </div>
+                            <div class="bg-white shadow-md border-2 border-gray-300 p-4 rounded-lg">
+                                <MudChipSet @bind-SelectedChips="selected" MultiSelection="true" Filter="true">
+                                    <MudChip Text="Writing in a Conversational Tone"></MudChip>
+                                    <MudChip Text="Writing with Authority"></MudChip>
+                                    <MudChip Text="Using Storytelling to Connect with Readers"></MudChip>
+                                    <MudChip Text="Creating a Sense of Urgency"></MudChip>
+                                    <MudChip Text="Writing with Empathy"></MudChip>
+                                    <MudChip Text="Using Humor in Writing"></MudChip>
+                                    <MudChip Text="Writing for a Specific Audience"></MudChip>
+                                    <MudChip Text="Writing at a college level" Color="Color.Primary"></MudChip>
+                                    <MudChip Text="Writing at a Master's/Professor Level" Color="Color.Primary"></MudChip>
+                                    <MudChip Text="Writing in the first person" Color="Color.Secondary"></MudChip>
+                                    <MudChip Text="Writing in the Thrid Person" Color="Color.Secondary"></MudChip>
+                                    <MudChip Text="Writing for C# Developers: Tips, Tutorials, and Best Practices" Color="Color.Success"></MudChip>
+                                    <MudChip Text="Writing for Parents: Engaging and Informative Content" Color="Color.Success"></MudChip>
+                                    <MudChip Text="Writing for Young Adults: Relatable and Inspirational Topics" Color="Color.Success"></MudChip>
+                                    <MudChip Text="Writing for Professionals: Expert Advice and Industry Insights" Color="Color.Success"></MudChip>
+                                    <MudChip Text="Writing for Seniors: Practical Tips and Resources for Later Life" Color="Color.Success"></MudChip>
+                                    <MudChip Text="Writing for Students: Study Tips and Academic Guidance" Color="Color.Success"></MudChip>
+                                    <MudChip Text="Writing for Health Enthusiasts: Wellness Tips and Lifestyle Advice" Color="Color.Success"></MudChip>
+                                    <MudChip Text="Writing for Tech Geeks: Latest Trends and Product Reviews" Color="Color.Success"></MudChip>
+                                    <MudChip Text="Writing for Travelers: Destination Guides and Adventure Stories" Color="Color.Success"></MudChip>
+                                </MudChipSet>
+                            </div>
+                        </MudItem>
+                    </MudGrid>
+                </div>
+
+            </MudDrawer>
+        </div>
+        @*_________________________________end Drawer______________________________________*@
     </div>
 </div>
 
+
 @code {
+    //hardcoded for testing
+    int clientId = 3;
+    [Parameter]
+    public int ConversationId { get; set; }
+
+    private List<MessageDTO> Messages { get; set; } = new List<MessageDTO>();
+    private IEnumerable<ConversationDTO> Conversations { get; set; } = new List<ConversationDTO>();
+    string newConversationName = string.Empty;
+    int editingConversationId = -1;
+    string editingConversationName = string.Empty;
+
+    string newMessageContent = string.Empty;
+    private MudTextField<string> multilineReference;
+
     public bool IsProcessing { get; set; } = false;
     public bool MessageIsProcessing { get; set; } = false;
-    // Hard-coded user ID for testing purposes
-    int userId = 3;
-    private List<MessageDTO> Messages { get; set; } = new List<MessageDTO>();
-    string newMessageContent = string.Empty;
-    [Parameter] public int ConversationId { get; set; }
+
+    //Carusel_______________________________________________________________________________________________________________
+    private bool arrows = false;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = false;
+    private Transition transition = Transition.Slide;
+
+    MudChip[] selected;
+    bool open;
+    Anchor anchor;
+    private string selectedPrompt;
+    private string Prompt1 = "Blog writer";
+    private string Prompt2 = "C# Code wiz kid";
+    private string Prompt3 = "Email Boss";
+    private string Prompt4 = "Social media Blaster";
+
+    //Start Methods_______________________________________________________________________________________________________________
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        await LoadMessages();
+        await LoadConversations();
+        IsProcessing = false;
+        if (ConversationId == 0)
+        {
+            OpenDrawer(Anchor.Bottom);
+        }
+    }
+
+    private async Task LoadMessages()
+    {
+
+        Messages = (await _messageRepository.GetAllByConversationId(ConversationId)).ToList();
+    }
+
+    private async Task LoadConversations()
+    {
+        Conversations = await _conversationRepository.GetAllByClientId(clientId);
+    }
+
+    //Helper Methods_______________________________________________________________________________________________________________
+
+    void OpenDrawer(Anchor anchor)
+    {
+        open = true;
+        this.anchor = anchor;
+    }
+
 
     bool IsCodeSnippet(string text)
     {
         // This is a simple example, you might need a more complex logic depending on your use case
         return text.Contains("<") && text.Contains(">");
     }
+
     private async Task ToggleFavorite(MessageDTO message)
     {
         var success = await _messageRepository.ToggleFavorite(message.Id);
@@ -149,32 +353,20 @@
         }
     }
 
-    private bool arrows = false;
-    private bool bullets = true;
-    private bool enableSwipeGesture = true;
-    private bool autocycle = false;
-    private Transition transition = Transition.Slide;
-
-    protected override async Task OnInitializedAsync()
+    void NavigateToConversation(int conversationId)
     {
-        await LoadMessages();
+        _navigationManager.NavigateTo($"/redirect/{conversationId}", true);
     }
 
-    private async Task LoadMessages()
-    {
-        IsProcessing = true;
-
-        // Load the latest messages
-        Messages = (await _messageRepository.GetAllByConversationId(ConversationId)).ToList();
-
-        IsProcessing = false;
-    }
+    // send Message methods_______________________________________________________________________________________________________________
 
     private async Task SendMessage()
     {
         if (!string.IsNullOrWhiteSpace(newMessageContent))
         {
             MessageIsProcessing = true;
+
+            await CleanUpMessages();
 
             var newMessage = new MessageDTO
             {
@@ -189,7 +381,8 @@
 
             try
             {
-                var responseMessage = await _openAIApiService.SendMessageAsync(Messages, newMessage.Content);
+
+                var responseMessage = await _openAIApiService.SendMessageAsync(ConversationId, newMessage.Content);
 
                 var responseMessageDto = new MessageDTO
                 {
@@ -200,11 +393,6 @@
                 };
 
                 await _messageRepository.Create(responseMessageDto);
-                // Purge old messages first
-                await _messageRepository.PurgeMessages(ConversationId);
-
-                // Delete messages with default responses and prompts
-                await _messageRepository.DeleteMessagesWithDefaultResponseAndPrompts(ConversationId);
 
                 await LoadMessages(); // Refresh the Messages list
 
@@ -212,8 +400,6 @@
 
                 // Reload the page
                 StateHasChanged();
-
-                //_navigationManager.NavigateTo(_navigationManager.Uri, forceLoad: true);
             }
             catch (HttpRequestException)
             {
@@ -221,6 +407,99 @@
                 snackBar.Add("An error occurred. Please try again.", Severity.Error);
             }
         }
+    }
+
+    private async Task SendPromptDrawMessage()
+    {
+        if (selected != null && selected.Length > 0)
+        {
+            MessageIsProcessing = true;
+
+            // Combine all selected chip texts into one string
+            //var chipMessageText = string.Join(", ", selected.Select(chip => chip.Text));
+            var chipMessageText = $"Instructions for our conversation: {string.Join(", ", selected.Select(chip => chip.Text))}. Please keep these topics in mind during our discussion. Feel free to provide insights, ask questions, or share examples related to these areas.";
+
+            var chipMessage = new MessageDTO
+            {
+                Content = chipMessageText,
+                ConversationId = ConversationId,
+                IsUserMessage = true, // Set as user message
+                IsFav = true, // Mark this message as a favorite
+                Timestamp = DateTime.UtcNow
+            };
+
+            // Send this message to the AI
+            await _messageRepository.Create(chipMessage);
+
+            try
+            {
+                // Get the response from the AI
+                var responseMessage = await _openAIApiService.SendMessageAsync(ConversationId, chipMessage.Content);
+
+                var responseMessageDto = new MessageDTO
+                {
+                    Content = responseMessage,
+                    ConversationId = ConversationId,
+                    IsUserMessage = false, // Set as AI message
+                    Timestamp = DateTime.UtcNow
+                };
+
+                // Save the AI response
+                await _messageRepository.Create(responseMessageDto);
+
+                // Refresh the Messages list
+                await LoadMessages();
+
+                MessageIsProcessing = false;
+
+                // Reload the page
+                StateHasChanged();
+            }
+            catch (HttpRequestException)
+            {
+                // Handle the error condition
+                snackBar.Add("An error occurred. Please try again.", Severity.Error);
+            }
+        }
+    }
+
+    private async Task SendDefaultMessage(int conversationId)
+    {
+        IsProcessing = true;
+        var conversation = Conversations.FirstOrDefault(c => c.Id == conversationId);
+        var defaultMessage = new MessageDTO
+        {
+            Content = $"Begin conversation: '{newConversationName}'. Task: generate short, helpful prompts related to the topic for exploration. Objective: deep understanding through meaningful discussion.",
+            ConversationId = conversationId,
+            IsUserMessage = true,
+            Timestamp = DateTime.UtcNow
+        };
+
+        await _messageRepository.Create(defaultMessage);
+
+        var responseMessage = await _openAIApiService.SendMessageAsync(conversationId, defaultMessage.Content);
+
+        var responseMessageDto = new MessageDTO
+        {
+            Content = responseMessage,
+            ConversationId = conversationId,
+            IsUserMessage = false,
+            Timestamp = DateTime.UtcNow
+        };
+
+        await _messageRepository.Create(responseMessageDto);
+
+        await LoadMessages(); // Refresh the Messages list
+
+        IsProcessing = false;
+
+        NavigateToConversation(conversationId);
+    }
+
+    private async Task CleanUpMessages()
+    {
+        await _messageRepository.PurgeMessages(ConversationId);
+        await _messageRepository.DeleteMessagesWithDefaultResponseAndPrompts(ConversationId);
     }
 
     private async Task DeleteMessagePair(int promptId, int? answerId)
@@ -253,5 +532,100 @@
             }
         }
     }
+
+    //Conversation_______________________________________________________________________________________________________________
+
+    private async Task CreateConversation()
+    {
+        if (!string.IsNullOrWhiteSpace(newConversationName))
+        {
+            // Check if conversation with the same name already exists
+            if (Conversations.Any(c => c.Name == newConversationName))
+            {
+                snackBar.Add("Conversation with the same name already exists.", Severity.Error);
+                return;
+            }
+
+            // Start the spinner
+            IsProcessing = true;
+
+            var newConversation = new ConversationDTO
+            {
+                Name = newConversationName,
+                ClientId = clientId
+            };
+
+            var createdConversation = await _conversationRepository.Create(newConversation);
+
+            // Send default message
+            await SendDefaultMessage(createdConversation.Id);
+
+            Conversations = await _conversationRepository.GetAllByClientId(clientId);
+
+            newConversationName = string.Empty;
+            snackBar.Add("Conversation created successfully.", Severity.Success);
+
+            // Stop the spinner
+            IsProcessing = false;
+        }
+        else
+        {
+            snackBar.Add("Conversation name cannot be empty.", Severity.Error);
+        }
+    }
+
+    private void StartEditingConversation(int conversationId)
+    {
+        editingConversationId = conversationId;
+        var conversation = Conversations.FirstOrDefault(c => c.Id == conversationId);
+        if (conversation != null)
+        {
+            editingConversationName = conversation.Name;
+        }
+    }
+
+    private void CancelEditingConversation()
+    {
+        editingConversationId = -1;
+        editingConversationName = string.Empty;
+    }
+
+    private async Task UpdateConversation(int conversationId)
+    {
+        if (!string.IsNullOrWhiteSpace(editingConversationName))
+        {
+            var conversation = Conversations.FirstOrDefault(c => c.Id == conversationId);
+            if (conversation != null)
+            {
+                conversation.Name = editingConversationName;
+                await _conversationRepository.Update(conversation);
+                snackBar.Add("Conversation Updated successfully.", Severity.Success);
+            }
+            else
+            {
+                snackBar.Add("Failed to update conversation.", Severity.Error);
+            }
+
+            editingConversationId = -1;
+            editingConversationName = string.Empty;
+        }
+    }
+
+    private async Task DeleteConversation(int conversationId)
+    {
+        var result = await _conversationRepository.Delete(conversationId);
+
+        if (result > 0) // if conversation was deleted
+        {
+            Conversations = await _conversationRepository.GetAllByClientId(clientId);
+            snackBar.Add("Conversation deleted successfully.", Severity.Success);
+        }
+        else
+        {
+            snackBar.Add("Failed to delete conversation.", Severity.Error);
+        }
+    }
+
+
 }
 
