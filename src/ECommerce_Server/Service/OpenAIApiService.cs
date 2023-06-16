@@ -1,6 +1,10 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using Internal;
+using System.Threading.Tasks;
+using Microsoft.DotNet.MSIdentity.Shared;
 using SharedServices.Data;
 using SharedServices.Models;
 using SharedServices.Repository;
@@ -12,10 +16,9 @@ namespace ECommerce_Server.Service
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
-        private readonly IMessageRepository _messageRepository;
+        private readonly IConversationRepository _conversationRepository;
 
-
-        public OpenAIApiService(HttpClient httpClient, IConfiguration configuration, IMessageRepository messageRepository) // Modify this line
+        public OpenAIApiService(HttpClient httpClient, IConfiguration configuration, IConversationRepository conversationRepository)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri("https://api.openai.com/");
@@ -25,80 +28,83 @@ namespace ECommerce_Server.Service
             _apiKey = configuration["APIKeys:MyChatGPTAPI"];
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
 
-            _messageRepository = messageRepository;
-
+            _conversationRepository = conversationRepository;
         }
 
         public async Task<string> SendMessageAsync(int conversationId, string prompt)
         {
             try
             {
-                //var messagesForApiRequest = await _messageRepository.GetMessagesForApiRequest(conversationId);
-
-                //var messages = new List<object>(messagesForApiRequest);
-
-                //messages.Add(new
-                //{
-                //    role = "user",
-                //    content = prompt
-                //});
-                var messagesForApiRequest = await _messageRepository.GetMessagesForApiRequest(conversationId);
-
-                var messages = messagesForApiRequest.Append(new
+                var conversation = await _conversationRepository.Get(conversationId);
+                if (conversation == null)
                 {
-                    role = "user",
-                    content = prompt
-                });
+                    Console.WriteLine("Conversation not found.");
+                    return CreateDefaultResponse();
+                }
 
+                // Use conversation.Context as the message context
+                var conversationContext = conversation.Context ?? string.Empty;
 
-                var messagesJson = JsonSerializer.Serialize(messages);
+                // Use the SystemMessage from the conversation or a default message if it's null or empty
+                var systemContext = !string.IsNullOrEmpty(conversation.SystemMessage)
+                    ? conversation.SystemMessage
+                    : "You are an AI language model trained to assist with rewriting or creating emails, blogs, and similar content. Please provide me with the text you'd like me to work on.";
 
-            Console.WriteLine("Messages sent to API: " + messagesJson);
-            Console.WriteLine("Prompt sent to API: " + prompt);  //for development
-
-            var requestBody = new
+                var messages = new List<object>
+        {
+            new
             {
-                model = "gpt-3.5-turbo",
-                messages,
-                temperature = 0.4,
-                max_tokens = 2400,
-            };
-
-            var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
-
-            var response = await _httpClient.PostAsync("v1/chat/completions", content);
-
-            if (!response.IsSuccessStatusCode)
+                role = "system",
+                content = systemContext
+            },
+            new
             {
-                    await _messageRepository.PurgeMessages(conversationId);
-                    await _messageRepository.DeleteMessagesWithDefaultResponseAndPrompts(conversationId);
-
-                    Console.WriteLine($"API request failed with status code: {response.StatusCode}");
-                // Create and return a default response
-                return CreateDefaultResponse();
+                role = "user",
+                content = conversationContext
             }
+        };
 
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(jsonResponse); // Log the full API response to the console
+                var requestBody = new
+                {
+                    model = "gpt-3.5-turbo-16k",
+                    messages,
+                    temperature = 0.4,
+                    max_tokens = 8150,   //max out at 8150 tokens
+                };
 
-            var result = JsonDocument.Parse(jsonResponse).RootElement.GetProperty("choices")[0].GetProperty("message").GetProperty("content").GetString();
+                var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
 
-            return result;
+                var response = await _httpClient.PostAsync("v1/chat/completions", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"API request failed with status code: {response.StatusCode}");
+                    return CreateDefaultResponse();
+                }
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                var parsedResponse = JsonDocument.Parse(jsonResponse);
+                var result = parsedResponse.RootElement.GetProperty("choices")[0].GetProperty("message").GetProperty("content").GetString();
+                var tokenCount = parsedResponse.RootElement.GetProperty("usage").GetProperty("total_tokens").GetInt32();
+
+                Console.WriteLine($">>>>>>>>>>>>>>>>System Context: {systemContext}<<<<<<<<<<<<<<<<<");
+                Console.WriteLine($">>>>>>>>>>>>>>Sent context: {conversationContext} <<<<<<<<<<>>>>>>>>>>with token count: {tokenCount}<<<<<<<<<<<<<<<<<<");
+                Console.WriteLine($">>>>>>>>>>>>>>>>Received response: {result}<<<<<<<<<<<<<<<<<");
+
+                return result;
             }
             catch (HttpRequestException ex)
             {
                 Console.WriteLine($"API request failed with error: {ex.Message}");
-                // Handle the error and return a default response
                 return CreateDefaultResponse();
             }
         }
 
         private string CreateDefaultResponse()
         {
-            // Create a default response message
-            return "I'm sorry, I couldn't provide a response at the moment, if the problem persist Please try again with a shorter message";
+            return "I'm sorry, I couldn't provide a response at the moment, please try again";
         }
-
     }
 }
 

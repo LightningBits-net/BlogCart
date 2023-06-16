@@ -15,6 +15,8 @@ namespace SharedServices.Repository.IRepository
 
             Task<ConversationDTO> GetByName(string name);
             Task<IEnumerable<ConversationDTO>> GetAllByClientId(int clientId);
-        }
+            Task<ConversationDTO> GetAndUpdateContext(int id);
+
+    }
 }
 

@@ -12,7 +12,8 @@ namespace SharedServices.Data
         public int Id { get; set; }
         public int ClientId { get; set; }
         public string Name { get; set; }
-        public string? Context { get; set; } 
+        public string? Context { get; set; }
+        public string? SystemMessage { get; set; }
 
         [ForeignKey("ClientId")]
         public Client Client { get; set; } 

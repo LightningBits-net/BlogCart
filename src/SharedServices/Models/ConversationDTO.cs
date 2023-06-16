@@ -10,7 +10,8 @@ namespace SharedServices.Models
         public int Id { get; set; }
         public int ClientId { get; set; }
         public string Name { get; set; }
-        public string? Context { get; set; } 
+        public string? Context { get; set; }
+        public string? SystemMessage { get; set; }
 
         public Client Client { get; set; } 
 

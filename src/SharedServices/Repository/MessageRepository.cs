@@ -34,7 +34,6 @@ namespace SharedServices.Repository
                 var nonFavMessages = await _db.Messages
                     .Where(m => m.ConversationId == conversationId && !m.IsFav)
                     .OrderBy(m => m.Timestamp)
-                    .Take(20 - favMessages.Count)
                     .ToListAsync();
 
                 var messages = favMessages.Concat(nonFavMessages).OrderBy(m => m.Timestamp);
@@ -48,39 +47,39 @@ namespace SharedServices.Repository
             }
         }
 
-        public async Task<IEnumerable<object>> GetMessagesForApiRequest(int conversationId)
-        {
-            var conversation = await _db.Conversations
-                .Include(c => c.Messages)
-                .FirstOrDefaultAsync(c => c.Id == conversationId);
+        //public async Task<IEnumerable<object>> GetMessagesForApiRequest(int conversationId)
+        //{
+        //    var conversation = await _db.Conversations
+        //        .Include(c => c.Messages)
+        //        .FirstOrDefaultAsync(c => c.Id == conversationId);
 
-            if (conversation == null)
-            {
-                return Enumerable.Empty<object>();
-            }
+        //    if (conversation == null)
+        //    {
+        //        return Enumerable.Empty<object>();
+        //    }
 
-            var favMessages = conversation.Messages
-                .Where(message => message.IsFav)
-                .OrderByDescending(message => message.Timestamp)
-                .Take(6)
-                .Select(message => new
-                {
-                    role = message.IsUserMessage ? "user" : "assistant",
-                    content = message.Content
-                });
+        //    var favMessages = conversation.Messages
+        //        .Where(message => message.IsFav)
+        //        .OrderByDescending(message => message.Timestamp)
+        //        .Take(6)
+        //        .Select(message => new
+        //        {
+        //            role = message.IsUserMessage ? "user" : "assistant",
+        //            content = message.Content
+        //        });
 
-            var recentNonFavMessages = conversation.Messages
-                .Where(message => !message.IsFav)
-                .OrderByDescending(message => message.Timestamp)
-                .Take(6)
-                .Select(message => new
-                {
-                    role = message.IsUserMessage ? "user" : "assistant",
-                    content = message.Content
-                });
+        //    var recentNonFavMessages = conversation.Messages
+        //        .Where(message => !message.IsFav)
+        //        .OrderByDescending(message => message.Timestamp)
+        //        .Take(6)
+        //        .Select(message => new
+        //        {
+        //            role = message.IsUserMessage ? "user" : "assistant",
+        //            content = message.Content
+        //        });
 
-            return favMessages.Concat(recentNonFavMessages);
-        }
+        //    return favMessages.Concat(recentNonFavMessages);
+        //}
 
 
         public async Task<MessageDTO> Create(MessageDTO objDTO)
@@ -88,7 +87,6 @@ namespace SharedServices.Repository
             try
             {
                 // Delete messages with the default response and their prompts
-                await DeleteMessagesWithDefaultResponseAndPrompts(objDTO.ConversationId);
 
                 var obj = _mapper.Map<MessageDTO, Message>(objDTO);
                 obj.Timestamp = DateTime.UtcNow;
@@ -186,75 +184,6 @@ namespace SharedServices.Repository
             {
                 Console.WriteLine($"Exception in MessageRepository.Update: {ex.Message}");
                 return null;
-            }
-        }
-
-        public async Task PurgeMessages(int conversationId)
-        {
-            const int maxFavoriteMessageCount = 10;
-            const int maxNonFavoriteMessageCount = 10;
-
-            try
-            {
-                var conversation = await _db.Conversations
-                    .Include(c => c.Messages)
-                    .FirstOrDefaultAsync(c => c.Id == conversationId);
-
-                if (conversation != null)
-                {
-                    var favoriteMessages = conversation.Messages.Where(m => m.IsFav).ToList();
-                    var nonFavoriteMessages = conversation.Messages.Where(m => !m.IsFav).ToList();
-
-                    if (favoriteMessages.Count > maxFavoriteMessageCount)
-                    {
-                        var favoriteMessagesToDelete = favoriteMessages
-                            .OrderByDescending(m => m.Timestamp)
-                            .Skip(maxFavoriteMessageCount)
-                            .ToList();
-
-                        _db.Messages.RemoveRange(favoriteMessagesToDelete);
-                    }
-
-                    if (nonFavoriteMessages.Count > maxNonFavoriteMessageCount)
-                    {
-                        var nonFavoriteMessagesToDelete = nonFavoriteMessages
-                            .OrderByDescending(m => m.Timestamp)
-                            .Skip(maxNonFavoriteMessageCount)
-                            .ToList();
-
-                        _db.Messages.RemoveRange(nonFavoriteMessagesToDelete);
-                    }
-
-                    await _db.SaveChangesAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Exception in MessageRepository.PurgeMessages: {ex.Message}");
-                // Handle the exception or log an error message as needed
-            }
-        }
-
-        public async Task DeleteMessagesWithDefaultResponseAndPrompts(int conversationId)
-        {
-            var defaultResponse = "I'm sorry, I couldn't provide a response at the moment.";
-            var errorMessage = "Error: The message is too long and exceeds the token limit.";
-
-            var messagesWithSpecificContent = await _db.Messages
-                .Where(m => m.ConversationId == conversationId && (m.Content == defaultResponse || m.Content == errorMessage))
-                .OrderByDescending(m => m.Id)
-                .ToListAsync();
-
-            foreach (var message in messagesWithSpecificContent)
-            {
-                var precedingMessageId = message.Id - 1;
-
-                var messagesToDelete = await _db.Messages
-                    .Where(m => m.ConversationId == conversationId && (m.Id == message.Id || m.Id == precedingMessageId))
-                    .ToListAsync();
-
-                _db.Messages.RemoveRange(messagesToDelete);
-                await _db.SaveChangesAsync();
             }
         }
     }
