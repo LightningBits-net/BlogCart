@@ -51,24 +51,24 @@ namespace ECommerce_Server.Service
                     : "You are an AI language model trained to assist with rewriting or creating emails, blogs, and similar content. Please provide me with the text you'd like me to work on.";
 
                 var messages = new List<object>
-        {
-            new
-            {
-                role = "system",
-                content = systemContext
-            },
-            new
-            {
-                role = "user",
-                content = conversationContext
-            }
-        };
+                {
+                    new
+                    {
+                        role = "system",
+                        content = systemContext
+                    },
+                    new
+                    {
+                        role = "user",
+                        content = conversationContext
+                    }
+                };
 
                 var requestBody = new
                 {
                     model = "gpt-3.5-turbo-16k",
                     messages,
-                    temperature = 0.4,
+                    temperature = 0.6,
                     max_tokens = 8150,   //max out at 8150 tokens
                 };
 

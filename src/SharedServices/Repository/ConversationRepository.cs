@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -106,66 +107,40 @@ namespace SharedServices.Repository
         {
             try
             {
+                const int MaxLength = 24450; // adjust to your needs every 4 = appox 1 token
                 var conversation = await _db.Conversations
                     .Include(c => c.Messages)
                     .FirstOrDefaultAsync(c => c.Id == id);
 
                 if (conversation != null)
                 {
-                    var favMessages = conversation.Messages
-                        .Where(message => message.IsFav)
+                    var recentMessages = conversation.Messages
                         .OrderByDescending(message => message.Timestamp)
-                         .Take(6)
-                        .Select(message => new
-                        {
-                            role = message.IsUserMessage ? "user" : "assistant",
-                            content = message.Content
-                        });
+                        .Take(20)
+                        .ToList();
 
-                    var recentNonFavMessages = conversation.Messages
-                        .Where(message => !message.IsFav)
-                        .OrderByDescending(message => message.Timestamp)
-                         .Take(6)
-                        .Select(message => new
-                        {
-                            role = message.IsUserMessage ? "user" : "assistant",
-                            content = message.Content
-                        });
+                    // Reverse the order of the messages to chronological
+                    recentMessages.Reverse();
 
-                    var updatedContext = recentNonFavMessages.Concat(favMessages);
-
-                    // Convert the updatedContext to string
-                    var updatedContextString = JsonSerializer.Serialize(updatedContext);
-
-                    // Check if the string length exceeds 6000 characters
-                    if (updatedContextString.Length > 18000)
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var message in recentMessages)
                     {
-                        // Split the string into individual data sets
-                        var datasets = updatedContext.Select(item => JsonSerializer.Serialize(item));
-
-                        // Calculate the total character count
-                        var totalCharacterCount = updatedContext.Sum(item => JsonSerializer.Serialize(item).Length);
-
-                        // Initialize a variable to keep track of the current character count
-                        var currentCharacterCount = 0;
-
-                        // Iterate over the datasets and remove the first ones until the character count is below 6000
-                        foreach (var dataset in datasets)
-                        {
-                            currentCharacterCount += dataset.Length;
-
-                            if (currentCharacterCount > 18000)
-                            {
-                                break;
-                            }
-
-                            // Remove the dataset from the updatedContextString
-                            updatedContextString = updatedContextString.Replace(dataset, "");
-                        }
+                        string role = message.IsUserMessage ? "User: " : "Assistant: ";
+                        sb.Append(role + message.Content + "\n");
                     }
 
-                    // Assign the updatedContextString to conversation context
-                    conversation.Context = updatedContextString;
+                    // Check length
+                    while (sb.Length > MaxLength)
+                    {
+                        // Remove oldest message
+                        int firstNewlineIndex = sb.ToString().IndexOf("\n");
+                        sb.Remove(0, firstNewlineIndex + 1);
+
+                        // Console message
+                        Console.WriteLine($"_________________________Warning: Maximum token limit reached. Oldest message removed from context._______________________");
+                    }
+
+                    conversation.Context = sb.ToString();
 
                     _db.Conversations.Update(conversation);
                     await _db.SaveChangesAsync();
