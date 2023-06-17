@@ -47,47 +47,10 @@ namespace SharedServices.Repository
             }
         }
 
-        //public async Task<IEnumerable<object>> GetMessagesForApiRequest(int conversationId)
-        //{
-        //    var conversation = await _db.Conversations
-        //        .Include(c => c.Messages)
-        //        .FirstOrDefaultAsync(c => c.Id == conversationId);
-
-        //    if (conversation == null)
-        //    {
-        //        return Enumerable.Empty<object>();
-        //    }
-
-        //    var favMessages = conversation.Messages
-        //        .Where(message => message.IsFav)
-        //        .OrderByDescending(message => message.Timestamp)
-        //        .Take(6)
-        //        .Select(message => new
-        //        {
-        //            role = message.IsUserMessage ? "user" : "assistant",
-        //            content = message.Content
-        //        });
-
-        //    var recentNonFavMessages = conversation.Messages
-        //        .Where(message => !message.IsFav)
-        //        .OrderByDescending(message => message.Timestamp)
-        //        .Take(6)
-        //        .Select(message => new
-        //        {
-        //            role = message.IsUserMessage ? "user" : "assistant",
-        //            content = message.Content
-        //        });
-
-        //    return favMessages.Concat(recentNonFavMessages);
-        //}
-
-
         public async Task<MessageDTO> Create(MessageDTO objDTO)
         {
             try
             {
-                // Delete messages with the default response and their prompts
-
                 var obj = _mapper.Map<MessageDTO, Message>(objDTO);
                 obj.Timestamp = DateTime.UtcNow;
                 obj.IsUserMessage = objDTO.IsUserMessage;
@@ -129,38 +92,6 @@ namespace SharedServices.Repository
             }
         }
 
-        public async Task<bool> ToggleFavorite(int id)
-        {
-            try
-            {
-                var message = await _db.Messages.FirstOrDefaultAsync(m => m.Id == id);
-                if (message != null)
-                {
-                    message.IsFav = !message.IsFav;
-                    _db.Messages.Update(message);
-
-                    var followingMessage = await _db.Messages
-                        .FirstOrDefaultAsync(m => m.ConversationId == message.ConversationId && m.Id == id + 1);
-
-                    if (followingMessage != null)
-                    {
-                        followingMessage.IsFav = !followingMessage.IsFav;
-                        _db.Messages.Update(followingMessage);
-                    }
-
-                    await _db.SaveChangesAsync();
-                    return true;
-                }
-
-                return false;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Exception in MessageRepository.ToggleFavorite: {ex.Message}");
-                return false;
-            }
-        }
-
         public async Task<MessageDTO> Update(MessageDTO objDTO)
         {
             try
@@ -186,5 +117,29 @@ namespace SharedServices.Repository
                 return null;
             }
         }
+
+        public async Task<bool> ToggleFavorite(int id)
+        {
+            try
+            {
+                var message = await _db.Messages.FirstOrDefaultAsync(m => m.Id == id && !m.IsUserMessage);
+                if (message != null)
+                {
+                    message.IsFav = !message.IsFav;
+                    _db.Messages.Update(message);
+
+                    await _db.SaveChangesAsync();
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in MessageRepository.ToggleFavorite: {ex.Message}");
+                return false;
+            }
+        }
+
     }
 }
