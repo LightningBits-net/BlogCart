@@ -1,4 +1,19 @@
 ﻿@page "/gluisi"
+@inject NavigationManager _navigationManager
+
+<HeadContent>
+    <meta name="description" content="@Description" />
+    <meta property="og:title" content="@Title" />
+    <meta property="og:description" content="@Description" />
+    <meta property="og:image" content="@ImageUrl" />
+    <meta name="twitter:title" content="@Title" />
+    <meta name="twitter:description" content="@Description" />
+    <meta name="twitter:image" content="@ImageUrl" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@(_navigationManager.Uri)" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="@(_navigationManager.Uri)" />
+</HeadContent>
 
 <PageTitle>G. Luisi</PageTitle>
 
@@ -122,3 +137,8 @@
 
 <_Footer></_Footer>
 
+@code {
+    private string Title = "GLuisi.com: Comprehensive Insurance and Accounting Services";
+    private string Description = "At GLuisi.com, we secure your future with all-encompassing insurance and accounting solutions. Embrace financial security and prosperity with our tailor-made services designed to meet your unique needs.";
+    private string ImageUrl = "/gluisi/img/bigglogo.png";
+}

@@ -32,10 +32,6 @@ namespace BlogCart.Service
                 return typeof(GLuisiLayout);
             }
 
-
-
-
-
             //development change return to set path
             else if (domain == "localhost:7099") 
             {

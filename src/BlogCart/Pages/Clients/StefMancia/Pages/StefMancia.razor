@@ -1,4 +1,19 @@
 ﻿@page "/stefmancia"
+@inject NavigationManager _navigationManager
+
+<HeadContent>
+    <meta name="description" content="@Description" />
+    <meta property="og:title" content="@Title" />
+    <meta property="og:description" content="@Description" />
+    <meta property="og:image" content="@ImageUrl" />
+    <meta name="twitter:title" content="@Title" />
+    <meta name="twitter:description" content="@Description" />
+    <meta name="twitter:image" content="@ImageUrl" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@(_navigationManager.Uri)" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="@(_navigationManager.Uri)" />
+</HeadContent>
 
 <PageTitle>Stef Mancia</PageTitle>
 <section class="relative min-h-screen bg-[url(https://images.unsplash.com/photo-1628181080699-0f81c68d9934?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)] bg-cover bg-center bg-no-repeat">
@@ -25,3 +40,8 @@
     </div>
 </section>
 
+@code {
+    private string Title = "Stefania Mancia: Expert Medical Writer and Researcher";
+    private string Description = "Delve into the world of medical writing with Stefania Mancia. With an extensive portfolio of published articles and research papers in prestigious journals, explore the diverse range of topics she's covered. Gain insights from her writings that beautifully amalgamate academic rigor and medical knowledge.";
+    private string ImageUrl = "/stefmancia/img/profile.jpg";
+}
