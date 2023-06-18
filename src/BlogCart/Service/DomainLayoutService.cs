@@ -36,7 +36,6 @@ namespace BlogCart.Service
 
 
 
-
             //development change return to set path
             else if (domain == "localhost:7099") 
             {
