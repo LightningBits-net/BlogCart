@@ -2,9 +2,9 @@
 @inject MudBlazor.ISnackbar snackBar
 
 <MudDrawer @bind-Open="SideBarOpen" Width="400px" Elevation="10">
-        <div class="justify-center text-center text-bold">
-            <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top: 15px; text-align: center;">G. Luisi</MudText>
-        </div>
+    <div class="justify-center text-center text-bold">
+        <MudText Typo="Typo.h5" Color="Color.Default" Style="margin-top: 15px; text-align: center;">G. Luisi</MudText>
+    </div>
     <MudDivider DividerType="DividerType.Middle" Class="my-6" />
     <div class="w-full max-w-xs mx-auto">
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -40,7 +40,9 @@
             </div>
         </form>
     </div>
-    <div class="text-center mt-5">your logo here</div>
+    <div class="text-center mt-15">
+        <img src="/gluisi/img/bigglogo.png" alt="Your Logo" class="mx-auto w-24 h-24 rounded ">
+    </div>
     <div class="absolute bottom-0 left-0 right-0 p-4 flex justify-center">
         <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-800 hover:text-gray-900  hover:bg-gray-300 transition duration-300" @onclick="() => SideBarOpen = false">Close</button>
     </div>

@@ -20,66 +20,77 @@
             </a>
         </div>
         <ul class="mt-4 max-h-96 pl-2 pr-2 overflow-y-auto">
-            <li class="py-2">
-                <button class="w-full py-2 hover:bg-gray-600  hover:text-white">
-                    "Title 1: An Overview of Medical Writing"
-                </button>
-            </li>
-            <li class="py-2">
-                <button class="w-full py-2 hover:bg-gray-600  hover:text-white">
-                    "Title 2: The Role of a Medical Writer in Pharmaceutical Industry"
-                </button>
-            </li>
-            <li class="py-2">
-                <button class="w-full py-2 hover:bg-gray-600  hover:text-white">
-                    "Title 3: A Guide to Effective Medical Research"
-                </button>
-            </li>
-            <li class="py-2">
-                <button class="w-full py-2 hover:bg-gray-600  hover:text-white">
-                    "Title 4: Medical Writing: Ethical Considerations"
-                </button>
-            </li>
-            <li class="py-2">
-                <button class="w-full py-2 hover:bg-gray-600  hover:text-white">
-                    "Title 5: Bridging the Gap: Medical Writing for Non-Medical Audience"
-                </button>
-            </li>
-            <li class="py-2">
-                <button class="w-full py-2 hover:bg-gray-600  hover:text-white">
-                    "Title 1: An Overview of Medical Writing"
-                </button>
-            </li>
-            <li class="py-2">
-                <button class="w-full py-2 hover:bg-gray-600  hover:text-white">
-                    "Title 2: The Role of a Medical Writer in Pharmaceutical Industry"
-                </button>
-            </li>
-            <li class="py-2">
-                <button class="w-full py-2 hover:bg-gray-600  hover:text-white">
-                    "Title 3: A Guide to Effective Medical Research"
-                </button>
-            </li>
-            <li class="py-2">
-                <button class="w-full py-2 hover:bg-gray-600  hover:text-white">
-                    "Title 4: Medical Writing: Ethical Considerations"
-                </button>
-            </li>
-            <li class="py-2">
-                <button class="w-full py-2 hover:bg-gray-600  hover:text-white">
-                    "Title 5: Bridging the Gap: Medical Writing for Non-Medical Audience"
-                </button>
-            </li>
+            @foreach (var publication in publications)
+            {
+                <li class="py-2">
+                    <button class="w-full py-2 text-left hover:bg-gray-600 hover:text-white text-gray-700 font-medium rounded-lg border border-gray-200 shadow-sm transition-colors duration-200">
+                        @publication.Title
+                    </button>
+                </li>
+            }
         </ul>
     </div>
-    <div class="text-center mt-15">logo here</div>
+    <div class="text-center mt-15">
+        <img src="/stefmancia/img/profile.jpg" alt="Your Logo" class="mx-auto w-24 h-24 rounded ">
+    </div>
     <div class="absolute bottom-0 left-0 right-0 p-4 flex justify-center">
         <button class="px-4 py-2 rounded-lg bg-gray-600 text-gray-200 hover:text-gray-900  hover:bg-gray-300 transition duration-300" @onclick="() => SideBarOpen = false">Close</button>
     </div>
 </MudDrawer>
 
 
+
+
 @code {
     [Parameter]
     public bool SideBarOpen { get; set; }
+
+    // Define a class for publications
+    public class Publication
+    {
+        public string ImageUrl { get; set; }
+        public string Title { get; set; }
+        public string Summary { get; set; }
+    }
+
+    // Create a list of dummy publications
+    List<Publication> publications = new List<Publication>
+    {
+        new Publication
+        {
+            ImageUrl = "https://images.unsplash.com/photo-1592840500103-f4cc35f52e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
+            Title = "Survivorship in the Face of Adversity",
+            Summary = "An in-depth look at medical survivorship stories."
+        },
+        new Publication
+        {
+            ImageUrl = "https://images.unsplash.com/photo-1562963527-ab1b093b0ff7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+            Title = "Natural Herb Healing: A Comprehensive Guide",
+            Summary = "Exploring the potency and uses of herbs in natural healing."
+        },
+        new Publication
+        {
+            ImageUrl = "https://images.unsplash.com/photo-1500904156668-758cff89dcff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            Title = "Surviving Cancer: A Personal Journey",
+            Summary = "An inspirational tale of fighting and surviving cancer."
+        },
+        new Publication
+        {
+            ImageUrl = "https://images.unsplash.com/photo-1496008889433-9b938d8ac880?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1176&q=80",
+            Title = "Healing with Ayurveda: A Modern Approach",
+            Summary = "Understanding the ancient principles of Ayurveda in the modern world."
+        },
+        new Publication
+        {
+            ImageUrl = "https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+            Title = "The Journey of a Heart Survivor",
+            Summary = "The story of surviving a major heart condition."
+        },
+        new Publication
+        {
+            ImageUrl = "https://images.unsplash.com/photo-1512867957657-38dbae50a35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1176&q=80",
+            Title = "Herbal Remedies in Pain Management",
+            Summary = "Exploring how herbs can be used to manage pain effectively."
+        }
+    };
 }
