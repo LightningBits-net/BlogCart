@@ -35,12 +35,13 @@ builder.Services.AddScoped<IFileUpload, FileUpload>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMudServices();
 builder.Services.AddSyncfusionBlazor();
-builder.Services.AddScoped<OpenAIApiService>();
+builder.Services.AddScoped<IOpenAIApiService, OpenAIApiService>();
+
 
 
 var app = builder.Build();
 
-Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("OTMxOTIxQDMyMzAyZTM0MmUzMGkwS29SRUl4VXd4RFQ2ZmhRSEhIQXU1U0pLS0hxQjVUQjZ3RFBlZXRaUmM9");
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjQ1MDI1NUAzMjMxMmUzMDJlMzBsTGJDa3pUeHRiakVBL2JjckgwYkg5M1Y0TDFCRkJlTzFLQVZkMGl5UThjPQ==");
 
 
 // Configure the HTTP request pipeline.

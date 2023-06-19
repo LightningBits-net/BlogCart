@@ -2,7 +2,7 @@
 @page "/my-chat"
 @inject IMessageRepository _messageRepository
 @inject IConversationRepository _conversationRepository
-@inject OpenAIApiService _openAIApiService
+@inject IOpenAIApiService _openAIApiService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 @attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]

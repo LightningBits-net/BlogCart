@@ -9,10 +9,11 @@ using SharedServices.Data;
 using SharedServices.Models;
 using SharedServices.Repository;
 using SharedServices.Repository.IRepository;
+using ECommerce_Server.Service.IService;
 
 namespace ECommerce_Server.Service
 {
-    public class OpenAIApiService
+    public class OpenAIApiService : IOpenAIApiService
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
