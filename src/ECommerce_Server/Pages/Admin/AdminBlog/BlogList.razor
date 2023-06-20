@@ -9,7 +9,7 @@
 
 <_BlogPanelHeader></_BlogPanelHeader>
 <div class="flex justify-center items-center overflow-x-auto">
-    <div class="w-full bg-white text-center text-black border p-4 shadow rounded overflow-x-auto">
+    <div class="w-full lg:w-3/4 bg-white text-center text-black border p-4 shadow-2xl mx-auto rounded overflow-x-auto">
         <h1 class="mb-8 w-=full text-3xl text-white bg-black py-4">Blog List</h1>
         @if (Blogs.Any())
         {
@@ -19,6 +19,7 @@
                         <th class="w-1/8"></th>
                         <th class="w-1/4 px-4 py-4">Name</th>
                         <th class="w-1/8 px-4 py-4">Category</th>
+                        <th class="w-1/8 px-4 py-2">Status</th>
                         <th class="w-1/8 px-4 py-2">Created on</th>
                         <th class="w-1/8 px-4 py-2">Last update</th>
                         <th class="w-1/8 px-4 py-2">Views</th>
@@ -35,6 +36,7 @@
                             </td>
                             <th class="border px-4 py-2 bold">@((MarkupString)blog.Name)</th>
                             <td class="border px-4 py-2">@blog.BlogCategory.Name</td>
+                            <td class="border px-4 py-2">@blog.Status</td>
                             <td class="border px-4 py-2">@blog.DateCreated</td>
                             <td class="border px-4 py-2">@blog.LastUpdated</td>
                             <td class="border px-4 py-2">@blog.Views</td>
