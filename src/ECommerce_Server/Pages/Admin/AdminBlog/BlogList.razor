@@ -183,6 +183,7 @@
     private int DeleteBlogId { get; set; } = 0;
     private string currentSortColumn = "Name";
     private bool isSortAscending = true;
+    private int ClientId { get; set; } = 3; // Set this to 3 for now
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -200,7 +201,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Blogs = await _blogRepository.GetAll();
+        Blogs = (await _blogRepository.GetAll()).Where(b => b.ClientId == ClientId);
         IsLoading = false;
         StateHasChanged();
     }
