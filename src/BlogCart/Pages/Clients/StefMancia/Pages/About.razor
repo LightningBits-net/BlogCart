@@ -1,39 +1,45 @@
 ﻿@page "/stefmancia/about"
 @inject NavigationManager _navigationManager
 
+<HeadContent>
+    <meta name="description" content="@Description" />
+    <meta property="og:title" content="@Title" />
+    <meta property="og:description" content="@Description" />
+    <meta property="og:image" content="@ImageUrl" />
+    <meta name="twitter:title" content="@Title" />
+    <meta name="twitter:description" content="@Description" />
+    <meta name="twitter:image" content="@ImageUrl" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@(_navigationManager.Uri)" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="@(_navigationManager.Uri)" />
+</HeadContent>
 
-    <PageTitle>About Page</PageTitle>
+<PageTitle>About Page</PageTitle>
 
-<div class="min-h-screen shadow-2xl bg-white flex justify-center items-center">
-    <div class="w-full md:w-1/2">
-        <article class="overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm">
-            <img alt="Profile Picture"
-                 src="/stefmancia/img/profile.jpg"
-                 class="h-96 md:h-64 object-cover w-full" />
-            <div class="p-4 sm:p-6">
-                <a href="#">
-                    <h3 class="text-lg font-medium text-gray-900">
-                        Meet the Medical Writer
-                    </h3>
-                </a>
-                <p class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
-                    Our expert medical writer has decades of experience in the medical field and has dedicated his life to creating publications that are not only insightful, but also easy to understand. He has an extensive background in various medical disciplines, which helps him create comprehensive and detailed content. His mission is to make complex medical topics accessible to both professionals and laypeople.
-                </p>
-                <a href="#"
-                   class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600">
-                    Learn More About His Work
-                    <span aria-hidden="true" class="block transition-all group-hover:ms-0.5 rtl:rotate-180">
-                        &rarr;
-                    </span>
-                </a>
-            </div>
-        </article>
-        <div class="w-full justify-center pb-5 mt-10 text-center">
-            <MudButton Color="Color.Primary" Variant="Variant.Outlined" @onclick="@(() => _navigationManager.NavigateTo("/stefmancia"))">Return</MudButton>
-        </div>
+<div class="bg-white min-h-screen -mt-5 flex justify-center items-center">
+    <div class="w-full lg:w-1/2 shadow-2xl">
+        <MudCard>
+            <MudCardMedia Image="/stefmancia/img/profile.jpg" Height="600" />
+            <MudCardContent>
+                <div>
+                    <h3 class="text-lg lg:text-xl font-bold text-gray-900">Stefania Mancia: Expert Medical Writer</h3>
+                    <p class="mt-1 text-md font-medium text-gray-600">Our expert medical writer has decades of experience in the medical field and has dedicated his life to creating publications that are not only insightful, but also easy to understand. He has an extensive background in various medical disciplines, which helps him create comprehensive and detailed content. His mission is to make complex medical topics accessible to both professionals and laypeople</p>
+                </div>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary">Learn More About my Work</MudButton>
+                <MudButton Variant="Variant.Text" Color="Color.Primary">Contact</MudButton>
+            </MudCardActions>
+        </MudCard>
+        <MudButton Color="Color.Dark" Variant="Variant.Text" FullWidth="true" @onclick="@(() => _navigationManager.NavigateTo("/stefmancia"))">Return</MudButton>
     </div>
 </div>
 
 
 
-
+@code {
+    private string Title = "Stefania Mancia: Expert Medical Writer and Researcher";
+    private string Description = "Our expert medical writer has decades of experience in the medical field and has dedicated his life to creating publications that are not only insightful, but also easy to understand. He has an extensive background in various medical disciplines, which helps him create comprehensive and detailed content. His mission is to make complex medical topics accessible to both professionals and laypeople";
+    private string ImageUrl = "/stefmancia/img/profile.jpg";
+}

@@ -128,7 +128,9 @@
 
     [Parameter]
     public int Id { get; set; }
-    public string Status { get; set; } = "published";
+    public string Status { get; set; } = "Draft";
+    public int ClientId { get; set; } = 3; 
+
 
     private BlogDTO Blog { get; set; } = new()
     {
@@ -149,24 +151,60 @@
         }
     }
 
+    //private async Task LoadBlog()
+    //{
+    //    IsLoading = true;
+    //    StateHasChanged();
+    //    BlogCategories = await _blogCategoryRepository.GetAll();
+    //    Clients = await _clientRepository.GetAll(); // Retrieve the clients
+    //    if (Id != 0)
+    //    {
+    //        Title = "Update";
+    //        Blog = await _blogRepository.Get(Id);
+    //        OldImageUrl = Blog.ImageUrl;
+    //    }
+    //    IsLoading = false;
+    //    StateHasChanged();
+    //}
+
     private async Task LoadBlog()
     {
         IsLoading = true;
         StateHasChanged();
-        BlogCategories = await _blogCategoryRepository.GetAll();
-        Clients = await _clientRepository.GetAll(); // Retrieve the clients
+
+        BlogCategories = (await _blogCategoryRepository.GetAll()).Where(bc => bc.ClientId == ClientId);
+        Clients = (await _clientRepository.GetAll()).Where(c => c.ClientId == ClientId);
+
         if (Id != 0)
         {
             Title = "Update";
             Blog = await _blogRepository.Get(Id);
             OldImageUrl = Blog.ImageUrl;
+
+            // Ensure that the ClientId of the Blog is equal to 3, otherwise set it to null.
+            if (Blog.ClientId != ClientId)
+            {
+                Blog = null;
+            }
         }
+        else
+        {
+            // If creating a new Blog, set its ClientId to 3
+            Blog.ClientId = ClientId;
+        }
+
         IsLoading = false;
         StateHasChanged();
     }
 
     private async Task UpsertBlog()
     {
+        if (Blog.ClientId != ClientId)
+        {
+            snackBar.Add("Invalid operation. You can only modify blogs for client 3.", Severity.Error);
+            return;
+        }
+
         if (Blog.Id == 0)
         {
             await _blogRepository.Create(Blog);
@@ -183,6 +221,25 @@
         }
         _navigationManager.NavigateTo("/Bloglist");
     }
+
+    //private async Task UpsertBlog()
+    //{
+    //    if (Blog.Id == 0)
+    //    {
+    //        await _blogRepository.Create(Blog);
+    //        snackBar.Add("Product created Successfully. Refresh page to view the updated product list", Severity.Success);
+    //    }
+    //    else
+    //    {
+    //        if (OldImageUrl != Blog.ImageUrl)
+    //        {
+    //            _fileUpload.DeleteFile(OldImageUrl);
+    //        }
+    //        await _blogRepository.Update(Blog);
+    //        snackBar.Add("Product updated Successfully.", Severity.Success);
+    //    }
+    //    _navigationManager.NavigateTo("/Bloglist");
+    //}
 
     private async Task HandleImageUpLoad(InputFileChangeEventArgs e)
     {
