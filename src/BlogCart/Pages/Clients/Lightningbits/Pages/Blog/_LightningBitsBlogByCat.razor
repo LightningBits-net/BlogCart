@@ -62,6 +62,7 @@ else
         Blogs = Blogs.Where(b => b.ClientId == ClientId);  // filter blogs by ClientId
         IsProcessing = false;
     }
+
     private IEnumerable<BlogDTO> GetFilteredBlogs()
     {
         if (selectedCategory == "SelectedCategory")
@@ -74,7 +75,6 @@ else
         }
 
     }
-
 
     private void OnCategorySelectionChange(string category)
     {
