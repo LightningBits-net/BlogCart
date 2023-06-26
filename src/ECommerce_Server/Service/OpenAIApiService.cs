@@ -13,13 +13,13 @@ using ECommerce_Server.Service.IService;
 
 namespace ECommerce_Server.Service
 {
-    public class OpenAIApiService : IOpenAIApiService
+    public class OpenAiApiService : IOpenAiApiService
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
         private readonly IConversationRepository _conversationRepository;
 
-        public OpenAIApiService(HttpClient httpClient, IConfiguration configuration, IConversationRepository conversationRepository)
+        public OpenAiApiService(HttpClient httpClient, IConfiguration configuration, IConversationRepository conversationRepository)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri("https://api.openai.com/");

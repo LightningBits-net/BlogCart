@@ -35,7 +35,7 @@ builder.Services.AddScoped<IFileUpload, FileUpload>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMudServices();
 builder.Services.AddSyncfusionBlazor();
-builder.Services.AddScoped<IOpenAIApiService, OpenAIApiService>();
+builder.Services.AddScoped<IOpenAiApiService, OpenAiApiService>();
 
 
 

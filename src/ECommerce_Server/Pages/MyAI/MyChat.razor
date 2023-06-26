@@ -2,7 +2,7 @@
 @page "/my-chat"
 @inject IMessageRepository _messageRepository
 @inject IConversationRepository _conversationRepository
-@inject IOpenAIApiService _openAIApiService
+@inject IOpenAiApiService _openAiApiService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
 @attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
@@ -389,7 +389,7 @@
                 // Call the GetAndUpdateContext method after saving the user's message
                 await _conversationRepository.GetAndUpdateContext(ConversationId);
 
-                var responseMessage = await _openAIApiService.SendMessageAsync(ConversationId, newMessage.Content);
+                var responseMessage = await _openAiApiService.SendMessageAsync(ConversationId, newMessage.Content);
 
                 var responseMessageDto = new MessageDTO
                 {
@@ -439,7 +439,7 @@
 
             await _messageRepository.Create(defaultMessage);
 
-            var responseMessage = await _openAIApiService.SendMessageAsync(conversationId, defaultMessage.Content);
+            var responseMessage = await _openAiApiService.SendMessageAsync(conversationId, defaultMessage.Content);
             if (string.IsNullOrEmpty(responseMessage))
             {
                 Console.WriteLine("AI response is null or empty.");
