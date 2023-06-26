@@ -40,4 +40,10 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </Content>
   </ItemGroup>-->
+  <ItemGroup>
+    <Content Remove="wwwroot\Lightningbits\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\Lightningbits\" />
+  </ItemGroup>
 </Project>

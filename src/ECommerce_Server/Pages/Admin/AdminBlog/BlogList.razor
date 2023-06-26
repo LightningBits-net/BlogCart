@@ -6,22 +6,23 @@
 @inject MudBlazor.ISnackbar snackBar
 @attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
 
-
 <_BlogPanelHeader></_BlogPanelHeader>
+
 <div class="flex justify-center items-center overflow-x-auto">
     <div class="w-full lg:w-3/4 bg-white text-center text-black border p-4 shadow-2xl mx-auto rounded overflow-x-auto">
         <h1 class="mb-8 w-full text-3xl text-white bg-black py-4">Blog List</h1>
+
         @if (Blogs.Any())
         {
             <table class="w-full overflow-x-auto min-h-64">
                 <thead class="bg-gray-400 w-full text-black">
                     <tr>
                         <th class="w-1/8"></th>
-                        <th class="w-1/4 px-4 py-4">Name</th>
-                        <th class="w-1/8 px-4 py-4">Category</th>
-                        <th class="w-1/8 px-4 py-2">Created on</th>
-                        <th class="w-1/8 px-4 py-2">Last update</th>
-                        <th class="w-1/8 px-4 py-2">Views</th>
+                        <th class="w-1/4 px-4 py-4" @onclick="@(() => SortBy(nameof(BlogDTO.Name)))">Name <span class="@GetSortIconClass(nameof(BlogDTO.Name))"></span></th>
+                        <th class="w-1/8 px-4 py-4" @onclick="@(() => SortBy(nameof(BlogDTO.BlogCategory.Name)))">Category <span class="@GetSortIconClass(nameof(BlogDTO.BlogCategory.Name))"></span></th>
+                        <th class="w-1/8 px-4 py-2" @onclick="@(() => SortBy(nameof(BlogDTO.DateCreated)))">Created on <span class="@GetSortIconClass(nameof(BlogDTO.DateCreated))"></span></th>
+                        <th class="w-1/8 px-4 py-2" @onclick="@(() => SortBy(nameof(BlogDTO.LastUpdated)))">Last update <span class="@GetSortIconClass(nameof(BlogDTO.LastUpdated))"></span></th>
+                        <th class="w-1/8 px-4 py-2" @onclick="@(() => SortBy(nameof(BlogDTO.Views)))">Views <span class="@GetSortIconClass(nameof(BlogDTO.Views))"></span></th>
                         <th class="w-1/8 px-4 py-2"></th>
                         <th class="w-1/8 px-4 py-2"></th>
                     </tr>
@@ -68,7 +69,7 @@
             }
         }
     </div>
-        </div>
+</div>
 
 
 @code {
@@ -96,6 +97,7 @@
         IsLoading = true;
         StateHasChanged();
         Blogs = (await _blogRepository.GetAll()).Where(b => b.ClientId == ClientId);
+        SortBlogs();
         IsLoading = false;
         StateHasChanged();
     }
@@ -135,31 +137,45 @@
 
     private void SortBlogs()
     {
-        switch (currentSortColumn)
+        if (currentSortColumn.Equals(nameof(BlogDTO.Name)))
         {
-            case "Name":
-                if (isSortAscending)
-                {
-                    Blogs = Blogs.OrderBy(b => b.Name, StringComparer.OrdinalIgnoreCase);
-                }
-                else
-                {
-                    Blogs = Blogs.OrderByDescending(b => b.Name, StringComparer.OrdinalIgnoreCase);
-                }
-                break;
-            case "Status":
-                Blogs = isSortAscending ? Blogs.OrderBy(b => b.Status) : Blogs.OrderByDescending(b => b.Status);
-                break;
-            case "Date":
-                Blogs = isSortAscending ? Blogs.OrderBy(b => b.DateCreated) : Blogs.OrderByDescending(b => b.DateCreated);
-                break;
-            case "Category":
-                Blogs = isSortAscending ? Blogs.OrderBy(b => b.BlogCategory.Name) : Blogs.OrderByDescending(b => b.BlogCategory.Name);
-                break;
-            case "Views":
-                Blogs = isSortAscending ? Blogs.OrderBy(b => b.Views) : Blogs.OrderByDescending(b => b.Views);
-                break;
+            Blogs = isSortAscending
+                ? Blogs.OrderBy(b => b.Name, StringComparer.OrdinalIgnoreCase)
+                : Blogs.OrderByDescending(b => b.Name, StringComparer.OrdinalIgnoreCase);
         }
+        else if (currentSortColumn.Equals(nameof(BlogDTO.BlogCategoryId)))
+        {
+            Blogs = isSortAscending
+                ? Blogs.OrderBy(b => b.BlogCategoryId)
+                : Blogs.OrderByDescending(b => b.BlogCategoryId);
+        }
+        else if (currentSortColumn.Equals(nameof(BlogDTO.DateCreated)))
+        {
+            Blogs = isSortAscending
+                ? Blogs.OrderBy(b => b.DateCreated)
+                : Blogs.OrderByDescending(b => b.DateCreated);
+        }
+        else if (currentSortColumn.Equals(nameof(BlogDTO.LastUpdated)))
+        {
+            Blogs = isSortAscending
+                ? Blogs.OrderBy(b => b.LastUpdated)
+                : Blogs.OrderByDescending(b => b.LastUpdated);
+        }
+        else if (currentSortColumn.Equals(nameof(BlogDTO.Views)))
+        {
+            Blogs = isSortAscending
+                ? Blogs.OrderBy(b => b.Views)
+                : Blogs.OrderByDescending(b => b.Views);
+        }
+   
     }
 
+    private string GetSortIconClass(string columnName)
+    {
+        if (columnName == currentSortColumn)
+        {
+            return isSortAscending ? "fa fa-sort-up" : "fa fa-sort-down";
+        }
+        return "fa fa-sort";
+    }
 }
