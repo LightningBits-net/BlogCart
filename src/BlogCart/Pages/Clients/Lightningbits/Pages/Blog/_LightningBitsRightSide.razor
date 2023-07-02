@@ -40,8 +40,8 @@
 
 
 @code {
-    [CascadingParameter]
-    public int ClientId { get; set; }
+    //[CascadingParameter]
+    public int ClientId { get; set; } = 3;
     public bool IsProcessing { get; set; } = false;
     public IEnumerable<BlogDTO> Blogs { get; set; } = new List<BlogDTO>();
 
