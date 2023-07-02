@@ -400,3 +400,4 @@ FodyWeavers.xsd
 *.json
 *.json
 .DS_Store
+src/ECommerce_Server/Pages/.DS_Store
