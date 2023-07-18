@@ -33,17 +33,4 @@
     <ProjectReference Include="..\SharedServices\SharedServices.csproj">
     </ProjectReference>
   </ItemGroup>
- <!-- <ItemGroup>
-    <Content Update="Properties\launchSettings.json">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>-->
-  <ItemGroup>
-    <Content Remove="wwwroot\Lightningbits\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\Lightningbits\" />
-  </ItemGroup>
 </Project>
