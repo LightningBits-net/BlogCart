@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
-@namespace BlogCart.Pages.Clients.Lightningbits
+@namespace BlogCart.Pages.Clients.ValleyMisfit
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
@@ -9,16 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="~/" />
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/lightningbits/favicon_ico_lightningbits/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/lightningbits/favicon_ico_lightningbits/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/lightningbits/favicon_ico_lightningbits/favicon-16x16.png">
-    <link rel="manifest" href="/lightningbits/favicon_ico_lightningbits/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/valleymisfit/favicon_ico_valleymisfit/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/valleymisfit/favicon_ico_valleymisfit/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/valleymisfit/favicon_ico_valleymisfit/favicon-16x16.png">
+    <link rel="manifest" href="/valleymisfit/favicon_ico_valleymisfit/site.webmanifest">
     <link href="app.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/bba4017977.js"></script>
 </head>
+
+
 <body>
     @RenderBody()
     <div id="blazor-error-ui">
@@ -56,11 +58,12 @@
                 }
             }
         });</script>
-    <script>const slideshowThriftboss = () => ({
+
+    <script>const slideshowValleyMisfit = () => ({
             current: 0,
             images: [
-                'https://images.unsplash.com/photo-1523194631059-d30921cdc79a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTB8UUhlWlB5T3BwY2N8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
-                'https://images.unsplash.com/photo-1523194258983-4ef0203f0c47?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTF8UUhlWlB5T3BwY2N8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60'
+                'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
+                'https://images.unsplash.com/photo-1583244532610-2a234e7c3eca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80'
             ],
             init() {
                 window.setInterval(() => {
@@ -69,19 +72,6 @@
             }
         });</script>
 
-    <script>const slideshowPort = () => ({
-            current: 0,
-            images: [
-                'https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80',
-                'https://images.unsplash.com/photo-1506452819137-0422416856b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3173&q=80'
-            ],
-            init() {
-                window.setInterval(() => {
-                    this.current = this.current < this.images.length - 1 ? this.current + 1 : 0
-                }, 4000);
-            }
-        });</script>
 
 </body>
-</html >
-
+</html>

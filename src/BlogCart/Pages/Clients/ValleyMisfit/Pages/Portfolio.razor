@@ -1,0 +1,100 @@
+﻿@page "/valleymisfit/portfolio"
+@inject NavigationManager _navigationManager
+
+
+<PageTitle>Portfolio Page</PageTitle>
+
+@*<div class="min-h-screen bg-white flex justify-center items-center">
+    <div class="w-full">
+        <section>
+            <div class="px-4  py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+                <div class="grid grid-cols-1 gap-y-8 lg:grid-cols-2 lg:items-center lg:gap-x-16">
+                    <div class="mx-auto max-w-lg text-center lg:mx-0 lg:text-left">
+                        <h2 class="text-3xl text-black font-bold sm:text-4xl">Explore My Publications</h2>
+                        <p class="mt-4 text-gray-600 dark:text-gray-400">
+                            As a dedicated medical writer, I have published numerous articles and research papers in esteemed journals. Explore my comprehensive list of publications to understand the depth and breadth of my expertise.
+                        </p>
+                        <div class="mt-8 flex justify-center">
+                            <input type="text" placeholder="Search Publications" class=" w-full rounded-l-lg bg-gray-200 text-gray-800 dpx-4 py-3 focus:outline-none focus:ring focus:ring-yellow-400" />
+                            <button class="rounded-r-lg bg-gray-600 text-white px-8 py-3 text-sm font-medium transition hover:bg-gray-800 focus:outline-none focus:ring focus:ring-yellow-400">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    <div class="max-w-screen-xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+                        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 overflow-x-auto">
+                            @foreach (var publication in publications)
+                            {
+                                <a class="block rounded-xl border border-gray-100 dark:border-gray-800 shadow-xl hover:shadow-2xl p-4 shadow-sm hover:border-gray-200 dark:hover:border-gray-400 hover:ring-1 hover:ring-gray-200 dark:hover:ring-gray-400 focus:outline-none focus:ring" href="/stefmancia/portfolio">
+                                    <div class="inline-block rounded-lg bg-gray-50 dark:bg-gray-800 p-3">
+                                        <img src="@publication.ImageUrl"
+                                             alt="Publication Image"
+                                             class="h-20 object-cover w-full text-gray-900 dark:text-gray-200" />
+                                    </div>
+                                    <h2 class="mt-2 font-bold text-gray-900 dark:text-black">@publication.Title</h2>
+                                    <p class="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600 dark:text-black">
+                                        @publication.Summary
+                                    </p>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="w-full justify-center pb-5 text-center">
+            <MudButton Color="Color.Primary" Variant="Variant.Outlined" @onclick="@(() => _navigationManager.NavigateTo("/stefmancia"))">Return</MudButton>
+        </div>
+    </div>
+</div>*@
+
+@code {
+    // Define a class for publications
+    //    public class Publication
+    //    {
+    //        public string ImageUrl { get; set; }
+    //        public string Title { get; set; }
+    //        public string Summary { get; set; }
+    //    }
+
+    //    // Create a list of dummy publications
+    //    List<Publication> publications = new List<Publication>
+    //{
+    //        new Publication
+    //        {
+    //            ImageUrl = "https://images.unsplash.com/photo-1592840500103-f4cc35f52e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
+    //            Title = "Survivorship in the Face of Adversity",
+    //            Summary = "An in-depth look at medical survivorship stories."
+    //        },
+    //        new Publication
+    //        {
+    //            ImageUrl = "https://images.unsplash.com/photo-1562963527-ab1b093b0ff7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+    //            Title = "Natural Herb Healing: A Comprehensive Guide",
+    //            Summary = "Exploring the potency and uses of herbs in natural healing."
+    //        },
+    //        new Publication
+    //        {
+    //            ImageUrl = "https://images.unsplash.com/photo-1500904156668-758cff89dcff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    //            Title = "Surviving Cancer: A Personal Journey",
+    //            Summary = "An inspirational tale of fighting and surviving cancer."
+    //        },
+    //        new Publication
+    //        {
+    //            ImageUrl = "https://images.unsplash.com/photo-1496008889433-9b938d8ac880?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1176&q=80",
+    //            Title = "Healing with Ayurveda: A Modern Approach",
+    //            Summary = "Understanding the ancient principles of Ayurveda in the modern world."
+    //        },
+    //        new Publication
+    //        {
+    //            ImageUrl = "https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+    //            Title = "The Journey of a Heart Survivor",
+    //            Summary = "The story of surviving a major heart condition."
+    //        },
+    //        new Publication
+    //        {
+    //            ImageUrl = "https://images.unsplash.com/photo-1512867957657-38dbae50a35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1176&q=80",
+    //            Title = "Herbal Remedies in Pain Management",
+    //            Summary = "Exploring how herbs can be used to manage pain effectively."
+    //        }
+    //    };
+}

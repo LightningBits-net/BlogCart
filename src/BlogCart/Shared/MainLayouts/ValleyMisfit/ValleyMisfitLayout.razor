@@ -1,0 +1,96 @@
+﻿@inherits LayoutComponentBase
+@namespace BlogCart.Shared.MainLayouts
+@inject IClientFrontendService ClientFrontendService
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+<MudThemeProvider Theme="MyTheme" @bind-IsDarkMode="@_isDarkMode" @ref="@_mudThemeProvider" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+
+<MudLayout Color="Color.Dark">
+    <ValleyMisfitAppBar OnSidebarToggled="ToggleSidebar" />
+    <ValleyMisfitNavMenu SideBarOpen="_sidebarOpen" />
+    <MudScrollToTop>
+        <MudFab Color="Color.Dark" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+    <MudMainContent>
+        <CascadingValue Value="ClientId">
+            @Body
+        </CascadingValue>
+    </MudMainContent>
+</MudLayout>
+
+
+@code {
+    private int ClientId { get; set; } = 0;
+    private bool _sidebarOpen = false;
+    private void ToggleSidebar() => _sidebarOpen = !_sidebarOpen;
+    private bool _isDarkMode;
+    private MudThemeProvider _mudThemeProvider;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+        {
+            if (firstRender)
+            {
+
+                ClientId = 105; //dev testing client, Also need to set layout in service folder DomianlayoutService to Match
+                _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+                StateHasChanged();
+            }
+        }
+        else
+        {
+            if (firstRender)
+            {
+                var domain = HttpContextAccessor.HttpContext.Request.Host.Value.ToLower();
+                ClientId = await ClientFrontendService.GetClientIdFromDomain(domain);
+                _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+                StateHasChanged();
+            }
+        }
+    }
+
+    private MudTheme MyTheme = new MudTheme()
+    {
+        Palette = new PaletteLight()
+        {
+            Primary = "#27272f",
+            Secondary = " #bdbdbd",
+            Dark = "#757575",
+            Black = "#000000",
+            White = "#ffffffff",
+            Background = "#000000",
+            BackgroundGrey = "#27272f",
+            Surface = "#ffffffff",
+            TextPrimary = "#000000",
+            TextSecondary = "rgba(0, 0, 0, 0.50)",
+            AppbarBackground = "#000000",
+            AppbarText = "#ffffffff",
+            DrawerBackground = "#000000",
+            DrawerText = "#ffffffff",
+            DrawerIcon = "#ffffffff",
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Primary = "#3a3a3a",
+            Secondary = "#808080",
+            Black = " #aaaaaa",
+            White = "#ffffffff",
+            Background = "#000000",
+            BackgroundGrey = "#27272f",
+            Surface = "#ffffffff",
+            TextPrimary = "#ffffffb3",
+            TextSecondary = "rgba(255, 255, 255, 0.50)",
+            AppbarBackground = "#000000",
+            AppbarText = "#ffffffff",
+            DrawerBackground = "#000000",
+            DrawerText = "#ffffffff",
+            DrawerIcon = "#ffffffff",
+        },
+    };
+}
+
