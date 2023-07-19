@@ -37,9 +37,9 @@ namespace SharedServices.Data
 
         public DateTime? BillingEndDate { get; set; }
 
-        // User ID from AspNetUsers table (Identity)
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
     }
 }
+
 
 
