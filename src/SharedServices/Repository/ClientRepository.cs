@@ -27,12 +27,19 @@ namespace SharedServices.Repository
         {
             var obj = _mapper.Map<ClientDTO, Client>(objDTO);
             obj.DateCreated = DateTime.Now;
+            obj.BillingAmount ??= 0; // Assign 0 if BillingAmount is null
+            obj.BillingCycle ??= string.Empty; // Assign an empty string if BillingCycle is null
+            obj.BillingEndDate ??= DateTime.MinValue; // Assign DateTime.MinValue if BillingEndDate is null
+            obj.BillingStartDate ??= DateTime.MinValue; // Assign DateTime.MinValue if BillingStartDate is null
+            obj.IsActive ??= false; // Assign false if IsActive is null
+            obj.UserId ??= string.Empty; // Assign an empty string if UserId is null
 
-            var addedobj = _db.Clients.Add(obj);
+            var addedObj = _db.Clients.Add(obj);
             await _db.SaveChangesAsync();
 
-            return _mapper.Map<Client, ClientDTO>(addedobj.Entity);
+            return _mapper.Map<Client, ClientDTO>(addedObj.Entity);
         }
+
 
         public async Task<int> Delete(int id)
         {

@@ -1,10 +1,12 @@
 ﻿using System;
+
+
+
 namespace ECommerce_Server.Service.IService
 {
-    public interface IClientIdService
+    public interface IClientService
     {
-        Task<int?> GetServerClientId();
+        Task<int> GetClientIdAsync();
     }
-
 }
 

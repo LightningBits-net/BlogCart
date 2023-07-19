@@ -8,6 +8,7 @@
 @attribute [Authorize(Roles = SD.Role_Admin)]
 
 <PageTitle>@(newClient.ClientId != 0 ? "Edit Client" : "Create Client")</PageTitle>
+
 <_ClientPanelHeader></_ClientPanelHeader>
 @if (IsLoading)
 {
@@ -20,7 +21,7 @@ else
 
     <div class="flex justify-center mt-10 mb-10">
         <div class="w-full md:w-1/2 bg-white text-center text-black border shadow-2xl rounded overflow-x-auto">
-            <h1 class="mb-8 text-3xl text-white bg-black py-4">Edit Client</h1>
+            <h1 class="mb-8 text-3xl text-white bg-black py-4">@(newClient.ClientId != 0 ? "Edit Client" : "Create Client")</h1>
             <MudContainer Class="flex justify-center">
                 <MudCard Class="w-full">
                     <div class="flex flex-wrap border justify-center">

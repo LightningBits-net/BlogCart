@@ -26,7 +26,7 @@ namespace ECommerce_Server.Service
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            _apiKey = configuration["APIKeys:MyChatGPTAPI"];
+            _apiKey = configuration["APIKeys:KenChatGPTAPI"];
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
 
             _conversationRepository = conversationRepository;

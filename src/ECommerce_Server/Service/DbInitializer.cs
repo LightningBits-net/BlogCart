@@ -39,7 +39,7 @@ namespace ECommerce_Server.Service
                     _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
                     _roleManager.CreateAsync(new IdentityRole(SD.Role_Customer)).GetAwaiter().GetResult();
                     _roleManager.CreateAsync(new IdentityRole(SD.Role_Client)).GetAwaiter().GetResult();
-
+                    _roleManager.CreateAsync(new IdentityRole(SD.Role_LightningChats)).GetAwaiter().GetResult();
                 }
                 else
                 {

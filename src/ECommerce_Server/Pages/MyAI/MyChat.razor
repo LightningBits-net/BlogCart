@@ -7,6 +7,8 @@
 @inject MudBlazor.ISnackbar snackBar
 @attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
 
+@inherits CustomComponentBase
+
 @using ECommerce_Server.Service
 @using System.Text.RegularExpressions
 
@@ -35,20 +37,20 @@
                         }
                         else
                         {
-                <div class="p-4 flex items-center">
-                    <div class="absolute top-0 left-0 bg-indigo-500 text-white rounded-full p-2 text-xs">
-                        <MudAvatar Color="Color.Secondary" Class="mt-15">AI</MudAvatar>
-                    </div>
+                            <div class="p-4 flex items-center">
+                                <div class="absolute top-0 left-0 bg-indigo-500 text-white rounded-full p-2 text-xs">
+                                    <MudAvatar Color="Color.Secondary" Class="mt-15">AI</MudAvatar>
+                                </div>
 
-                    <MudNavMenu Dense="true" Rounded="true" Margin="Margin.Dense" Color="Color.Secondary" Class="pa-2">
-                        <MudNavGroup Title="@((Conversations.FirstOrDefault(c => c.Id == ConversationId))?.Name ?? "No conversation selected")" Expanded="false">
-                            @foreach (var conversation in Conversations)
-                            {
-                                <MudNavLink @onclick="() => NavigateToConversation(conversation.Id)">@conversation.Name</MudNavLink>
-                            }
-                        </MudNavGroup>
-                    </MudNavMenu>
-                </div>
+                                <MudNavMenu Dense="true" Rounded="true" Margin="Margin.Dense" Color="Color.Secondary" Class="pa-2">
+                                    <MudNavGroup Title="@((Conversations.FirstOrDefault(c => c.Id == ConversationId))?.Name ?? "No conversation selected")" Expanded="false">
+                                        @foreach (var conversation in Conversations)
+                                        {
+                                            <MudNavLink @onclick="() => NavigateToConversation(conversation.Id)">@conversation.Name</MudNavLink>
+                                        }
+                                    </MudNavGroup>
+                                </MudNavMenu>
+                            </div>
                         }
                     }
                 </div>
@@ -91,8 +93,8 @@
                                             <MudCardContent>
                                                 <div class="pb-10">
                                                     @*<div class="absolute top-0 right-0 bg-indigo-500 text-white rounded-full p-2 text-xs">
-                                                        @messageNumber
-                                                    </div>*@
+                                                            @messageNumber
+                                                        </div>*@
                                                     @using System.Text.RegularExpressions
 
                                                     <div class="flex items-center">
@@ -213,7 +215,6 @@
                             </div>
 
                         </MudItem>
-
                         @*___________________________________System Prompts_____________________________________*@
 
                         <MudItem xs="12" sm="6">
@@ -280,24 +281,23 @@
 
 
 @code {
-    //hardcoded for testing
-    int clientId = 3;
+    private int clientId;
     [Parameter]
     public int ConversationId { get; set; }
 
     private List<MessageDTO> Messages { get; set; } = new List<MessageDTO>();
     private IEnumerable<ConversationDTO> Conversations { get; set; } = new List<ConversationDTO>();
+
     string newConversationName = string.Empty;
     int editingConversationId = -1;
     string editingConversationName = string.Empty;
-
     string newMessageContent = string.Empty;
-    private MudTextField<string> multilineReference;
-
     public bool IsProcessing { get; set; } = false;
     public bool MessageIsProcessing { get; set; } = false;
 
-    //Carusel_______________________________________________________________________________________________________________
+    #region MudBlazor
+    private MudTextField<string> multilineReference;
+
     private bool arrows = true;
     private bool bullets = false;
     private bool enableSwipeGesture = true;
@@ -314,31 +314,35 @@
     //private string Prompt3 = "Email Boss";
     //private string Prompt4 = "Social media Blaster";
 
+    #endregion
+
     protected override async Task OnInitializedAsync()
     {
         IsProcessing = true;
-        await LoadMessages();
-        await LoadConversations();
+
+        await base.OnInitializedAsync();
+
+        clientId = await ClientService.GetClientIdAsync(); // Retrieve clientId from the service
+
+        if (clientId != 0) // Assuming 0 represents no clientId
+        {
+            await LoadConversations();
+            await LoadMessages();
+        }
+        else
+        {
+            // Handle the case where ClientId is null or zero (e.g., user is not logged in or there's no client associated with this user)
+        }
+
         IsProcessing = false;
+
         if (ConversationId == 0)
         {
             OpenDrawer(Anchor.Bottom);
         }
     }
 
-    private async Task LoadMessages()
-    {
-
-        Messages = (await _messageRepository.GetAllByConversationId(ConversationId)).ToList();
-    }
-
-    private async Task LoadConversations()
-    {
-        Conversations = await _conversationRepository.GetAllByClientId(clientId);
-    }
-
-    //Helper Methods_______________________________________________________________________________________________________________
-
+    #region Helper Methods
     void OpenDrawer(Anchor anchor)
     {
         open = true;
@@ -366,8 +370,14 @@
     {
         _navigationManager.NavigateTo($"/redirect/{conversationId}", true);
     }
+    #endregion
 
-    // send Message methods_______________________________________________________________________________________________________________
+    #region Message methods
+    private async Task LoadMessages()
+    {
+
+        Messages = (await _messageRepository.GetAllByConversationId(ConversationId)).ToList();
+    }
 
     private async Task SendMessage()
     {
@@ -417,7 +427,6 @@
             }
         }
     }
-
 
     private async Task SendDefaultMessage(int conversationId)
     {
@@ -498,8 +507,13 @@
             }
         }
     }
+    #endregion
 
-    //Conversation_______________________________________________________________________________________________________________
+    #region Conversation methods
+    private async Task LoadConversations()
+    {
+        Conversations = await _conversationRepository.GetAllByClientId(clientId);
+    }
 
     private async Task CreateConversation()
     {
@@ -589,8 +603,9 @@
             snackBar.Add("Failed to delete conversation.", Severity.Error);
         }
     }
+    #endregion
 
-
+    #region System Messages
     private async Task UpdateSystemMessage(int conversationId, string customText)
     {
         var systemMessage = string.Join(", ", selected.Select(chip => chip.Text));
@@ -627,6 +642,10 @@
             return "An error occurred while retrieving the system message.";
         }
     }
+    #endregion
+
+
+
 
 }
 

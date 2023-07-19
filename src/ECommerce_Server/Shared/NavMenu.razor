@@ -1,51 +1,64 @@
-﻿@inject AuthenticationStateProvider AuthenticationStateProvider
-@attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
-
-
-<MudDrawer @bind-Open="SideBarOpen" Elevation="10">
+﻿<MudDrawer @bind-Open="SideBarOpen" Elevation="10">
     <div class="flex items-center p-4">
         <MudDrawerHeader>
             <MudText Typo="Typo.h6">Menu</MudText>
         </MudDrawerHeader>
     </div>
     <MudDivider DividerType="DividerType.Middle" Class="my-2" />
-    <MudNavMenu>
-        <AuthorizeView Roles="@SD.Role_Admin">
+
+    <AuthorizeView Roles="@SD.Role_Admin">
+        <MudNavMenu>
             <MudNavGroup Title="Client Manager" Expanded="false" Color="Color.Dark">
                 <MudNavLink Href="/ClientList" Match="NavLinkMatch.Prefix">Client List</MudNavLink>
                 <MudNavLink Href="/Clientcreate" Match="NavLinkMatch.Prefix">Create Client</MudNavLink>
-            </MudNavGroup>`
-        </AuthorizeView>
-        <MudNavGroup Title="Blog Manager" Expanded="false" Color="Color.Dark">
-            <MudNavLink Href="/BlogList" Match="NavLinkMatch.Prefix">Blog List</MudNavLink>
-            <MudNavLink Href="/BlogCatList" Match="NavLinkMatch.Prefix">Blog Category</MudNavLink>
-            <MudNavLink Href="/BlogCatList/create" Match="NavLinkMatch.Prefix">Blog Cat Create</MudNavLink>
-            <MudNavLink Href="/BlogCreate" Match="NavLinkMatch.Prefix">Create Blog</MudNavLink>
-        </MudNavGroup>
-        <MudNavGroup Title="Product Management" Expanded="false" Color="Color.Dark">
-            <MudNavLink Href="/categoryList" Match="NavLinkMatch.Prefix">Category List</MudNavLink>
-            <MudNavLink Href="/categoryLIST/create" Match="NavLinkMatch.Prefix">Create Category</MudNavLink>
-            <MudNavLink Href="/productList" Match="NavLinkMatch.Prefix">Product List</MudNavLink>
-            <MudNavLink Href="/ProductCreate" Match="NavLinkMatch.Prefix">Edit Product</MudNavLink>
-        </MudNavGroup>
-        <MudNavGroup Title="ToDoApp" Expanded="false" Color="Color.Dark">
-            <MudNavLink Href="/TodoList" Match="NavLinkMatch.Prefix">ToDo List</MudNavLink>
-            <MudNavLink Href="/ToDo/create" Match="NavLinkMatch.Prefix">Create ToDo</MudNavLink>
-        </MudNavGroup>
-        <MudNavGroup Title="MyChatGPT" Expanded="false" Color="Color.Dark">
-            @*<MudNavLink Href="/conversation-list" Match="NavLinkMatch.Prefix">Conversation List</MudNavLink>*@
-            <MudNavLink Href="/mychat" Match="NavLinkMatch.Prefix">Chat</MudNavLink>
-        </MudNavGroup>
-        <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-    </MudNavMenu>
-    <MudNavLink Href="/Identity/Account/Manage" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix">Profile settings</MudNavLink>
+            </MudNavGroup>
+            <MudNavGroup Title="Blog Manager" Expanded="false" Color="Color.Dark">
+                <MudNavLink Href="/BlogList" Match="NavLinkMatch.Prefix">Blog List</MudNavLink>
+                <MudNavLink Href="/BlogCatList" Match="NavLinkMatch.Prefix">Blog Category</MudNavLink>
+                <MudNavLink Href="/BlogCatList/create" Match="NavLinkMatch.Prefix">Blog Cat Create</MudNavLink>
+                <MudNavLink Href="/BlogCreate" Match="NavLinkMatch.Prefix">Create Blog</MudNavLink>
+            </MudNavGroup>
+            <MudNavGroup Title="Product Management" Expanded="false" Color="Color.Dark">
+                <MudNavLink Href="/categoryList" Match="NavLinkMatch.Prefix">Category List</MudNavLink>
+                <MudNavLink Href="/categoryLIST/create" Match="NavLinkMatch.Prefix">Create Category</MudNavLink>
+                <MudNavLink Href="/productList" Match="NavLinkMatch.Prefix">Product List</MudNavLink>
+                <MudNavLink Href="/ProductCreate" Match="NavLinkMatch.Prefix">Edit Product</MudNavLink>
+            </MudNavGroup>
+            <MudNavGroup Title="ToDoApp" Expanded="false" Color="Color.Dark">
+                <MudNavLink Href="/TodoList" Match="NavLinkMatch.Prefix">ToDo List</MudNavLink>
+                <MudNavLink Href="/ToDo/create" Match="NavLinkMatch.Prefix">Create ToDo</MudNavLink>
+            </MudNavGroup>
+            <MudNavGroup Title="MyChatGPT" Expanded="false" Color="Color.Dark">
+                <MudNavLink Href="/mychat" Match="NavLinkMatch.Prefix">Chat</MudNavLink>
+            </MudNavGroup>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+        </MudNavMenu>
+        <MudNavLink Href="/Identity/Account/Manage" Icon="@Icons.Filled.Settings" Match="NavLinkMatch.Prefix">Profile settings</MudNavLink>
+        <MudNavLink Href="/Identity/Account/login" Icon="@Icons.Filled.AppRegistration" Match="NavLinkMatch.Prefix">Register new User</MudNavLink>
+    </AuthorizeView>
+
+    <AuthorizeView Roles="@SD.Role_Client">
+    </AuthorizeView>
+
+
+    <AuthorizeView Roles="@SD.Role_Client">
+    </AuthorizeView>
+
+
 </MudDrawer>
 
+
+<AuthorizeView Roles="@SD.Role_Client">
+</AuthorizeView>
 
 
 @code {
     [Parameter]
     public bool SideBarOpen { get; set; } = true;
-    private string roleAdmin = SharedServices.Commons.SD.Role_Admin;
-    private string roleClient = SharedServices.Commons.SD.Role_Admin;
+
+    private static class SD
+    {
+        public const string Role_Admin = "Admin";
+        public const string Role_Client = "Client";
+    }
 }
