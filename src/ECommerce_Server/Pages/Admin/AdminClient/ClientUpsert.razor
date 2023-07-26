@@ -58,6 +58,14 @@ else
                                 <MudTextField @bind-Value="newClient.Email" Id="email" class="w-3/4" />
                             </div>
                             <div class="form-group flex items-center">
+                                <label for="userId" class="w-1/4">User ID</label>
+                                <MudTextField @bind-Value="newClient.UserId" Id="userId" class="w-3/4" />
+                            </div>
+                            <div class="form-group flex items-center">
+                                <label for="isActive" class="w-1/4">Is Active</label>
+                                <MudSwitch @bind-Checked="newClient.IsActive" Color="Color.Primary" Class="w-3/4" />
+                            </div>
+                            <div class="form-group flex items-center">
                                 <label for="counter" class="w-1/4">Counter</label>
                                 <MudNumericField @bind-Value="newClient.Counter" Id="counter" class="w-3/4" />
                             </div>

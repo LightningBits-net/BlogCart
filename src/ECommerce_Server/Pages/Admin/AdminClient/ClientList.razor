@@ -17,12 +17,14 @@
                 <thead class="bg-gray-400 w-full text-black">
                     <tr>
                         <th class="w-1/8">Client ID</th>
+                        <th class="w-1/8 px-4 py-2">Is Active</th>
+                        <th class="w-1/8 px-4 py-2">User ID</th>
                         <th class="w-1/4 px-4 py-4">Domain Name</th>
                         <th class="w-1/8 px-4 py-4">Name</th>
                         <th class="w-1/8 px-4 py-2">Created on</th>
                         <th class="w-1/8 px-4 py-2">Counter</th>
                         <th class="w-1/8 px-4 py-2">.</th>
-                        <th class="w-1/16 px-4 py-2">.</th>
+                        <th class="w-1/8 px-4 py-2">.</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +32,8 @@
                     {
                         <tr>
                             <td class="border px-4 py-2">@client.ClientId</td>
+                            <td class="border px-4 py-2">@client.IsActive</td>
+                            <td class="border px-4 py-2">@(!string.IsNullOrEmpty(client.UserId) && client.UserId.Length >= 4 ? client.UserId.Substring(0, 4) : client.UserId)</td>
                             <td class="border px-4 py-2">@client.DomainName</td>
                             <td class="border px-4 py-2">@client.Name</td>
                             <td class="border px-4 py-2">@client.DateCreated</td>
