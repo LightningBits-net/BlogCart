@@ -82,6 +82,7 @@ namespace SharedServices.Repository
                 objFromDb.Counter = objDTO.Counter;
                 objFromDb.ImageUrl = objDTO.ImageUrl;
                 objFromDb.IsActive = objDTO.IsActive;
+                objFromDb.UserId = objDTO.UserId;
                 objFromDb.BillingCycle = objDTO.BillingCycle;
                 objFromDb.BillingAmount = objDTO.BillingAmount;
                 objFromDb.BillingStartDate = objDTO.BillingStartDate;
