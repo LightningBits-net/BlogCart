@@ -26,7 +26,11 @@ namespace ECommerce_Server.Service
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            _apiKey = configuration["APIKeys:KenChatGPTAPI"];
+           
+            //_apiKey = configuration["APIKeys:MyChatGPTAPI"];
+            //_apiKey = configuration["APIKeys:KenChatGPTAPI"];
+            _apiKey = configuration["APIKeys:MyChatGPTDEVKEY"];
+
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
 
             _conversationRepository = conversationRepository;
@@ -49,7 +53,7 @@ namespace ECommerce_Server.Service
                 // Use the SystemMessage from the conversation or a default message if it's null or empty
                 var systemContext = !string.IsNullOrEmpty(conversation.SystemMessage)
                     ? conversation.SystemMessage
-                    : "This message is your intial context training, please folow the instructions but do not repeat the content of this message in your reponses, You are an AI language model trained to be my most valued assitant you will act as an editor in all aspects of languange and code";
+                    : "This message is your intial context training, please folow the instructions but do not repeat the content of this message in your reponses, You are an AI language model trained to be my most valued assitant you will act as an editor in all aspects of languange";
 
                 var messages = new List<object>
                 {

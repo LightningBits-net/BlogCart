@@ -8,7 +8,7 @@ namespace BlogCart.Service.IService
         public Task<IEnumerable<BlogDTO>> GetAll();
         public Task<BlogDTO> Get(int blogId);
         public Task<BlogDTO> Update(int blogId, int rating, int views);
-        public Task<IEnumerable<BlogDTO>> GetBlogsByClientId(int clientId);
+        Task<IEnumerable<BlogDTO>> GetBlogsByDomain(string domain);
     }
 }
 
