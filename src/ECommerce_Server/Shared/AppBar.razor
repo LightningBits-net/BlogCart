@@ -1,25 +1,33 @@
-﻿<AuthorizeView Roles="@($"{roleAdmin},{roleClient}")">
-    <Authorized>
+﻿<AuthorizeView Roles="@($"{roleAdmin},{roleClient},{roleLightningChats}")">
+    <Authorized Context="authContext">
         <MudAppBar Elevation="21" Dense="true">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Edge="Edge.Start"
                            OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
+            <MudButton Href="/" StartIcon="@Icons.Material.Filled.Home" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit"></MudButton>
             <MudSpacer />
-            <MudButton Href="Identity/Account/Logout" StartIcon="@Icons.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-out</MudButton>
+            <div>
+                <span class="pr-4">Hello, @authContext.User.Identity.Name?.Split('@')[0]</span>
+                <MudButton Href="Identity/Account/Logout" StartIcon="@Icons.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-out</MudButton>
+            </div>
         </MudAppBar>
     </Authorized>
     <NotAuthorized>
         <MudAppBar Elevation="21" Dense="true">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Edge="Edge.Start"
                            OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
+            <MudButton Href="/" StartIcon="@Icons.Material.Filled.Home" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit"></MudButton>
             <MudSpacer />
             <MudButton Href="Identity/Account/Login" StartIcon="@Icons.Filled.Login" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-in</MudButton>
         </MudAppBar>
     </NotAuthorized>
 </AuthorizeView>
 
+
 @code {
     [Parameter]
     public EventCallback OnSidebarToggled { get; set; }
     private string roleAdmin = SharedServices.Commons.SD.Role_Admin;
     private string roleClient = SharedServices.Commons.SD.Role_Client;
+    private string roleLightningChats = SharedServices.Commons.SD.Role_LightningChats;
+
 }

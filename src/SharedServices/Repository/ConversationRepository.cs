@@ -27,7 +27,7 @@ namespace SharedServices.Repository
         {
             try
             {
-                const int MaxLength = 24450; // adjust to your needs every 4 = appox 1 token
+                const int MaxLength = 30000; // adjust to your needs every 4 = appox 1 token
                 var conversation = await _db.Conversations
                     .Include(c => c.Messages)
                     .FirstOrDefaultAsync(c => c.Id == id);

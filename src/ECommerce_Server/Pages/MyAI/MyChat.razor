@@ -1,16 +1,19 @@
 ﻿@page "/chat/{ConversationId:int}"
 @page "/my-chat"
+
 @inject IMessageRepository _messageRepository
 @inject IConversationRepository _conversationRepository
 @inject IOpenAiApiService _openAiApiService
 @inject NavigationManager _navigationManager
 @inject MudBlazor.ISnackbar snackBar
-@attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Client)]
+
+@attribute [Authorize(Roles = SD.Role_Admin + "," + SD.Role_LightningChats)]
 
 @inherits CustomComponentBase
 
-@using ECommerce_Server.Service
 @using System.Text.RegularExpressions
+
+<PageTitle>LightningChats</PageTitle>
 
 <div class="container mx-auto flex flex-wrap">
     <div class="w-full h-screen">
@@ -68,7 +71,7 @@
 
                         @if (Messages == null || Messages.Count() == 0)
                         {
-                            <p class="mt-5 text-lrg text-bold text-center">No Messages found</p>
+                                <p class="mt-10 ml-15 text-2xl  justify-center font-bold text-center">No Messages found.Please select a conversation to begin or create a new one from the drawer at the bottom.</p>
                         }
                         else
                         {
@@ -93,8 +96,8 @@
                                             <MudCardContent>
                                                 <div class="pb-10">
                                                     @*<div class="absolute top-0 right-0 bg-indigo-500 text-white rounded-full p-2 text-xs">
-                                                            @messageNumber
-                                                        </div>*@
+                                        @messageNumber
+                                    </div>*@
                                                     @using System.Text.RegularExpressions
 
                                                     <div class="flex items-center">
@@ -136,10 +139,10 @@
 
                 <div class="w-full md:w-1/2 lg:w-1/2 border border-gray-200 bg-white shadow-2xl rounded justify-center text-center mx-auto fixed bottom-0 left-0 right-0 mb-2">
                     <div class="relative ml-5 flex items-center">
-                        <MudTextField @ref="multilineReference" @bind-Value="@newMessageContent" T="string" Label="Enter Your Message" Variant="Variant.Text" Lines="2" />
-                        <div class="ml-10 bg-gray-300 rounded">
-                            <MudIconButton Icon="@Icons.Material.Filled.Send" Color="Color.Primary" Size="Size.Large" @onclick="SendMessage" />
-                            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Large" @onclick="@(() => OpenDrawer(Anchor.Bottom))" />
+                        <MudTextField @ref="multilineReference" @bind-Value="@newMessageContent" T="string" Label="Enter Your Message" Variant="Variant.Text" Lines="4" />
+                        <div class="ml-10 mr-2 bg-gray-300 rounded">
+                            <MudIconButton Icon="@Icons.Material.Filled.Send" Color="Color.Primary" Size="Size.Medium" @onclick="SendMessage" />
+                            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Medium" @onclick="@(() => OpenDrawer(Anchor.Bottom))" />
                         </div>
                     </div>
                 </div>
@@ -172,7 +175,7 @@
                                         <div class="w-full">
                                             @if (Conversations == null || Conversations.Count() == 0)
                                             {
-                                                <p class="text-center">No conversations found.</p>
+                                                <p class="text-center">No conversations found. Please create one to begin your AI chat</p>
                                             }
                                             else
                                             {
@@ -202,73 +205,83 @@
                                     }
                                 </div>
                             </div>
-
                         </MudItem>
-                        <MudItem xs="12" sm="6">
-                            <div class="w-full mx-auto bg-white text-black shadow-md border-2 border-gray-300 p-4 rounded-lg flex flex-col items-center">
-                                <h1 class="font-display-italic font-extrabold text-2xl italic leading-none mb-1">Prompt Wizard</h1>
-                                <div class="p-4 flex items-center">
-                                    <p class="text-lg mb-10 "> @GetSystemMessage(ConversationId)</p>
 
-                                </div>
-                                <MudText>Select your prompts from the list below</MudText>
-                            </div>
-
-                        </MudItem>
-                        @*___________________________________System Prompts_____________________________________*@
 
                         <MudItem xs="12" sm="6">
                             <div class="bg-gray-200 w-full p-2 space-y-2 flex flex-wrap">
                                 <div class="bg-white w-full shadow-md border-2 border-gray-300 p-4 rounded-lg">
-                                    <h4 class="text-2xl font-bold">Custom Prompt</h4>
-                                    <MudTextField Label="Your custom text" @bind-Value="customText" />
-                                    @if (selected != null && selected.Length > 0)
-                                    {
-                                        <MudText>
-                                            @*Settings: @string.Join(", ", selected.Select(chip => chip.Text)) @customText*@
-                                            <button class="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-3 ml-2 rounded" @onclick="() => UpdateSystemMessage(ConversationId, customText)">submit</button>
-                                        </MudText>
-                                    }
-                                    else
-                                    {
-                                        <MudText>Enter information here for AI training on your specific use case, be precise and specific. Select a Topic and writing style.</MudText>
-                                    }
+                                    <h1 class="font-display-italic font-extrabold text-2xl italic leading-none mb-1">Prompt Wizard</h1>
+                                    <div class="p-4 flex items-center">
+                                        <p class="text-lg mb-10 "> @GetSystemMessage(ConversationId)</p>
+                                    </div>
                                 </div>
                             </div>
-
-
                         </MudItem>
-                        <MudItem xs="12" sm="6">
 
-                            <div class="bg-white shadow-md border-2 border-gray-300 p-4 rounded-lg">
-                                <MudChipSet @bind-SelectedChips="selected" MultiSelection="true" Filter="true">
+                        @*___________________________________System Prompts_____________________________________*@
 
-                                    <!-- Theme: Responding as AI -->
-                                    <div class="bg-gray-200 p-2 space-y-2 flex flex-wrap">
-                                        <div class="flex justify-center sm:justify-start">
-                                            <h3 class="font-display-italic font-extrabold text-xl italic leading-none mr-5">Topics</h3>
+                        <MudItem xs="12" sm="12">
+                        </MudItem>
+
+                        <MudItem xs="12" sm="12">
+                            <div class="bg-gray-200 w-full p-2 space-y-2 flex flex-wrap">
+                                <div class="bg-white w-full shadow-md border-2 border-gray-300 p-4 rounded-lg">
+                                    <MudChipSet @bind-SelectedChips="selected" MultiSelection="true" Filter="true">
+                                        <div class="p-2 space-y-2 flex flex-wrap">
+                                            <div class="flex justify-center sm:justify-start">
+                                                <h3 class="font-display-italic font-extrabold text-xl italic leading-none mr-5">Writng Style</h3>
+                                            </div>
+                                            <MudChip Text="Professional: Use a formal and business-like writing style." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                            <MudChip Text="Friendly and conversational: Adopt a casual and approachable tone." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                            <MudChip Text="Authoritative: Convey expertise and confidence in the writing style." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                            <MudChip Text="Creative and engaging: Employ a more imaginative and captivating writing style." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                            <MudChip Text="Using Humor in Writing" Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                            <MudChip Text="Moderate length: Provide a response of moderate length, around 100-200 words." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                            <MudChip Text="Short and concise: Keep the response under 100 words." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                            <MudChip Text="Detailed and informative: Include more extensive information in the response, exceeding 200 words." Variant="Variant.Text" Color="Color.Info"></MudChip>
                                         </div>
-                                        <MudChip Text="I'm your dedicated Blazor Server coding assistant" Color="Color.Success"></MudChip>
-                                        <MudChip Text="I'm your dedicated C# coding assistant" Color="Color.Success"></MudChip>
-                                        <MudChip Text="Lets write some code using C#, Tailwind CSS, and Razor Syntex in a blazor application" Color="Color.Success"></MudChip>
-                                        <MudChip Text="Responding to an Email Professionally" Color="Color.Info"></MudChip>
-                                        <MudChip Text="Crafting an Engaging Proposal to Impress Potential Clients" Color="Color.Info"></MudChip>
-                                        <MudChip Text="Writing a Compelling Cover Letter for Job Postings" Color="Color.Info"></MudChip>
-                                        <MudChip Text="Crafting an Effective Elevator Pitch to Stand Out and Secure the Job" Color="Color.Info"></MudChip>
-                                        <MudChip Text="Crafting Engaging Responses to Social Media Posts" Color="Color.Info"></MudChip>
-                                    </div>
-                                    <!-- Theme: Writing Styles, Writing Levels and perpectives -->
-                                    <div class="p-2 space-y-2 flex flex-wrap">
-                                        <div class="flex justify-center sm:justify-start">
-                                            <h3 class="font-display-italic font-extrabold text-xl italic leading-none mr-5">Writng Style</h3>
+
+                                        <div class="p-2 space-y-2 flex flex-wrap">
+                                            <div class="flex justify-center sm:justify-start">
+                                                <h3 class="font-display-italic font-extrabold text-xl italic leading-none mr-5">Main Interests: Trivia</h3>
+                                            </div>
+                                            <MudChip Text="Fun Facts: Generate responses with interesting and engaging trivia facts related to the user's query." Variant="Variant.Text" Color="Color.Primary"></MudChip>
+                                            <MudChip Text="Multiple Choice: Provide multiple-choice questions for the user to test their knowledge." Variant="Variant.Text" Color="Color.Primary"></MudChip>
+                                            <MudChip Text="Quick Answers: Deliver concise and straightforward answers to trivia questions." Variant="Variant.Text" Color="Color.Primary"></MudChip>
                                         </div>
-                                        <MudChip Text="Writing in a Conversational Tone" Color="Color.Dark"></MudChip>
-                                        <MudChip Text="Using Storytelling to Connect with Readers" Color="Color.Dark"></MudChip>
-                                        <MudChip Text="Creating a Sense of Urgency" Color="Color.Dark"></MudChip>
-                                        <MudChip Text="Writing with Empathy" Color="Color.Dark"></MudChip>
-                                        <MudChip Text="Using Humor in Writing" Color="Color.Dark"></MudChip>
+
+                                        <div class="p-2 space-y-2 flex flex-wrap">
+                                            <div class="flex justify-center sm:justify-start">
+                                                <h3 class="font-display-italic font-extrabold text-xl italic leading-none mr-5">Main Interests: Rhyming Poems</h3>
+                                            </div>
+                                            <MudChip Text="Classic Rhyme: Generate poems with traditional rhyming patterns and structures." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                            <MudChip Text="Free Verse: Create poems that focus on expressive imagery and emotions without strict rhyme schemes." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                            <MudChip Text="Lighthearted: Craft playful and whimsical poems to entertain the user." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                        </div>
+
+                                        <div class="p-2 space-y-2 flex flex-wrap">
+                                            <div class="flex justify-center sm:justify-start">
+                                                <h3 class="font-display-italic font-extrabold text-xl italic leading-none mr-5">Main Interests: Summaries</h3>
+                                            </div>
+                                            <MudChip Text="Concise Summary: Provide brief and condensed summaries that capture the main points or highlights." Variant="Variant.Text" Color="Color.Primary"></MudChip>
+                                            <MudChip Text="Comprehensive Summary: Offer in-depth summaries that delve into the details and key elements of the subject matter." Variant="Variant.Text" Color="Color.Primary"></MudChip>
+                                            <MudChip Text="Visual Summary: Generate visually engaging summaries with bullet points, infographics, or diagrams." Variant="Variant.Text" Color="Color.Primary"></MudChip>
+                                        </div>
+                                    </MudChipSet>
+
+                                    <div class="w-full p-2 space-y-2 flex flex-wrap">
+                                        <div class="flex justify-center sm:justify-start">
+                                            <h3 class="font-display-italic font-extrabold text-xl italic leading-none mr-5">Custom Prompt</h3>
+                                        </div>
+                                        <MudTextField Label="Your custom text" @bind-Value="customText" class="w-full md:w-96" />
+
+                                        <MudText class="mt-2 text-center md:text-left">
+                                            @*Settings: @string.Join(", ", selected.Select(chip => chip.Text)) @customText*@
+                                        </MudText>
+                                        <button class="w-full mt-5 bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-3 rounded mt-2 md:mt-0" @onclick="() => UpdateSystemMessage(ConversationId, customText)">submit</button>
                                     </div>
-                                </MudChipSet>
+                                </div>
                             </div>
                         </MudItem>
                     </MudGrid>
