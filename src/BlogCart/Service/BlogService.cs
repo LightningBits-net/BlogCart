@@ -93,20 +93,32 @@ namespace BlogCart.Service
             }
         }
 
-        public async Task<IEnumerable<BlogDTO>> GetBlogsByClientId(int clientId)
+        public async Task<IEnumerable<BlogDTO>> GetBlogsByDomain(string domain)
         {
             try
             {
-                var allBlogs = await GetAll();
+                var response = await _httpClient.GetAsync($"/Api/Blog/GetBlogsByDomain/{domain}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var blogs = JsonConvert.DeserializeObject<IEnumerable<BlogDTO>>(content);
 
-                // Filter the blogs based on the client ID
-                var blogsByClient = allBlogs.Where(blog => blog.ClientId == clientId);
+                    // Update the image URLs with the base server URL
+                    foreach (var blog in blogs)
+                    {
+                        blog.ImageUrl = BaseServerUrl + blog.ImageUrl;
+                    }
 
-                return blogsByClient;
+                    return blogs;
+                }
+                else
+                {
+                    return Enumerable.Empty<BlogDTO>();
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while getting blogs by client ID: {ex.Message}");
+                Console.WriteLine($"An error occurred while getting blogs by domain: {ex.Message}");
                 return Enumerable.Empty<BlogDTO>();
             }
         }
