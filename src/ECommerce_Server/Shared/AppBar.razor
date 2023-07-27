@@ -1,14 +1,11 @@
 ﻿<AuthorizeView Roles="@($"{roleAdmin},{roleClient},{roleLightningChats}")">
-    <Authorized Context="authContext">
+    <Authorized>
         <MudAppBar Elevation="21" Dense="true">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Edge="Edge.Start"
                            OnClick="async () => await OnSidebarToggled.InvokeAsync()" />
             <MudButton Href="/" StartIcon="@Icons.Material.Filled.Home" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit"></MudButton>
             <MudSpacer />
-            <div>
-                <span class="pr-4">Hello, @authContext.User.Identity.Name?.Split('@')[0]</span>
-                <MudButton Href="Identity/Account/Logout" StartIcon="@Icons.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-out</MudButton>
-            </div>
+            <MudButton Href="Identity/Account/Logout" StartIcon="@Icons.Filled.Logout" Variant="Variant.Filled" Size="Size.Small" Color="Color.Inherit">Log-out</MudButton>
         </MudAppBar>
     </Authorized>
     <NotAuthorized>

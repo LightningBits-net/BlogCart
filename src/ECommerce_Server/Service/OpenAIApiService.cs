@@ -53,7 +53,7 @@ namespace ECommerce_Server.Service
                 // Use the SystemMessage from the conversation or a default message if it's null or empty
                 var systemContext = !string.IsNullOrEmpty(conversation.SystemMessage)
                     ? conversation.SystemMessage
-                    : "This message is your intial context training, please follow these instructions but do not repeat the content of this message in your reponses, You are an AI language model trained to be my most valued assitant, you will act as an editor in all aspects of languange";
+                     : $"This conversation is about {conversation.Name}";
 
                 var messages = new List<object>
                 {

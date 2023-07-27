@@ -172,7 +172,7 @@
                                     }
                                     else
                                     {
-                                        <div class="w-full">
+                                        <div class="w-full max-h-[300px] overflow-y-auto">
                                             @if (Conversations == null || Conversations.Count() == 0)
                                             {
                                                 <p class="text-center">No conversations found. Please create one to begin your AI chat</p>
@@ -182,20 +182,24 @@
                                                 <ul class="list-none pl-6">
                                                     @foreach (var conversation in Conversations)
                                                     {
-                                                        <li class="justify-center">
+                                                        <li class="flex items-center justify-between">
                                                             @if (conversation.Id != editingConversationId)
                                                             {
-                                                                @*<a href="/chat/@conversation.Id" class="hover:text-indigo-700 mr-2">@conversation.Name</a>*@
-                                                                <button class="hover:text-indigo-700 mr-2" @onclick="(() => NavigateToConversation(conversation.Id))">@conversation.Name</button>
+                                                                <button class="flex-1 hover:text-indigo-700" @onclick="(() => NavigateToConversation(conversation.Id))">@conversation.Name</button>
 
-                                                                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" Size="Size.Small" @onclick="() => StartEditingConversation(conversation.Id)" />
-                                                                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small" @onclick="() => DeleteConversation(conversation.Id)" />
+                                                                <div class="flex items-center space-x-8 mr-5">
+                                                                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" Size="Size.Small" @onclick="() => StartEditingConversation(conversation.Id)" />
+                                                                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small" @onclick="() => DeleteConversation(conversation.Id)" />
+                                                                </div>
                                                             }
                                                             else
                                                             {
-                                                                <input type="text" class="w-1/2 px-3 py-2 rounded border border-gray-300" @bind="@editingConversationName" />
-                                                                <MudIconButton Icon="@Icons.Material.Filled.Check" Color="Color.Success" Size="Size.Small" @onclick="() => UpdateConversation(conversation.Id)" />
-                                                                <MudIconButton Icon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Small" @onclick="CancelEditingConversation" />
+                                                                <input type="text" class="flex-1 px-3 py-2 rounded border border-gray-300" @bind="@editingConversationName" />
+
+                                                                <div class="flex items-center space-x-2">
+                                                                    <MudIconButton Icon="@Icons.Material.Filled.Check" Color="Color.Success" Size="Size.Small" @onclick="() => UpdateConversation(conversation.Id)" />
+                                                                    <MudIconButton Icon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Small" @onclick="CancelEditingConversation" />
+                                                                </div>
                                                             }
                                                         </li>
                                                     }
@@ -230,44 +234,52 @@
                                     <MudChipSet @bind-SelectedChips="selected" MultiSelection="true" Filter="true">
                                         <div class="p-2 space-y-2 flex flex-wrap">
                                             <div class="flex justify-center sm:justify-start">
-                                                <h3 class="font-display-italic font-extrabold text-xl italic leading-none mr-5">Writng Style</h3>
+                                                <h3 class="font-display-italic font-extrabold text-xl italic leading-none mr-5">Select your Prompts</h3>
+                                                <p class="text-small">Save time by adding prompts to your conversations for permanent context</p>
                                             </div>
-                                            <MudChip Text="Professional: Use a formal and business-like writing style." Variant="Variant.Text" Color="Color.Info"></MudChip>
-                                            <MudChip Text="Friendly and conversational: Adopt a casual and approachable tone." Variant="Variant.Text" Color="Color.Info"></MudChip>
-                                            <MudChip Text="Authoritative: Convey expertise and confidence in the writing style." Variant="Variant.Text" Color="Color.Info"></MudChip>
-                                            <MudChip Text="Creative and engaging: Employ a more imaginative and captivating writing style." Variant="Variant.Text" Color="Color.Info"></MudChip>
-                                            <MudChip Text="Using Humor in Writing" Variant="Variant.Text" Color="Color.Info"></MudChip>
-                                            <MudChip Text="Moderate length: Provide a response of moderate length, around 100-200 words." Variant="Variant.Text" Color="Color.Info"></MudChip>
-                                            <MudChip Text="Short and concise: Keep the response under 100 words." Variant="Variant.Text" Color="Color.Info"></MudChip>
-                                            <MudChip Text="Detailed and informative: Include more extensive information in the response, exceeding 200 words." Variant="Variant.Text" Color="Color.Info"></MudChip>
-                                        </div>
+                                            <MudExpansionPanels>
+                                                <MudExpansionPanel Text="Writng Style" MaxHeight="200">
+                                                    <MudChip Text="Professional: Use a formal and business-like writing style." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                                    <MudChip Text="Friendly and conversational: Adopt a casual and approachable tone." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                                    <MudChip Text="Authoritative: Convey expertise and confidence in the writing style." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                                    <MudChip Text="Creative and engaging: Employ a more imaginative and captivating writing style." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                                    <MudChip Text="Using Humor in Writing" Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                                    <MudChip Text="Moderate length: Provide a response of moderate length, around 100-200 words." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                                    <MudChip Text="Short and concise: Keep the response under 100 words." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                                    <MudChip Text="Detailed and informative: Include more extensive information in the response, exceeding 200 words." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                                </MudExpansionPanel>
+                                                <MudExpansionPanel Text="Trivia" MaxHeight="200">
+                                                    <MudChip Text="Fun Facts: Generate responses with interesting and engaging trivia facts related to the user's query." Variant="Variant.Text" Color="Color.Primary"></MudChip>
+                                                    <MudChip Text="Multiple Choice: Provide multiple-choice questions for the user to test their knowledge." Variant="Variant.Text" Color="Color.Primary"></MudChip>
+                                                    <MudChip Text="Quick Answers: Deliver concise and straightforward answers to trivia questions." Variant="Variant.Text" Color="Color.Primary"></MudChip>
+                                                </MudExpansionPanel>
+                                                <MudExpansionPanel Text="Rhyming Poems" MaxHeight="1000">
+                                                    <MudChip Text="Classic Rhyme: Generate poems with traditional rhyming patterns and structures." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                                    <MudChip Text="Free Verse: Create poems that focus on expressive imagery and emotions without strict rhyme schemes." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                                    <MudChip Text="Lighthearted: Craft playful and whimsical poems to entertain the user." Variant="Variant.Text" Color="Color.Info"></MudChip>
+                                                </MudExpansionPanel>
+                                                <MudExpansionPanel Text="Summaries">
+                                                    <MudChip Text="Concise Summary: Provide brief and condensed summaries that capture the main points or highlights." Variant="Variant.Text" Color="Color.Primary"></MudChip>
+                                                    <MudChip Text="Comprehensive Summary: Offer in-depth summaries that delve into the details and key elements of the subject matter." Variant="Variant.Text" Color="Color.Primary"></MudChip>
+                                                    <MudChip Text="Visual Summary: Generate visually engaging summaries with bullet points, infographics, or diagrams." Variant="Variant.Text" Color="Color.Primary"></MudChip>
+                                                </MudExpansionPanel>
+                                                <MudExpansionPanel Text="Misc">
+                                                    <MudChip Text="I'm your dedicated Blazor Server coding assistant" Color="Color.Success"></MudChip>
+                                                    <MudChip Text="I'm your dedicated C# coding assistant" Color="Color.Success"></MudChip>
+                                                    <MudChip Text="Lets write some code using C#, Tailwind CSS, and Razor Syntex in a blazor application" Color="Color.Success"></MudChip>
+                                                    <MudChip Text="Responding to an Email Professionally" Color="Color.Info"></MudChip>
+                                                    <MudChip Text="Crafting an Engaging Proposal to Impress Potential Clients" Color="Color.Info"></MudChip>
+                                                    <MudChip Text="Writing a Compelling Cover Letter for Job Postings" Color="Color.Info"></MudChip>
+                                                    <MudChip Text="Crafting an Effective Elevator Pitch to Stand Out and Secure the Job" Color="Color.Info"></MudChip>
+                                                    <MudChip Text="Crafting Engaging Responses to Social Media Posts" Color="Color.Info"></MudChip>
+                                                </MudExpansionPanel>
+                                                <MudExpansionPanel Text="MyPrompts Coming soon!">
+                                                    Panel Four Content
+                                                </MudExpansionPanel>
 
-                                        <div class="p-2 space-y-2 flex flex-wrap">
-                                            <div class="flex justify-center sm:justify-start">
-                                                <h3 class="font-display-italic font-extrabold text-xl italic leading-none mr-5">Main Interests: Trivia</h3>
-                                            </div>
-                                            <MudChip Text="Fun Facts: Generate responses with interesting and engaging trivia facts related to the user's query." Variant="Variant.Text" Color="Color.Primary"></MudChip>
-                                            <MudChip Text="Multiple Choice: Provide multiple-choice questions for the user to test their knowledge." Variant="Variant.Text" Color="Color.Primary"></MudChip>
-                                            <MudChip Text="Quick Answers: Deliver concise and straightforward answers to trivia questions." Variant="Variant.Text" Color="Color.Primary"></MudChip>
+                                            </MudExpansionPanels>
                                         </div>
-
-                                        <div class="p-2 space-y-2 flex flex-wrap">
-                                            <div class="flex justify-center sm:justify-start">
-                                                <h3 class="font-display-italic font-extrabold text-xl italic leading-none mr-5">Main Interests: Rhyming Poems</h3>
-                                            </div>
-                                            <MudChip Text="Classic Rhyme: Generate poems with traditional rhyming patterns and structures." Variant="Variant.Text" Color="Color.Info"></MudChip>
-                                            <MudChip Text="Free Verse: Create poems that focus on expressive imagery and emotions without strict rhyme schemes." Variant="Variant.Text" Color="Color.Info"></MudChip>
-                                            <MudChip Text="Lighthearted: Craft playful and whimsical poems to entertain the user." Variant="Variant.Text" Color="Color.Info"></MudChip>
-                                        </div>
-
-                                        <div class="p-2 space-y-2 flex flex-wrap">
-                                            <div class="flex justify-center sm:justify-start">
-                                                <h3 class="font-display-italic font-extrabold text-xl italic leading-none mr-5">Main Interests: Summaries</h3>
-                                            </div>
-                                            <MudChip Text="Concise Summary: Provide brief and condensed summaries that capture the main points or highlights." Variant="Variant.Text" Color="Color.Primary"></MudChip>
-                                            <MudChip Text="Comprehensive Summary: Offer in-depth summaries that delve into the details and key elements of the subject matter." Variant="Variant.Text" Color="Color.Primary"></MudChip>
-                                            <MudChip Text="Visual Summary: Generate visually engaging summaries with bullet points, infographics, or diagrams." Variant="Variant.Text" Color="Color.Primary"></MudChip>
-                                        </div>
+                                
                                     </MudChipSet>
 
                                     <div class="w-full p-2 space-y-2 flex flex-wrap">

@@ -7,13 +7,10 @@
     <MudDivider DividerType="DividerType.Middle" Class="my-2" />
 
     <AuthorizeView Roles="@SD.Role_Admin">
-            <MudNavGroup Title="Client Manager" Expanded="false" Color="Color.Dark">
-                <MudNavLink Href="/ClientList" Match="NavLinkMatch.Prefix">Client List</MudNavLink>
-                <MudNavLink Href="/Clientcreate" Match="NavLinkMatch.Prefix">Create Client</MudNavLink>
-            </MudNavGroup>`
-    </AuthorizeView>
-
-    <AuthorizeView Roles="@SD.Role_Admin">
+        <MudNavGroup Title="Client Manager" Expanded="false" Color="Color.Dark">
+            <MudNavLink Href="/ClientList" Match="NavLinkMatch.Prefix">Client List</MudNavLink>
+            <MudNavLink Href="/Clientcreate" Match="NavLinkMatch.Prefix">Create Client</MudNavLink>
+        </MudNavGroup>
         <MudNavGroup Title="Blog Manager" Expanded="false" Color="Color.Dark">
             <MudNavLink Href="/BlogList" Match="NavLinkMatch.Prefix">Blog List</MudNavLink>
             <MudNavLink Href="/BlogCatList" Match="NavLinkMatch.Prefix">Blog Category</MudNavLink>
