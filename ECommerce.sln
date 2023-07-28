@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedApi", "src\SharedApi\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogCart", "src\BlogCart\BlogCart.csproj", "{DE24A632-D82A-428E-BB1C-90A4A73EBFCD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeFuseAI", "..\..\CodeFuseAI\CodeFuseAI.csproj", "{5E07918B-C040-40E6-89CD-F32B31666574}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{DE24A632-D82A-428E-BB1C-90A4A73EBFCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE24A632-D82A-428E-BB1C-90A4A73EBFCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE24A632-D82A-428E-BB1C-90A4A73EBFCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E07918B-C040-40E6-89CD-F32B31666574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E07918B-C040-40E6-89CD-F32B31666574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E07918B-C040-40E6-89CD-F32B31666574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E07918B-C040-40E6-89CD-F32B31666574}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

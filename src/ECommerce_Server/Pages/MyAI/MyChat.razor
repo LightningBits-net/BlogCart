@@ -25,128 +25,137 @@
         }
         else
         {
-            <MudCard Elevation="25">
-                <div class="bg-gray-300 flex justify-center">
-                    @if (MessageIsProcessing)
-                    {
-                        <p class="mt-5 text-lrg text-bold text-center">Processing...</p>
-                    }
-                    else
-                    {
+    <MudCard Elevation="25">
+        <div class="bg-gray-300 flex justify-center">
+            @if (MessageIsProcessing)
+            {
+                <p class="mt-5 text-lrg text-bold text-center">Processing...</p>
+            }
+            else
+            {
 
-                        @if (Conversations == null || Conversations.Count() == 0)
-                        {
-                            <p class="text-center">No conversations found.</p>
-                        }
-                        else
-                        {
-                            <div class="p-4 flex items-center">
-                                <div class="absolute top-0 left-0 bg-indigo-500 text-white rounded-full p-2 text-xs">
-                                    <MudAvatar Color="Color.Secondary" Class="mt-15">AI</MudAvatar>
-                                </div>
-
-                                <MudNavMenu Dense="true" Rounded="true" Margin="Margin.Dense" Color="Color.Secondary" Class="pa-2">
-                                    <MudNavGroup Title="@((Conversations.FirstOrDefault(c => c.Id == ConversationId))?.Name ?? "No conversation selected")" Expanded="false">
-                                        @foreach (var conversation in Conversations)
-                                        {
-                                            <MudNavLink @onclick="() => NavigateToConversation(conversation.Id)">@conversation.Name</MudNavLink>
-                                        }
-                                    </MudNavGroup>
-                                </MudNavMenu>
-                            </div>
-                        }
-                    }
-                </div>
-
-
-                <MudCarousel Class="mud-width-full" Color="@Color.Primary" Style="height:600px" EnableSwipeGesture="@enableSwipeGesture" ShowBullets="@bullets" ShowArrows="@arrows" AutoCycle="false" TData="object">
-                    <BulletTemplate Context="selected">
-                        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                            <span class="mud-icon-button-label">
-                                <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Inherit" />
-                            </span>
+                @if (Conversations == null || Conversations.Count() == 0)
+                {
+                    <p class="text-center">No conversations found.</p>
+                }
+                else
+                {
+                    <div class="p-4 flex items-center">
+                        <div class="absolute top-0 left-0 bg-indigo-500 text-white rounded-full p-2 text-xs">
+                            <MudAvatar Color="Color.Secondary" Class="mt-15">AI</MudAvatar>
                         </div>
-                    </BulletTemplate>
-                    <ChildContent>
 
-                        @if (Messages == null || Messages.Count() == 0)
-                        {
-                                <p class="mt-10 ml-15 text-2xl  justify-center font-bold text-center">No Messages found.Please select a conversation to begin or create a new one from the drawer at the bottom.</p>
-                        }
-                        else
-                        {
-                            @for (int i = Messages.Count() - 2; i >= 0; i -= 2)
-                            {
-                                var prompt = Messages[i];
-                                var response = Messages[i + 1];
-                                var messageNumber = (Messages.Count() - i) / 2;
-
-                                <MudCarouselItem Transition="Transition.Fade" Class="flex flex-col">
-                                    <div class="bg-white border border-gray-200 shadow-3xl flex items-start justify-center h-screen p-5 overflow-auto">
-                                        @if (MessageIsProcessing)
-                                        {
-                                            <div class="text-center">
-                                                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            @*___________________________________Mesasage Display_____________________________________*@
-
-                                            <MudCardContent>
-                                                <div class="pb-10">
-                                                    @*<div class="absolute top-0 right-0 bg-indigo-500 text-white rounded-full p-2 text-xs">
-                                        @messageNumber
-                                    </div>*@
-                                                    @using System.Text.RegularExpressions
-
-                                                    <div class="flex items-center">
-                                                        @if (IsCodeSnippet(@response.Content))
-                                                        {
-                                                            var styledContent = Regex.Replace(@response.Content, @"\{([^}]*)\}", "<span class='text-blue-500'>{$1}</span>");
-                                                            styledContent = Regex.Replace(styledContent, @"\(([^)]*)\)", "<span class='text-green-500'>($1)</span>");
-
-                                                            <div class="bg-gray-200 p-10 rounded-md overflow-auto max-w-full text-lg">
-                                                                <pre class="whitespace-pre-wrap"><code>@((MarkupString)styledContent)</code></pre>
-                                                            </div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <p class="text-left text-lg">@((MarkupString)@response.Content.Replace("\n", "<br/>"))</p>
-                                                        }
-                                                    </div>
-                                                    <div class="flex justify-end items-end p-4">
-                                                        @if (response.IsFav)
-                                                        {
-                                                            <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Inherit" @onclick="(() => ToggleFavorite(response))" />
-                                                        }
-                                                        else
-                                                        {
-                                                            <MudIconButton Icon="@Icons.Material.Outlined.FavoriteBorder" Color="Color.Default" @onclick="(() => ToggleFavorite(response))" />
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </MudCardContent>
-                                        }
-                                    </div>
-                                </MudCarouselItem>
-                            }
-                        }
-                    </ChildContent>
-                </MudCarousel>
-
-                @*___________________________________Input field_____________________________________*@
-
-                <div class="w-full md:w-1/2 lg:w-1/2 border border-gray-200 bg-white shadow-2xl rounded justify-center text-center mx-auto fixed bottom-0 left-0 right-0 mb-2">
-                    <div class="relative ml-5 flex items-center">
-                        <MudTextField @ref="multilineReference" @bind-Value="@newMessageContent" T="string" Label="Enter Your Message" Variant="Variant.Text" Lines="4" />
-                        <div class="ml-10 mr-2 bg-gray-300 rounded">
-                            <MudIconButton Icon="@Icons.Material.Filled.Send" Color="Color.Primary" Size="Size.Medium" @onclick="SendMessage" />
-                            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" Size="Size.Medium" @onclick="@(() => OpenDrawer(Anchor.Bottom))" />
-                        </div>
+                        <MudNavMenu Dense="true" Rounded="true" Margin="Margin.Dense" Color="Color.Secondary" Class="pa-2">
+                            <MudNavGroup Title="@((Conversations.FirstOrDefault(c => c.Id == ConversationId))?.Name ?? "No conversation selected")" Expanded="false">
+                                @foreach (var conversation in Conversations)
+                                {
+                                    <MudNavLink @onclick="() => NavigateToConversation(conversation.Id)">@conversation.Name</MudNavLink>
+                                }
+                            </MudNavGroup>
+                        </MudNavMenu>
                     </div>
+                }
+            }
+        </div>
+
+
+        <MudCarousel Class="mud-width-full" Color="@Color.Primary" Style="height:600px" EnableSwipeGesture="@enableSwipeGesture" ShowBullets="@bullets" ShowArrows="@arrows" AutoCycle="false" TData="object">
+            <BulletTemplate Context="selected">
+                <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                    <span class="mud-icon-button-label">
+                        <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Inherit" />
+                    </span>
                 </div>
-            </MudCard>
+            </BulletTemplate>
+            <ChildContent>
+
+                @if (Messages == null || Messages.Count() == 0)
+                {
+                    <p class="mt-10 ml-15 text-2xl  justify-center font-bold text-center">No Messages found.Please select a conversation to begin or create a new one from the drawer at the bottom.</p>
+                }
+                else
+                {
+                    @for (int i = Messages.Count() - 2; i >= 0; i -= 2)
+                    {
+                        var prompt = Messages[i];
+                        var response = Messages[i + 1];
+                        var messageNumber = (Messages.Count() - i) / 2;
+
+                        <MudCarouselItem Transition="Transition.Fade" Class="flex flex-col">
+                            <div class="bg-white border border-gray-200 shadow-3xl flex items-start justify-center h-screen p-5 overflow-auto">
+                                @if (MessageIsProcessing)
+                                {
+                                    <div class="text-center">
+                                        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    @*___________________________________Mesasage Display_____________________________________*@
+
+                                    <MudCardContent>
+                                        <div class="pb-10">
+                                            @*<div class="absolute top-0 right-0 bg-indigo-500 text-white rounded-full p-2 text-xs">
+                                                @messageNumber
+                                            </div>*@
+                                            @using System.Text.RegularExpressions
+
+                                            <div class="flex items-center">
+                                                @if (IsCodeSnippet(@response.Content))
+                                                {
+                                                    var styledContent = Regex.Replace(@response.Content, @"\{([^}]*)\}", "<span class='text-blue-500'>{$1}</span>");
+                                                    styledContent = Regex.Replace(styledContent, @"\(([^)]*)\)", "<span class='text-green-500'>($1)</span>");
+
+                                                    <div class="bg-gray-200 p-10 rounded-md overflow-auto max-w-full text-lg">
+                                                        <pre class="whitespace-pre-wrap"><code>@((MarkupString)styledContent)</code></pre>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <p class="text-left text-lg">@((MarkupString)@response.Content.Replace("\n", "<br/>"))</p>
+                                                }
+                                            </div>
+                                            <div class="flex justify-end items-end p-4">
+                                                @if (response.IsFav)
+                                                {
+                                                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Inherit" @onclick="(() => ToggleFavorite(response))" />
+                                                }
+                                                else
+                                                {
+                                                    <MudIconButton Icon="@Icons.Material.Outlined.FavoriteBorder" Color="Color.Default" @onclick="(() => ToggleFavorite(response))" />
+                                                }
+                                            </div>
+                                        </div>
+                                    </MudCardContent>
+                                }
+                            </div>
+                        </MudCarouselItem>
+                    }
+                }
+            </ChildContent>
+        </MudCarousel>
+
+        @*___________________________________Input field_____________________________________*@
+
+        <div class="fixed bottom-0 left-0 right-0 pb-4 z-50 bg-white">
+            <div class="container mx-auto px-4">
+                <EditForm Model="messageFormModel" OnValidSubmit="SendMessage" class="flex items-center p-4">
+                    <label for="message-input" class="sr-only">Enter your message</label>
+                    <div class="relative flex-grow">
+                        <input @bind="messageFormModel.NewMessageContent" type="text" id="message-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-gray-500 focus:border-gray-800 block w-full pl-10 pr-10 p-4" placeholder="Enter your message..." required>
+                        <button type="button" @onclick="@(() => OpenDrawer(Anchor.Bottom))" class="absolute inset-y-0 right-0 flex items-center pr-3">
+                            <!-- Hamburger Menu Icon SVG -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <MudIconButton Icon="@Icons.Material.Filled.Send" Color="Color.Primary" Size="Size.Medium" @onclick="SendMessage" />
+                </EditForm>
+            </div>
+        </div>
+
+    </MudCard>
         }
 
         @*_________________________________Drawer___________________________________________*@
@@ -320,6 +329,13 @@
     public bool IsProcessing { get; set; } = false;
     public bool MessageIsProcessing { get; set; } = false;
 
+    private MessageFormModel messageFormModel = new MessageFormModel();
+
+    public class MessageFormModel
+    {
+        public string NewMessageContent { get; set; }
+    }
+
     #region MudBlazor
     private MudTextField<string> multilineReference;
 
@@ -341,15 +357,23 @@
 
     #endregion
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         IsProcessing = true;
 
-        await base.OnInitializedAsync();
+        base.OnInitialized();
 
-        clientId = await ClientService.GetClientIdAsync(); // Retrieve clientId from the service
+        if (ConversationId == 0)
+        {
+            OpenDrawer(Anchor.Bottom);
+        }
+    }
 
-        if (clientId != 0) // Assuming 0 represents no clientId
+    protected override async Task OnInitializedAsync()
+    {
+        clientId = await ClientService.GetClientIdAsync();
+
+        if (clientId != 0)
         {
             await LoadConversations();
             await LoadMessages();
@@ -360,14 +384,10 @@
         }
 
         IsProcessing = false;
-
-        if (ConversationId == 0)
-        {
-            OpenDrawer(Anchor.Bottom);
-        }
     }
 
     #region Helper Methods
+
     void OpenDrawer(Anchor anchor)
     {
         open = true;
@@ -393,7 +413,9 @@
 
     void NavigateToConversation(int conversationId)
     {
-        _navigationManager.NavigateTo($"/redirect/{conversationId}", true);
+        _navigationManager.NavigateTo($"/redirect/{conversationId}", false);
+
+        //_navigationManager.NavigateTo($"/redirect/{conversationId}", true);
     }
     #endregion
 
@@ -406,20 +428,20 @@
 
     private async Task SendMessage()
     {
-        if (!string.IsNullOrWhiteSpace(newMessageContent))
+        if (!string.IsNullOrWhiteSpace(messageFormModel.NewMessageContent))
         {
             MessageIsProcessing = true;
 
             var newMessage = new MessageDTO
             {
-                Content = newMessageContent,
+                Content = messageFormModel.NewMessageContent,
                 ConversationId = ConversationId,
                 IsUserMessage = true,
                 Timestamp = DateTime.UtcNow
             };
 
             await _messageRepository.Create(newMessage);
-            newMessageContent = string.Empty; // Reset the input field
+            messageFormModel.NewMessageContent = string.Empty; // Reset the input field
 
             try
             {
